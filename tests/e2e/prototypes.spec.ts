@@ -19,8 +19,8 @@ const protos = [
     name: 'After Dark',
     route: '/design-lab/prototypes/after-dark/',
     title: /After Dark/,
-    sections: ['top', 'scene', 'craft', 'services', 'contact'],
-    headerSel: '.ad-header',
+    sections: ['top', 'services', 'work', 'process', 'story', 'contact'],
+    headerSel: '.ad-nav',
   },
 ];
 
