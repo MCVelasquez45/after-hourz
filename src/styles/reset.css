@@ -1,0 +1,53 @@
+/*
+  After Hourz — reset additions.
+  Tailwind v4 Preflight already normalizes most defaults; this adds project-specific,
+  accessibility-first base behavior on top.
+*/
+
+/* Predictable box model is handled by Preflight; reinforce media + form intent. */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Reserve space for media by default to reduce layout shift (docs/15 CLS). */
+img,
+video {
+  height: auto;
+}
+
+/* Visible focus everywhere — never remove without a replacement (docs/07, docs/15). */
+:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+/* Smooth scroll only when motion is welcome (docs/09). */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Respect reduced motion globally: collapse animation/transition to near-instant. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Consistent text rendering on dark surfaces. */
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}

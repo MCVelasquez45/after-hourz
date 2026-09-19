@@ -1,0 +1,13 @@
+dist
+node_modules
+.astro
+test-results
+playwright-report
+blob-report
+.lighthouseci
+coverage
+pnpm-lock.yaml
+public/assets/originals
+src/assets/derived
+docs
+.ai

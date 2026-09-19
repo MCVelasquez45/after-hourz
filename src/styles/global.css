@@ -1,0 +1,81 @@
+/*
+  After Hourz — global stylesheet entry.
+  Order: Tailwind (incl. Preflight) -> tokens (source of truth) -> reset additions -> base.
+*/
+@import 'tailwindcss';
+@import './tokens.css';
+@import './reset.css';
+@import './design-lab.css';
+
+/* ---- Base element styling in the Booth Light system (docs/03, 05, 07) ---- */
+html {
+  color-scheme: dark;
+  background-color: var(--color-ink);
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-silver);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  min-height: 100dvh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  color: var(--color-chrome);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+p {
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--color-ice);
+  text-underline-offset: 0.2em;
+  transition: color var(--duration-micro) var(--ease-mech);
+}
+a:hover {
+  color: var(--color-signal-hot);
+}
+
+/* Mono spec-plate label — a signature device (docs/05). */
+.spec-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-pewter);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tabular numerals for any spec/measurement (docs/06). */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Skip link for keyboard users (docs/13, a11y). */
+.skip-link {
+  position: absolute;
+  left: var(--spacing-2xs);
+  top: var(--spacing-2xs);
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  background: var(--color-steel);
+  color: var(--color-chrome);
+  border: var(--edge-hairline);
+  border-radius: var(--radius-sm);
+  transform: translateY(-150%);
+  transition: transform var(--duration-ui) var(--ease-mech);
+  z-index: 100;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}

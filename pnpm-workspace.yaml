@@ -1,0 +1,14 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+  '@tailwindcss/oxide': true
+  lightningcss: true
+  '@parcel/watcher': true
+# pnpm settings (pnpm 11+ reads build-approval + config from here, not package.json).
+# Native build scripts we explicitly trust for the Astro/Tailwind toolchain.
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - '@tailwindcss/oxide'
+  - lightningcss
+  - '@parcel/watcher'

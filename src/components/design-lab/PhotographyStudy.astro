@@ -1,0 +1,59 @@
+---
+import { Picture } from 'astro:assets';
+// Derivatives of client source photos (originals immutable — see PROVENANCE.md).
+// astro:assets generates AVIF/WebP + responsive widths from these (proves the pipeline, prompt §22).
+import sideProfile from '../../assets/derived/study-chevy-side-profile.png';
+import frontQuarter from '../../assets/derived/study-chevy-front-quarter.png';
+---
+
+<div class="study">
+  <figure>
+    <Picture
+      src={sideProfile}
+      formats={['avif', 'webp']}
+      widths={[400, 800, 1200, 1536]}
+      sizes="(max-width: 768px) 100vw, 50vw"
+      alt="Client source photo: blue-and-white classic Chevrolet, side profile, at an outdoor car show. Attribution to Anthony's work unconfirmed."
+      loading="lazy"
+    />
+    <figcaption>
+      CLIENT SOURCE · side profile · 1536×535 · study only
+      <br />
+      attribution unconfirmed · CLIENT INPUT REQUIRED
+    </figcaption>
+  </figure>
+
+  <figure>
+    <Picture
+      src={frontQuarter}
+      formats={['avif', 'webp']}
+      widths={[320, 640]}
+      sizes="(max-width: 768px) 100vw, 50vw"
+      alt="Client source photo: blue-and-white classic Chevrolet, front three-quarter view, on grass at a car show. Attribution unconfirmed."
+      loading="lazy"
+    />
+    <figcaption>CLIENT SOURCE · front 3/4 · 640×459 · low-res · card/detail only</figcaption>
+  </figure>
+
+  <figure>
+    <div class="placeholder">
+      MISSING SHOT
+      <br />
+      process: masking / spraying / cut &amp; buff
+      <br />
+      CLIENT INPUT REQUIRED
+    </div>
+    <figcaption>PLACEHOLDER · not real work · see docs/design-lab/10</figcaption>
+  </figure>
+
+  <figure>
+    <div class="placeholder">
+      MISSING SHOT
+      <br />
+      macro paint detail (flake · gloss · reflection)
+      <br />
+      CLIENT INPUT REQUIRED
+    </div>
+    <figcaption>PLACEHOLDER · not real work · reshoot ≥4000px</figcaption>
+  </figure>
+</div>

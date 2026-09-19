@@ -25,6 +25,10 @@ DATE: YYYY-MM-DD
 | 0005 | React island boundaries (HTML-first hydration) | accepted (principle) |
 | 0006 | Prompt-library provenance (f/prompts.chat) | accepted |
 | 0007 | AI layer: `.ai/` + `CLAUDE.md` vs `.claude/` native | accepted |
+| 0008 | Tailwind v4 via `@tailwindcss/vite` | accepted |
+| 0009 | Pin TypeScript to 5.x (TS 7 breaks astro-check) | accepted (revisit) |
+| 0010 | Foreground static server for Playwright | accepted |
+| 0011 | React island bundle cost (QualityStatus ~213kB) | **open** |
 
 ## Open decisions (to resolve in the Design Lab with evidence)
 | Topic | Where | Status |

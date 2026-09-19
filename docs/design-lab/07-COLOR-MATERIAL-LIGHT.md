@@ -20,7 +20,7 @@ light. This mirrors how a painter reads a dark panel: never one black, always ma
 | `graphite` | `#121418` | Raised surface / recessed panels |
 | `steel` | `#1E222A` | Cards, elevated surfaces |
 | `ash` | `#333945` | Borders, hairlines, dividers (low contrast) |
-| `pewter` | `#5B6472` | Muted/disabled text, captions |
+| `pewter` | `#7E8896` | Muted text, captions (raised from `#5B6472` after Lab axe testing to meet AA 4.5:1 on ink/graphite — see docs/17 Pass 01) |
 | `aluminum` | `#8B94A1` | Secondary text |
 | `silver` | `#C4CBD4` | Primary body text on dark |
 | `chrome` | `#E6EAEF` | High-emphasis text / headings |

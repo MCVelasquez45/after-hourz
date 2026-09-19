@@ -1,0 +1,116 @@
+/*
+  After Hourz — Design Tokens (executable source of truth)
+  Derived from docs/design-lab/06 (type), 07 (color/material/light), 08 (spacing/geometry),
+  09 (motion). PROVISIONAL — validated in /design-lab, not final.
+
+  Tailwind v4 reads @theme and emits each token BOTH as a utility and as a :root custom
+  property, so these values are the single source of truth for utilities, hand-written CSS,
+  and non-CSS contexts (canvas/WebGL). Non-utility tokens (motion durations, material, layout)
+  live in :root below.
+*/
+
+@theme {
+  /* ---- Color: neutral value ladder (near-black -> specular) · docs/07 ---- */
+  --color-ink: #0a0b0d; /* page base — the booth */
+  --color-graphite: #121418; /* recessed / raised matte surface */
+  --color-steel: #1e222a; /* cards, elevated surfaces */
+  --color-ash: #333945; /* hairlines, dividers */
+  --color-pewter: #7e8896; /* muted text — raised from #5B6472 to meet WCAG AA 4.5:1 on ink/graphite (docs/07) */
+  --color-aluminum: #8b94a1; /* secondary text */
+  --color-silver: #c4cbd4; /* primary body text on dark */
+  --color-chrome: #e6eaef; /* high-emphasis text / headings */
+  --color-specular: #f7f9fb; /* peak highlight (rare) */
+
+  /* ---- Color: accent — one controlled electric blue (a light, used sparingly) · docs/07 ---- */
+  --color-signal: #2e7bff; /* primary accent: focus, key CTA, active, links */
+  --color-signal-hot: #5a97ff; /* hover / brighter specular of the accent */
+  --color-cobalt: #0b3fa8; /* deep shadowed accent */
+  --color-ice: #b9d4ff; /* cool highlight / rim on chrome */
+
+  /* ---- Typography · docs/06 (families provisional: named faces not yet bundled; fallbacks active) ---- */
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Type scale — major third (1.25). Body stepped; display fluid via clamp. */
+  --text-caption: 0.8rem;
+  --text-body: 1rem;
+  --text-lead: 1.25rem;
+  --text-h4: 1.563rem;
+  --text-h3: clamp(1.75rem, 1.5rem + 1.1vw, 1.953rem);
+  --text-h2: clamp(2rem, 1.6rem + 2vw, 2.441rem);
+  --text-h1: clamp(2.4rem, 1.8rem + 3vw, 3.052rem);
+  --text-display: clamp(2.75rem, 1.5rem + 5.5vw, 5.5rem);
+
+  /* ---- Spacing — geometric scale, ratio 1.5, base 0.5rem · docs/08 ---- */
+  --spacing-3xs: 0.25rem;
+  --spacing-2xs: 0.5rem;
+  --spacing-xs: 0.75rem;
+  --spacing-sm: 1.125rem;
+  --spacing-md: 1.6875rem;
+  --spacing-lg: 2.531rem;
+  --spacing-xl: 3.797rem;
+  --spacing-2xl: 5.695rem;
+  --spacing-3xl: 8.543rem;
+  --spacing-4xl: 12.815rem;
+
+  /* ---- Radii — precise geometry, small only · docs/05 ---- */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+
+  /* ---- Easing — mechanical (weighted settle) · docs/09 ---- */
+  --ease-mech: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-mech-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* ---- Breakpoints — recomposition points · docs/08 ---- */
+  --breakpoint-xs: 390px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 1024px;
+  --breakpoint-lg: 1440px;
+  --breakpoint-xl: 1728px;
+}
+
+:root {
+  /* ---- Motion durations · docs/09 (not a Tailwind utility namespace; referenced in CSS) ---- */
+  --duration-micro: 140ms; /* hover, focus, press */
+  --duration-ui: 280ms; /* menus, toggles, cards */
+  --duration-transition: 420ms; /* section/element reveals */
+  --duration-cinematic: 720ms; /* hero reveal (rare) */
+
+  /* ---- Layout · docs/08 ---- */
+  --content-max: 80rem; /* ~1280px standard content width */
+  --measure: 72ch; /* max reading measure */
+  --gutter: clamp(1.125rem, 0.5rem + 3vw, 2.531rem);
+  --section-pad: clamp(5.695rem, 3rem + 8vw, 8.543rem);
+
+  /* ---- Material & light · docs/07 (rendered, not tiled textures) ---- */
+  /* Chrome edge: hard light-to-dark, crisp highlight — a lit edge, not a gray fill. */
+  --edge-chrome: linear-gradient(
+    180deg,
+    var(--color-specular) 0%,
+    var(--color-aluminum) 18%,
+    var(--color-ash) 55%,
+    var(--color-graphite) 100%
+  );
+  /* Booth wash: a single implied key light from top-left over near-black. */
+  --booth-wash: radial-gradient(
+    120% 90% at 22% 0%,
+    rgba(46, 123, 255, 0.1) 0%,
+    rgba(46, 123, 255, 0.03) 22%,
+    rgba(10, 11, 13, 0) 55%
+  );
+  /* Painted gloss: narrow bright specular streak on a dark body. */
+  --gloss-panel: linear-gradient(
+    115deg,
+    var(--color-graphite) 0%,
+    var(--color-steel) 42%,
+    var(--color-aluminum) 50%,
+    var(--color-steel) 58%,
+    var(--color-graphite) 100%
+  );
+  /* Elevation = value + one hairline light edge (no big soft shadows). */
+  --edge-hairline: 1px solid var(--color-ash);
+  --focus-ring: 0 0 0 2px var(--color-ink), 0 0 0 4px var(--color-signal);
+}

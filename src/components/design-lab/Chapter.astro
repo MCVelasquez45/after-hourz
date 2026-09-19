@@ -1,0 +1,18 @@
+---
+interface Props {
+  index: string;
+  id: string;
+  title: string;
+  summary?: string;
+}
+const { index, id, title, summary } = Astro.props;
+---
+
+<section class="chapter" id={id} aria-labelledby={`${id}-title`} data-reveal>
+  <div class="chapter__head">
+    <span class="chapter__index">{index}</span>
+    <h2 id={`${id}-title`}>{title}</h2>
+    {summary && <p style="color:var(--color-aluminum);">{summary}</p>}
+  </div>
+  <slot />
+</section>

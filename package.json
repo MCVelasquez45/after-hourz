@@ -1,0 +1,59 @@
+{
+  "name": "after-hourz",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@11.10.0",
+  "engines": {
+    "node": ">=20.3.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "typecheck": "astro check",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "test:e2e:fast": "playwright test --project=chromium-desktop --grep-invert @full",
+    "test:visual": "playwright test tests/e2e/visual.spec.ts",
+    "test:a11y": "playwright test tests/e2e/accessibility.spec.ts",
+    "test:performance": "lhci autorun || true",
+    "contact-sheet": "node scripts/contact-sheet.mjs",
+    "verify:assets": "node scripts/verify-originals.mjs",
+    "qa": "pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm test:e2e:fast",
+    "qa:full": "pnpm typecheck && pnpm format:check && pnpm lint && pnpm test && pnpm build && pnpm test:e2e && pnpm test:a11y && pnpm test:performance"
+  },
+  "dependencies": {
+    "@astrojs/react": "^6.0.6",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.3",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.13.0",
+    "@eslint/js": "^10.0.1",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.63.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "astro-eslint-parser": "^3.1.0",
+    "eslint": "^10.10.0",
+    "eslint-plugin-astro": "^3.2.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.8",
+    "prettier-plugin-astro": "^1.0.1",
+    "sharp": "^0.35.4",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.70.0",
+    "vitest": "^5.0.1"
+  }
+}
