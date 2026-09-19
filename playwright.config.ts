@@ -7,7 +7,9 @@ import { defineConfig, devices } from '@playwright/test';
   - Full matrix (milestone): all browsers + viewport projects.
 */
 
-const PORT = 4321;
+// Dedicated test port (NOT 4321) so tests never reuse a running `astro dev` daemon —
+// they must exercise the real production build served from dist/.
+const PORT = 4331;
 const BASE_URL = `http://localhost:${PORT}`;
 
 export default defineConfig({
@@ -30,9 +32,10 @@ export default defineConfig({
   },
   webServer: {
     // Astro 7's `astro preview` daemonizes; use a foreground static server for dist/ instead.
-    command: 'pnpm build && node scripts/serve-dist.mjs',
+    // PORT is fixed to the dedicated test port; never reuse an external server (avoids the dev daemon).
+    command: `pnpm build && PORT=${PORT} node scripts/serve-dist.mjs`,
     url: `${BASE_URL}/design-lab/`,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 120_000,
     stdout: 'ignore',
     stderr: 'pipe',

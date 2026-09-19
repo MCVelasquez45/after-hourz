@@ -1,18 +1,24 @@
 /*
-  Lighthouse CI (prompt §20-§21). Serves the built dist/ statically and audits both routes.
-  Assertions are warn-level: Lighthouse is EVIDENCE, not a score to game. Real regressions
-  surface as warnings in the report; we investigate rather than delete design to inflate a number.
+  Lighthouse CI (prompt §20-§21). Serves the built dist/ via our foreground static server and
+  audits an EXPLICIT url list (so nested routes like the prototype are always covered).
+  Assertions are warn-level: Lighthouse is EVIDENCE, not a score to game.
 */
+const PORT = 4333;
+const base = `http://localhost:${PORT}`;
+
 module.exports = {
   ci: {
     collect: {
-      staticDistDir: './dist',
-      // Both built routes (index.html files are auto-discovered under staticDistDir).
+      startServerCommand: `PORT=${PORT} node scripts/serve-dist.mjs`,
+      startServerReadyPattern: 'serve-dist:',
+      url: [
+        `${base}/`,
+        `${base}/design-lab/`,
+        `${base}/design-lab/foundations/`,
+        `${base}/design-lab/prototypes/booth-light/`,
+      ],
       numberOfRuns: 1,
-      settings: {
-        // Desktop-class baseline; mobile throttling explored separately later.
-        preset: 'desktop',
-      },
+      settings: { preset: 'desktop' },
     },
     assert: {
       assertions: {
@@ -24,9 +30,6 @@ module.exports = {
         'largest-contentful-paint': ['warn', { maxNumericValue: 2500 }],
       },
     },
-    upload: {
-      target: 'filesystem',
-      outputDir: '.lighthouseci',
-    },
+    upload: { target: 'filesystem', outputDir: '.lighthouseci' },
   },
 };

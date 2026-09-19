@@ -2,11 +2,15 @@ import { test, expect } from '@playwright/test';
 
 /*
   Layout sanity across whatever viewport the current Playwright project defines.
-  In the fast run this executes at 1440; in the full matrix it runs at 320/390/834/1920 too.
-  The key invariant everywhere: no horizontal overflow (a classic "desktop stacked" / broken-mobile tell).
+  Fast run = 1440; full matrix also runs 320/390/834/1920. Invariant everywhere: no horizontal overflow.
 */
 
-const routes = ['/', '/design-lab/'];
+const routes = [
+  '/',
+  '/design-lab/',
+  '/design-lab/foundations/',
+  '/design-lab/prototypes/booth-light/',
+];
 
 for (const route of routes) {
   test(`no horizontal overflow @ ${route}`, async ({ page }) => {
@@ -16,15 +20,14 @@ for (const route of routes) {
       scrollW: document.documentElement.scrollWidth,
       clientW: document.documentElement.clientWidth,
     }));
-    // Allow 1px for sub-pixel rounding.
     expect(scrollW, `content should not exceed viewport width at ${route}`).toBeLessThanOrEqual(
       clientW + 1,
     );
   });
 }
 
-test('design-lab main content fits within the viewport width', async ({ page }) => {
-  await page.goto('/design-lab/');
+test('booth-light main content fits within the viewport width', async ({ page }) => {
+  await page.goto('/design-lab/prototypes/booth-light/');
   const overflow = await page.evaluate(() => {
     const vw = document.documentElement.clientWidth;
     let worst = 0;

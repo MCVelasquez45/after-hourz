@@ -22,7 +22,7 @@
     "test:e2e:fast": "playwright test --project=chromium-desktop --grep-invert @full",
     "test:visual": "playwright test tests/e2e/visual.spec.ts",
     "test:a11y": "playwright test tests/e2e/accessibility.spec.ts",
-    "test:performance": "lhci autorun || true",
+    "test:performance": "astro build && lhci autorun || true",
     "contact-sheet": "node scripts/contact-sheet.mjs",
     "verify:assets": "node scripts/verify-originals.mjs",
     "qa": "pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm test:e2e:fast",

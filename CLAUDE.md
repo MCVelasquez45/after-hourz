@@ -39,10 +39,13 @@ earns its place (`docs/11`). Full rationale: `docs/design-lab/15-TECHNICAL-DIREC
 
 ## Current phase
 
-Design Lab runtime + QA foundation are **built and passing** (Phase 02, docs/17 Pass 01). The
-`/design-lab` route renders; QA tooling is installed and runnable. **The production website has NOT
-been built** and must not be started without approval. Run `pnpm qa` (fast) or `pnpm qa:full`
-(milestone) before declaring work done.
+Design Lab runtime + QA are built and passing. Flagship prototype **A — Booth Light** is complete
+(docs/17 Pass 02): hub at `/design-lab`, `/design-lab/foundations`, and
+`/design-lab/prototypes/booth-light`. Prototypes **B (Precision Machine)** and **C (After Dark)** are
+pending approval of the Booth Light bar. **The production website has NOT been built** and must not be
+started without approval. Prototypes are direction studies, not the live site; all unknown facts are
+`CLIENT INPUT REQUIRED`. Run `pnpm qa` (fast) or `pnpm qa:full` (milestone) before declaring done.
+Tests serve production `dist` on port 4331 (never the dev server on 4321).
 
 ## Where to read deeper (routing)
 

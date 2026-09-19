@@ -1,11 +1,12 @@
 import { test, expect } from '@playwright/test';
 
+const RICH = '/design-lab/prototypes/booth-light/';
+
 test.describe('reduced motion', () => {
   test.use({ reducedMotion: 'reduce' });
 
-  test('page remains fully usable and content is visible under reduce', async ({ page }) => {
-    await page.goto('/design-lab/');
-    // Reveal targets must be fully visible (no stuck opacity:0) when motion is reduced.
+  test('content is fully visible under reduce (no stuck opacity:0)', async ({ page }) => {
+    await page.goto(RICH);
     const reveals = page.locator('[data-reveal]');
     const count = await reveals.count();
     expect(count).toBeGreaterThan(0);
@@ -19,7 +20,7 @@ test.describe('reduced motion', () => {
   });
 
   test('smooth scroll is disabled under reduce', async ({ page }) => {
-    await page.goto('/design-lab/');
+    await page.goto(RICH);
     const behavior = await page.evaluate(
       () => getComputedStyle(document.documentElement).scrollBehavior,
     );
@@ -30,11 +31,10 @@ test.describe('reduced motion', () => {
 test.describe('motion enabled', () => {
   test.use({ reducedMotion: 'no-preference' });
 
-  test('reveal elements end in a settled, visible state after entering view', async ({ page }) => {
-    await page.goto('/design-lab/');
-    // Scroll through so IntersectionObserver reveals everything.
+  test('reveal elements settle to visible after entering view', async ({ page }) => {
+    await page.goto(RICH);
     await page.evaluate(async () => {
-      for (let y = 0; y <= document.body.scrollHeight; y += 400) {
+      for (let y = 0; y <= document.body.scrollHeight; y += 500) {
         window.scrollTo(0, y);
         await new Promise((r) => setTimeout(r, 30));
       }

@@ -1,270 +1,107 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Chapter from '../../components/design-lab/Chapter.astro';
-import PhotographyStudy from '../../components/design-lab/PhotographyStudy.astro';
-import QualityStatus from '../../islands/QualityStatus.tsx';
 
-// Data driven directly from the token layer (docs/06,07,08). No arbitrary values.
-const neutrals = [
-  ['ink', '#0A0B0D', 'base — the booth'],
-  ['graphite', '#121418', 'recessed surface'],
-  ['steel', '#1E222A', 'cards / elevated'],
-  ['ash', '#333945', 'hairlines'],
-  ['pewter', '#7E8896', 'muted text'],
-  ['aluminum', '#8B94A1', 'secondary text'],
-  ['silver', '#C4CBD4', 'body text'],
-  ['chrome', '#E6EAEF', 'headings'],
-  ['specular', '#F7F9FB', 'peak highlight'],
-];
-const accents = [
-  ['signal', '#2E7BFF', 'accent / focus'],
-  ['signal-hot', '#5A97FF', 'hover'],
-  ['cobalt', '#0B3FA8', 'deep accent'],
-  ['ice', '#B9D4FF', 'chrome rim'],
-];
+// The Design Lab hub. Routes to foundations + the three competing prototype directions.
+// Prototypes not yet built are shown as status cards (no dead links) until approved.
+const foundations = {
+  href: '/design-lab/foundations/',
+  label: 'Foundations',
+  desc: 'Type, color, material, light, spacing, geometry — the token system, live.',
+};
 
-const typeScale = [
-  ['display', 'var(--text-display)', 'Craft, revealed.'],
-  ['h1', 'var(--text-h1)', 'After hours, under one light'],
-  ['h2', 'var(--text-h2)', 'Body, paint, restoration'],
-  ['h3', 'var(--text-h3)', 'Surface quality over spectacle'],
-  ['lead', 'var(--text-lead)', 'A finished panel under controlled light.'],
-  [
-    'body',
-    'var(--text-body)',
-    'The interface should feel measured to the pixel — mechanical, exact, confident.',
-  ],
-  ['caption', 'var(--text-caption)', 'PAINT · 2K URETHANE · CLEAR'],
-];
-
-const spaceScale = [
-  ['3xs', '0.25rem'],
-  ['2xs', '0.5rem'],
-  ['xs', '0.75rem'],
-  ['sm', '1.125rem'],
-  ['md', '1.6875rem'],
-  ['lg', '2.531rem'],
-  ['xl', '3.797rem'],
-  ['2xl', '5.695rem'],
-  ['3xl', '8.543rem'],
-];
-
-const chapters = [
-  ['01', 'thesis', 'Thesis'],
-  ['02', 'type', 'Type'],
-  ['03', 'geometry', 'Geometry'],
-  ['04', 'material', 'Color + Material'],
-  ['05', 'photography', 'Photography'],
-  ['06', 'interaction', 'Interaction State'],
-  ['07', 'quality', 'Quality Status'],
+const prototypes = [
+  {
+    href: '/design-lab/prototypes/booth-light/',
+    code: 'A',
+    name: 'Booth Light',
+    status: 'ready',
+    thesis:
+      'Near-black space, one controlled light, the finish revealed slowly. Depth over decoration.',
+  },
+  {
+    href: null,
+    code: 'B',
+    name: 'Precision Machine',
+    status: 'pending approval',
+    thesis:
+      'Engineered, technical, spec-plate rigor — the shop as a precision instrument. (Built after the Booth Light bar is approved.)',
+  },
+  {
+    href: null,
+    code: 'C',
+    name: 'After Dark',
+    status: 'pending approval',
+    thesis:
+      'The nocturnal, cinematic edge of custom car culture — the most atmospheric direction. (Built after approval.)',
+  },
 ];
 ---
 
-<BaseLayout
-  title="Design Lab — After Hourz"
-  description="Internal creative-development lab for After Hourz."
->
+<BaseLayout title="Design Lab — After Hourz" description="Internal creative-development lab.">
   <div class="lab lab__booth">
     <header class="lab__masthead">
       <div class="lab__wrap lab__eyebrow">
         <p class="spec-label">After Hourz · Design Lab · internal · not the public site</p>
-        <p class="spec-label">Working thesis — Booth Light</p>
+        <p class="spec-label">Three competing directions</p>
       </div>
     </header>
 
-    <nav class="lab__nav" aria-label="Design Lab chapters">
-      <div
-        class="lab__wrap"
-        style="display:flex; flex-wrap:wrap; gap:var(--spacing-2xs) var(--spacing-sm);"
-      >
-        {chapters.map(([n, id, label]) => (
-          <a href={`#${id}`}>
-            {n} / {label}
-          </a>
-        ))}
-      </div>
-    </nav>
-
-    <main id="main" class="lab__wrap">
-      <!-- 01 THESIS -->
-      <Chapter
-        index="01 / THESIS"
-        id="thesis"
-        title="Booth Light"
-        summary="Near-black space, one controlled light, surfaces revealed slowly. Depth over decoration. The working art-direction hypothesis — not a locked decision (docs/03)."
-      >
-        <div style="display:grid; gap:var(--spacing-md); max-width:var(--measure);">
-          <p>
-            After Hourz is body, paint, and restoration work done with patience after the world has
-            gone quiet. This lab tests whether the digital experience can express that: precision,
-            material, controlled light, and restraint — craftsmanship translated into software.
-          </p>
-          <p class="spec-label">
-            Reject: cyberpunk · neon nightclub · gaming UI · generic black-luxury.
-          </p>
-        </div>
-      </Chapter>
-
-      <!-- 02 TYPE -->
-      <Chapter
-        index="02 / TYPE"
-        id="type"
-        title="Typography"
-        summary="Roles: display / body / mono. Scale on the major third (1.25); display fluid via clamp(). Named faces provisional — fallbacks active until self-hosted (docs/06)."
-      >
-        {typeScale.map(([name, size, sample]) => (
-          <div class="specimen">
-            <span class="specimen__meta">
-              {name} · {size}
-            </span>
-            <span
-              style={`font-size:${size}; font-family:${name === 'caption' ? 'var(--font-mono)' : name === 'body' || name === 'lead' ? 'var(--font-body)' : 'var(--font-display)'}; color:var(--color-chrome); line-height:1.1; letter-spacing:${['display', 'h1', 'h2', 'h3'].includes(name) ? '-0.015em' : '0'};`}
-            >
-              {sample}
-            </span>
-          </div>
-        ))}
-      </Chapter>
-
-      <!-- 03 GEOMETRY -->
-      <Chapter
-        index="03 / GEOMETRY"
-        id="geometry"
-        title="Spacing &amp; Grid"
-        summary="Spacing on a geometric scale (ratio 1.5). 12-column grid, used asymmetrically. Negative space is content (docs/08)."
-      >
-        <div style="display:grid; gap:var(--spacing-lg);">
-          <div>
-            <p class="spec-label" style="margin-bottom:var(--spacing-xs);">
-              Spacing scale · ratio 1.5
-            </p>
-            {spaceScale.map(([name, val]) => (
-              <div class="scale-row">
-                <span class="scale-name">
-                  space-{name} · {val}
-                </span>
-                <span class="scale-bar" style={`width:${val};`}></span>
-              </div>
-            ))}
-          </div>
-          <div>
-            <p class="spec-label" style="margin-bottom:var(--spacing-xs);">
-              12-column grid
-            </p>
-            <div class="grid-demo">
-              {Array.from({ length: 12 }).map(() => (
-                <div class="grid-demo__col"></div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </Chapter>
-
-      <!-- 04 COLOR + MATERIAL -->
-      <Chapter
-        index="04 / COLOR + MATERIAL"
-        id="material"
-        title="Color, Material &amp; Light"
-        summary="A near-black value ladder; one electric-blue accent used as light. Material from rendering (value + specular), not tiled texture (docs/07)."
-      >
-        <div style="display:grid; gap:var(--spacing-lg);">
-          <div>
-            <p class="spec-label" style="margin-bottom:var(--spacing-xs);">
-              Neutral value ladder
-            </p>
-            <div class="swatches">
-              {neutrals.map(([name, hex, use]) => (
-                <div class="swatch">
-                  <div class="swatch__chip" style={`background:${hex};`}></div>
-                  <div class="swatch__meta">
-                    <span class="swatch__name">{name}</span>
-                    <span class="swatch__hex">{hex}</span>
-                    <span class="swatch__hex" style="text-transform:none;">
-                      {use}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p class="spec-label" style="margin-bottom:var(--spacing-xs);">
-              Accent — one controlled electric blue
-            </p>
-            <div class="swatches">
-              {accents.map(([name, hex, use]) => (
-                <div class="swatch">
-                  <div class="swatch__chip" style={`background:${hex};`}></div>
-                  <div class="swatch__meta">
-                    <span class="swatch__name">{name}</span>
-                    <span class="swatch__hex">{hex}</span>
-                    <span class="swatch__hex" style="text-transform:none;">
-                      {use}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p class="spec-label" style="margin-bottom:var(--spacing-xs);">
-              Material studies (rendered)
-            </p>
-            <div class="materials">
-              <div class="material material--chrome">chrome edge</div>
-              <div class="material material--gloss">painted gloss</div>
-              <div class="material material--graphite">matte graphite</div>
-              <div class="material material--signal">signal / light</div>
-            </div>
-          </div>
-        </div>
-      </Chapter>
-
-      <!-- 05 PHOTOGRAPHY -->
-      <Chapter
-        index="05 / PHOTOGRAPHY"
-        id="photography"
-        title="Photography Study"
-        summary="Controlled studies of client source imagery + honest placeholders for missing shots. Cinematic but truthful; originals immutable (docs/10, §22, §28)."
-      >
-        <PhotographyStudy />
-      </Chapter>
-
-      <!-- 06 INTERACTION STATE -->
-      <Chapter
-        index="06 / INTERACTION"
-        id="interaction"
-        title="Interaction States"
-        summary="Feedback via light, not size. Mechanical micro-timing. Visible focus always (docs/05,07,09)."
-      >
-        <div class="states">
-          <button class="btn btn--primary" type="button">
-            Primary action
-          </button>
-          <button class="btn" type="button">
-            Secondary
-          </button>
-          <a class="btn" href="#thesis">
-            Link button
-          </a>
-        </div>
-        <p class="spec-label" style="margin-top:var(--spacing-sm);">
-          Tab to each control — focus shows a signal-blue ring against ink. Hover raises specular,
-          not scale.
+    <main id="main" class="lab__wrap" style="padding-block: var(--section-pad);">
+      <div style="display:grid; gap:var(--spacing-md); max-width:var(--measure); margin-bottom:var(--spacing-2xl);">
+        <p class="spec-label" style="color:var(--color-signal);">
+          Design Lab
         </p>
-      </Chapter>
+        <h1 style="font-size:var(--text-h1);">Three directions, proven side by side</h1>
+        <p style="color:var(--color-aluminum);">
+          This is the internal laboratory. Below: the shared foundations, and three complete,
+          competing creative directions for the After Hourz experience. We do not pick the homepage
+          first — the directions prove themselves, then one is chosen with the client.
+        </p>
+      </div>
 
-      <!-- 07 QUALITY STATUS (React island) -->
-      <Chapter
-        index="07 / QUALITY"
-        id="quality"
-        title="Quality Status"
-        summary="Live runtime probe — the one hydrated React island. Reports state unknowable at build time (decisions 0005)."
+      <!-- Foundations -->
+      <a
+        href={foundations.href}
+        class="hub-card hub-card--wide"
+        style="text-decoration:none; display:block; margin-bottom:var(--spacing-xl);"
       >
-        <div style="border:var(--edge-hairline); border-radius:var(--radius-md); padding:var(--spacing-md); background:var(--color-graphite); max-width:32rem;">
-          <QualityStatus client:visible />
-        </div>
-      </Chapter>
+        <span class="spec-label" style="color:var(--color-signal);">
+          Foundations
+        </span>
+        <h2 style="font-size:var(--text-h3); margin-block:var(--spacing-2xs);">
+          {foundations.label}
+        </h2>
+        <p style="color:var(--color-aluminum); max-width:var(--measure);">{foundations.desc}</p>
+        <span class="hub-card__go">Open foundations →</span>
+      </a>
+
+      <p class="spec-label" style="margin-bottom:var(--spacing-sm);">
+        Prototypes
+      </p>
+      <div class="hub-grid">
+        {prototypes.map((p) =>
+          p.href ? (
+            <a href={p.href} class="hub-card hub-card--proto" style="text-decoration:none;">
+              <div class="hub-card__top">
+                <span class="hub-card__code">{p.code}</span>
+                <span class="hub-card__status hub-card__status--ready">{p.status}</span>
+              </div>
+              <h3 style="font-size:var(--text-h3);">{p.name}</h3>
+              <p style="color:var(--color-aluminum);">{p.thesis}</p>
+              <span class="hub-card__go">Open prototype →</span>
+            </a>
+          ) : (
+            <div class="hub-card hub-card--proto hub-card--pending" aria-disabled="true">
+              <div class="hub-card__top">
+                <span class="hub-card__code">{p.code}</span>
+                <span class="hub-card__status">{p.status}</span>
+              </div>
+              <h3 style="font-size:var(--text-h3); color:var(--color-aluminum);">{p.name}</h3>
+              <p style="color:var(--color-pewter);">{p.thesis}</p>
+            </div>
+          ),
+        )}
+      </div>
     </main>
 
     <footer class="lab__wrap" style="padding-block:var(--spacing-2xl); color:var(--color-pewter);">

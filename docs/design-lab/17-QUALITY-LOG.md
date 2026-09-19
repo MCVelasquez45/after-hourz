@@ -15,6 +15,68 @@ Open: …
 
 ---
 
+## Pass 02 — Flagship prototype: "Booth Light" + lab restructure — 2026-09-19
+
+**Context:** Enterprise Design Lab, flagship-first. Restructured the lab into a hub + foundations +
+prototypes, and built the first complete, client-review-ready prototype (Direction A — Booth Light):
+a full narrative page (hero → statement → work → craft → services → shop → contact → footer),
+interactive (sticky header, scroll reveals, hover states), responsive, and truthful (all unknown
+business facts marked CLIENT INPUT REQUIRED; no fabricated stats/testimonials/awards).
+
+**Structure now:** `/design-lab` (hub) · `/design-lab/foundations` (moved token studies) ·
+`/design-lab/prototypes/booth-light` (flagship). Precision Machine + After Dark are status cards
+(not built — pending approval of this bar).
+
+**Observed via rendered pixels (not source):**
+- **P1 — visual tests were hitting the leftover `astro dev` daemon (port 4321), not production.** The
+  Astro **dev toolbar** appeared in baselines; tests exercised the dev build. Caught only by looking
+  at a screenshot. Fixed: dedicated test port 4331, `reuseExistingServer:false`, LHCI on 4333
+  (decision 0012).
+- **P1 — axe `link-in-text-block` (serious)** on foundations: the inline "← Design Lab" back-link was
+  distinguished from surrounding text by colour only. Fixed: underlined it.
+- **P2 — test selector clash:** `getByLabel(/vehicle/i)` matched the form field AND the chips'
+  `aria-label="Vehicle categories"`. Fixed the test to `getByLabel('Vehicle', {exact:true})`
+  (correct specificity, not a weakening).
+- **Process note:** I initially `tail`-truncated a Playwright summary and missed a "14 failed" line;
+  corrected by always capturing the full summary. The failures above were then found and fixed.
+
+**Validation (actual, full-summary — no truncation):**
+```
+Static:   astro check 0 errors · eslint 0 · prettier PASS · vitest 3/3 · build PASS (4 pages)
+Full matrix (test:e2e, all specs incl. 35 visual, 7 projects): 285 passed, 2 skipped, 0 failed
+Accessibility (test:a11y, all projects):                        47 passed, 2 skipped, 0 failed
+  axe serious/critical: 0 on / , /design-lab/ , /foundations/ , /prototypes/booth-light/
+  (2 skips = documented WebKit Tab-order behavior)
+Console + network: 0 errors / 0 failed requests across all 4 routes
+Reduced motion: coherent on the prototype (reveals visible; smooth-scroll off)
+Visual: 35 baselines generated AND reviewed (booth-light desktop + mobile + hero inspected as pixels)
+Lighthouse (desktop, dist, all 4 routes):
+  /                         Perf 100 · A11y 100 · BP 96 · SEO 60 · LCP 0.2s · CLS 0
+  /design-lab/              Perf 100 · A11y 100 · BP 96 · SEO 60 · LCP 0.2s · CLS 0
+  /design-lab/foundations/  Perf 100 · A11y  95 · BP 96 · SEO 63 · LCP 0.3s · CLS 0
+  /prototypes/booth-light/  Perf 100 · A11y 100 · BP 96 · SEO 63 · LCP 0.3s · CLS 0
+Assets:   CLIENT ORIGINALS MODIFIED: NO (checksums match Pass 00)
+Deploy:   NONE
+```
+
+**Design review (distinct concerns):**
+- **Creative Director:** Booth Light thesis reads clearly; restrained, on-brand, not a template.
+  Concern: differentiation ultimately depends on real cinematic photography (placeholders honest but
+  a stand-in).
+- **Art Director:** strong hero + narrative rhythm; the daylight client photo (bright, grassy show
+  bg) slightly fights the nocturnal mood even darkened — real reshoot needed for a true hero.
+- **Product Designer:** clear journey + reachable contact; nav collapses correctly on mobile.
+- **Red Team:** "dark cinematic" isn't inherently unique — the craft imagery must carry it; and the
+  hero right-column is empty (single-column) — acceptable restraint but a candidate asymmetric moment.
+
+**Open / known:**
+- Foundations A11y 95 (moderate, non-serious axe items); booth-light + hub + home 100.
+- SEO 60/63 = intentional noindex (internal lab).
+- Real photography is the top unblock for hero credibility (docs/10) — CLIENT INPUT REQUIRED.
+- Prototypes B (Precision Machine) + C (After Dark) not built — pending approval of this bar.
+
+---
+
 ## Pass 01 — Design Lab runtime + QA foundation made real — 2026-09-19
 
 **Context:** Phase 02. Scaffolded the actual application (Astro 7 + React islands + pnpm + Tailwind v4)
