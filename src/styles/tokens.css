@@ -141,4 +141,40 @@
   --ad-amber-glow: rgba(255, 157, 77, 0.5);
   --ad-blue: #3f7bd6;
   --ad-asphalt: #101318;
+
+  /* Booth Light — controlled inspection light; clinical-bright booth revealing craft,
+     resolving into near-black inspection macros. Cooler, cleaner, higher-key than the
+     two dark directions on purpose (the "light" among three) · docs/07 */
+  --bl-booth-white: #eef2f6; /* clean booth wall / high-key ground */
+  --bl-paper: #f7f9fb; /* card / inspection sheet */
+  --bl-mist: #d9e0e8; /* recessed high-key surface */
+  --bl-line: #b7c2ce; /* hairline on light */
+  --bl-graphite: #2b333d; /* mid graphite for booth diagrams / bezels */
+  --bl-ink: #0c1014; /* near-black inspection ground (back half of the arc) */
+  --bl-slate: #48535f; /* body text on light */
+  --bl-signal: #1667d6; /* controlled inspection blue */
+  --bl-signal-deep: #0c3f8f; /* pressed / shadowed accent */
+  --bl-tape: #7bd23a; /* masking-tape green — a single sparing process accent */
+  --bl-warn: #e8a13c; /* inspection amber (corrected from poster palette glitch) */
+}
+
+/*
+  Per-direction typographic systems (self-hosted faces bundled via src/styles/fonts.css).
+  Each direction gets a distinct display personality so the three read apart at a glance
+  (docs/06 · reset §12/§38). Base --font-* remain the neutral Design-Lab UI voice.
+*/
+:root {
+  /* Chrome Heritage — high-contrast heritage serif; ornamental, dimensional, premium */
+  --ch-font-display: 'Fraunces', 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --ch-font-body: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --ch-font-eyebrow: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+
+  /* Booth Light — precise contemporary grotesk + technical mono spec labels */
+  --bl-font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --bl-font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --bl-font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* After Dark — tall cinematic condensed display + humanist warm body */
+  --ad-font-display: 'Bebas Neue', 'Oswald', 'Anton', ui-sans-serif, sans-serif;
+  --ad-font-body: 'Sora', ui-sans-serif, system-ui, sans-serif;
 }

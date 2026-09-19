@@ -1,6 +1,7 @@
+@import './fonts.css';
 /*
   After Hourz — global stylesheet entry.
-  Order: Tailwind (incl. Preflight) -> tokens (source of truth) -> reset additions -> base.
+  Order: self-hosted fonts -> Tailwind (incl. Preflight) -> tokens (source of truth) -> reset additions -> base.
 */
 @import 'tailwindcss';
 @import './tokens.css';

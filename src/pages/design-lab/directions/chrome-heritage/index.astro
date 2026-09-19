@@ -1,0 +1,584 @@
+---
+import PrototypeLayout from '../../../../layouts/PrototypeLayout.astro';
+import '../../../../styles/board-chrome-heritage.css';
+
+/*
+  ART-DIRECTION BOARD — CHROME HERITAGE
+  Internal creative-direction presentation (NOT the production site, NOT a prototype page).
+  Direction study only — CONCEPT, not client-approved. All routes stay under /design-lab/*.
+
+  Poster DNA (docs/.foundation-data.json .poster): two-voice type system (ornate heritage
+  identity + machined industrial gothic), dimensional chrome lettering, cobalt-on-black,
+  illuminated bordered plaques, wet specular reflection. Motion thesis = POLISH / REFLECTION.
+
+  External photography is PROTOTYPE / REFERENCE material — never presented as Anthony's
+  completed work. Unknown business facts are omitted, never fabricated.
+*/
+
+const P = '/assets/prototype';
+
+// Palette drawn from --ch-* tokens (tokens.css) + poster deconstruction.
+const palette = [
+  ['After-Hours Black', '#05070C', 'Page ground — the darkness the brand lives in'],
+  ['Plaque Panel', '#0A0E16', 'Raised signage / card surface out of the black'],
+  ['Cobalt Deep', '#062A7A', 'Shadowed candy-paint blue; pressed accent'],
+  ['Cobalt', '#0B47C4', 'Brand-core candy blue; section grounds'],
+  ['Electric Signal', '#2E7BFF', 'Cool key-light accent — links, CTA, focus, rules'],
+  ['Ice', '#CFE0FF', 'Cool rim highlight on chrome; emphasis text'],
+  ['Chrome High', '#F7F9FB', 'Blown specular / headline peak'],
+  ['Chrome Mid', '#AEB7C2', 'Metallic body text on dark'],
+  ['Chrome Low', '#4A5260', 'Rules, dividers, muted UI chrome'],
+];
+
+// Type scale specimens (Archivo body register).
+const scale = [
+  ['64', 'Restored true — and forward.'],
+  ['32', 'The metal gets an honest read before anything.'],
+  ['20', 'Depth is earned in the booth, not rushed.'],
+  ['16', 'Panels made straight, gaps set, reflection run dead flat.'],
+];
+
+// Photography — external PROTOTYPE assets, art-direction captions.
+// role = where it goes in Phase-3 prototype; caption = crop intent.
+const shots = [
+  {
+    src: `${P}/chrome-heritage/impala-black-63-dusk-headlights-nJvfIaChd_A.jpg`,
+    cls: 'chb-shot--hero',
+    w: 1600,
+    h: 1067,
+    alt: 'Black 1963 Impala SS in three-quarter view at dusk, headlights lit, chrome wire wheels against asphalt and open sky.',
+    role: 'Hero frame',
+    cap: 'HERO. Full 3/4 at dusk; keep the asphalt + sky negative space at frame-left reserved for the display headline.',
+  },
+  {
+    src: `${P}/chrome-heritage/impala-black-metalflake-rear-quarter-qw4YYpMVepA.jpg`,
+    cls: 'chb-shot--tall',
+    w: 900,
+    h: 1350,
+    alt: 'Rear quarter panel of a black metalflake Impala, chrome trim catching light.',
+    role: 'Mid-page story',
+    cap: 'Rear-quarter body-line study. Portrait crop; pairs beside the "finish quality" copy column.',
+  },
+  {
+    src: `${P}/chrome-heritage/black-classic-frontend-chrome-macro-oXU1iJOgViY.jpg`,
+    cls: 'chb-shot--sq',
+    w: 900,
+    h: 900,
+    alt: 'Macro of a black classic car front end — chrome grille and bumper reflections.',
+    role: 'Material macro',
+    cap: 'Grille + chrome macro. Push-in detail proving the specular sweep on real metal.',
+  },
+  {
+    src: `${P}/materials-detail/chrome-tailfin-bullet-taillight-AyzqxketKfM.jpg`,
+    cls: 'chb-shot--sq',
+    w: 900,
+    h: 900,
+    alt: 'Chrome tailfin with a bullet-style taillight, sculptural mid-century form.',
+    role: 'Heritage detail',
+    cap: 'Tailfin / bullet lamp — the heritage silhouette. Tight sculptural crop, black surround.',
+  },
+  {
+    src: `${P}/chrome-heritage/black-fender-chrome-wheelcover-macro-KM52A79uyqo.jpg`,
+    cls: 'chb-shot--wide',
+    w: 1400,
+    h: 933,
+    alt: 'Macro of a black fender meeting a polished chrome wheel cover.',
+    role: 'Section divider',
+    cap: 'Fender-to-wheelcover reflection. Letterbox band between chapters; the paint reflects the sky.',
+  },
+  {
+    src: `${P}/materials-detail/candy-metalflake-hood-goldleaf-pinstriping-33Me56HyM_8.jpg`,
+    cls: 'chb-shot--sq',
+    w: 900,
+    h: 900,
+    alt: 'Candy metalflake hood with gold-leaf and fine pinstriping detail.',
+    role: 'Lettering DNA',
+    cap: 'Pinstripe + leaf work — the custom-lettering lineage behind the wordmark voice.',
+  },
+  {
+    src: `${P}/chrome-heritage/blue-custom-chrome-goldenhour-detail-vYLZYaARV38.jpg`,
+    cls: 'chb-shot--sq chb-shot--focus-low',
+    w: 900,
+    h: 900,
+    alt: 'Blue custom car with chrome detail catching warm golden-hour light.',
+    role: 'Color event',
+    cap: 'Candy blue at golden hour. Crop tight on the panel — exclude bystanders; the blue is the accent moment.',
+  },
+  {
+    src: `${P}/culture-vehicles/chopper-bw-flame-tank-chrome-detail-iQsiWWYyEU.jpg`,
+    cls: 'chb-shot--sq',
+    w: 900,
+    h: 900,
+    alt: 'Black-and-white detail of a chopper fuel tank with hand-painted flame lettering and chrome.',
+    role: 'Culture note',
+    cap: 'B&W chopper tank — heritage flame lettering. Reserved as a single culture accent, not a theme.',
+  },
+];
+
+const materials = [
+  ['chrome', 'Polished chrome edge', 'Hard light-to-dark ladder with one raking specular — a lit edge, never a gray fill.'],
+  ['gloss', 'Candy cobalt gloss', 'Wet clearcoat depth: bright top highlight, deep pooled shadow, the brand-core hue.'],
+  ['plaque', 'Illuminated plaque', 'The poster signage evolved — a real lit cobalt edge framing a near-black panel.'],
+  ['flake', 'Metalflake clearcoat', 'Sparse specular flake over deep cobalt — depth built in layers, not texture noise.'],
+];
+
+const comps = [
+  {
+    label: 'Hero',
+    desc: 'Vehicle held at frame-right in dusk grade; display headline + one primary CTA occupy the reserved dark negative space at left. Specular sweep resolves once.',
+  },
+  {
+    label: 'Mid-page story',
+    desc: 'Asymmetric split — a tall rear-quarter body-line study against a quiet copy column; a single hairline chrome rule and pinstripe flourish divide the beat.',
+  },
+  {
+    label: 'Closing CTA',
+    desc: 'Near-black plaque, illuminated cobalt edge, the chrome wordmark centered with one filled cobalt CTA below. The page settles into the after-hours dark.',
+  },
+];
+---
+
+<PrototypeLayout
+  title="Chrome Heritage — Art-Direction Board · After Hourz Design Lab"
+  description="Internal art-direction board for the Chrome Heritage direction. Concept study, not client-approved."
+  bodyClass="chb"
+>
+  <!-- ============ 1 · BOARD HEADER ============ -->
+  <header class="chb-masthead" id="board">
+    <div class="chb-wrap">
+      <div class="chb-masthead__top">
+        <span class="chb-tag">Design Lab · Direction Study · Concept — <b>Not Client-Approved</b></span>
+        <a class="chb-backlink" href="/design-lab/">&larr; Design Lab</a>
+      </div>
+
+      <div class="chb-masthead__grid">
+        <h1 class="chb-masthead__name">
+          Chrome
+          <span>Heritage</span>
+        </h1>
+        <dl class="chb-masthead__meta">
+          <div class="chb-meta-row">
+            <dt>Thesis</dt>
+            <dd>A contemporary digital evolution of the After Hourz poster — <b>custom lettering, chrome, cobalt on black</b>.</dd>
+          </div>
+          <div class="chb-meta-row">
+            <dt>Poster DNA</dt>
+            <dd>Two-voice type · dimensional chrome · illuminated plaques · wet reflection.</dd>
+          </div>
+          <div class="chb-meta-row">
+            <dt>Motion</dt>
+            <dd><b>Polish / Reflection</b> — a specular sweep raking across chrome &amp; gloss.</dd>
+          </div>
+          <div class="chb-meta-row">
+            <dt>Region</dt>
+            <dd>Southern California heritage car culture. No NorCal marks.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ 2 · HERO INTENT ============ -->
+    <section class="chb-hero" aria-labelledby="hero-h">
+      <img
+        class="chb-hero__img"
+        src={shots[0].src}
+        width={shots[0].w}
+        height={shots[0].h}
+        alt={shots[0].alt}
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div class="chb-hero__grade" aria-hidden="true"></div>
+      <div class="chb-hero__sheen" aria-hidden="true"></div>
+
+      <div class="chb-wrap chb-hero__content">
+        <p class="chb-hero__eyebrow">Custom paint · body · restoration</p>
+        <h2 class="chb-hero__title" id="hero-h">
+          Built after<br />
+          hours, <em>finished<br />
+          by hand.</em>
+        </h2>
+        <p class="chb-hero__sub">
+          Classic-car craft rebuilt for the screen — chrome that catches a real light,
+          candy paint with depth, lettering with a heritage of its own.
+        </p>
+        <div class="chb-hero__actions">
+          <a class="chb-btn chb-btn--primary" href="#photography">See the finish</a>
+          <a class="chb-btn chb-btn--ghost" href="#type">
+            Explore the system <span class="chb-btn__ico" aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <p class="chb-hero__note" aria-hidden="true">
+        Hero-intent composition. External photo = prototype reference, not client work.
+      </p>
+    </section>
+
+    <!-- ============ 3 · TYPOGRAPHY SYSTEM ============ -->
+    <section class="chb-section" id="type" aria-labelledby="type-h">
+      <div class="chb-wrap">
+        <p class="chb-kicker" id="type-h">
+          <span class="chb-kicker__n">03</span>
+          Typography system
+          <span class="chb-kicker__rule" aria-hidden="true"></span>
+        </p>
+
+        <div class="chb-type-grid">
+          <article class="chb-plaque chb-type-card">
+            <p class="chb-type-role">
+              <span>Display · Headlines &amp; identity</span>
+              <b>Fraunces</b>
+            </p>
+            <p class="chb-specimen-display">
+              <span class="l1">After Hourz</span>
+              <span class="l2">high-contrast heritage serif</span>
+            </p>
+            <p class="chb-glyphset" aria-hidden="true">Aa Gg Rz &amp; 0123456789</p>
+            <p class="chb-body-demo" style="margin-top:var(--spacing-md);">
+              Fraunces runs at a <b>heavy optical weight with tight tracking</b> for ornamental
+              heritage headlines, and drops to a light italic for the second voice — the ornate
+              register of the poster&rsquo;s two-voice system.
+            </p>
+          </article>
+
+          <article class="chb-plaque chb-type-card">
+            <p class="chb-type-role">
+              <span>Body · Eyebrow · UI</span>
+              <b>Archivo</b>
+            </p>
+            <div class="chb-type-scale">
+              {scale.map(([sz, sample]) => (
+                <div class="chb-scale-row">
+                  <span class="sz">{sz}px</span>
+                  <span class="sample" style={`font-size:${Number(sz) / 16}rem;`}>{sample}</span>
+                </div>
+              ))}
+            </div>
+            <p class="chb-body-demo">
+              Archivo is the machined industrial-gothic voice: <b>wide-tracked all-caps for
+              eyebrows and info</b>, comfortable at reading measure for body. It carries every
+              label, spec and control so the display face stays reserved for identity moments.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · WORDMARK STUDY ============ -->
+    <section class="chb-section" id="wordmark" aria-labelledby="wordmark-h">
+      <div class="chb-wrap">
+        <p class="chb-kicker" id="wordmark-h">
+          <span class="chb-kicker__n">04</span>
+          Wordmark study
+          <span class="chb-kicker__rule" aria-hidden="true"></span>
+        </p>
+
+        <div class="chb-marks">
+          <!-- CONCEPT A — Polished chrome serif -->
+          <article class="chb-plaque chb-mark">
+            <div class="chb-mark__stage">
+              <svg viewBox="0 0 360 132" role="img" aria-label="After Hourz wordmark, concept A — polished chrome serif">
+                <defs>
+                  <linearGradient id="chb-mk-a" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#ffffff" />
+                    <stop offset="0.16" stop-color="#eaf0f8" />
+                    <stop offset="0.42" stop-color="#9aa7b8" />
+                    <stop offset="0.52" stop-color="#54606f" />
+                    <stop offset="0.64" stop-color="#9fabbb" />
+                    <stop offset="0.9" stop-color="#f4f8fd" />
+                  </linearGradient>
+                </defs>
+                <text x="180" y="58" text-anchor="middle" fill="url(#chb-mk-a)"
+                  style="font-family:var(--chb-display);font-weight:640;font-size:44px;letter-spacing:-0.01em;">AFTER</text>
+                <text x="180" y="108" text-anchor="middle" fill="url(#chb-mk-a)"
+                  style="font-family:var(--chb-display);font-weight:640;font-size:44px;letter-spacing:0.02em;">HOUR<tspan font-style="italic" font-weight="400">z</tspan></text>
+              </svg>
+            </div>
+            <div class="chb-mark__cap">
+              <b>Concept A</b>
+              <span>Polished chrome serif; italic swash Z as the identity flourish.</span>
+            </div>
+          </article>
+
+          <!-- CONCEPT B — Stacked plaque lockup -->
+          <article class="chb-plaque chb-mark">
+            <div class="chb-mark__stage">
+              <svg viewBox="0 0 360 132" role="img" aria-label="After Hourz wordmark, concept B — plaque monogram lockup">
+                <rect x="14" y="16" width="332" height="100" rx="4" fill="none" stroke="#2e7bff" stroke-opacity="0.4" />
+                <rect x="22" y="24" width="316" height="84" rx="2" fill="none" stroke="#1b2130" />
+                <text x="180" y="60" text-anchor="middle" fill="#cfe0ff"
+                  style="font-family:var(--chb-body);font-weight:700;font-size:15px;letter-spacing:0.42em;">AFTER</text>
+                <text x="180" y="96" text-anchor="middle"
+                  style="font-family:var(--chb-display);font-weight:640;font-size:34px;letter-spacing:0.04em;fill:#f7f9fb;">HOURZ</text>
+              </svg>
+            </div>
+            <div class="chb-mark__cap">
+              <b>Concept B</b>
+              <span>Illuminated-plaque lockup; two-voice — tracked gothic over serif.</span>
+            </div>
+          </article>
+
+          <!-- CONCEPT C — Monoline pinstripe -->
+          <article class="chb-plaque chb-mark">
+            <div class="chb-mark__stage">
+              <svg viewBox="0 0 360 132" role="img" aria-label="After Hourz wordmark, concept C — pinstripe monoline">
+                <text x="180" y="74" text-anchor="middle" fill="none" stroke="#cfe0ff" stroke-width="0.8"
+                  style="font-family:var(--chb-display);font-weight:400;font-style:italic;font-size:46px;letter-spacing:0.01em;">After Hourz</text>
+                <path d="M60 92 q120 22 240 0" fill="none" stroke="#2e7bff" stroke-width="1.4" stroke-linecap="round" />
+                <path d="M84 100 q96 14 192 0" fill="none" stroke="#2e7bff" stroke-opacity="0.5" stroke-width="1" stroke-linecap="round" />
+              </svg>
+            </div>
+            <div class="chb-mark__cap">
+              <b>Concept C</b>
+              <span>Hairline pinstripe monoline; sign-painter lineage, one flourish only.</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5 · PALETTE ============ -->
+    <section class="chb-section" id="palette" aria-labelledby="palette-h">
+      <div class="chb-wrap">
+        <p class="chb-kicker" id="palette-h">
+          <span class="chb-kicker__n">05</span>
+          Palette
+          <span class="chb-kicker__rule" aria-hidden="true"></span>
+        </p>
+        <div class="chb-swatches">
+          {palette.map(([name, hex, role]) => (
+            <div class="chb-swatch">
+              <div class="chb-swatch__chip" style={`background:${hex};`}></div>
+              <div class="chb-swatch__body">
+                <div class="chb-swatch__name">{name}</div>
+                <div class="chb-swatch__hex">{hex}</div>
+                <div class="chb-swatch__role">{role}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6 · PHOTOGRAPHY ============ -->
+    <section class="chb-section" id="photography" aria-labelledby="photo-h">
+      <div class="chb-wrap">
+        <p class="chb-kicker" id="photo-h">
+          <span class="chb-kicker__n">06</span>
+          Photography
+          <span class="chb-kicker__rule" aria-hidden="true"></span>
+        </p>
+        <div class="chb-photos">
+          {shots.map((s, i) => (
+            <figure class={`chb-shot ${s.cls}`}>
+              <img
+                src={s.src}
+                width={s.w}
+                height={s.h}
+                alt={s.alt}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+              <figcaption class="chb-shot__cap">
+                <span class="chb-shot__role">{s.role}</span>
+                <span class="chb-shot__txt">{s.cap}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        <p class="chb-photos__note">
+          All imagery here is <b>external prototype / reference material</b> selected to prove the
+          Chrome Heritage look — never presented as Anthony&rsquo;s completed work. Production
+          portfolio must be his real, shot work, graded to the cool-key chrome family; missing
+          shots are marked <b>CLIENT INPUT REQUIRED</b>, never fabricated.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 7 · MATERIAL & LIGHT ============ -->
+    <section class="chb-section" id="material" aria-labelledby="mat-h">
+      <div class="chb-wrap">
+        <p class="chb-kicker" id="mat-h">
+          <span class="chb-kicker__n">07</span>
+          Material &amp; light
+          <span class="chb-kicker__rule" aria-hidden="true"></span>
+        </p>
+        <div class="chb-materials">
+          {materials.map(([mod, name, desc]) => (
+            <article class={`chb-mat chb-mat--${mod}`}>
+              <div class="chb-mat__swatch" aria-hidden="true"></div>
+              <div class="chb-mat__body">
+                <div class="chb-mat__name">{name}</div>
+                <p class="chb-mat__desc">{desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 8 · GRID & UI ============ -->
+    <section class="chb-section" id="ui" aria-labelledby="ui-h">
+      <div class="chb-wrap">
+        <p class="chb-kicker" id="ui-h">
+          <span class="chb-kicker__n">08</span>
+          Grid &amp; UI
+          <span class="chb-kicker__rule" aria-hidden="true"></span>
+        </p>
+
+        <div class="chb-ui">
+          <div class="chb-plaque chb-ui__cell">
+            <span class="chb-ui__label">Buttons</span>
+            <div class="chb-ui__row">
+              <a class="chb-btn chb-btn--primary" href="#ui">Start a project</a>
+              <a class="chb-btn" href="#ui">See the work</a>
+            </div>
+            <div class="chb-ui__row">
+              <a class="chb-btn chb-btn--ghost" href="#ui">
+                Text-link CTA <span class="chb-btn__ico" aria-hidden="true">&rarr;</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="chb-plaque chb-ui__cell">
+            <span class="chb-ui__label">Navigation &amp; links</span>
+            <nav class="chb-navdemo" aria-label="Sample navigation">
+              <a href="#ui" aria-current="page">Work</a>
+              <a href="#ui">Craft</a>
+              <a href="#ui">Services</a>
+              <a href="#ui">Contact</a>
+            </nav>
+            <p style="font-family:var(--chb-body);font-size:0.86rem;color:var(--chb-chrome-mid);margin:0;">
+              An inline <a class="chb-textlink" href="#ui">chrome text link</a> sits inside body copy
+              with a lit cobalt underline.
+            </p>
+          </div>
+
+          <div class="chb-plaque chb-ui__cell">
+            <span class="chb-ui__label">Card</span>
+            <article class="chb-plaque chb-card">
+              <span class="chb-card__idx">01</span>
+              <h4>Custom Paint</h4>
+              <p>Colour changes, factory-correct refinishing and custom work built to last.</p>
+            </article>
+          </div>
+
+          <div class="chb-plaque chb-ui__cell chb-ui__cell--wide">
+            <span class="chb-ui__label">Form field</span>
+            <div class="chb-field">
+              <label for="chb-demo-name">Your name</label>
+              <input id="chb-demo-name" type="text" name="name" placeholder="Name" autocomplete="name" />
+            </div>
+            <div class="chb-field">
+              <label for="chb-demo-veh">Vehicle</label>
+              <input id="chb-demo-veh" type="text" name="vehicle" placeholder="Year · make · model" />
+            </div>
+          </div>
+
+          <div class="chb-plaque chb-ui__cell chb-ui__cell--wide">
+            <span class="chb-ui__label">Message field</span>
+            <div class="chb-field">
+              <label for="chb-demo-msg">What do you want done?</label>
+              <textarea id="chb-demo-msg" name="message" rows="3" placeholder="Paint, bodywork, restoration…"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 9 · MOTION NOTE ============ -->
+    <section class="chb-section" id="motion" aria-labelledby="motion-h">
+      <div class="chb-wrap">
+        <p class="chb-kicker" id="motion-h">
+          <span class="chb-kicker__n">09</span>
+          Motion note
+          <span class="chb-kicker__rule" aria-hidden="true"></span>
+        </p>
+        <div class="chb-motion">
+          <div class="chb-motion__copy">
+            <p>
+              The single committed device is <b>Polish / Reflection</b>: a slow specular highlight
+              rakes once across polished chrome and wet clearcoat — echoing a painter&rsquo;s brush
+              pass or a hand drawing a buffer over glass. It <b>reveals real material</b>, it never
+              performs.
+            </p>
+            <p>
+              Everything else stays still. Reveals settle with a weighted mechanical ease
+              (<b>--ease-mech</b>), never springy. One sweep per hero, one per section at most — the
+              rest is confident stillness. Under <b>prefers-reduced-motion</b> the sweep resolves to
+              a static specular and nothing travels.
+            </p>
+          </div>
+          <div class="chb-motion__stage" tabindex="0" aria-label="Demonstration: focus or hover to send a polish sweep across the wordmark">
+            <span class="chb-motion__word">
+              <span class="chb-chrome-text" style="font-family:var(--chb-display);">After Hourz</span>
+            </span>
+            <span class="chb-motion__hint" aria-hidden="true">Hover / focus — polish sweep</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10 · COMPOSITION INTENT ============ -->
+    <section class="chb-section" id="composition" aria-labelledby="comp-h">
+      <div class="chb-wrap">
+        <p class="chb-kicker" id="comp-h">
+          <span class="chb-kicker__n">10</span>
+          Composition intent
+          <span class="chb-kicker__rule" aria-hidden="true"></span>
+        </p>
+        <div class="chb-comps">
+          <!-- HERO thumbnail -->
+          <article class="chb-plaque chb-comp">
+            <div class="chb-comp__frame" role="img" aria-label="Hero composition thumbnail: vehicle at frame-right, headline and CTA in reserved dark space at left.">
+              <span class="chb-blk chb-blk--img" style="right:4%;top:12%;width:52%;height:76%;"></span>
+              <span class="chb-blk chb-blk--type" style="left:6%;top:26%;width:34%;height:22%;"></span>
+              <span class="chb-blk chb-blk--cta" style="left:6%;top:54%;width:18%;height:9%;"></span>
+            </div>
+            <div class="chb-comp__cap">
+              <b>Hero</b>
+              <span>{comps[0].desc}</span>
+            </div>
+          </article>
+
+          <!-- MID-PAGE thumbnail -->
+          <article class="chb-plaque chb-comp">
+            <div class="chb-comp__frame" role="img" aria-label="Mid-page story thumbnail: tall image left, copy column right, hairline divider.">
+              <span class="chb-blk chb-blk--img" style="left:6%;top:10%;width:40%;height:80%;"></span>
+              <span class="chb-blk chb-blk--type" style="right:6%;top:22%;width:40%;height:14%;"></span>
+              <span class="chb-blk chb-blk--type" style="right:6%;top:42%;width:34%;height:8%;background:rgba(207,224,255,0.06);"></span>
+              <span class="chb-blk chb-blk--cta" style="right:6%;top:60%;width:16%;height:7%;"></span>
+            </div>
+            <div class="chb-comp__cap">
+              <b>Mid-page story</b>
+              <span>{comps[1].desc}</span>
+            </div>
+          </article>
+
+          <!-- CLOSING thumbnail -->
+          <article class="chb-plaque chb-comp">
+            <div class="chb-comp__frame" role="img" aria-label="Closing CTA thumbnail: centered plaque with illuminated edge, wordmark and single CTA.">
+              <span class="chb-blk chb-blk--img" style="left:12%;top:14%;width:76%;height:72%;border-color:rgba(46,123,255,0.45);background:none;box-shadow:inset 0 0 24px rgba(46,123,255,0.18);"></span>
+              <span class="chb-blk chb-blk--type" style="left:30%;top:36%;width:40%;height:14%;"></span>
+              <span class="chb-blk chb-blk--cta" style="left:41%;top:58%;width:18%;height:8%;"></span>
+            </div>
+            <div class="chb-comp__cap">
+              <b>Closing CTA</b>
+              <span>{comps[2].desc}</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="chb-footer">
+    <div class="chb-wrap chb-footer__row">
+      <span>After Hourz · Direction study — Chrome Heritage · Concept, not client-approved</span>
+      <span><a href="/design-lab/">Back to Design Lab</a></span>
+    </div>
+  </footer>
+</PrototypeLayout>

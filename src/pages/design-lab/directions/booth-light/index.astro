@@ -1,0 +1,863 @@
+---
+/*
+  ART-DIRECTION BOARD — BOOTH LIGHT
+  Route: /design-lab/directions/booth-light  (design-lab only; not production)
+  An INTERNAL creative-direction presentation, not a website. Sections are
+  labelled "stations" so the three direction boards read side-by-side.
+
+  Provenance discipline (P8): every photograph here is EXTERNAL PROTOTYPE
+  reference used to argue a direction — never presented as Anthony's completed
+  work. Business facts (phone / address / social) are omitted, never fabricated.
+*/
+import PrototypeLayout from '../../../../layouts/PrototypeLayout.astro';
+import '../../../../styles/board-booth-light.css';
+
+const P = '/assets/prototype';
+
+// Palette pulled straight from the --bl-* tokens (tokens.css).
+const palette = [
+  ['--bl-booth-white', '#EEF2F6', 'Booth white', 'Page ground · high-key clean-room wall'],
+  ['--bl-paper', '#F7F9FB', 'Inspection paper', 'Cards, spec sheets, raised surfaces'],
+  ['--bl-mist', '#D9E0E8', 'Mist', 'Recessed high-key surface / table heads'],
+  ['--bl-line', '#B7C2CE', 'Hairline', 'Rules & dividers on light'],
+  ['--bl-graphite', '#2B333D', 'Graphite', 'Booth diagrams, bezels, dark UI'],
+  ['--bl-ink', '#0C1014', 'Inspection ink', 'Near-black ground · back half of the arc'],
+  ['--bl-slate', '#48535F', 'Slate', 'Body text on light'],
+  ['--bl-signal', '#1667D6', 'Inspection blue', 'The one controlled light · CTA, focus, links'],
+  ['--bl-signal-deep', '#0C3F8F', 'Deep signal', 'Pressed / shadowed accent · mono labels'],
+  ['--bl-tape', '#7BD23A', 'Masking-tape green', 'Single sparing process accent — used once'],
+  ['--bl-warn', '#E8A13C', 'Inspection amber', 'Rare caution note (corrected poster hue)'],
+];
+
+// Photography — curated Booth Light set with art-direction captions.
+const photos = [
+  {
+    cls: 'bl-fig--lead',
+    src: `${P}/booth-process/painter-purple-panel-spray-booth-2ssdrtw07dw.jpg`,
+    w: 2400,
+    h: 3600,
+    alt: 'Technician in a bright spray booth laying finish across a glossy panel edged with green masking tape.',
+    crop: 'Hero · full-bleed · type reserved right',
+    note: 'The thesis frame: human craft revealed by controlled booth light. Crop leaves clean high-key wall on the right for the headline.',
+    eager: true,
+  },
+  {
+    cls: 'bl-fig--tall',
+    src: `${P}/materials-detail/near-black-body-line-study-fBjCurUh-9w.jpg`,
+    w: 2400,
+    h: 4266,
+    alt: 'A single specular highlight traces the body line of a near-black painted panel in darkness.',
+    crop: 'Vertical macro · closing chapter',
+    note: 'The back half of the arc — clinical bright resolves into near-black inspection. Runs full-height beside the process frames.',
+  },
+  {
+    cls: 'bl-fig--half',
+    src: `${P}/booth-process/spray-gun-clearcoat-glossy-panel-macro-hXhbEFS48oM.jpg`,
+    w: 2400,
+    h: 1965,
+    alt: 'Close macro of a spray gun laying wet clearcoat across a glossy panel.',
+    crop: 'Process macro · 3:2 · mid-page',
+    note: 'Clearcoat going down wet — the moment finish depth is built. Pairs with the masking macro as a two-beat process row.',
+  },
+  {
+    cls: 'bl-fig--half',
+    src: `${P}/booth-process/spray-gun-blue-basecoat-masking-macro-vfQqwENtjDU.jpg`,
+    w: 2400,
+    h: 1600,
+    alt: 'Spray gun applying blue basecoat along a crisply masked edge.',
+    crop: 'Process macro · 3:2 · mid-page',
+    note: 'Basecoat and a taped line — where the masking-tape green accent earns its single appearance in the palette.',
+  },
+  {
+    cls: 'bl-fig--third',
+    src: `${P}/booth-process/bare-metal-classic-body-restoration-cD7nA_pqj6E.jpg`,
+    w: 2400,
+    h: 1603,
+    alt: 'Bare-metal classic body panel mid-restoration under even light.',
+    crop: 'Story open · raw metal',
+    note: 'Top of the transformation scroll — honest bare metal before anything is hidden.',
+  },
+  {
+    cls: 'bl-fig--third',
+    src: `${P}/booth-process/dual-action-polisher-blue-fender-Gu17tebrrV8.jpg`,
+    w: 2400,
+    h: 1349,
+    alt: 'Dual-action polisher working a blue fender to a flat reflection.',
+    crop: 'Process · cut & buff',
+    note: 'The reflection being run flat — precision made visible.',
+  },
+  {
+    cls: 'bl-fig--third',
+    src: `${P}/materials-detail/blue-metalflake-clearcoat-waterbead-IqPGeGbBROY.jpg`,
+    w: 2400,
+    h: 1200,
+    alt: 'Water beading on blue metalflake clearcoat, flake catching directional light.',
+    crop: 'Material macro · 2:1',
+    note: 'Material revealed by light — beadwork and flake as the proof of a real finish.',
+  },
+];
+
+// Composition-intent wireframe thumbnails (proved in Phase 3).
+const comps = [
+  {
+    no: 'C-01',
+    title: 'Hero',
+    desc: 'Split frame: booth process left, near-full-height. Headline + one CTA in reserved high-key negative space right. Inspection sweep on load.',
+  },
+  {
+    no: 'C-02',
+    title: 'Mid-page story',
+    desc: 'Transformation scroll — bare metal at top gives way to clearcoat then flat reflection. One deliberate clip-reveal per beat, quiet between.',
+  },
+  {
+    no: 'C-03',
+    title: 'Closing CTA',
+    desc: 'The tonal turn: high-key body inverts to the near-black inspection ground. A single body-line macro, quiet mono contact block, one button.',
+  },
+];
+---
+
+<PrototypeLayout
+  title="Board — Booth Light · After Hourz Design Lab"
+  description="Internal art-direction board for the Booth Light direction of After Hourz. Concept study — not client approved."
+  bodyClass="board-bl"
+>
+  <!-- Skip-link is provided by PrototypeLayout (targets #main). -->
+
+  <!-- ============================================================= -->
+  <!-- §1  BOARD HEADER                                               -->
+  <!-- ============================================================= -->
+  <header class="bl-masthead">
+    <div class="bl-board-wrap">
+      <p class="bl-masthead__tag">Design Lab · Direction Study · Concept — Not Client Approved</p>
+      <div class="bl-masthead__row">
+        <div>
+          <h1 class="bl-masthead__name">
+            Booth <em>Light</em>
+          </h1>
+          <p class="bl-masthead__thesis">
+            Craft revealed through controlled inspection light — clean, clinical, precise booth
+            process resolving into near-black inspection macros.
+          </p>
+        </div>
+        <dl class="bl-masthead__facts">
+          <div class="bl-fact">
+            <dt>Poster DNA</dt>
+            <dd>
+              One controlled cool key · specular-on-material · deep-shadow falloff — density
+              inverted
+            </dd>
+          </div>
+          <div class="bl-fact">
+            <dt>Motion keyword</dt>
+            <dd>Reveal / Exposure</dd>
+          </div>
+          <div class="bl-fact">
+            <dt>Position among three</dt>
+            <dd>The high-key direction — light, not dark</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============================================================= -->
+    <!-- §2  HERO INTENT                                                -->
+    <!-- ============================================================= -->
+    <section class="bl-hero" aria-labelledby="hero-h">
+      <div class="bl-hero__media">
+        <img
+          src={photos[0].src}
+          width={photos[0].w}
+          height={photos[0].h}
+          alt={photos[0].alt}
+          loading="eager"
+          decoding="async"
+        />
+        <span class="bl-hero__sweep" aria-hidden="true"></span>
+        <span class="bl-hero__grade" aria-hidden="true"></span>
+        <span class="bl-fig__stamp">External reference · prototype</span>
+      </div>
+      <div class="bl-hero__panel">
+        <p class="bl-hero__kicker">Hero intent · the money shot</p>
+        <h2 id="hero-h" class="bl-hero__headline">
+          The finish only shows
+          <br />
+          what&rsquo;s <em>underneath.</em>
+        </h2>
+        <p class="bl-hero__sub">
+          Body, paint and restoration — built patiently in the booth, then read under a single
+          controlled light until the reflection runs flawless.
+        </p>
+        <div class="bl-hero__actions">
+          <a class="bl-btn bl-btn--primary" href="#station-comp">
+            See the composition
+            <span class="bl-btn__arrow" aria-hidden="true">
+              &rarr;
+            </span>
+          </a>
+          <a class="bl-btn bl-btn--on-dark" href="/design-lab/">
+            Back to Design Lab
+          </a>
+        </div>
+        <ul class="bl-hero__readout" aria-label="Hero treatment readout">
+          <li>
+            <b class="bl-tnum">88vh</b>viewport height
+          </li>
+          <li>
+            <b class="bl-tnum">1</b>controlled key light
+          </li>
+          <li>
+            <b class="bl-tnum">1</b>call to action
+          </li>
+          <li>
+            <b>Grotesk</b>display face
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- §3  TYPOGRAPHY SYSTEM                                          -->
+    <!-- ============================================================= -->
+    <section class="bl-section bl-section--first" aria-labelledby="st-type">
+      <div class="bl-board-wrap">
+        <div class="bl-station" data-bl-reveal>
+          <span class="bl-station__no">01</span>
+          <h2 id="st-type" class="bl-station__title">
+            Typography system
+          </h2>
+          <span class="bl-station__meta">Grotesk · Grotesk · Mono</span>
+        </div>
+
+        <div class="bl-type-grid">
+          <div class="bl-type-row">
+            <div class="bl-type-row__label">
+              <span class="bl-type-row__role">Display</span>
+              <span class="bl-type-row__fam">Space Grotesk · 600 · tracking -0.035em</span>
+            </div>
+            <p class="bl-type-display">Read the surface</p>
+            <p class="bl-glyphset">AaBbGg&nbsp; 0123456789 &amp; / — •</p>
+          </div>
+
+          <div class="bl-type-row">
+            <div class="bl-type-row__label">
+              <span class="bl-type-row__role">Headings</span>
+              <span class="bl-type-row__fam">Space Grotesk · 600</span>
+            </div>
+            <p class="bl-type-h" style="font-size: var(--text-h2);">
+              Layers, patience, then light
+            </p>
+            <p class="bl-type-h" style="font-size: var(--text-h4); color: var(--bl-slate);">
+              Panels made true, gaps set, depth built in patient coats
+            </p>
+          </div>
+
+          <div class="bl-type-row">
+            <div class="bl-type-row__label">
+              <span class="bl-type-row__role">Body</span>
+              <span class="bl-type-row__fam">Inter · 400 / 500 · measure 64ch</span>
+            </div>
+            <p class="bl-type-body">
+              A finish only shows what is underneath it. We build both — the metal and the paint —
+              one considered coat at a time, then read the result under a single controlled
+              inspection light. Nothing ships until the reflection runs flat and true. That patience
+              is the whole product.
+            </p>
+            <div class="bl-type-body--sizes">
+              <p style="font-size: var(--text-lead);">
+                <span>lead · 1.25rem</span>Depth built in patient layers.
+              </p>
+              <p style="font-size: var(--text-body);">
+                <span>body · 1rem</span>The base every reflection needs.
+              </p>
+              <p style="font-size: var(--text-caption); color: var(--bl-slate);">
+                <span>caption · 0.8rem</span>Wet-sanded and polished until the reflection runs flat.
+              </p>
+            </div>
+          </div>
+
+          <div class="bl-type-row">
+            <div class="bl-type-row__label">
+              <span class="bl-type-row__role">Mono · spec / inspection</span>
+              <span class="bl-type-row__fam">IBM Plex Mono · 400 / 500 · tabular</span>
+            </div>
+            <div class="bl-type-mono-demo" aria-label="Inspection spec label examples">
+              <span>
+                STATION <b>04</b> — CUT &amp; BUFF
+              </span>
+              <span>
+                COATS <b>03</b> BASE · <b>02</b> CLEAR
+              </span>
+              <span>
+                PANEL GAP <b>3.0 MM</b> ±0.2
+              </span>
+              <span>
+                GLOSS <b>92 GU</b> @ 60&deg;
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- §4  WORDMARK STUDY                                             -->
+    <!-- ============================================================= -->
+    <section class="bl-section" aria-labelledby="st-mark">
+      <div class="bl-board-wrap">
+        <div class="bl-station" data-bl-reveal>
+          <span class="bl-station__no">02</span>
+          <h2 id="st-mark" class="bl-station__title">
+            Wordmark study
+          </h2>
+          <span class="bl-station__meta">Chrome heritage → precise / machined</span>
+        </div>
+
+        <div class="bl-marks">
+          <!-- Concept A: Inspection Stencil -->
+          <figure class="bl-mark">
+            <div class="bl-mark__stage">
+              <svg viewBox="0 0 300 60" role="img" aria-labelledby="mk-a-t">
+                <title id="mk-a-t">After Hourz wordmark, inspection-stencil concept</title>
+                <text
+                  x="0"
+                  y="42"
+                  font-family="'Space Grotesk', system-ui, sans-serif"
+                  font-size="34"
+                  font-weight="600"
+                  letter-spacing="1"
+                  fill="#0C1014"
+                >
+                  AFTER HOUR<tspan fill="#1667D6">Z</tspan>
+                </text>
+                <rect x="0" y="52" width="222" height="2" fill="#B7C2CE" />
+                <rect x="222" y="52" width="40" height="2" fill="#1667D6" />
+              </svg>
+            </div>
+            <figcaption class="bl-mark__cap">
+              <span class="bl-mark__name">Concept A · Inspection stencil</span>
+              <p class="bl-mark__desc">
+                Grotesk caps on a spec baseline; the terminal Z carries the accent — heritage
+                flourish reduced to one precise blue mark.
+              </p>
+            </figcaption>
+          </figure>
+
+          <!-- Concept B: Masked Split -->
+          <figure class="bl-mark">
+            <div class="bl-mark__stage">
+              <svg viewBox="0 0 300 60" role="img" aria-labelledby="mk-b-t">
+                <title id="mk-b-t">After Hourz wordmark, masked-split concept</title>
+                <text
+                  x="0"
+                  y="40"
+                  font-family="'Space Grotesk', system-ui, sans-serif"
+                  font-size="30"
+                  font-weight="600"
+                  letter-spacing="0.5"
+                  fill="#0C1014"
+                >
+                  AFTER
+                </text>
+                <rect x="98" y="16" width="6" height="30" fill="#7BD23A" />
+                <text
+                  x="112"
+                  y="40"
+                  font-family="'Space Grotesk', system-ui, sans-serif"
+                  font-size="30"
+                  font-weight="600"
+                  letter-spacing="0.5"
+                  fill="#48535F"
+                >
+                  HOURZ
+                </text>
+                <text
+                  x="0"
+                  y="56"
+                  font-family="'IBM Plex Mono', monospace"
+                  font-size="7.5"
+                  letter-spacing="3"
+                  fill="#0C3F8F"
+                >
+                  BODY · PAINT · RESTORATION
+                </text>
+              </svg>
+            </div>
+            <figcaption class="bl-mark__cap">
+              <span class="bl-mark__name">Concept B · Masked split</span>
+              <p class="bl-mark__desc">
+                A taped-line divider (the single green accent) splits the two words; a mono strap
+                carries the service register beneath.
+              </p>
+            </figcaption>
+          </figure>
+
+          <!-- Concept C: Specular on dark -->
+          <figure class="bl-mark bl-mark--dark">
+            <div class="bl-mark__stage">
+              <svg viewBox="0 0 300 60" role="img" aria-labelledby="mk-c-t">
+                <title id="mk-c-t">After Hourz wordmark, specular-on-dark concept</title>
+                <defs>
+                  <linearGradient id="bl-spec" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#F7F9FB" />
+                    <stop offset="46%" stop-color="#C4CBD4" />
+                    <stop offset="52%" stop-color="#FFFFFF" />
+                    <stop offset="100%" stop-color="#8B94A1" />
+                  </linearGradient>
+                </defs>
+                <text
+                  x="150"
+                  y="42"
+                  text-anchor="middle"
+                  font-family="'Space Grotesk', system-ui, sans-serif"
+                  font-size="32"
+                  font-weight="700"
+                  letter-spacing="1"
+                  fill="url(#bl-spec)"
+                >
+                  AFTER HOURZ
+                </text>
+              </svg>
+            </div>
+            <figcaption class="bl-mark__cap">
+              <span class="bl-mark__name">Concept C · Specular on dark</span>
+              <p class="bl-mark__desc">
+                The chrome-heritage lineage kept as a single real light edge — a lit specular
+                gradient, not a faked bevel. For the closing ink band.
+              </p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- §5  PALETTE                                                    -->
+    <!-- ============================================================= -->
+    <section class="bl-section" aria-labelledby="st-pal">
+      <div class="bl-board-wrap">
+        <div class="bl-station" data-bl-reveal>
+          <span class="bl-station__no">03</span>
+          <h2 id="st-pal" class="bl-station__title">
+            Palette
+          </h2>
+          <span class="bl-station__meta">High-key ground · one blue light · one green accent</span>
+        </div>
+        <div class="bl-palette">
+          {palette.map(([token, hex, name, role]) => (
+            <div class="bl-swatch">
+              <div
+                class="bl-swatch__chip"
+                style={`background:${hex}; border-bottom-color:${hex === '#F7F9FB' || hex === '#EEF2F6' ? 'var(--bl-line)' : 'transparent'};`}
+              ></div>
+              <div class="bl-swatch__body">
+                <span class="bl-swatch__hex">{hex}</span>
+                <span class="bl-swatch__role">
+                  <b>{name}</b> — {role}
+                </span>
+                <span class="bl-swatch__token">{token}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- §6  PHOTOGRAPHY                                                -->
+    <!-- ============================================================= -->
+    <section class="bl-section" aria-labelledby="st-photo">
+      <div class="bl-board-wrap">
+        <div class="bl-station" data-bl-reveal>
+          <span class="bl-station__no">04</span>
+          <h2 id="st-photo" class="bl-station__title">
+            Photography
+          </h2>
+          <span class="bl-station__meta">Prototype reference · graded to one cool-key family</span>
+        </div>
+        <p style="margin-bottom: var(--spacing-lg); color: var(--bl-slate);">
+          Direction study only. Every frame is external reference chosen to argue the treatment —
+          never presented as After Hourz&rsquo;s completed work. Real process and environment shots
+          are
+          <b style="color: var(--bl-ink);">client input required</b>.
+        </p>
+        <div class="bl-photos">
+          {photos.map((f) => (
+            <figure class={`bl-fig ${f.cls}`}>
+              <div class="bl-fig__frame">
+                <img
+                  src={f.src}
+                  width={f.w}
+                  height={f.h}
+                  alt={f.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="bl-fig__stamp">Reference</span>
+              </div>
+              <figcaption>
+                <span class="bl-fig__crop">{f.crop}</span>
+                <span class="bl-fig__note">{f.note}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- §7  MATERIAL & LIGHT                                           -->
+    <!-- ============================================================= -->
+    <section class="bl-section" aria-labelledby="st-mat">
+      <div class="bl-board-wrap">
+        <div class="bl-station" data-bl-reveal>
+          <span class="bl-station__no">05</span>
+          <h2 id="st-mat" class="bl-station__title">
+            Material &amp; light
+          </h2>
+          <span class="bl-station__meta">CSS-rendered · no raster textures</span>
+        </div>
+        <div class="bl-materials">
+          <div class="bl-mat">
+            <div class="bl-mat__swatch bl-mat__swatch--chrome" aria-hidden="true"></div>
+            <div class="bl-mat__cap">
+              <span class="bl-mat__name">Chrome edge</span>
+              <p class="bl-mat__desc">A lit metal edge — hard specular clip, not a gray fill.</p>
+            </div>
+          </div>
+          <div class="bl-mat">
+            <div class="bl-mat__swatch bl-mat__swatch--gloss" aria-hidden="true"></div>
+            <div class="bl-mat__cap">
+              <span class="bl-mat__name">Gloss panel</span>
+              <p class="bl-mat__desc">Narrow bright streak on wet blue clearcoat.</p>
+            </div>
+          </div>
+          <div class="bl-mat">
+            <div class="bl-mat__swatch bl-mat__swatch--booth" aria-hidden="true"></div>
+            <div class="bl-mat__cap">
+              <span class="bl-mat__name">Booth wash</span>
+              <p class="bl-mat__desc">
+                Single implied cool key over high-key white — the direction&rsquo;s ground.
+              </p>
+            </div>
+          </div>
+          <div class="bl-mat">
+            <div class="bl-mat__swatch bl-mat__swatch--inspect" aria-hidden="true"></div>
+            <div class="bl-mat__cap">
+              <span class="bl-mat__name">Inspection light</span>
+              <p class="bl-mat__desc">
+                A raking cone exposing the near-black ground — the thesis, literal.
+              </p>
+            </div>
+          </div>
+          <div class="bl-mat">
+            <div class="bl-mat__swatch bl-mat__swatch--tape" aria-hidden="true"></div>
+            <div class="bl-mat__cap">
+              <span class="bl-mat__name">Masking-tape green</span>
+              <p class="bl-mat__desc">The one process accent — a taped edge, used once per view.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- §8  GRID & UI                                                  -->
+    <!-- ============================================================= -->
+    <section class="bl-section" aria-labelledby="st-ui">
+      <div class="bl-board-wrap">
+        <div class="bl-station" data-bl-reveal>
+          <span class="bl-station__no">06</span>
+          <h2 id="st-ui" class="bl-station__title">
+            Grid &amp; UI
+          </h2>
+          <span class="bl-station__meta">Mini component sheet</span>
+        </div>
+        <div class="bl-ui-grid">
+          <!-- Buttons -->
+          <div class="bl-ui-cell">
+            <span class="bl-ui-cell__label">Buttons &amp; links</span>
+            <div class="bl-ui-row">
+              <button type="button" class="bl-btn bl-btn--primary">
+                Start a project
+              </button>
+              <button type="button" class="bl-btn">
+                See the work
+              </button>
+            </div>
+            <div class="bl-ui-row">
+              <a class="bl-textlink" href="#st-ui">
+                Read the process &rarr;
+              </a>
+            </div>
+          </div>
+
+          <!-- Nav -->
+          <div class="bl-ui-cell">
+            <span class="bl-ui-cell__label">Navigation</span>
+            <nav class="bl-uinav" aria-label="Example navigation (component demo)">
+              <a href="#st-ui" aria-current="true">
+                Work
+              </a>
+              <a href="#st-ui">Craft</a>
+              <a href="#st-ui">Services</a>
+              <span class="bl-uinav__spec">EST · SO CAL</span>
+            </nav>
+            <div class="bl-ui-row">
+              <span class="bl-chip">Body</span>
+              <span class="bl-chip">Paint</span>
+              <span class="bl-chip bl-chip--tape">Restoration</span>
+            </div>
+          </div>
+
+          <!-- Form field -->
+          <div class="bl-ui-cell">
+            <span class="bl-ui-cell__label">Form field</span>
+            <div class="bl-field">
+              <label for="demo-vehicle">Vehicle</label>
+              <input
+                id="demo-vehicle"
+                type="text"
+                name="vehicle"
+                placeholder="Year · make · model"
+                autocomplete="off"
+              />
+            </div>
+            <div class="bl-field">
+              <label for="demo-scope">Scope</label>
+              <textarea
+                id="demo-scope"
+                name="scope"
+                rows="2"
+                placeholder="Paint, bodywork, restoration…"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Spec card -->
+          <div class="bl-ui-cell" style="grid-column: 1 / -1;">
+            <span class="bl-ui-cell__label">Inspection / spec card</span>
+            <div class="bl-ui-row" style="align-items: stretch;">
+              <div class="bl-speccard" style="flex:1; min-width: 220px;">
+                <div class="bl-speccard__head">
+                  <span>Station 04</span>
+                  <span>Cut &amp; buff</span>
+                </div>
+                <div class="bl-speccard__body">
+                  <span class="bl-speccard__line">
+                    Coats <b>3 base · 2 clear</b>
+                  </span>
+                  <span class="bl-speccard__line">
+                    Panel gap <b>3.0 mm ±0.2</b>
+                  </span>
+                  <span class="bl-speccard__line">
+                    Gloss <b>92 GU @ 60&deg;</b>
+                  </span>
+                </div>
+              </div>
+              <div class="bl-speccard" style="flex:1; min-width: 220px;">
+                <div class="bl-speccard__head">
+                  <span>Service</span>
+                  <span>Read</span>
+                </div>
+                <div class="bl-speccard__body">
+                  <span class="bl-speccard__line">
+                    Auto body <b>&mdash;</b>
+                  </span>
+                  <span class="bl-speccard__line">
+                    Custom paint <b>&mdash;</b>
+                  </span>
+                  <span class="bl-speccard__line">
+                    Restoration <b>&mdash;</b>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- §9  MOTION NOTE                                                -->
+    <!-- ============================================================= -->
+    <section class="bl-section" aria-labelledby="st-motion">
+      <div class="bl-board-wrap">
+        <div class="bl-station" data-bl-reveal>
+          <span class="bl-station__no">07</span>
+          <h2 id="st-motion" class="bl-station__title">
+            Motion note
+          </h2>
+          <span class="bl-station__meta">Reveal / Exposure</span>
+        </div>
+        <div class="bl-motion">
+          <div class="bl-motion__copy">
+            <p class="bl-motion__word">
+              Content emerges
+              <br />
+              <em>under a moving light.</em>
+            </p>
+            <p style="margin-top: var(--spacing-md);">
+              One committed device: a controlled inspection light rakes across the frame and the
+              material is <b style="color:var(--bl-ink);">exposed</b> — a clip / mask reveal, never
+              a generic fade-up. Rationed hard: every reveal must answer &ldquo;reveal, orient, or
+              story of the finish?&rdquo; with quiet beats between. Chrome Heritage polishes; After
+              Dark builds momentum; <b style="color:var(--bl-ink);">Booth Light reveals</b>.
+            </p>
+            <p style="margin-top: var(--spacing-sm); font-family: var(--bl-font-mono); font-size: 0.72rem; letter-spacing:0.08em; color: var(--bl-signal-deep);">
+              EASING mech · cubic-bezier(0.16, 1, 0.3, 1) · honors prefers-reduced-motion
+            </p>
+          </div>
+          <button
+            type="button"
+            class="bl-reveal-demo"
+            aria-label="Demonstration: hover or focus to run the inspection light across a dark body-line macro and expose it."
+          >
+            <img
+              src={`${P}/materials-detail/graphite-body-panel-headlight-bezel-Mx_Oe-dv4H8.jpg`}
+              width="2400"
+              height="1695"
+              alt="Graphite body panel and headlight bezel, dark until the inspection light passes across it."
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="bl-reveal-demo__light" aria-hidden="true"></span>
+            <span class="bl-reveal-demo__hint">Hover / focus — expose</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- §10  COMPOSITION INTENT                                        -->
+    <!-- ============================================================= -->
+    <section class="bl-section" id="station-comp" aria-labelledby="st-comp">
+      <div class="bl-board-wrap">
+        <div class="bl-station" data-bl-reveal>
+          <span class="bl-station__no">08</span>
+          <h2 id="st-comp" class="bl-station__title">
+            Composition intent
+          </h2>
+          <span class="bl-station__meta">Proved in Phase 3</span>
+        </div>
+        <div class="bl-comps">
+          <!-- C-01 Hero wireframe -->
+          <article class="bl-comp">
+            <div class="bl-comp__thumb">
+              <svg
+                viewBox="0 0 200 150"
+                role="img"
+                aria-label="Hero composition wireframe: image left, headline and one button in reserved space right."
+              >
+                <rect width="200" height="150" fill="#EEF2F6" />
+                <rect x="0" y="0" width="118" height="150" fill="#2B333D" />
+                <rect x="14" y="16" width="80" height="118" fill="#48535F" />
+                <line x1="118" y1="0" x2="118" y2="150" stroke="#1667D6" stroke-width="2" />
+                <rect x="132" y="40" width="54" height="9" fill="#0C1014" />
+                <rect x="132" y="53" width="44" height="9" fill="#0C1014" />
+                <rect x="132" y="78" width="34" height="6" fill="#B7C2CE" />
+                <rect x="132" y="98" width="30" height="12" rx="2" fill="#1667D6" />
+              </svg>
+            </div>
+            <div class="bl-comp__body">
+              <span class="bl-comp__no">{comps[0].no}</span>
+              <span class="bl-comp__title">{comps[0].title}</span>
+              <span class="bl-comp__desc">{comps[0].desc}</span>
+            </div>
+          </article>
+
+          <!-- C-02 Mid-page story wireframe -->
+          <article class="bl-comp">
+            <div class="bl-comp__thumb">
+              <svg
+                viewBox="0 0 200 150"
+                role="img"
+                aria-label="Mid-page story wireframe: stacked transformation beats from raw metal to reflection."
+              >
+                <rect width="200" height="150" fill="#EEF2F6" />
+                <rect x="16" y="14" width="168" height="34" fill="#D9E0E8" />
+                <rect x="16" y="14" width="70" height="34" fill="#8B94A1" />
+                <rect x="96" y="22" width="30" height="5" fill="#0C1014" />
+                <rect x="96" y="31" width="46" height="4" fill="#B7C2CE" />
+                <rect x="16" y="56" width="168" height="34" fill="#D9E0E8" />
+                <rect x="114" y="56" width="70" height="34" fill="#1667D6" />
+                <rect x="24" y="64" width="30" height="5" fill="#0C1014" />
+                <rect x="24" y="73" width="46" height="4" fill="#B7C2CE" />
+                <rect x="16" y="98" width="168" height="34" fill="#0C1014" />
+                <rect x="16" y="98" width="70" height="34" fill="#2B333D" />
+                <rect x="50" y="113" width="30" height="3" fill="#F7F9FB" />
+              </svg>
+            </div>
+            <div class="bl-comp__body">
+              <span class="bl-comp__no">{comps[1].no}</span>
+              <span class="bl-comp__title">{comps[1].title}</span>
+              <span class="bl-comp__desc">{comps[1].desc}</span>
+            </div>
+          </article>
+
+          <!-- C-03 Closing CTA wireframe -->
+          <article class="bl-comp">
+            <div class="bl-comp__thumb">
+              <svg
+                viewBox="0 0 200 150"
+                role="img"
+                aria-label="Closing CTA wireframe: high-key body inverts to near-black inspection ground with one button."
+              >
+                <rect width="200" height="150" fill="#EEF2F6" />
+                <rect x="0" y="60" width="200" height="90" fill="#0C1014" />
+                <rect x="30" y="78" width="140" height="46" fill="#2B333D" />
+                <path d="M30 101 L170 88" stroke="#DBE9FF" stroke-width="1.5" opacity="0.8" />
+                <rect x="30" y="18" width="70" height="7" fill="#0C1014" />
+                <rect x="30" y="30" width="52" height="7" fill="#0C1014" />
+                <rect x="150" y="132" width="30" height="11" rx="2" fill="#1667D6" />
+              </svg>
+            </div>
+            <div class="bl-comp__body">
+              <span class="bl-comp__no">{comps[2].no}</span>
+              <span class="bl-comp__title">{comps[2].title}</span>
+              <span class="bl-comp__desc">{comps[2].desc}</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bl-board-footer">
+    <div
+      class="bl-board-wrap"
+      style="display:flex; gap:var(--spacing-md); flex-wrap:wrap; justify-content:space-between; width:100%;"
+    >
+      <span>After Hourz · Direction study — Booth Light · Not client approved</span>
+      <span>
+        <a href="/design-lab/">Design Lab</a> · Southern California · Deployed: no
+      </span>
+    </div>
+  </footer>
+
+  <!-- Board-scoped exposure reveal: adds .is-revealed to [data-bl-reveal].
+       Progressive + reduced-motion safe (see board CSS). Distinct hook from the
+       shared [data-reveal] so this board's clip-reveal never collides with it. -->
+  <script>
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const els = document.querySelectorAll<HTMLElement>('[data-bl-reveal]');
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach((el) => el.classList.add('is-revealed'));
+    } else {
+      const io = new IntersectionObserver(
+        (entries, obs) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-revealed');
+              obs.unobserve(e.target);
+            }
+          }
+        },
+        { rootMargin: '0px 0px -10% 0px', threshold: 0.15 },
+      );
+      els.forEach((el) => io.observe(el));
+    }
+  </script>
+</PrototypeLayout>
