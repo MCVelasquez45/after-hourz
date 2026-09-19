@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output (Astro — when scaffolded)
+dist/
+.astro/
+.output/
+
+# Test & QA artifacts (do not commit — see docs/design-lab/16)
+test-results/
+playwright-report/
+blob-report/
+.lighthouseci/
+coverage/
+
+# Env & local
+.env
+.env.*
+!.env.example
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# NOTE: public/assets/originals/ is intentionally TRACKED (immutable client source).
+# NOTE: generated derivatives in public/assets/derived/ may be regenerated; keep tracked
+#       for now so provenance stays reproducible until a build-time pipeline exists.
