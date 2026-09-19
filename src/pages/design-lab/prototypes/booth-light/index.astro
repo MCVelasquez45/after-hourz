@@ -1,264 +1,622 @@
 ---
-import { Picture } from 'astro:assets';
+/*
+  PROTOTYPE — BOOTH LIGHT  (production-level direction study)
+  Route: /design-lab/prototypes/booth-light   (design-lab only; NOT production)
+
+  This REPLACES the rejected baseline (which read as a light-mode SaaS docs site
+  and failed the gate swap test). Rebuilt to the art-direction board at
+  /design-lab/directions/booth-light and surpassing it as a full website.
+
+  Provenance discipline (P8): every photograph is EXTERNAL PROTOTYPE reference,
+  badged "Reference", never presented as Anthony's completed work. Business facts
+  (phone / address / social / hours) are OMITTED or marked CLIENT INPUT REQUIRED
+  — never fabricated. Anthony is Southern California raised: no NorCal text/maps/
+  badges, no "QUINCY" mural, no Northern-California geography.
+*/
 import PrototypeLayout from '../../../../layouts/PrototypeLayout.astro';
 import '../../../../styles/prototype-booth-light.css';
-import sideProfile from '../../../../assets/derived/study-chevy-side-profile.png';
-import frontQuarter from '../../../../assets/derived/study-chevy-front-quarter.png';
 
-const steps = [
-  ['01', 'Strip & assess', 'An honest read on the metal before anything else.'],
-  ['02', 'Metal & bodywork', 'Panels made true, gaps set — the base every reflection needs.'],
-  ['03', 'Base · color · clear', 'Depth built in patient layers under booth light.'],
-  ['04', 'Cut & buff', 'Wet-sanded and polished until the reflection runs flat.'],
+const P = '/assets/prototype';
+
+// --- Primary nav ---
+const nav = [
+  ['Work', '#work'],
+  ['Process', '#process'],
+  ['Services', '#services'],
+  ['Story', '#story'],
+  ['Contact', '#contact'],
 ];
-const services = [
+
+// --- Services: one lead lane + a stacked precise list (not 3 equal cards) ---
+const serviceList = [
   [
-    'Auto Body',
-    'Collision, rust, fabrication and panel work — the structure beneath a good finish.',
+    '01',
+    'Body work',
+    'Collision, rust and panel fabrication — the true structure a finish is only as good as.',
   ],
-  ['Custom Paint', 'Colour changes, factory-correct refinishing, and custom work built to last.'],
-  ['Restoration', 'Classic and custom vehicles brought back true — and forward.'],
+  [
+    '02',
+    'Custom paint',
+    'Colour changes, factory-correct refinishing and custom work, built in patient coats.',
+  ],
+  [
+    '03',
+    'Restoration',
+    'Classic and custom vehicles brought back true — metal, trim and finish, together.',
+  ],
+  [
+    '04',
+    'Detail & polish',
+    'Cut, buff and correction until the reflection runs flat and the light reads clean.',
+  ],
+];
+
+// --- WORK gallery: dominant lead + supporting rhythm. Each is REFERENCE. ---
+const work = [
+  {
+    cls: 'bl-fig--lead',
+    src: `${P}/booth-process/painter-respirator-blue-bumper-booth-uGeatFJ81xw.jpg`,
+    w: 2400,
+    h: 3000,
+    alt: 'Painter in a respirator laying blue basecoat across a bumper inside a brightly lit spray booth.',
+    title: 'In the booth',
+    note: 'Basecoat under a controlled cool key — the application half of the arc.',
+  },
+  {
+    cls: 'bl-fig--tall',
+    src: `${P}/materials-detail/copper-gloss-body-panel-chrome-trim-cPN7dnQRyiY.jpg`,
+    w: 2400,
+    h: 1600,
+    alt: 'Deep copper-gloss body panel meeting a run of polished chrome trim, both catching directional light.',
+    title: 'Gloss & trim',
+    note: 'Where finish depth meets chrome — the surface reading true.',
+  },
+  {
+    cls: 'bl-fig--half',
+    src: `${P}/booth-process/spray-gun-clearcoat-glossy-panel-macro-hXhbEFS48oM.jpg`,
+    w: 2400,
+    h: 1965,
+    alt: 'Close macro of a spray gun laying wet clearcoat across a glossy panel.',
+    title: 'Clearcoat, wet',
+    note: 'The moment finish depth is built.',
+  },
+  {
+    cls: 'bl-fig--half',
+    src: `${P}/booth-process/dual-action-polisher-blue-fender-Gu17tebrrV8.jpg`,
+    w: 2400,
+    h: 1349,
+    alt: 'Dual-action polisher working a blue fender to a flat, even reflection.',
+    title: 'Cut & buff',
+    note: 'The reflection run flat — precision made visible.',
+  },
+  {
+    cls: 'bl-fig--third',
+    src: `${P}/booth-process/bare-metal-classic-body-restoration-cD7nA_pqj6E.jpg`,
+    w: 2400,
+    h: 1603,
+    alt: 'Bare-metal classic body panel mid-restoration under even workshop light.',
+    title: 'Bare metal',
+    note: 'Honest metal before anything is hidden.',
+  },
+  {
+    cls: 'bl-fig--third',
+    src: `${P}/materials-detail/blue-metalflake-clearcoat-waterbead-IqPGeGbBROY.jpg`,
+    w: 2400,
+    h: 1200,
+    alt: 'Water beading on blue metalflake clearcoat, flake catching a single directional light.',
+    title: 'Metalflake',
+    note: 'Beadwork and flake — proof of a real finish.',
+  },
+  {
+    cls: 'bl-fig--third',
+    src: `${P}/booth-process/spray-gun-blue-basecoat-masking-macro-vfQqwENtjDU.jpg`,
+    w: 2400,
+    h: 1600,
+    alt: 'Spray gun applying blue basecoat along a crisply masked edge with green masking tape.',
+    title: 'The masked line',
+    note: 'A crisp taped edge — control at the boundary.',
+  },
+];
+
+// --- Process: the application -> inspection arc ---
+const process = [
+  ['01', 'Strip & assess', 'An honest read on the metal before anything else is decided.', 'Read'],
+  ['02', 'Metal & bodywork', 'Panels made true, gaps set — the base every reflection needs.', 'True'],
+  ['03', 'Base · color · clear', 'Depth built in patient coats under a controlled booth key.', 'Build'],
+  ['04', 'Inspection reveal', 'Read under one raking light until the reflection runs flat.', 'Expose'],
 ];
 ---
 
 <PrototypeLayout
   title="After Hourz — Booth Light"
-  description="Booth Light design direction for After Hourz. Concept prototype."
-  bodyClass="bl"
+  description="Booth Light design direction for After Hourz: craft revealed through controlled inspection light. Concept prototype — reference imagery, not client work."
+  bodyClass="bl-proto"
 >
-  <div class="bl-topline">
-    <div class="bl-wrap bl-topline__row">
-      <span>CONCEPT PROTOTYPE · 02 / BOOTH LIGHT · not client-approved</span>
-      <span>
-        <a href="/design-lab/">Design Lab</a>
-      </span>
+  <!-- LAB CHROME · subtle Design-Lab return (suppressible in client-review mode) -->
+  <div class="bl-labstrip">
+    <div class="bl-wrap bl-labstrip__row">
+      <span>Design Lab · Prototype · <b>Booth Light</b> · direction study, not client-approved</span>
+      <span><a href="/design-lab/">&larr; Design Lab</a></span>
     </div>
   </div>
 
-  <header class="bl-header" data-scrolled="false">
-    <div class="bl-wrap bl-header__row">
-      <a class="bl-logo" href="#top">
+  <!-- NAV -->
+  <header class="bl-nav" data-scrolled="false" data-menu="closed" id="top">
+    <div class="bl-wrap bl-nav__row">
+      <a class="bl-logo" href="#top" aria-label="After Hourz — home">
         AFTER&nbsp;HOUR<span>Z</span>
       </a>
-      <nav class="bl-nav" aria-label="Primary">
-        <a href="#work">Work</a>
-        <a href="#craft">Craft</a>
-        <a href="#services">Services</a>
-        <a class="bl-nav__cta" href="#contact">
-          Start a project
-        </a>
+      <nav class="bl-nav__links" aria-label="Primary">
+        {nav.map(([label, href]) => (
+          <a class="bl-nav__link" href={href}>{label}</a>
+        ))}
       </nav>
+      <div class="bl-nav__end">
+        <a class="bl-btn bl-btn--primary" href="#contact">Request a Quote</a>
+        <button
+          type="button"
+          class="bl-burger"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="bl-mobilemenu"
+          data-menu-toggle
+        >
+          <span class="bl-burger__bar" aria-hidden="true"></span>
+          <span class="bl-burger__bar" aria-hidden="true"></span>
+          <span class="bl-burger__bar" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
   </header>
+  <!-- Mobile menu panel (sibling of nav; CSS reveals on [data-menu='open']) -->
+  <div class="bl-mobilemenu" id="bl-mobilemenu">
+    <div class="bl-wrap bl-mobilemenu__inner">
+      {nav.map(([label, href], i) => (
+        <a class="bl-mobilemenu__link" href={href} data-menu-link>
+          {label}
+          <span>{String(i + 1).padStart(2, '0')}</span>
+        </a>
+      ))}
+      <a class="bl-btn bl-btn--primary" href="#contact" data-menu-link>Request a Quote</a>
+    </div>
+  </div>
 
   <main id="main">
-    <!-- HERO: vehicle framed by black, inspection light sweeping across it -->
-    <section class="bl-hero" id="top">
-      <div class="bl-hero__media">
-        <Picture
-          src={sideProfile}
-          formats={['avif', 'webp']}
-          widths={[900, 1400, 1536]}
-          sizes="100vw"
-          alt="Blue-and-white classic Chevrolet emerging from darkness under inspection light."
-          loading="eager"
-        />
-      </div>
-      <div class="bl-hero__vignette" aria-hidden="true"></div>
-      <div class="bl-hero__light" aria-hidden="true"></div>
-      <div class="bl-wrap bl-hero__content" data-reveal>
-        <p class="bl-eyebrow">Custom paint · body · restoration</p>
-        <h1 class="bl-hero__mark">
-          Craft,
-          <br />
-          revealed <em>under light.</em>
-        </h1>
-        <p class="bl-hero__sub">
-          A finish only shows what&rsquo;s underneath. We build both — patiently, in the booth,
-          until the reflection is flawless.
-        </p>
-        <div class="bl-hero__actions">
-          <a class="bl-btn bl-btn--primary" href="#contact">
-            Start a project
-          </a>
-          <a class="bl-btn" href="#work">
-            See the work
-          </a>
+    <!-- ================= HERO ================= -->
+    <section class="bl-hero" aria-labelledby="hero-h">
+      <div class="bl-hero__grid">
+        <div class="bl-hero__media" data-ground="dark">
+          <img
+            src={`${P}/booth-process/painter-purple-panel-spray-booth-2ssdrtw07dw.jpg`}
+            width="2400"
+            height="3600"
+            alt="Technician in a bright spray booth laying finish across a glossy panel under a controlled cool key light."
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+          <span class="bl-hero__rake" aria-hidden="true"></span>
+          <span class="bl-hero__grade" aria-hidden="true"></span>
+          <span class="bl-stamp">External reference · prototype</span>
+        </div>
+        <div class="bl-hero__panel" data-ground="dark">
+          <p class="bl-hero__kicker">Southern California · body &amp; paint</p>
+          <h1 id="hero-h" class="bl-hero__h1">
+            The finish only shows
+            <br />
+            what&rsquo;s <em>underneath.</em>
+          </h1>
+          <p class="bl-hero__literal">
+            <b>Custom paint · body work · restoration</b> — Southern California.
+          </p>
+          <p class="bl-hero__sub">
+            Built patiently in the booth, then read under a single controlled inspection light until
+            the reflection runs flawless.
+          </p>
+          <div class="bl-hero__actions">
+            <a class="bl-btn bl-btn--primary" href="#contact">
+              Request a Quote
+              <span class="bl-btn__arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="bl-btn bl-btn--onink" href="#work">See the work</a>
+          </div>
+          <ul class="bl-hero__readout" aria-label="Shop signature">
+            <li><b>Custom paint</b>colour &amp; refinish</li>
+            <li><b>Body work</b>metal &amp; panel</li>
+            <li><b>Restoration</b>classic &amp; custom</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- WORK: full vehicle + detail column -->
-    <section class="bl-section" id="work">
+    <!-- ================= SERVICES ================= -->
+    <section class="bl-section" id="services" aria-labelledby="services-h">
       <div class="bl-wrap">
-        <div class="bl-section__head" data-reveal>
-          <p class="bl-eyebrow">The work</p>
-          <h2 class="bl-section__title">Read the surface</h2>
-          <p class="bl-lead">
-            Full vehicle, then the details that decide whether a finish is real.
+        <div class="bl-shead" data-bl-reveal>
+          <span class="bl-shead__no">Services</span>
+          <h2 id="services-h" class="bl-shead__title">The craft lanes</h2>
+          <p class="bl-shead__lead">
+            Four things, done with the same patience. The paint is what you see; the work underneath
+            is what makes it last.
           </p>
         </div>
-        <div class="bl-split" data-reveal>
-          <div class="bl-media">
-            <Picture
-              src={sideProfile}
-              formats={['avif', 'webp']}
-              widths={[700, 1100, 1400]}
-              sizes="(max-width: 900px) 100vw, 60vw"
-              alt="Classic Chevrolet in profile — the full body line."
-              loading="lazy"
-            />
-            <span class="bl-media__tag">Classic Chevrolet · profile</span>
-          </div>
-          <div class="bl-detail">
-            <div class="bl-media" style="aspect-ratio: 4/3;">
-              <Picture
-                src={frontQuarter}
-                formats={['avif', 'webp']}
-                widths={[400, 640]}
-                sizes="(max-width: 900px) 100vw, 40vw"
-                alt="Classic Chevrolet, front three-quarter — grille and chrome."
+
+        <div class="bl-services" data-bl-reveal>
+          <!-- Lead lane: custom paint, with a real reference frame -->
+          <article class="bl-service-lead">
+            <div class="bl-service-lead__media">
+              <img
+                src={`${P}/materials-detail/blue-metalflake-clearcoat-waterbead-IqPGeGbBROY.jpg`}
+                width="2400"
+                height="1200"
+                alt="Blue metalflake clearcoat with water beading, flake catching a single directional light."
                 loading="lazy"
+                decoding="async"
               />
-              <span class="bl-media__tag">Front 3/4 · chrome</span>
+              <span class="bl-stamp">Reference</span>
             </div>
-            <div class="bl-macro" aria-hidden="true">
-              <svg
-                viewBox="0 0 400 300"
-                width="100%"
-                height="100%"
-                preserveAspectRatio="xMidYMid slice"
-              >
-                <defs>
-                  <radialGradient id="bl-flake" cx="34%" cy="28%" r="85%">
-                    <stop offset="0%" stop-color="#eaf1ff" />
-                    <stop offset="22%" stop-color="#2e7bff" />
-                    <stop offset="60%" stop-color="#0b1a3a" />
-                    <stop offset="100%" stop-color="#05070c" />
-                  </radialGradient>
-                  <filter id="bl-grain">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" />
-                    <feColorMatrix
-                      type="matrix"
-                      values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.08 0"
-                    />
-                  </filter>
-                </defs>
-                <rect width="400" height="300" fill="url(#bl-flake)" />
-                <rect width="400" height="300" filter="url(#bl-grain)" />
-              </svg>
+            <div class="bl-service-lead__body">
+              <h3>Custom paint</h3>
+              <p>
+                Colour changes, factory-correct refinishing and custom finishes — flake, candy and
+                clear built in coats, then cut back until the depth reads true under light.
+              </p>
+              <a class="bl-textlink" href="#contact">Start a paint quote &rarr;</a>
             </div>
+          </article>
+
+          <!-- Supporting list -->
+          <div class="bl-service-list">
+            {serviceList.map(([no, title, body]) => (
+              <div class="bl-service-item">
+                <span class="bl-service-item__no">{no}</span>
+                <div class="bl-service-item__body">
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
     </section>
 
-    <!-- CRAFT -->
-    <section class="bl-section" id="craft">
+    <!-- ================= WORK / BUILDS ================= -->
+    <section class="bl-section" id="work" aria-labelledby="work-h">
       <div class="bl-wrap">
-        <div class="bl-section__head" data-reveal>
-          <p class="bl-eyebrow">The craft</p>
-          <h2 class="bl-section__title">Layers, patience, then light</h2>
+        <div class="bl-shead" data-bl-reveal>
+          <span class="bl-shead__no">Work</span>
+          <h2 id="work-h" class="bl-shead__title">Read the surface</h2>
+          <p class="bl-shead__lead">
+            A visual study of the craft — application, material and the details that decide whether a
+            finish is real. Every frame below is external reference for this direction, not After
+            Hourz&rsquo;s completed work.
+          </p>
         </div>
-        <div class="bl-steps" data-reveal>
-          {steps.map(([n, t, b]) => (
-            <article class="bl-step">
-              <div class="bl-step__n">{n}</div>
-              <h3>{t}</h3>
-              <p>{b}</p>
+
+        <div class="bl-work" data-bl-reveal>
+          {work.map((f) => (
+            <figure class={`bl-fig ${f.cls}`}>
+              <div class="bl-fig__frame">
+                <img
+                  src={f.src}
+                  width={f.w}
+                  height={f.h}
+                  alt={f.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="bl-stamp">Reference</span>
+              </div>
+              <figcaption>
+                <span class="bl-fig__cap-title">{f.title}</span>
+                <span class="bl-fig__cap-note">{f.note}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROCESS ================= -->
+    <section class="bl-section" id="process" aria-labelledby="process-h">
+      <div class="bl-wrap">
+        <div class="bl-shead" data-bl-reveal>
+          <span class="bl-shead__no">Process</span>
+          <h2 id="process-h" class="bl-shead__title">Application, then inspection</h2>
+          <p class="bl-shead__lead">
+            The arc runs one way: from a bright, clinical booth to a single-light inspection. Nothing
+            ships until the last light reads clean.
+          </p>
+        </div>
+
+        <div class="bl-process-rail" data-bl-reveal>
+          {process.map(([no, title, body, meta]) => (
+            <article class="bl-pstep">
+              <span class="bl-pstep__no">STATION {no}</span>
+              <h3 class="bl-pstep__title">{title}</h3>
+              <p class="bl-pstep__body">{body}</p>
+              <span class="bl-pstep__meta">{meta}</span>
             </article>
           ))}
         </div>
-      </div>
-    </section>
 
-    <!-- SERVICES -->
-    <section class="bl-section" id="services">
-      <div class="bl-wrap">
-        <div class="bl-section__head" data-reveal>
-          <p class="bl-eyebrow">Services</p>
-          <h2 class="bl-section__title">What we do</h2>
-        </div>
-        <div class="bl-services" data-reveal>
-          {services.map(([t, b]) => (
-            <div class="bl-serv">
-              <h3>{t}</h3>
-              <p>{b}</p>
-            </div>
-          ))}
+        <div data-bl-reveal>
+          <div class="bl-arcbar" aria-hidden="true"></div>
+          <div class="bl-arclabels">
+            <span>Bright booth</span>
+            <span>Inspection reveal</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section class="bl-cta" id="contact">
-      <div class="bl-wrap bl-cta__grid">
-        <div data-reveal>
-          <p class="bl-eyebrow">Start a project</p>
-          <h2 class="bl-section__title" style="margin-block:var(--spacing-xs) var(--spacing-md);">
-            Pull up.
+    <!-- ================= INSPECTION REVEAL · the dramatic beat ================= -->
+    <section class="bl-reveal" aria-labelledby="reveal-h" data-bl-reveal data-bl-expose>
+      <div class="bl-reveal__grid">
+        <div class="bl-reveal__copy" data-ground="dark">
+          <p class="bl-reveal__kicker">The inspection reveal</p>
+          <h2 id="reveal-h" class="bl-reveal__h2">
+            One light.
+            <br />
+            The whole <em>truth.</em>
           </h2>
-          <p style="color:var(--color-aluminum); max-width:38ch;">
-            Tell us about the vehicle and what you want done. No pressure — just an honest read.
+          <p class="bl-reveal__p">
+            The bright booth resolves here — into near-black. A single raking light runs the body
+            line, and every wave, every high spot, every honest coat shows itself. If it survives
+            this, it survives daylight.
           </p>
-          <div class="bl-contact-rows">
-            <span>
-              Phone · <b>Coming soon</b>
-            </span>
-            <span>
-              Location · <b>Southern California</b>
-            </span>
-            <span>
-              Instagram · <b>Coming soon</b>
-            </span>
+          <div class="bl-reveal__spec">
+            <span><b>1</b>raking light</span>
+            <span><b>0</b>places to hide</span>
+            <span><b>Flat</b>reflection or it goes back</span>
           </div>
         </div>
-        <form
-          class="bl-form"
-          data-reveal
-          aria-label="Project enquiry (prototype)"
-          onsubmit="return false;"
-        >
-          <div class="bl-field">
-            <label for="bl-name">Your name</label>
-            <input id="bl-name" name="name" type="text" autocomplete="name" placeholder="Name" />
+        <div class="bl-reveal__media">
+          <img
+            src={`${P}/materials-detail/near-black-body-line-study-fBjCurUh-9w.jpg`}
+            width="2400"
+            height="4266"
+            alt="A single specular highlight traces the body line of a near-black painted panel in near-total darkness."
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="bl-reveal__light" aria-hidden="true"></span>
+          <span class="bl-reveal__seam" aria-hidden="true"></span>
+          <span class="bl-stamp">Reference</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STORY ================= -->
+    <section class="bl-section" id="story" aria-labelledby="story-h">
+      <div class="bl-wrap">
+        <div class="bl-story" data-bl-reveal>
+          <div class="bl-story__media">
+            <img
+              src={`${P}/culture-vehicles/craftsman-polisher-dark-portrait-M5lsL2E4ot0.jpg`}
+              width="2400"
+              height="3200"
+              alt="A craftsman working a polisher in low light, concentrated on the panel in front of them."
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="bl-stamp">Reference</span>
           </div>
-          <div class="bl-field">
-            <label for="bl-vehicle">Vehicle</label>
-            <input id="bl-vehicle" name="vehicle" type="text" placeholder="Year · make · model" />
+          <div class="bl-story__body">
+            <span class="bl-story__region">Southern California raised</span>
+            <blockquote class="bl-story__quote" id="story-h">
+              After Hourz is where the <em>extra hours</em> go — the ones that turn a repair into a
+              finish worth looking at twice.
+            </blockquote>
+            <p class="bl-story__p">
+              Owned by Anthony Montoya, After Hourz is built on patience: metal made true, gaps set
+              right, and paint laid in coats that earn their depth. The name is the promise — the
+              work that happens after the easy version is finished.
+            </p>
+            <p class="bl-story__p">
+              This is a direction study. The shop&rsquo;s full story, its builds and its people are
+              <b> CLIENT INPUT REQUIRED</b> and will replace the reference imagery shown here.
+            </p>
           </div>
-          <div class="bl-field">
-            <label for="bl-msg">What do you want done?</label>
-            <textarea
-              id="bl-msg"
-              name="message"
-              rows="4"
-              placeholder="Paint, bodywork, restoration…"
-            ></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT · prototype quote form ================= -->
+    <section class="bl-contact" id="contact" aria-labelledby="contact-h">
+      <div class="bl-wrap bl-section">
+        <div class="bl-contact__grid">
+          <div class="bl-contact__aside" data-bl-reveal>
+            <span class="bl-shead__no">Contact</span>
+            <h2 id="contact-h" class="bl-contact__title">Request a quote</h2>
+            <p class="bl-contact__p">
+              Tell us about the vehicle and what you want done. No pressure, no upsell — just an
+              honest read on the work and where to start.
+            </p>
+            <dl class="bl-contact__facts">
+              <div class="bl-contact__fact">
+                <dt>Phone</dt>
+                <dd><span class="bl-contact__req">Client input required</span></dd>
+              </div>
+              <div class="bl-contact__fact">
+                <dt>Email</dt>
+                <dd><span class="bl-contact__req">Client input required</span></dd>
+              </div>
+              <div class="bl-contact__fact">
+                <dt>Instagram</dt>
+                <dd><span class="bl-contact__req">Client input required</span></dd>
+              </div>
+              <div class="bl-contact__fact">
+                <dt>Service area</dt>
+                <dd class="bl-contact__region-fact">Southern California</dd>
+              </div>
+            </dl>
           </div>
-          <div>
-            <button class="bl-btn bl-btn--primary" type="submit">
-              Send enquiry
-            </button>
-          </div>
-          <p class="bl-note">Prototype form — not wired to a backend.</p>
-        </form>
+
+          <!-- Prototype form: preventDefault + tasteful acknowledgement. No backend. -->
+          <form class="bl-form" data-bl-reveal aria-labelledby="form-h" data-quote-form novalidate>
+            <h3 id="form-h" class="bl-spec" style="color:var(--bl-slate);">Quote request — prototype</h3>
+            <div class="bl-form__grid">
+              <div class="bl-field">
+                <label for="q-name">Your name <span class="bl-req" aria-hidden="true">*</span></label>
+                <input id="q-name" name="name" type="text" autocomplete="name" required placeholder="Your name" />
+              </div>
+              <div class="bl-field">
+                <label for="q-vehicle">Vehicle <span class="bl-req" aria-hidden="true">*</span></label>
+                <input id="q-vehicle" name="vehicle" type="text" required placeholder="Year · make · model" />
+              </div>
+              <div class="bl-field bl-field--full">
+                <label for="q-service">Service</label>
+                <select id="q-service" name="service">
+                  <option value="">Choose a service</option>
+                  <option value="custom-paint">Custom paint</option>
+                  <option value="body-work">Body work</option>
+                  <option value="restoration">Restoration</option>
+                  <option value="detail-polish">Detail &amp; polish</option>
+                  <option value="not-sure">Not sure yet</option>
+                </select>
+              </div>
+              <div class="bl-field bl-field--full">
+                <label for="q-msg">What do you want done?</label>
+                <textarea id="q-msg" name="message" placeholder="Paint, bodywork, restoration — tell us the goal."></textarea>
+              </div>
+            </div>
+            <div class="bl-form__foot">
+              <button class="bl-btn bl-btn--primary" type="submit">
+                Request a Quote
+                <span class="bl-btn__arrow" aria-hidden="true">&rarr;</span>
+              </button>
+              <p class="bl-form__note">Prototype form — not wired to a backend.</p>
+            </div>
+            <p class="bl-form__ack" role="status" aria-live="polite" data-quote-ack>
+              Thanks — this is a prototype, so nothing was sent. On the live site this would reach
+              After Hourz directly.
+            </p>
+          </form>
+        </div>
       </div>
     </section>
   </main>
 
+  <!-- ================= FOOTER ================= -->
   <footer class="bl-footer">
     <div class="bl-wrap">
-      AFTER HOURZ · Concept direction: Booth Light · <a href="/design-lab/">Design Lab</a>
+      <div class="bl-footer__top">
+        <div>
+          <p class="bl-footer__mark">AFTER HOUR<span>Z</span></p>
+          <p class="bl-footer__tag">
+            Custom paint, body work and restoration — Southern California. Craft revealed through
+            controlled inspection light.
+          </p>
+        </div>
+        <nav class="bl-footer__nav" aria-label="Footer">
+          {nav.map(([label, href]) => (
+            <a href={href}>{label}</a>
+          ))}
+          <a href="/design-lab/">Design Lab</a>
+        </nav>
+      </div>
+      <div class="bl-footer__bottom">
+        <span class="bl-footer__prov">Prototype — reference imagery, not client work</span>
+        <span>Contact details · CLIENT INPUT REQUIRED · Not deployed</span>
+      </div>
     </div>
   </footer>
 
+  <!-- STICKY MOBILE CONTACT BAR · thumb zone. No fabricated phone number. -->
+  <div class="bl-cta-bar" aria-label="Quick contact">
+    <a class="bl-cta-bar__link bl-cta-bar__link--call" href="#contact">
+      <span class="bl-cta-bar__ico" aria-hidden="true">&#9990;</span>
+      Callback
+    </a>
+    <a class="bl-cta-bar__link bl-cta-bar__link--quote" href="#contact">
+      <span class="bl-cta-bar__ico" aria-hidden="true">&rarr;</span>
+      Request a Quote
+    </a>
+  </div>
+
+  <!-- Small, isolated, reduced-motion-safe JS: nav scroll state, mobile menu,
+       exposure reveal, prototype form. -->
   <script>
-    const h = document.querySelector<HTMLElement>('.bl-header');
-    if (h) {
-      const s = () => h.setAttribute('data-scrolled', String(window.scrollY > 24));
-      s();
-      window.addEventListener('scroll', s, { passive: true });
+    // --- Nav scrolled state (shadow) ---
+    const navEl = document.querySelector<HTMLElement>('.bl-nav');
+    if (navEl) {
+      const setScrolled = () =>
+        navEl.setAttribute('data-scrolled', String(window.scrollY > 24));
+      setScrolled();
+      window.addEventListener('scroll', setScrolled, { passive: true });
+    }
+
+    // --- Mobile menu (keyboard-operable; Escape closes; focus restored) ---
+    const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+    if (navEl && toggle) {
+      const open = () => {
+        navEl.setAttribute('data-menu', 'open');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'Close menu');
+      };
+      const close = (restore = true) => {
+        navEl.setAttribute('data-menu', 'closed');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Open menu');
+        if (restore) toggle.focus();
+      };
+      toggle.addEventListener('click', () => {
+        if (navEl.getAttribute('data-menu') === 'open') close();
+        else open();
+      });
+      document.querySelectorAll<HTMLElement>('[data-menu-link]').forEach((l) =>
+        l.addEventListener('click', () => close(false)),
+      );
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navEl.getAttribute('data-menu') === 'open') close();
+      });
+    }
+
+    // --- Exposure reveal (opacity/rise). Additive + fail-open: content is never
+    //     left hidden by JS. Anything already in/above the viewport reveals at
+    //     once; the rest reveal on scroll; a safety timer reveals everything so a
+    //     stalled observer can never hide primary content. ---
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const revEls = Array.from(document.querySelectorAll<HTMLElement>('[data-bl-reveal]'));
+    const revealAll = () => revEls.forEach((el) => el.classList.add('is-revealed'));
+    if (reduce || !('IntersectionObserver' in window)) {
+      revealAll();
+    } else {
+      const reveal = (el: Element) => el.classList.add('is-revealed');
+      // Reveal what's already visible on load (top of page / large sections).
+      const vh = window.innerHeight;
+      revEls.forEach((el) => {
+        if (el.getBoundingClientRect().top < vh * 0.92) reveal(el);
+      });
+      const io = new IntersectionObserver(
+        (entries, obs) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              reveal(e.target);
+              obs.unobserve(e.target);
+            }
+          }
+        },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0 },
+      );
+      revEls.forEach((el) => {
+        if (!el.classList.contains('is-revealed')) io.observe(el);
+      });
+      // Fail-open: never let the exposure motion keep content hidden.
+      window.setTimeout(revealAll, 2600);
+    }
+
+    // --- Prototype quote form: preventDefault + acknowledgement ---
+    const form = document.querySelector<HTMLFormElement>('[data-quote-form]');
+    const ack = document.querySelector<HTMLElement>('[data-quote-ack]');
+    if (form && ack) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        ack.setAttribute('data-shown', 'true');
+        ack.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' });
+      });
     }
   </script>
 </PrototypeLayout>

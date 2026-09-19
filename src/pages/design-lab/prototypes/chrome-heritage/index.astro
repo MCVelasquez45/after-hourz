@@ -1,320 +1,550 @@
 ---
-import { Picture } from 'astro:assets';
 import PrototypeLayout from '../../../../layouts/PrototypeLayout.astro';
 import '../../../../styles/prototype-chrome-heritage.css';
-import sideProfile from '../../../../assets/derived/study-chevy-side-profile.png';
-import frontQuarter from '../../../../assets/derived/study-chevy-front-quarter.png';
 
-const process = [
-  [
-    '01',
-    'Strip & assess',
-    'The metal gets an honest read before anything else — what is true, what is hidden.',
-  ],
-  [
-    '02',
-    'Metal & gaps',
-    'Panels made straight, gaps set. The foundation every reflection depends on.',
-  ],
-  [
-    '03',
-    'Base · color · clear',
-    'Built in patient layers. Depth is earned in the booth, not rushed.',
-  ],
-  ['04', 'Cut & buff', 'Wet-sanded and polished until the reflection runs dead flat.'],
-];
+/*
+  PROTOTYPE — CHROME HERITAGE (production-level direction study)
+  Route: /design-lab/prototypes/chrome-heritage   ·   Body class: .chp
+
+  Replaces the rejected baseline. A contemporary digital evolution of the After Hourz
+  poster: polished chrome + CANDY PAINT accent (sampled from a real candy/gold metalflake
+  hood) against reflective darkness. Motion = POLISH / REFLECTION.
+
+  NON-NEGOTIABLE guardrails honored:
+   - Southern California framing only. NO NorCal marks / maps / QUINCY / NorCal badge.
+   - Every external photo is PROTOTYPE / REFERENCE material — badged, never presented as
+     Anthony's completed work.
+   - Unknown business facts (phone / address / social / hours / pricing) are OMITTED or
+     marked CLIENT INPUT REQUIRED — never fabricated.
+   - All routes under /design-lab/*. No production routes.
+*/
+
+const P = '/assets/prototype';
+
+// Curated Chrome Heritage reference photography. Each carries a provenance affordance.
+const hero = {
+  src: `${P}/chrome-heritage/impala-black-63-dusk-headlights-nJvfIaChd_A.jpg`,
+  w: 2400,
+  h: 1602,
+  alt: 'A black 1963 Chevrolet Impala at dusk on wet asphalt, headlights lit, chrome wire wheels and grille catching a low warm light against a near-dark sky.',
+};
+
+const feature = {
+  src: `${P}/materials-detail/candy-metalflake-hood-goldleaf-pinstriping-33Me56HyM_8.jpg`,
+  w: 2400,
+  h: 3600,
+  alt: 'Extreme close-up of a candy-copper metalflake hood with fine gold-leaf scrollwork and hand pinstriping, chrome grille and bumper below catching light.',
+};
+
+// Services — the craft lanes. Factual, no invented specifics.
 const services = [
-  ['Auto Body', 'Collision, rust, fabrication and panel work — the structure under a good finish.'],
-  ['Custom Paint', 'Colour changes, factory-correct refinishing and custom work built to last.'],
-  ['Restoration', 'Classic and custom vehicles brought back true — and forward.'],
+  {
+    n: '01',
+    name: 'Custom Paint',
+    desc: 'Candy and metalflake color, factory-correct refinishing, and one-off custom work built in patient layers for depth that lasts.',
+    tag: 'Color · Candy · Flake',
+  },
+  {
+    n: '02',
+    name: 'Body Work',
+    desc: 'Collision repair, rust remediation, panel fabrication and gap-setting — the straight foundation every reflection depends on.',
+    tag: 'Metal · Panels · Gaps',
+  },
+  {
+    n: '03',
+    name: 'Restoration',
+    desc: 'Classic and custom vehicles brought back true — and forward. Cars, trucks and bikes given an honest, complete read.',
+    tag: 'Classic · Custom',
+  },
+  {
+    n: '04',
+    name: 'Detail & Polish',
+    desc: 'Cut, buff and finish work — wet-sanded and polished until the reflection runs dead flat and the chrome reads clean.',
+    tag: 'Cut · Buff · Chrome',
+  },
+];
+
+// Supporting gallery — reference rhythm (uneven, not an even masonry). Each badged.
+const gallery = [
+  {
+    key: 'a',
+    src: `${P}/chrome-heritage/impala-black-metalflake-rear-quarter-qw4YYpMVepA.jpg`,
+    w: 2400,
+    h: 3600,
+    role: 'Body line',
+    txt: 'Rear-quarter panel — a straight body line reading clean in reflection.',
+    alt: 'Rear quarter panel of a black metalflake Impala, chrome trim and taillight catching light against darkness.',
+    pos: '50% 42%',
+  },
+  {
+    key: 'b',
+    src: `${P}/chrome-heritage/black-classic-frontend-chrome-macro-oXU1iJOgViY.jpg`,
+    w: 2400,
+    h: 1602,
+    role: 'Chrome macro',
+    txt: 'Grille and bumper — the specular sweep proven on real polished metal.',
+    alt: 'Macro of a black classic car front end, chrome grille bars and bumper throwing bright reflections.',
+    pos: '50% 50%',
+  },
+  {
+    key: 'c',
+    src: `${P}/materials-detail/chrome-tailfin-bullet-taillight-AyzqxketKfM.jpg`,
+    w: 2400,
+    h: 2400,
+    role: 'Heritage form',
+    txt: 'Tailfin and bullet lamp — the mid-century silhouette in the DNA.',
+    alt: 'Chrome tailfin with a bullet-style taillight, a sculptural mid-century form against a black surround.',
+    pos: '50% 50%',
+  },
+  {
+    key: 'd',
+    src: `${P}/chrome-heritage/black-fender-chrome-wheelcover-macro-KM52A79uyqo.jpg`,
+    w: 2400,
+    h: 1602,
+    role: 'Reflection',
+    txt: 'Fender meeting wheel cover — deep gloss reflecting the room.',
+    alt: 'Macro of a glossy black fender meeting a polished chrome wheel cover, sky and shapes reflected in the paint.',
+    pos: '50% 55%',
+  },
+  {
+    key: 'e',
+    src: `${P}/chrome-heritage/blue-custom-chrome-goldenhour-detail-vYLZYaARV38.jpg`,
+    w: 2400,
+    h: 2400,
+    role: 'Color event',
+    txt: 'A cool candy blue at golden hour — the secondary voice, sparingly.',
+    alt: 'Tight crop of a blue custom car panel with chrome detail catching warm golden-hour light.',
+    pos: '30% 60%',
+  },
+];
+
+// Process — POLISH / REFLECTION arc.
+const process = [
+  ['01', 'Strip & Read', 'The metal gets an honest read before anything else — what is true, and what is hidden underneath.'],
+  ['02', 'Metal & Gaps', 'Panels made straight and gaps set even. The flat foundation every later reflection depends on.'],
+  ['03', 'Base · Color · Clear', 'Built up in patient layers — candy, flake and clearcoat. Depth is earned in the booth, not rushed.'],
+  ['04', 'Cut & Reflect', 'Wet-sanded, cut and buffed until the surface runs dead flat and the light rakes across it clean.'],
+];
+
+const materials = [
+  ['candy', 'Candy Metalflake', 'Deep pooled candy over a sparse specular flake — depth in layers, the brand-core hue.'],
+  ['chrome', 'Polished Chrome', 'A hard light-to-dark ladder with one raking highlight — a lit edge, never a gray fill.'],
+  ['leaf', 'Gold-Leaf Stripe', 'Hand-laid leaf and pinstripe — the custom-lettering lineage behind the wordmark.'],
+  ['asphalt', 'Wet Asphalt', 'Near-black ground holding a single warm reflection — the after-hours light.'],
+];
+
+const navLinks = [
+  ['#work', 'Work'],
+  ['#process', 'Process'],
+  ['#services', 'Services'],
+  ['#story', 'Story'],
+  ['#contact', 'Contact'],
 ];
 ---
 
 <PrototypeLayout
   title="After Hourz — Chrome Heritage"
-  description="Chrome Heritage design direction for After Hourz. Concept prototype."
-  bodyClass="ch"
+  description="Chrome Heritage design direction for After Hourz. Concept prototype — reference imagery, not client work."
+  bodyClass="chp"
 >
-  <div class="ch-topline">
-    <div class="ch-wrap ch-topline__row">
-      <span>Concept prototype · 01 / Chrome Heritage · not client-approved</span>
-      <span>
-        <a href="/design-lab/">Design Lab</a>
-      </span>
+  <!-- ============ LAB TOPLINE (subtle, suppressible in client-review) ============ -->
+  <div class="chp-topline">
+    <div class="chp-wrap chp-topline__row">
+      <span>Design Lab · Prototype 01 · Chrome Heritage · Concept — not client-approved</span>
+      <span><a href="/design-lab/">&larr; Design Lab</a></span>
     </div>
   </div>
 
-  <header class="ch-header" data-scrolled="false">
-    <div class="ch-wrap ch-header__row">
-      <a class="ch-header__logo ch-chrome" href="#top">
-        AFTER HOURZ
+  <!-- ============ NAV ============ -->
+  <header class="chp-nav" data-scrolled="false" data-open="false">
+    <div class="chp-wrap chp-nav__row">
+      <a class="chp-brand" href="#top" aria-label="After Hourz — home">
+        <span class="chp-chrome-text">After&nbsp;Hour<span class="chp-brand__z">z</span></span>
       </a>
-      <nav class="ch-header__nav" aria-label="Primary">
-        <a href="#builds">Builds</a>
-        <a href="#craft">Craft</a>
-        <a href="#services">Services</a>
-        <a href="#shop">Shop</a>
-        <a class="ch-header__cta" href="#contact">
-          Start a project
-        </a>
+
+      <button
+        class="chp-burger"
+        type="button"
+        aria-expanded="false"
+        aria-controls="chp-menu"
+        aria-label="Open menu"
+      >
+        <span class="chp-burger__bars" aria-hidden="true"></span>
+      </button>
+
+      <nav class="chp-nav__links" id="chp-menu" aria-label="Primary">
+        {navLinks.map(([href, label]) => <a href={href}>{label}</a>)}
+        <a class="chp-btn chp-btn--primary chp-nav__cta" href="#contact">Request a Quote</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <!-- HERO — monumental chrome wordmark -->
-    <section class="ch-hero" id="top">
-      <div class="ch-wrap" data-reveal>
-        <p class="ch-rule">Est. Southern California · Custom</p>
-        <h1 class="ch-hero__mark ch-sweep" aria-label="After Hourz">
-          <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#ffffff" />
-                <stop offset="18%" stop-color="#e9eef5" />
-                <stop offset="45%" stop-color="#9aa6b4" />
-                <stop offset="53%" stop-color="#525b6a" />
-                <stop offset="66%" stop-color="#aeb9c7" />
-                <stop offset="100%" stop-color="#f4f8fd" />
-              </linearGradient>
-            </defs>
-            <g
-              font-family="'Space Grotesk', ui-sans-serif, system-ui, sans-serif"
-              font-weight="700"
-              text-anchor="middle"
-              letter-spacing="2"
-            >
-              <text x="500" y="132" font-size="150" fill="#2e7bff" opacity="0.35">
-                AFTER
-              </text>
-              <text x="500" y="130" font-size="150" fill="url(#chrome)">
-                AFTER
-              </text>
-              <text x="500" y="280" font-size="150" fill="#2e7bff" opacity="0.35">
-                HOURZ
-              </text>
-              <text x="500" y="278" font-size="150" fill="url(#chrome)">
-                HOURZ
-              </text>
-            </g>
-          </svg>
-        </h1>
-        <p class="ch-hero__by">by Anthony Montoya</p>
-        <p class="ch-plaque ch-plaque--lit ch-hero__plaque">
-          Auto Body · Custom Paint · Restoration
-        </p>
-        <p class="ch-hero__cats">Cars · Trucks · Bikes</p>
-        <div class="ch-hero__actions">
-          <a class="ch-btn ch-btn--chrome" href="#contact">
-            Start a project
-          </a>
-          <a class="ch-btn" href="#builds">
-            See the builds
-          </a>
-        </div>
-      </div>
-    </section>
+    <!-- ============ HERO ============ -->
+    <section class="chp-hero" id="top" aria-labelledby="hero-h">
+      <img
+        class="chp-hero__img"
+        src={hero.src}
+        width={hero.w}
+        height={hero.h}
+        alt={hero.alt}
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div class="chp-hero__grade" aria-hidden="true"></div>
+      <div class="chp-hero__sheen" aria-hidden="true"></div>
 
-    <!-- SHOWPIECE — chrome-framed vehicle with wet reflection -->
-    <section class="ch-showpiece">
-      <div class="ch-wrap" data-reveal>
-        <div class="ch-frame ch-sweep">
-          <div class="ch-frame__inner">
-            <Picture
-              src={sideProfile}
-              formats={['avif', 'webp']}
-              widths={[700, 1100, 1400, 1536]}
-              sizes="(max-width: 1024px) 100vw, 84vw"
-              alt="Blue-and-white classic Chevrolet in full profile — long body line, chrome trim, wire wheels."
-              loading="eager"
-            />
-            <div class="ch-frame__cap">
-              <span>Classic Chevrolet · profile</span>
-              <span>Custom · Southern California</span>
-            </div>
+      <div class="chp-wrap">
+        <div class="chp-hero__content">
+          <p class="chp-hero__eyebrow">After Hourz · Anthony Montoya</p>
+          <h1 class="chp-hero__title" id="hero-h">
+            Built after hours,<br /><em>finished by hand.</em>
+          </h1>
+          <p class="chp-hero__kicker">
+            <b>Custom paint · body work · restoration</b>
+            <span class="chp-hero__region"> — Southern California</span>
+          </p>
+          <div class="chp-hero__actions">
+            <a class="chp-btn chp-btn--primary" href="#contact">Request a Quote</a>
+            <a class="chp-btn chp-btn--ghost" href="#work">
+              See the work <span class="chp-arw" aria-hidden="true">&rarr;</span>
+            </a>
           </div>
         </div>
-        <div class="ch-reflect" aria-hidden="true"></div>
       </div>
+
+      <p class="chp-hero__ref">
+        Prototype reference photo — not client work
+      </p>
     </section>
 
-    <!-- BUILDS -->
-    <section class="ch-section" id="builds">
-      <div class="ch-wrap">
-        <div data-reveal>
-          <p class="ch-kicker">The Builds</p>
-          <h2 class="ch-title ch-chrome">Iron worth the hours</h2>
-          <p class="ch-sub">
-            Every build is treated like a showpiece — because on the street, it is one.
+    <!-- ============ SERVICES ============ -->
+    <section class="chp-section" id="services" aria-labelledby="services-h">
+      <div class="chp-wrap">
+        <div class="chp-section__head" data-reveal>
+          <p class="chp-eyebrow">
+            <span class="chp-eyebrow__n">01</span> Services
+            <span class="chp-eyebrow__rule" aria-hidden="true"></span>
+          </p>
+          <h2 class="chp-title" id="services-h">The craft lanes</h2>
+          <p class="chp-lead">
+            Cars, trucks and bikes. Four lanes of work — each one an honest read on the
+            metal before the light ever hits it.
           </p>
         </div>
-        <div class="ch-builds" data-reveal>
-          <article class="ch-build">
-            <div class="ch-build__media">
-              <Picture
-                src={sideProfile}
-                formats={['avif', 'webp']}
-                widths={[500, 900]}
-                sizes="(max-width: 768px) 100vw, 33vw"
-                alt="Classic Chevrolet, profile detail."
-                loading="lazy"
-              />
-            </div>
-            <div class="ch-build__meta">
-              <h3>Two-tone classic</h3>
-              <p>Blue &amp; white · chrome &amp; wire</p>
-            </div>
-          </article>
-          <article class="ch-build">
-            <div class="ch-build__media">
-              <Picture
-                src={frontQuarter}
-                formats={['avif', 'webp']}
-                widths={[400, 640]}
-                sizes="(max-width: 768px) 100vw, 33vw"
-                alt="Classic Chevrolet, front three-quarter."
-                loading="lazy"
-              />
-            </div>
-            <div class="ch-build__meta">
-              <h3>Front three-quarter</h3>
-              <p>Grille · bumper · stance</p>
-            </div>
-          </article>
-          <article class="ch-build">
-            <div
-              class="ch-build__media"
-              style="background: radial-gradient(120% 120% at 30% 20%, #2e7bff 0%, #0b1a3a 30%, #05070c 70%);"
-            >
-              <svg
-                viewBox="0 0 400 300"
-                width="100%"
-                height="100%"
-                aria-hidden="true"
-                preserveAspectRatio="xMidYMid slice"
-              >
-                <defs>
-                  <radialGradient id="flake" cx="32%" cy="24%" r="80%">
-                    <stop offset="0%" stop-color="#bcd4ff" />
-                    <stop offset="35%" stop-color="#1f5fd6" />
-                    <stop offset="100%" stop-color="#05070c" />
-                  </radialGradient>
-                  <filter id="grain">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" />
-                    <feColorMatrix
-                      type="matrix"
-                      values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0"
-                    />
-                  </filter>
-                </defs>
-                <rect width="400" height="300" fill="url(#flake)" />
-                <rect width="400" height="300" filter="url(#grain)" />
-              </svg>
-            </div>
-            <div class="ch-build__meta">
-              <h3>Metallic flake</h3>
-              <p>Clearcoat depth · finish study</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
 
-    <!-- CRAFT -->
-    <section class="ch-section" id="craft">
-      <div class="ch-wrap">
-        <div data-reveal>
-          <p class="ch-kicker">The Craft</p>
-          <h2 class="ch-title ch-chrome">Built in layers</h2>
-          <p class="ch-sub">
-            A finish is made, not sprayed. Four moves on every project, in the order that lasts.
-          </p>
-        </div>
-        <div class="ch-process" data-reveal>
-          {process.map(([n, t, b]) => (
-            <article class="ch-proc ch-plaque">
-              <div class="ch-proc__n">{n}</div>
-              <h3>{t}</h3>
-              <p>{b}</p>
+        <div class="chp-services" data-reveal>
+          {services.map((s) => (
+            <article class="chp-serv">
+              <span class="chp-serv__n">{s.n}</span>
+              <h3 class="chp-serv__name">{s.name}</h3>
+              <p class="chp-serv__desc">{s.desc}</p>
+              <span class="chp-serv__tag">{s.tag}</span>
             </article>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- SERVICES -->
-    <section class="ch-section" id="services">
-      <div class="ch-wrap">
-        <div data-reveal>
-          <p class="ch-kicker">Services</p>
-          <h2 class="ch-title ch-chrome">What rolls out different</h2>
+    <!-- ============ WORK / BUILDS ============ -->
+    <section class="chp-work chp-section" id="work" aria-labelledby="work-h">
+      <div class="chp-wrap">
+        <div class="chp-section__head" data-reveal>
+          <p class="chp-eyebrow">
+            <span class="chp-eyebrow__n">02</span> Work
+            <span class="chp-eyebrow__rule" aria-hidden="true"></span>
+          </p>
+          <h2 class="chp-title" id="work-h">Iron worth the hours</h2>
+          <p class="chp-lead">
+            A look at the finish this direction is built to hold. Every image below is
+            reference material chosen to prove the Chrome Heritage look.
+          </p>
         </div>
-        <div class="ch-services" data-reveal>
-          {services.map(([t, b]) => (
-            <article class="ch-serv ch-plaque">
-              <h3>{t}</h3>
-              <p>{b}</p>
-            </article>
+      </div>
+
+      <!-- Dominant full-bleed feature -->
+      <figure class="chp-feature">
+        <img
+          class="chp-feature__img"
+          src={feature.src}
+          width={feature.w}
+          height={feature.h}
+          alt={feature.alt}
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="chp-feature__grade" aria-hidden="true"></div>
+        <span class="chp-ref">Reference · not client work</span>
+        <figcaption class="chp-feature__cap">
+          <p class="chp-feature__eyebrow">Finish study · candy metalflake</p>
+          <h3 class="chp-feature__title">Candy, flake &amp; gold-leaf</h3>
+          <p class="chp-feature__desc">
+            Deep candy over metalflake, hand-laid gold-leaf scroll and pinstripe — the depth
+            and lettering lineage this direction is drawn from.
+          </p>
+        </figcaption>
+      </figure>
+
+      <div class="chp-wrap">
+        <div class="chp-gallery" data-reveal>
+          {gallery.map((g) => (
+            <figure class={`chp-shot chp-shot--${g.key}`}>
+              <span class="chp-ref">Reference</span>
+              <img
+                src={g.src}
+                width={g.w}
+                height={g.h}
+                alt={g.alt}
+                loading="lazy"
+                decoding="async"
+                style={`object-position:${g.pos};`}
+              />
+              <figcaption class="chp-shot__cap">
+                <span class="chp-shot__role">{g.role}</span>
+                <span class="chp-shot__txt">{g.txt}</span>
+              </figcaption>
+            </figure>
           ))}
         </div>
-      </div>
-    </section>
 
-    <!-- SHOP -->
-    <section class="ch-section" id="shop">
-      <div class="ch-wrap" data-reveal style="max-width:60rem;">
-        <p class="ch-kicker">The Shop</p>
-        <h2 class="ch-title ch-chrome">After Hourz</h2>
-        <p class="ch-sub">
-          A Southern California custom shop built on the work that happens after the world goes
-          quiet — the patient hours where a finish is actually made. The name is literal.
+        <p class="chp-work__note">
+          <b>Prototype imagery is external reference material</b>, selected to prove the Chrome
+          Heritage look — never presented as Anthony&rsquo;s completed work. Production portfolio
+          must be his real, shot builds, graded to this candy-on-chrome family. Missing shots are
+          marked CLIENT INPUT REQUIRED, never fabricated.
         </p>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section id="contact">
-      <div class="ch-cta ch-plaque ch-plaque--lit ch-wrap" data-reveal>
-        <p class="ch-kicker">Pull up</p>
-        <h2 class="ch-chrome">Bring the vehicle. We&rsquo;ll bring the hours.</h2>
-        <p>
-          Tell us what you&rsquo;re building. No pressure, no upsell — just an honest read on the
-          work.
-        </p>
-        <div class="ch-hero__actions" style="margin-bottom:var(--spacing-lg);">
-          <a class="ch-btn ch-btn--chrome" href="#contact">
-            Start a project
-          </a>
+    <!-- ============ PROCESS ============ -->
+    <section class="chp-section" id="process" aria-labelledby="process-h">
+      <div class="chp-wrap">
+        <div class="chp-section__head" data-reveal>
+          <p class="chp-eyebrow">
+            <span class="chp-eyebrow__n">03</span> Process
+            <span class="chp-eyebrow__rule" aria-hidden="true"></span>
+          </p>
+          <h2 class="chp-title" id="process-h">Polished in layers</h2>
+          <p class="chp-lead">
+            A finish is made, not sprayed. Four moves on every project, in the order that
+            earns a reflection you can read.
+          </p>
         </div>
-        <div class="ch-contact">
-          <span>
-            Phone · <b>Coming soon</b>
-          </span>
-          <span>
-            Location · <b>Southern California</b>
-          </span>
-          <span>
-            Instagram · <b>Coming soon</b>
-          </span>
+
+        <ol class="chp-process" aria-label="The four-step process">
+          {process.map(([n, t, b], i) => (
+            <li class="chp-step" data-reveal data-delay={i * 90}>
+              <span class="chp-step__n">{n}</span>
+              <h3 class="chp-step__t">{t}</h3>
+              <p class="chp-step__b">{b}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ STORY ============ -->
+    <section class="chp-section" id="story" aria-labelledby="story-h">
+      <div class="chp-wrap">
+        <div class="chp-story">
+          <div class="chp-story__body" data-reveal>
+            <p class="chp-eyebrow">
+              <span class="chp-eyebrow__n">04</span> The Shop
+              <span class="chp-eyebrow__rule" aria-hidden="true"></span>
+            </p>
+            <h2 class="chp-title" id="story-h">After Hourz</h2>
+            <p>
+              After Hourz is a Southern California custom shop owned by <b>Anthony Montoya</b>,
+              built on the work that happens once the world goes quiet — the patient hours where
+              a finish is actually made.
+            </p>
+            <p>
+              The name is literal. Depth in candy paint, a straight body line, chrome that reads
+              clean in reflection — none of it is rushed. It is body work, custom paint and
+              restoration for people who want the metal done right.
+            </p>
+            <blockquote class="chp-quote">
+              &ldquo;The metal gets an honest read before anything else.&rdquo;
+            </blockquote>
+          </div>
+
+          <div class="chp-materials" data-reveal aria-label="Material and light studies">
+            {materials.map(([mod, name, desc]) => (
+              <div class={`chp-mat chp-mat--${mod}`}>
+                <span class="chp-mat__sw" aria-hidden="true"></span>
+                <div>
+                  <div class="chp-mat__name">{name}</div>
+                  <p class="chp-mat__desc">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="chp-section" id="contact" aria-labelledby="contact-h">
+      <div class="chp-wrap">
+        <div class="chp-contact-grid">
+          <div class="chp-contact__intro" data-reveal>
+            <p class="chp-eyebrow">
+              <span class="chp-eyebrow__n">05</span> Contact
+              <span class="chp-eyebrow__rule" aria-hidden="true"></span>
+            </p>
+            <h2 class="chp-title" id="contact-h">Request a quote</h2>
+            <p>
+              Tell us what you&rsquo;re building. No pressure, no upsell — just an honest read on
+              the work and what it takes to do it right.
+            </p>
+            <ul class="chp-contact__channels">
+              <li class="chp-channel">
+                <span class="chp-channel__label">Phone</span>
+                <span class="chp-channel__val chp-channel__val--req">CLIENT INPUT REQUIRED</span>
+              </li>
+              <li class="chp-channel">
+                <span class="chp-channel__label">Shop / Area</span>
+                <span class="chp-channel__val">Southern California
+                  <span class="chp-channel__val--req"> — exact address: CLIENT INPUT REQUIRED</span>
+                </span>
+              </li>
+              <li class="chp-channel">
+                <span class="chp-channel__label">Instagram</span>
+                <span class="chp-channel__val chp-channel__val--req">CLIENT INPUT REQUIRED</span>
+              </li>
+            </ul>
+          </div>
+
+          <form class="chp-form chp-plaque" id="chp-quote" novalidate data-reveal>
+            <div class="chp-form__grid">
+              <div class="chp-field">
+                <label for="q-name">Name <span class="req" aria-hidden="true">*</span></label>
+                <input id="q-name" name="name" type="text" autocomplete="name" required placeholder="Your name" />
+              </div>
+              <div class="chp-field">
+                <label for="q-vehicle">Vehicle <span class="req" aria-hidden="true">*</span></label>
+                <input id="q-vehicle" name="vehicle" type="text" required placeholder="Year · make · model" />
+              </div>
+              <div class="chp-field chp-field--full">
+                <label for="q-service">Service</label>
+                <select id="q-service" name="service">
+                  <option value="">Select a lane…</option>
+                  <option>Custom Paint</option>
+                  <option>Body Work</option>
+                  <option>Restoration</option>
+                  <option>Detail &amp; Polish</option>
+                  <option>Not sure yet</option>
+                </select>
+              </div>
+              <div class="chp-field chp-field--full">
+                <label for="q-message">What do you want done? <span class="req" aria-hidden="true">*</span></label>
+                <textarea id="q-message" name="message" rows="4" required placeholder="Paint, bodywork, restoration — tell us about the build."></textarea>
+              </div>
+            </div>
+
+            <div class="chp-form__actions">
+              <button class="chp-btn chp-btn--primary" type="submit">Send request</button>
+              <p class="chp-form__note">
+                Prototype form — not wired to a backend. Nothing is sent.
+              </p>
+            </div>
+
+            <p class="chp-ack" id="chp-ack" hidden role="status" aria-live="polite">
+              Thanks — this is a <b>prototype</b>, so nothing was actually sent. In the live
+              site this would reach the shop. Contact channels are marked
+              <b>CLIENT INPUT REQUIRED</b> until confirmed.
+            </p>
+          </form>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="ch-footer">
-    <div class="ch-wrap">
-      <p>
-        AFTER HOURZ · Concept direction: Chrome Heritage · <a href="/design-lab/">Design Lab</a>
-      </p>
+  <!-- ============ FOOTER ============ -->
+  <footer class="chp-footer">
+    <div class="chp-wrap">
+      <div class="chp-footer__top">
+        <div>
+          <div class="chp-footer__brand">After&nbsp;Hour<span class="chp-brand__z">z</span></div>
+          <p class="chp-footer__tagline">
+            Custom paint, body work and restoration. Southern California. Built after hours,
+            finished by hand.
+          </p>
+        </div>
+        <div class="chp-footer__col">
+          <h4>Explore</h4>
+          <ul>
+            {navLinks.map(([href, label]) => (
+              <li><a href={href}>{label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="chp-footer__col">
+          <h4>Contact</h4>
+          <ul>
+            <li><span>Phone · <span class="chp-footer__req">CLIENT INPUT REQUIRED</span></span></li>
+            <li><span>Address · <span class="chp-footer__req">CLIENT INPUT REQUIRED</span></span></li>
+            <li><span>Instagram · <span class="chp-footer__req">CLIENT INPUT REQUIRED</span></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="chp-footer__bottom">
+        <span class="chp-footer__prov">
+          Prototype — reference imagery, not client work. Concept direction: Chrome Heritage.
+        </span>
+        <span><a href="/design-lab/">Back to Design Lab</a></span>
+      </div>
     </div>
   </footer>
 
+  <!-- ============ STICKY MOBILE CONTACT BAR ============ -->
+  <div class="chp-mobilebar" aria-label="Quick contact">
+    <a class="chp-mobilebar__call" href="#contact">Call</a>
+    <a class="chp-mobilebar__quote" href="#contact">Request a Quote</a>
+  </div>
+
+  <!-- ============ ISOLATED JS — nav scroll state, mobile menu, form ============ -->
   <script>
-    const h = document.querySelector<HTMLElement>('.ch-header');
-    if (h) {
-      const s = () => h.setAttribute('data-scrolled', String(window.scrollY > 24));
-      s();
-      window.addEventListener('scroll', s, { passive: true });
+    // Nav: scrolled state (bg on scroll)
+    const nav = document.querySelector<HTMLElement>('.chp-nav');
+    if (nav) {
+      const setScrolled = () =>
+        nav.setAttribute('data-scrolled', String(window.scrollY > 24));
+      setScrolled();
+      window.addEventListener('scroll', setScrolled, { passive: true });
+
+      // Mobile menu (keyboard operable)
+      const burger = nav.querySelector<HTMLButtonElement>('.chp-burger');
+      const menu = nav.querySelector<HTMLElement>('.chp-nav__links');
+      const setOpen = (open: boolean) => {
+        nav.setAttribute('data-open', String(open));
+        burger?.setAttribute('aria-expanded', String(open));
+        burger?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      };
+      burger?.addEventListener('click', () => {
+        setOpen(nav.getAttribute('data-open') !== 'true');
+      });
+      // Close on link click + on Escape (restore focus to burger)
+      menu?.querySelectorAll('a').forEach((a) =>
+        a.addEventListener('click', () => setOpen(false)),
+      );
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav.getAttribute('data-open') === 'true') {
+          setOpen(false);
+          burger?.focus();
+        }
+      });
     }
+
+    // Prototype quote form — preventDefault + tasteful acknowledgement
+    const form = document.querySelector<HTMLFormElement>('#chp-quote');
+    const ack = document.querySelector<HTMLElement>('#chp-ack');
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (ack) {
+        ack.hidden = false;
+        ack.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
   </script>
 </PrototypeLayout>

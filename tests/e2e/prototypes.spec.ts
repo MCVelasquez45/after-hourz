@@ -5,15 +5,15 @@ const protos = [
     name: 'Chrome Heritage',
     route: '/design-lab/prototypes/chrome-heritage/',
     title: /Chrome Heritage/,
-    sections: ['top', 'builds', 'craft', 'services', 'shop', 'contact'],
-    headerSel: '.ch-header',
+    sections: ['top', 'services', 'work', 'process', 'story', 'contact'],
+    headerSel: '.chp-nav',
   },
   {
     name: 'Booth Light',
     route: '/design-lab/prototypes/booth-light/',
     title: /Booth Light/,
-    sections: ['top', 'work', 'craft', 'services', 'contact'],
-    headerSel: '.bl-header',
+    sections: ['top', 'work', 'process', 'services', 'story', 'contact'],
+    headerSel: '.bl-nav',
   },
   {
     name: 'After Dark',
@@ -70,8 +70,12 @@ for (const p of protos) {
       ]) {
         expect(body, `should not contain fabricated "${banned}"`).not.toContain(banned);
       }
-      // Neutral placeholder copy is used instead of asserting unknown facts.
-      expect(body).toContain('coming soon');
+      // Neutral placeholder copy is used instead of asserting unknown facts:
+      // either the legacy "coming soon" or the honest "client input required".
+      expect(
+        body.includes('coming soon') || body.includes('client input required'),
+        'should mark unknown facts with a neutral placeholder, not fabricate them',
+      ).toBe(true);
     });
 
     test('sticky header reflects scroll state', async ({ page }) => {

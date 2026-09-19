@@ -2,12 +2,17 @@ import { test, expect } from '@playwright/test';
 
 const RICH = '/design-lab/prototypes/booth-light/';
 
+// Booth Light uses its own [data-bl-reveal] exposure hook (scoped so it never
+// collides with the shared [data-reveal] fade). Match both so the spec is robust
+// to whichever hook a prototype uses.
+const REVEAL_SEL = '[data-reveal], [data-bl-reveal]';
+
 test.describe('reduced motion', () => {
   test.use({ reducedMotion: 'reduce' });
 
   test('content is fully visible under reduce (no stuck opacity:0)', async ({ page }) => {
     await page.goto(RICH);
-    const reveals = page.locator('[data-reveal]');
+    const reveals = page.locator(REVEAL_SEL);
     const count = await reveals.count();
     expect(count).toBeGreaterThan(0);
     for (let i = 0; i < count; i++) {
@@ -39,7 +44,7 @@ test.describe('motion enabled', () => {
         await new Promise((r) => setTimeout(r, 30));
       }
     });
-    const first = page.locator('[data-reveal]').first();
+    const first = page.locator(REVEAL_SEL).first();
     await expect(first).toHaveClass(/is-revealed/);
     await expect(first).toHaveCSS('opacity', '1');
   });

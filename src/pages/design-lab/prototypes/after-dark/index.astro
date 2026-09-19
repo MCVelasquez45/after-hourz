@@ -1,277 +1,595 @@
 ---
-import { Picture } from 'astro:assets';
 import PrototypeLayout from '../../../../layouts/PrototypeLayout.astro';
 import '../../../../styles/prototype-after-dark.css';
-import sideProfile from '../../../../assets/derived/study-chevy-side-profile.png';
-import frontQuarter from '../../../../assets/derived/study-chevy-front-quarter.png';
 
-const steps = [
-  ['01', 'After the meet', 'When the lot clears, the real work starts — no rush, no audience.'],
-  [
-    '02',
-    'Under the lights',
-    'Bodywork and paint dialed in by shop light until the panel is right.',
-  ],
-  ['03', 'Cure & check', 'Time does half the work. We let it, then inspect every reflection.'],
-  ['04', 'Roll out', 'It leaves clean, tight, and ready for the street.'],
-];
+/*
+  AFTER HOURZ — AFTER DARK · production-level direction prototype (Design Lab).
+  Thesis: Southern California custom-car craftsmanship after sunset — warm sodium
+  against a cool night, wet asphalt, culture, human energy. Motion = MOMENTUM.
+
+  PROVENANCE / TRUTH RULES (non-negotiable):
+  - Every external photo is PROTOTYPE REFERENCE — never Anthony's completed work.
+    Each carries a visible "REFERENCE" affordance + a provenance line.
+  - No fabricated business facts. Phone/address/social/hours = CLIENT INPUT REQUIRED.
+  - Craft lane only: custom paint / body / restoration on classic + custom vehicles.
+    The modern-supercar taillight frame is intentionally DROPPED.
+  - SoCal only. No NorCal text/maps/badges.
+*/
+
+const P = '/assets/prototype';
+
+// ---- Services (craft lanes — factual, no invented specifics) ----
 const services = [
-  ['Auto Body', 'Collision, rust, fabrication and panel work.'],
-  ['Custom Paint', 'Colour changes, refinishing, and custom work.'],
-  ['Restoration', 'Classics and customs, brought back and forward.'],
+  {
+    n: '01',
+    t: 'Custom Paint',
+    d: 'Color changes, candy and flake finishes, pinstripe and refinishing — laid down in patient layers until the reflection runs straight down the body line.',
+    lane: 'Paint · candy · flake · pinstripe',
+  },
+  {
+    n: '02',
+    t: 'Body Work',
+    d: 'Collision repair, rust and fabrication, panel alignment and gap-setting — the metal made true before a drop of color goes down.',
+    lane: 'Collision · fabrication · panel',
+  },
+  {
+    n: '03',
+    t: 'Restoration',
+    d: 'Classics and customs brought back and brought forward — cars, trucks, and bikes returned to the road with the details right.',
+    lane: 'Classic · custom · frame-off',
+  },
+  {
+    n: '04',
+    t: 'Detail & Polish',
+    d: 'Cut, buff, and finish work that makes the paint read like glass under one warm light — the last honest inch of a build.',
+    lane: 'Cut · buff · protect',
+  },
+];
+
+// ---- Work / builds — curated reference photography, focal hierarchy ----
+// Lead = one dominant plate; the rest is a supporting rhythm. Craft lane only.
+const lead = {
+  src: `${P}/environment-dusk/black-sedan-station-canopy-wet-gloss-night-fngi9wSSpms.jpg`,
+  w: 2400,
+  h: 3593,
+  alt: 'Black sedan under a service-station canopy at night, wet gloss paint and asphalt doubling the warm canopy light against the cool dark.',
+  k: 'Gloss & reflection',
+  t: 'Wet-night gloss study',
+  d: 'How a finished panel behaves under one warm source against the cool dark — the reflection the shop chases.',
+};
+
+const builds = [
+  {
+    src: `${P}/chrome-heritage/green-lowrider-night-pinstripe-goldwheel-J3vo0W5buXc.jpg`,
+    w: 2400,
+    h: 3491,
+    alt: 'Green lowrider at night with a gold wire-spoke wheel, whitewall tire, and teal pinstripe scrollwork along the body.',
+    k: 'Lowrider culture',
+    t: 'Gold wire & pinstripe',
+    ratio: 'tall',
+  },
+  {
+    src: `${P}/culture-vehicles/hands-polishing-black-hood-gloss-B7hVEFTFUWs.jpg`,
+    w: 2400,
+    h: 1600,
+    alt: 'A pair of hands polishing a glossy black hood by hand, warm light raking across the wet-look finish.',
+    k: 'The hand',
+    t: 'Hand-finished gloss',
+    ratio: 'wide',
+  },
+  {
+    src: `${P}/chrome-heritage/lincoln-lowrider-gold-wire-wheel-indoor-intF_5yL1nk.jpg`,
+    w: 2400,
+    h: 4267,
+    alt: 'Classic Lincoln lowrider indoors with a gold wire-spoke wheel and deep-gloss bodywork under directional light.',
+    k: 'Restoration',
+    t: 'Gold wire, restored',
+    ratio: 'tall',
+  },
+  {
+    src: `${P}/culture-vehicles/classic-chevy-c10-pickup-warm-dusk-6d1tDrPryEQ.jpg`,
+    w: 2400,
+    h: 1714,
+    alt: 'Classic Chevrolet C10 pickup photographed in warm dusk light, body line catching the low sun.',
+    k: 'Classic truck',
+    t: 'C10 body-line study',
+    ratio: 'wide',
+  },
+  {
+    src: `${P}/culture-vehicles/stanced-car-deepdish-wheel-lowangle-W7dVzwCFCHs.jpg`,
+    w: 2400,
+    h: 3600,
+    alt: 'Low-angle view of a stanced custom car on deep-dish wheels, tire and fender filling the frame.',
+    k: 'Stance & wheel',
+    t: 'Deep-dish, low angle',
+    ratio: 'tall',
+  },
+  {
+    src: `${P}/culture-vehicles/interior-steam-detail-backlit-silhouette-GaOk6CfdMVk.jpg`,
+    w: 2400,
+    h: 3598,
+    alt: 'Backlit silhouette of an interior detail in progress, warm steam and light behind the work.',
+    k: 'Interior detail',
+    t: 'Backlit detail work',
+    ratio: 'tall',
+  },
+];
+
+// ---- Process arc — momentum: strip → metal → color → cut/buff ----
+const process = [
+  {
+    n: '01',
+    t: 'Strip & assess',
+    d: 'An honest read on the metal. What is real, what is filler, what has to be cut out and rebuilt.',
+  },
+  {
+    n: '02',
+    t: 'Metal & body',
+    d: 'Panels aligned, gaps set, primer blocked flat. The finish only ever shows what is underneath.',
+  },
+  {
+    n: '03',
+    t: 'Base · candy · clear',
+    d: 'Color goes down in patient layers — base, candy, flake, clear — until the depth is real, not painted on.',
+  },
+  {
+    n: '04',
+    t: 'Cut & buff',
+    d: 'Sanded flat and buffed back up so the reflection runs straight down the body line. Then it rolls out.',
+  },
 ];
 ---
 
 <PrototypeLayout
   title="After Hourz — After Dark"
-  description="After Dark design direction for After Hourz. Concept prototype."
+  description="After Dark design direction for After Hourz: Southern California custom-car craftsmanship after sunset. Design Lab prototype — reference imagery, not client work."
   bodyClass="ad"
 >
-  <div class="ad-topline">
-    <div class="ad-wrap ad-topline__row">
-      <span>CONCEPT PROTOTYPE · 03 / AFTER DARK · not client-approved</span>
-      <span>
-        <a href="/design-lab/">Design Lab</a>
-      </span>
+  <!-- Lab chrome — subtle return affordance (suppressed later in client-review mode) -->
+  <div class="ad-lab">
+    <div class="ad-shell ad-lab__row">
+      <span class="ad-lab__tag">Design Lab · Prototype · After Dark · not client-approved</span>
+      <a class="ad-lab__back" href="/design-lab/">
+        <span aria-hidden="true">&larr;</span> Design Lab
+      </a>
     </div>
   </div>
 
-  <header class="ad-header" data-scrolled="false">
-    <div class="ad-wrap ad-header__row">
-      <a class="ad-logo" href="#top">
-        After<span>Hourz</span>
+  <!-- ================= NAV ================= -->
+  <header class="ad-nav" id="top" data-scrolled="false">
+    <div class="ad-shell ad-nav__row">
+      <a class="ad-wordmark" href="#top" aria-label="After Hourz — home">
+        AFTER<span class="ad-wordmark__z">HOUR<b>Z</b></span>
       </a>
-      <nav class="ad-nav" aria-label="Primary">
-        <a href="#scene">The Scene</a>
-        <a href="#craft">Craft</a>
+
+      <nav class="ad-nav__links" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
         <a href="#services">Services</a>
-        <a class="ad-nav__cta" href="#contact">
-          Start a project
-        </a>
+        <a href="#story">Story</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a class="ad-btn ad-btn--sodium ad-nav__cta" href="#contact">Request a Quote</a>
+
+      <button
+        class="ad-menu-btn"
+        id="ad-menu-btn"
+        type="button"
+        aria-expanded="false"
+        aria-controls="ad-mobile-menu"
+      >
+        <span class="ad-menu-btn__bars" aria-hidden="true"></span>
+        <span class="ad-sr">Menu</span>
+      </button>
+    </div>
+
+    <!-- Mobile menu (keyboard-operable; JS-enhanced, focus-managed) -->
+    <div class="ad-mobile" id="ad-mobile-menu" hidden>
+      <nav class="ad-mobile__nav" aria-label="Mobile">
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#services">Services</a>
+        <a href="#story">Story</a>
+        <a href="#contact">Contact</a>
+        <a class="ad-btn ad-btn--sodium ad-mobile__cta" href="#contact">Request a Quote</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <!-- HERO: dusk-to-night scene -->
-    <section class="ad-hero" id="top">
-      <div class="ad-hero__sky" aria-hidden="true"></div>
-      <div class="ad-hero__glow" aria-hidden="true"></div>
-      <div class="ad-hero__asphalt" aria-hidden="true"></div>
-      <div class="ad-wrap ad-hero__content" data-reveal>
-        <p class="ad-eyebrow">Southern California · custom</p>
-        <h1 class="ad-hero__mark">
-          The doors stay open <em>after sunset.</em>
-        </h1>
-        <p class="ad-hero__sub">
-          Body, paint, and restoration for cars, trucks, and bikes — built in the hours after the
-          world goes home.
-        </p>
-        <div class="ad-hero__actions">
-          <a class="ad-btn ad-btn--sodium" href="#contact">
-            Start a project
-          </a>
-          <a class="ad-btn" href="#scene">
-            See the scene
-          </a>
+    <!-- ================= HERO ================= -->
+    <section class="ad-hero" aria-labelledby="hero-h">
+      <div class="ad-hero__media">
+        <img
+          class="ad-hero__img"
+          src={`${P}/environment-dusk/vintage-truck-foggy-gas-station-night-o2GgDamhkQA.jpg`}
+          width="2400"
+          height="4267"
+          alt="Vintage truck parked at a foggy gas station at night — a warm sodium canopy glows over cool fog, and wet asphalt doubles the light."
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <div class="ad-hero__grade" aria-hidden="true"></div>
+        <div class="ad-hero__halo" aria-hidden="true"></div>
+      </div>
+
+      <span class="ad-refbadge ad-hero__ref">Reference</span>
+
+      <div class="ad-shell ad-hero__inner">
+        <div class="ad-hero__panel" data-reveal>
+          <p class="ad-eyebrow">Southern California · after dark</p>
+          <h1 class="ad-hero__h1" id="hero-h">
+            Built in the<br /><span class="ad-hero__warm">hours after</span>
+          </h1>
+          <p class="ad-hero__kicker">
+            Custom paint · body work · restoration — Southern California
+          </p>
+          <p class="ad-hero__sub">
+            Cars, trucks, and bikes finished the way the West Coast builds them: patient,
+            hand-worked, and worth the drive across town at night.
+          </p>
+          <div class="ad-hero__actions">
+            <a class="ad-btn ad-btn--sodium ad-btn--lg" href="#contact">
+              Request a Quote <span class="ad-arw" aria-hidden="true">&rarr;</span>
+            </a>
+            <a class="ad-btn ad-btn--ghost ad-btn--lg" href="#work">See the work</a>
+          </div>
         </div>
       </div>
+
+      <p class="ad-hero__prov">Prototype reference imagery — not a real After Hourz build.</p>
     </section>
 
-    <!-- MOMENTUM STRIP -->
-    <section class="ad-momentum" id="scene">
-      <div class="ad-wrap">
-        <div class="ad-head" data-reveal>
-          <p class="ad-eyebrow">The scene</p>
-          <h2 class="ad-title">Where the night runs</h2>
-          <p class="ad-lead">Scroll sideways — the shop, the iron, the light.</p>
-        </div>
-        <div
-          class="ad-strip"
-          data-reveal
-          tabindex="0"
-          role="group"
-          aria-label="Scene gallery, scroll horizontally"
-        >
-          <article class="ad-card">
-            <div class="ad-card__media">
-              <Picture
-                src={sideProfile}
-                formats={['avif', 'webp']}
-                widths={[500, 900]}
-                sizes="30rem"
-                alt="Classic Chevrolet in profile at dusk."
-                loading="lazy"
-              />
-            </div>
-            <div class="ad-card__cap">
-              <h3>Two-tone classic</h3>
-              <p>Profile · chrome &amp; wire</p>
-            </div>
-          </article>
-          <article class="ad-card">
-            <div class="ad-card__media">
-              <Picture
-                src={frontQuarter}
-                formats={['avif', 'webp']}
-                widths={[400, 640]}
-                sizes="30rem"
-                alt="Classic Chevrolet, front three-quarter."
-                loading="lazy"
-              />
-            </div>
-            <div class="ad-card__cap">
-              <h3>Front three-quarter</h3>
-              <p>Grille · stance</p>
-            </div>
-          </article>
-          <article class="ad-card">
-            <div class="ad-card__media">
-              <svg
-                viewBox="0 0 480 300"
-                width="100%"
-                height="100%"
-                preserveAspectRatio="xMidYMid slice"
-                aria-hidden="true"
-              >
-                <defs>
-                  <linearGradient id="ad-dusk" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#14233f" />
-                    <stop offset="45%" stop-color="#3a2a3f" />
-                    <stop offset="70%" stop-color="#6d3b2f" />
-                    <stop offset="100%" stop-color="#0b0e14" />
-                  </linearGradient>
-                  <radialGradient id="ad-lamp" cx="76%" cy="66%" r="30%">
-                    <stop offset="0%" stop-color="#ffc07a" />
-                    <stop offset="100%" stop-color="rgba(255,192,122,0)" />
-                  </radialGradient>
-                </defs>
-                <rect width="480" height="300" fill="url(#ad-dusk)" />
-                <rect width="480" height="300" fill="url(#ad-lamp)" />
-              </svg>
-            </div>
-            <div class="ad-card__cap">
-              <h3>Sodium &amp; night</h3>
-              <p>Street light · scene study</p>
-            </div>
-          </article>
-          <article class="ad-card">
-            <div class="ad-card__media">
-              <svg
-                viewBox="0 0 480 300"
-                width="100%"
-                height="100%"
-                preserveAspectRatio="xMidYMid slice"
-                aria-hidden="true"
-              >
-                <defs>
-                  <radialGradient id="ad-flake" cx="40%" cy="34%" r="80%">
-                    <stop offset="0%" stop-color="#ffd9a8" />
-                    <stop offset="30%" stop-color="#c8641f" />
-                    <stop offset="100%" stop-color="#0b0e14" />
-                  </radialGradient>
-                  <filter id="ad-g">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" />
-                    <feColorMatrix
-                      type="matrix"
-                      values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.07 0"
-                    />
-                  </filter>
-                </defs>
-                <rect width="480" height="300" fill="url(#ad-flake)" />
-                <rect width="480" height="300" filter="url(#ad-g)" />
-              </svg>
-            </div>
-            <div class="ad-card__cap">
-              <h3>Candy &amp; flake</h3>
-              <p>Warm clearcoat · finish study</p>
-            </div>
-          </article>
-        </div>
-        <p class="ad-strip__hint" aria-hidden="true">
-          ← drag / scroll →
-        </p>
-      </div>
-    </section>
-
-    <!-- CRAFT -->
-    <section class="ad-section" id="craft">
-      <div class="ad-wrap">
-        <div class="ad-head" data-reveal>
-          <p class="ad-eyebrow">The craft</p>
-          <h2 class="ad-title">The after-hours rhythm</h2>
-        </div>
-        <div class="ad-steps" data-reveal>
-          {steps.map(([n, t, b]) => (
-            <article class="ad-step">
-              <div class="ad-step__n">{n}</div>
-              <h3>{t}</h3>
-              <p>{b}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section class="ad-section" id="services">
-      <div class="ad-wrap">
-        <div class="ad-head" data-reveal>
+    <!-- ================= SERVICES ================= -->
+    <section class="ad-services" id="services" aria-labelledby="svc-h">
+      <div class="ad-shell">
+        <div class="ad-sechead">
           <p class="ad-eyebrow">Services</p>
-          <h2 class="ad-title">What we do</h2>
+          <h2 class="ad-secttl" id="svc-h">The craft lanes</h2>
+          <p class="ad-seclead">
+            Four things done properly, not everything done fast. Every build runs the same
+            honest arc — metal true first, color last.
+          </p>
         </div>
-        <div class="ad-services" data-reveal>
-          {services.map(([t, b]) => (
-            <article class="ad-serv">
-              <h3>{t}</h3>
-              <p>{b}</p>
-            </article>
+
+        <ul class="ad-svc-list" role="list">
+          {services.map((s) => (
+            <li class="ad-svc" data-reveal>
+              <span class="ad-svc__n">{s.n}</span>
+              <div class="ad-svc__body">
+                <h3 class="ad-svc__t">{s.t}</h3>
+                <p class="ad-svc__d">{s.d}</p>
+                <span class="ad-svc__lane">{s.lane}</span>
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="ad-cta" id="contact">
-      <div class="ad-wrap" data-reveal>
-        <p class="ad-eyebrow">Pull up</p>
-        <h2>Catch us after dark.</h2>
-        <p>Tell us what you&rsquo;re building. We&rsquo;ll give you an honest read on the work.</p>
-        <div
-          class="ad-hero__actions"
-          style="justify-content:center; margin-bottom:var(--spacing-lg);"
-        >
-          <a class="ad-btn ad-btn--sodium" href="#contact">
-            Start a project
-          </a>
+    <!-- ================= WORK / BUILDS ================= -->
+    <section class="ad-work" id="work" aria-labelledby="work-h">
+      <div class="ad-shell">
+        <div class="ad-sechead ad-sechead--split">
+          <div>
+            <p class="ad-eyebrow">Work · reference set</p>
+            <h2 class="ad-secttl" id="work-h">The night has a look</h2>
+          </div>
+          <p class="ad-seclead">
+            Warm against cool, wet asphalt, one honest light. The images below are
+            <strong>prototype reference</strong> — the direction, not After Hourz builds.
+            Real work and process shots: <span class="ad-cir">Client input required</span>.
+          </p>
         </div>
-        <div class="ad-contact">
-          <span>
-            Phone · <b>Coming soon</b>
-          </span>
-          <span>
-            Location · <b>Southern California</b>
-          </span>
-          <span>
-            Instagram · <b>Coming soon</b>
-          </span>
+
+        <!-- Lead plate — the dominant work image -->
+        <figure class="ad-lead" data-reveal>
+          <div class="ad-lead__media">
+            <img
+              src={lead.src}
+              width={lead.w}
+              height={lead.h}
+              alt={lead.alt}
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="ad-refbadge">Reference</span>
+          </div>
+          <figcaption class="ad-lead__cap">
+            <span class="ad-lead__k">{lead.k}</span>
+            <span class="ad-lead__t">{lead.t}</span>
+            <p class="ad-lead__d">{lead.d}</p>
+            <span class="ad-prov">Prototype reference · stock · not client work</span>
+          </figcaption>
+        </figure>
+
+        <!-- Supporting rhythm — consistent crop logic, single ratio family -->
+        <ul class="ad-builds" role="list">
+          {builds.map((b) => (
+            <li class={`ad-build ad-build--${b.ratio}`} data-reveal>
+              <figure>
+                <div class="ad-build__media">
+                  <img
+                    src={b.src}
+                    width={b.w}
+                    height={b.h}
+                    alt={b.alt}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <span class="ad-refbadge ad-refbadge--sm">Reference</span>
+                  <div class="ad-build__scrim" aria-hidden="true"></div>
+                </div>
+                <figcaption class="ad-build__cap">
+                  <span class="ad-build__k">{b.k}</span>
+                  <span class="ad-build__t">{b.t}</span>
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ================= PROCESS (momentum rail) ================= -->
+    <section class="ad-process" id="process" aria-labelledby="proc-h">
+      <div class="ad-shell">
+        <div class="ad-sechead">
+          <p class="ad-eyebrow">Process · momentum</p>
+          <h2 class="ad-secttl" id="proc-h">Strip → metal → color → cut</h2>
+          <p class="ad-seclead">
+            The build moves in one direction. Drag or scroll the rail — it pauses when you
+            reach for it, and holds still if you prefer reduced motion.
+          </p>
         </div>
+      </div>
+
+      <div
+        class="ad-rail"
+        id="ad-rail"
+        tabindex="0"
+        role="group"
+        aria-label="Process steps — scroll horizontally"
+      >
+        <ol class="ad-rail__track" role="list">
+          {process.map((p) => (
+            <li class="ad-step">
+              <span class="ad-step__n">{p.n}</span>
+              <h3 class="ad-step__t">{p.t}</h3>
+              <p class="ad-step__d">{p.d}</p>
+              <span class="ad-step__bar" aria-hidden="true"></span>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div class="ad-shell">
+        <p class="ad-rail__hint" aria-hidden="true">Drag / scroll the rail &rarr;</p>
+      </div>
+    </section>
+
+    <!-- ================= STORY ================= -->
+    <section class="ad-story" id="story" aria-labelledby="story-h">
+      <div class="ad-story__bg" aria-hidden="true"></div>
+      <div class="ad-shell ad-story__grid">
+        <div class="ad-story__copy" data-reveal>
+          <p class="ad-eyebrow">The shop</p>
+          <h2 class="ad-secttl" id="story-h">The finish speaks. The copy stays quiet.</h2>
+          <p class="ad-story__lead">
+            After Hourz is Southern California custom-car work — body, paint, and
+            restoration for people who care how the light runs down a panel.
+          </p>
+          <p class="ad-story__p">
+            The name is the method. When the lot clears and the world goes home, the real
+            work starts: no rush, no audience, one warm light on the metal until the
+            reflection is straight and the gaps are right.
+          </p>
+          <p class="ad-story__note">
+            <span class="ad-cir">Client input required</span> — owner bio, shop history, and
+            founding year. Nothing here is invented; the voice is a placeholder for
+            Anthony&rsquo;s own words.
+          </p>
+        </div>
+
+        <figure class="ad-story__fig" data-reveal="side">
+          <div class="ad-story__media">
+            <img
+              src={`${P}/culture-vehicles/mechanic-under-car-lowangle-craft-jL9zfzTVSwY.jpg`}
+              width="2400"
+              height="3600"
+              alt="Low-angle craft portrait: a person works beneath a raised vehicle in a workshop, looking up at the underbody."
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="ad-refbadge ad-refbadge--sm">Reference</span>
+          </div>
+          <figcaption class="ad-story__figcap">
+            Prototype reference · stock — not Anthony. Real portraits:
+            <span class="ad-cir">Client input required</span>.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT / QUOTE ================= -->
+    <section class="ad-contact" id="contact" aria-labelledby="contact-h">
+      <div class="ad-contact__glow" aria-hidden="true"></div>
+      <div class="ad-shell ad-contact__grid">
+        <div class="ad-contact__intro">
+          <p class="ad-eyebrow">Request a quote</p>
+          <h2 class="ad-secttl" id="contact-h">Tell us what you&rsquo;re building.</h2>
+          <p class="ad-contact__lead">
+            We&rsquo;ll give you an honest read on the work — no pressure, no upsell.
+          </p>
+
+          <dl class="ad-channels">
+            <div class="ad-channel">
+              <dt>Phone</dt>
+              <dd><span class="ad-cir">Client input required</span></dd>
+            </div>
+            <div class="ad-channel">
+              <dt>Location</dt>
+              <dd>Southern California <span class="ad-channel__sub">(exact address — <span class="ad-cir">client input required</span>)</span></dd>
+            </div>
+            <div class="ad-channel">
+              <dt>Instagram</dt>
+              <dd><span class="ad-cir">Client input required</span></dd>
+            </div>
+          </dl>
+        </div>
+
+        <form class="ad-form" id="ad-form" novalidate aria-labelledby="form-h">
+          <p class="ad-form__h" id="form-h">Quote request</p>
+
+          <div class="ad-field">
+            <label for="f-name">Name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required />
+          </div>
+
+          <div class="ad-field">
+            <label for="f-vehicle">Vehicle</label>
+            <input
+              id="f-vehicle"
+              name="vehicle"
+              type="text"
+              placeholder="Year · make · model"
+              autocomplete="off"
+              required
+            />
+          </div>
+
+          <div class="ad-field">
+            <label for="f-service">Service</label>
+            <div class="ad-select">
+              <select id="f-service" name="service" required>
+                <option value="" selected>Choose a lane…</option>
+                <option value="paint">Custom paint</option>
+                <option value="body">Body work</option>
+                <option value="restoration">Restoration</option>
+                <option value="detail">Detail &amp; polish</option>
+                <option value="other">Something else</option>
+              </select>
+              <span class="ad-select__arw" aria-hidden="true">&#9662;</span>
+            </div>
+          </div>
+
+          <div class="ad-field">
+            <label for="f-msg">What do you want done?</label>
+            <textarea
+              id="f-msg"
+              name="message"
+              rows="4"
+              placeholder="Paint, bodywork, restoration — tell us the vision."
+              required></textarea>
+          </div>
+
+          <button class="ad-btn ad-btn--sodium ad-btn--block" type="submit">
+            Send request <span class="ad-arw" aria-hidden="true">&rarr;</span>
+          </button>
+
+          <p class="ad-form__ack" id="ad-form-ack" role="status" aria-live="polite" hidden>
+            Prototype — this form isn&rsquo;t wired to a backend yet. Nothing was sent.
+            Real submission handling: <span class="ad-cir">client input required</span>.
+          </p>
+          <p class="ad-form__fine">
+            Prototype form · no data leaves your browser · no backend connected.
+          </p>
+        </form>
       </div>
     </section>
   </main>
 
+  <!-- ================= FOOTER ================= -->
   <footer class="ad-footer">
-    <div class="ad-wrap">
-      AFTER HOURZ · Concept direction: After Dark · <a href="/design-lab/">Design Lab</a>
+    <div class="ad-shell ad-footer__grid">
+      <div class="ad-footer__brand">
+        <span class="ad-wordmark ad-wordmark--foot">AFTER<span class="ad-wordmark__z">HOUR<b>Z</b></span></span>
+        <p class="ad-footer__tag">
+          Custom paint · body work · restoration — Southern California.
+        </p>
+      </div>
+
+      <nav class="ad-footer__nav" aria-label="Footer">
+        <a href="#work">Work</a>
+        <a href="#process">Process</a>
+        <a href="#services">Services</a>
+        <a href="#story">Story</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="ad-footer__meta">
+        <p class="ad-footer__prov">
+          Prototype — reference imagery, not client work. All photography is stock used to
+          study the direction.
+        </p>
+        <p class="ad-footer__cir">
+          Contact facts (phone · address · social · hours):
+          <span class="ad-cir">Client input required</span>.
+        </p>
+        <a class="ad-footer__lab" href="/design-lab/">&larr; Design Lab</a>
+      </div>
     </div>
   </footer>
 
+  <!-- ================= STICKY MOBILE CONTACT BAR ================= -->
+  <div class="ad-dock" aria-label="Quick contact">
+    <a class="ad-dock__call" href="#contact">
+      <span class="ad-dock__ico" aria-hidden="true">&#9990;</span> Call
+      <span class="ad-dock__note">CLIENT INPUT REQUIRED</span>
+    </a>
+    <a class="ad-dock__quote ad-btn ad-btn--sodium" href="#contact">Request a Quote</a>
+  </div>
+
+  <!-- ================= ISOLATED JS (menu · nav state · form) ================= -->
   <script>
-    const h = document.querySelector<HTMLElement>('.ad-header');
-    if (h) {
-      const s = () => h.setAttribute('data-scrolled', String(window.scrollY > 24));
-      s();
-      window.addEventListener('scroll', s, { passive: true });
+    // Nav condensed state on scroll (progressive; class only, no layout dep)
+    const nav = document.querySelector<HTMLElement>('.ad-nav');
+    if (nav) {
+      const onScroll = () =>
+        nav.setAttribute('data-scrolled', String(window.scrollY > 24));
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    // Mobile menu — keyboard-operable, focus-managed, Escape closes, restores focus
+    const btn = document.getElementById('ad-menu-btn');
+    const menu = document.getElementById('ad-mobile-menu');
+    if (btn && menu) {
+      const setOpen = (open: boolean) => {
+        btn.setAttribute('aria-expanded', String(open));
+        menu.hidden = !open;
+        document.body.classList.toggle('ad-menu-open', open);
+      };
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        setOpen(!open);
+        if (!open) {
+          const first = menu.querySelector<HTMLElement>('a');
+          first?.focus();
+        }
+      });
+      // Close on link tap + on Escape (restore focus to the toggle)
+      menu.querySelectorAll('a').forEach((a) =>
+        a.addEventListener('click', () => setOpen(false)),
+      );
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && btn.getAttribute('aria-expanded') === 'true') {
+          setOpen(false);
+          btn.focus();
+        }
+      });
+    }
+
+    // Prototype quote form — preventDefault + tasteful acknowledgement (no backend)
+    const form = document.getElementById('ad-form') as HTMLFormElement | null;
+    const ack = document.getElementById('ad-form-ack');
+    if (form && ack) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        ack.hidden = false;
+        ack.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      });
     }
   </script>
 </PrototypeLayout>
