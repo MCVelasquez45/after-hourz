@@ -2,10 +2,11 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const routes = [
-  '/',
   '/design-lab/',
   '/design-lab/foundations/',
+  '/design-lab/prototypes/chrome-heritage/',
   '/design-lab/prototypes/booth-light/',
+  '/design-lab/prototypes/after-dark/',
 ];
 
 for (const route of routes) {

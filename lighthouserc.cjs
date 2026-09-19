@@ -12,10 +12,11 @@ module.exports = {
       startServerCommand: `PORT=${PORT} node scripts/serve-dist.mjs`,
       startServerReadyPattern: 'serve-dist:',
       url: [
-        `${base}/`,
         `${base}/design-lab/`,
         `${base}/design-lab/foundations/`,
+        `${base}/design-lab/prototypes/chrome-heritage/`,
         `${base}/design-lab/prototypes/booth-light/`,
+        `${base}/design-lab/prototypes/after-dark/`,
       ],
       numberOfRuns: 1,
       settings: { preset: 'desktop' },

@@ -15,6 +15,62 @@ Open: …
 
 ---
 
+## Pass 03 — Three competing prototype directions (rebuild) — 2026-09-19
+
+**Context:** Prior Booth Light was rejected as too sparse/generic. Rebuilt into THREE visually
+distinct, image-rich, end-to-end concept prototypes, kept strictly inside the Design Lab (stage =
+"three visual directions"; no production routes). Root `/` now redirects into the lab (no production
+homepage). Asset strategy: original in-code rendered material (chrome/paint-flake/booth-light/dusk/
+asphalt SVG+CSS) + client photos, documented in `ASSET-SOURCES.md` (no external stock; licence-safe).
+
+**The three directions (materially different — distinguishable even in grayscale):**
+- **Chrome Heritage** — centered, monumental, ornamental; SVG chrome wordmark; cobalt-on-black;
+  illuminated plaques; chrome-framed vehicle showpiece + wet reflection. Motion: polish/reflection sweep.
+- **Booth Light** — image-led, asymmetric editorial; full-bleed vehicle framed by black with an
+  inspection-light sweep; split full/detail. Motion: reveal.
+- **After Dark** — warm sodium/amber dusk-to-night; pill shapes; horizontal scroll-snap momentum
+  strip. Motion: momentum.
+
+**Observed via rendered pixels + geometry checks (fixed this pass):**
+- Chrome wordmark throttled by a stray `max-width` → enlarged to monumental.
+- Booth Light split had empty black below the photo (Astro `<picture>` not filling) → aspect-ratio +
+  `picture{display:block;height:100%}`.
+- Chrome Heritage had **no `<h1>`** (wordmark was a div) → wrapped in `<h1 aria-label>`; and its nav
+  **vanished entirely ≤860px** → kept a visible header CTA on mobile.
+- `link-in-text-block` (serious axe) on all three footers → underlined inline links.
+- Geometry spill check false-flagged the After Dark horizontal-scroll strip → excluded scroll
+  containers from the check.
+- Visual tests were reusing the dev daemon (dev-toolbar in shots) — already isolated to port 4331
+  (Pass 02, decision 0012); confirmed clean here.
+
+**Validation (full summaries — no truncation):**
+```
+Static:   astro check 0 errors · eslint 0 · prettier PASS · vitest 3/3 · build PASS (redirect + 4 pages)
+Full matrix (test:e2e, all specs incl. 35 visual baselines, 3 engines × desktop+4 viewports):
+          474 passed, 2 skipped (documented WebKit Tab-order), 0 failed
+Accessibility (test:a11y, all projects): 54 passed, 2 skipped; axe 0 serious/critical on all 5 routes
+Geometry audit: 0 horizontal overflow · 0 element spill · 0 nav overlaps · CTA target ≥36px (all 3)
+Console + network: 0 errors / 0 failed requests across all routes
+Visual: 35 baselines generated AND reviewed (all 3 prototypes desktop+mobile inspected as pixels)
+Lighthouse (desktop, dist):
+  /design-lab/               P100 A11y100 BP96 LCP 0.2s CLS 0
+  /design-lab/foundations/   P100 A11y100 BP96 LCP 0.3s CLS 0
+  chrome-heritage            P100 A11y100 BP96 LCP 0.3s CLS 0
+  booth-light                P100 A11y100 BP96 LCP 0.4s CLS 0
+  after-dark                 P100 A11y100 BP96 LCP 0.3s CLS 0
+Assets:   CLIENT ORIGINALS MODIFIED: NO (checksums match Pass 00)
+Deploy:   NONE. Stage held at "three visual directions" — no production routes.
+```
+
+**Open / known:**
+- Client daylight show-photo fights the nocturnal moods even darkened — real cinematic photography is
+  the top unblock for hero credibility (docs/10). Generated material + client photos used meanwhile.
+- SEO low = intentional `noindex` on internal lab (not a defect).
+- Display/body/mono faces not yet self-hosted (fallback stacks active).
+- Winner NOT chosen; directions NOT merged; no shared production architecture extracted (per scope).
+
+---
+
 ## Pass 02 — Flagship prototype: "Booth Light" + lab restructure — 2026-09-19
 
 **Context:** Enterprise Design Lab, flagship-first. Restructured the lab into a hub + foundations +

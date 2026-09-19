@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  bodyClass: string;
+}
+const { title, description = 'After Hourz — design direction prototype.', bodyClass } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <slot />
+
+    <!-- Reveal-on-scroll: small isolated JS, HTML-first, reduced-motion safe (docs/09). -->
+    <script>
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const els = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach((el) => el.classList.add('is-revealed'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries, obs) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                (e.target as HTMLElement).style.setProperty(
+                  '--reveal-delay',
+                  `${Math.min(Number((e.target as HTMLElement).dataset.delay ?? 0), 400)}ms`,
+                );
+                e.target.classList.add('is-revealed');
+                obs.unobserve(e.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.12 },
+        );
+        els.forEach((el) => io.observe(el));
+      }
+    </script>
+  </body>
+</html>

@@ -15,10 +15,11 @@ async function settle(page: Page) {
 }
 
 const fullPages: Array<[string, string]> = [
-  ['home-full.png', '/'],
   ['hub-full.png', '/design-lab/'],
   ['foundations-full.png', '/design-lab/foundations/'],
+  ['chrome-heritage-full.png', '/design-lab/prototypes/chrome-heritage/'],
   ['booth-light-full.png', '/design-lab/prototypes/booth-light/'],
+  ['after-dark-full.png', '/design-lab/prototypes/after-dark/'],
 ];
 
 for (const [name, route] of fullPages) {
@@ -28,9 +29,3 @@ for (const [name, route] of fullPages) {
     await expect(page).toHaveScreenshot(name, { fullPage: true });
   });
 }
-
-test('@full booth-light hero', async ({ page }) => {
-  await page.goto('/design-lab/prototypes/booth-light/');
-  await settle(page);
-  await expect(page.locator('.bl-hero')).toHaveScreenshot('booth-light-hero.png');
-});

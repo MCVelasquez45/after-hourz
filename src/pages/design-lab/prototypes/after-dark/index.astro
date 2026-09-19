@@ -1,0 +1,277 @@
+---
+import { Picture } from 'astro:assets';
+import PrototypeLayout from '../../../../layouts/PrototypeLayout.astro';
+import '../../../../styles/prototype-after-dark.css';
+import sideProfile from '../../../../assets/derived/study-chevy-side-profile.png';
+import frontQuarter from '../../../../assets/derived/study-chevy-front-quarter.png';
+
+const steps = [
+  ['01', 'After the meet', 'When the lot clears, the real work starts — no rush, no audience.'],
+  [
+    '02',
+    'Under the lights',
+    'Bodywork and paint dialed in by shop light until the panel is right.',
+  ],
+  ['03', 'Cure & check', 'Time does half the work. We let it, then inspect every reflection.'],
+  ['04', 'Roll out', 'It leaves clean, tight, and ready for the street.'],
+];
+const services = [
+  ['Auto Body', 'Collision, rust, fabrication and panel work.'],
+  ['Custom Paint', 'Colour changes, refinishing, and custom work.'],
+  ['Restoration', 'Classics and customs, brought back and forward.'],
+];
+---
+
+<PrototypeLayout
+  title="After Hourz — After Dark"
+  description="After Dark design direction for After Hourz. Concept prototype."
+  bodyClass="ad"
+>
+  <div class="ad-topline">
+    <div class="ad-wrap ad-topline__row">
+      <span>CONCEPT PROTOTYPE · 03 / AFTER DARK · not client-approved</span>
+      <span>
+        <a href="/design-lab/">Design Lab</a>
+      </span>
+    </div>
+  </div>
+
+  <header class="ad-header" data-scrolled="false">
+    <div class="ad-wrap ad-header__row">
+      <a class="ad-logo" href="#top">
+        After<span>Hourz</span>
+      </a>
+      <nav class="ad-nav" aria-label="Primary">
+        <a href="#scene">The Scene</a>
+        <a href="#craft">Craft</a>
+        <a href="#services">Services</a>
+        <a class="ad-nav__cta" href="#contact">
+          Start a project
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO: dusk-to-night scene -->
+    <section class="ad-hero" id="top">
+      <div class="ad-hero__sky" aria-hidden="true"></div>
+      <div class="ad-hero__glow" aria-hidden="true"></div>
+      <div class="ad-hero__asphalt" aria-hidden="true"></div>
+      <div class="ad-wrap ad-hero__content" data-reveal>
+        <p class="ad-eyebrow">Southern California · custom</p>
+        <h1 class="ad-hero__mark">
+          The doors stay open <em>after sunset.</em>
+        </h1>
+        <p class="ad-hero__sub">
+          Body, paint, and restoration for cars, trucks, and bikes — built in the hours after the
+          world goes home.
+        </p>
+        <div class="ad-hero__actions">
+          <a class="ad-btn ad-btn--sodium" href="#contact">
+            Start a project
+          </a>
+          <a class="ad-btn" href="#scene">
+            See the scene
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOMENTUM STRIP -->
+    <section class="ad-momentum" id="scene">
+      <div class="ad-wrap">
+        <div class="ad-head" data-reveal>
+          <p class="ad-eyebrow">The scene</p>
+          <h2 class="ad-title">Where the night runs</h2>
+          <p class="ad-lead">Scroll sideways — the shop, the iron, the light.</p>
+        </div>
+        <div
+          class="ad-strip"
+          data-reveal
+          tabindex="0"
+          role="group"
+          aria-label="Scene gallery, scroll horizontally"
+        >
+          <article class="ad-card">
+            <div class="ad-card__media">
+              <Picture
+                src={sideProfile}
+                formats={['avif', 'webp']}
+                widths={[500, 900]}
+                sizes="30rem"
+                alt="Classic Chevrolet in profile at dusk."
+                loading="lazy"
+              />
+            </div>
+            <div class="ad-card__cap">
+              <h3>Two-tone classic</h3>
+              <p>Profile · chrome &amp; wire</p>
+            </div>
+          </article>
+          <article class="ad-card">
+            <div class="ad-card__media">
+              <Picture
+                src={frontQuarter}
+                formats={['avif', 'webp']}
+                widths={[400, 640]}
+                sizes="30rem"
+                alt="Classic Chevrolet, front three-quarter."
+                loading="lazy"
+              />
+            </div>
+            <div class="ad-card__cap">
+              <h3>Front three-quarter</h3>
+              <p>Grille · stance</p>
+            </div>
+          </article>
+          <article class="ad-card">
+            <div class="ad-card__media">
+              <svg
+                viewBox="0 0 480 300"
+                width="100%"
+                height="100%"
+                preserveAspectRatio="xMidYMid slice"
+                aria-hidden="true"
+              >
+                <defs>
+                  <linearGradient id="ad-dusk" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#14233f" />
+                    <stop offset="45%" stop-color="#3a2a3f" />
+                    <stop offset="70%" stop-color="#6d3b2f" />
+                    <stop offset="100%" stop-color="#0b0e14" />
+                  </linearGradient>
+                  <radialGradient id="ad-lamp" cx="76%" cy="66%" r="30%">
+                    <stop offset="0%" stop-color="#ffc07a" />
+                    <stop offset="100%" stop-color="rgba(255,192,122,0)" />
+                  </radialGradient>
+                </defs>
+                <rect width="480" height="300" fill="url(#ad-dusk)" />
+                <rect width="480" height="300" fill="url(#ad-lamp)" />
+              </svg>
+            </div>
+            <div class="ad-card__cap">
+              <h3>Sodium &amp; night</h3>
+              <p>Street light · scene study</p>
+            </div>
+          </article>
+          <article class="ad-card">
+            <div class="ad-card__media">
+              <svg
+                viewBox="0 0 480 300"
+                width="100%"
+                height="100%"
+                preserveAspectRatio="xMidYMid slice"
+                aria-hidden="true"
+              >
+                <defs>
+                  <radialGradient id="ad-flake" cx="40%" cy="34%" r="80%">
+                    <stop offset="0%" stop-color="#ffd9a8" />
+                    <stop offset="30%" stop-color="#c8641f" />
+                    <stop offset="100%" stop-color="#0b0e14" />
+                  </radialGradient>
+                  <filter id="ad-g">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" />
+                    <feColorMatrix
+                      type="matrix"
+                      values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.07 0"
+                    />
+                  </filter>
+                </defs>
+                <rect width="480" height="300" fill="url(#ad-flake)" />
+                <rect width="480" height="300" filter="url(#ad-g)" />
+              </svg>
+            </div>
+            <div class="ad-card__cap">
+              <h3>Candy &amp; flake</h3>
+              <p>Warm clearcoat · finish study</p>
+            </div>
+          </article>
+        </div>
+        <p class="ad-strip__hint" aria-hidden="true">
+          ← drag / scroll →
+        </p>
+      </div>
+    </section>
+
+    <!-- CRAFT -->
+    <section class="ad-section" id="craft">
+      <div class="ad-wrap">
+        <div class="ad-head" data-reveal>
+          <p class="ad-eyebrow">The craft</p>
+          <h2 class="ad-title">The after-hours rhythm</h2>
+        </div>
+        <div class="ad-steps" data-reveal>
+          {steps.map(([n, t, b]) => (
+            <article class="ad-step">
+              <div class="ad-step__n">{n}</div>
+              <h3>{t}</h3>
+              <p>{b}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="ad-section" id="services">
+      <div class="ad-wrap">
+        <div class="ad-head" data-reveal>
+          <p class="ad-eyebrow">Services</p>
+          <h2 class="ad-title">What we do</h2>
+        </div>
+        <div class="ad-services" data-reveal>
+          {services.map(([t, b]) => (
+            <article class="ad-serv">
+              <h3>{t}</h3>
+              <p>{b}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="ad-cta" id="contact">
+      <div class="ad-wrap" data-reveal>
+        <p class="ad-eyebrow">Pull up</p>
+        <h2>Catch us after dark.</h2>
+        <p>Tell us what you&rsquo;re building. We&rsquo;ll give you an honest read on the work.</p>
+        <div
+          class="ad-hero__actions"
+          style="justify-content:center; margin-bottom:var(--spacing-lg);"
+        >
+          <a class="ad-btn ad-btn--sodium" href="#contact">
+            Start a project
+          </a>
+        </div>
+        <div class="ad-contact">
+          <span>
+            Phone · <b>Coming soon</b>
+          </span>
+          <span>
+            Location · <b>Southern California</b>
+          </span>
+          <span>
+            Instagram · <b>Coming soon</b>
+          </span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ad-footer">
+    <div class="ad-wrap">
+      AFTER HOURZ · Concept direction: After Dark · <a href="/design-lab/">Design Lab</a>
+    </div>
+  </footer>
+
+  <script>
+    const h = document.querySelector<HTMLElement>('.ad-header');
+    if (h) {
+      const s = () => h.setAttribute('data-scrolled', String(window.scrollY > 24));
+      s();
+      window.addEventListener('scroll', s, { passive: true });
+    }
+  </script>
+</PrototypeLayout>

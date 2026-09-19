@@ -1,28 +1,29 @@
 import { test, expect } from '@playwright/test';
 
+const keyRoutes = [
+  '/design-lab/',
+  '/design-lab/foundations/',
+  '/design-lab/prototypes/chrome-heritage/',
+  '/design-lab/prototypes/booth-light/',
+  '/design-lab/prototypes/after-dark/',
+];
+
 test.describe('navigation + link integrity', () => {
-  test('home routes into the design lab hub', async ({ page }) => {
+  test('root redirects into the design lab (no production homepage yet)', async ({ page }) => {
     await page.goto('/');
-    const enter = page.getByRole('link', { name: /enter the design lab/i });
-    await expect(enter).toBeVisible();
-    await enter.click();
-    await expect(page).toHaveURL(/\/design-lab\/?$/);
+    await page.waitForURL(/\/design-lab\/?$/, { timeout: 10_000 });
     await expect(page.locator('main#main')).toBeVisible();
   });
 
-  test('hub → booth-light prototype', async ({ page }) => {
+  test('hub opens the first prototype', async ({ page }) => {
     await page.goto('/design-lab/');
-    await page.getByRole('link', { name: /open prototype/i }).click();
-    await expect(page).toHaveURL(/\/design-lab\/prototypes\/booth-light\/?$/);
+    await page.locator('a.proto-panel').first().click();
+    await expect(page).toHaveURL(/chrome-heritage\/?$/);
     await expect(page.locator('h1')).toBeVisible();
   });
 
-  test('no dead internal links or fake "#" links across key routes', async ({ page }) => {
-    for (const route of [
-      '/design-lab/',
-      '/design-lab/foundations/',
-      '/design-lab/prototypes/booth-light/',
-    ]) {
+  test('no dead / placeholder links across key routes', async ({ page }) => {
+    for (const route of keyRoutes) {
       await page.goto(route);
       const hrefs = await page
         .locator('a[href]')
@@ -34,15 +35,17 @@ test.describe('navigation + link integrity', () => {
     }
   });
 
-  test('every in-page anchor target exists on the prototype', async ({ page }) => {
-    await page.goto('/design-lab/prototypes/booth-light/');
-    const anchors = await page
-      .locator('a[href^="#"]')
-      .evaluateAll((as) => as.map((a) => (a as HTMLAnchorElement).getAttribute('href') ?? ''));
-    for (const href of anchors) {
-      const id = href.slice(1);
-      if (!id) continue;
-      await expect(page.locator(`#${id}`), `anchor target #${id} should exist`).toHaveCount(1);
+  test('in-page anchors resolve on every prototype', async ({ page }) => {
+    for (const route of keyRoutes.filter((r) => r.includes('/prototypes/'))) {
+      await page.goto(route);
+      const anchors = await page
+        .locator('a[href^="#"]')
+        .evaluateAll((as) => as.map((a) => (a as HTMLAnchorElement).getAttribute('href') ?? ''));
+      for (const href of anchors) {
+        const id = href.slice(1);
+        if (!id) continue;
+        await expect(page.locator(`#${id}`), `#${id} missing on ${route}`).toHaveCount(1);
+      }
     }
   });
 

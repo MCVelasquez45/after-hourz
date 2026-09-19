@@ -8,6 +8,10 @@ import tailwindcss from '@tailwindcss/vite';
 // Tailwind v4 via the current @tailwindcss/vite plugin (not the deprecated integration).
 export default defineConfig({
   site: 'http://localhost:4321',
+  // No production homepage yet (design-lab stage only). Root redirects into the lab.
+  redirects: {
+    '/': '/design-lab/',
+  },
   integrations: [react()],
   vite: {
     plugins: [tailwindcss()],

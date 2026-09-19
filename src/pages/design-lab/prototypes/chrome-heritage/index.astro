@@ -1,0 +1,320 @@
+---
+import { Picture } from 'astro:assets';
+import PrototypeLayout from '../../../../layouts/PrototypeLayout.astro';
+import '../../../../styles/prototype-chrome-heritage.css';
+import sideProfile from '../../../../assets/derived/study-chevy-side-profile.png';
+import frontQuarter from '../../../../assets/derived/study-chevy-front-quarter.png';
+
+const process = [
+  [
+    '01',
+    'Strip & assess',
+    'The metal gets an honest read before anything else — what is true, what is hidden.',
+  ],
+  [
+    '02',
+    'Metal & gaps',
+    'Panels made straight, gaps set. The foundation every reflection depends on.',
+  ],
+  [
+    '03',
+    'Base · color · clear',
+    'Built in patient layers. Depth is earned in the booth, not rushed.',
+  ],
+  ['04', 'Cut & buff', 'Wet-sanded and polished until the reflection runs dead flat.'],
+];
+const services = [
+  ['Auto Body', 'Collision, rust, fabrication and panel work — the structure under a good finish.'],
+  ['Custom Paint', 'Colour changes, factory-correct refinishing and custom work built to last.'],
+  ['Restoration', 'Classic and custom vehicles brought back true — and forward.'],
+];
+---
+
+<PrototypeLayout
+  title="After Hourz — Chrome Heritage"
+  description="Chrome Heritage design direction for After Hourz. Concept prototype."
+  bodyClass="ch"
+>
+  <div class="ch-topline">
+    <div class="ch-wrap ch-topline__row">
+      <span>Concept prototype · 01 / Chrome Heritage · not client-approved</span>
+      <span>
+        <a href="/design-lab/">Design Lab</a>
+      </span>
+    </div>
+  </div>
+
+  <header class="ch-header" data-scrolled="false">
+    <div class="ch-wrap ch-header__row">
+      <a class="ch-header__logo ch-chrome" href="#top">
+        AFTER HOURZ
+      </a>
+      <nav class="ch-header__nav" aria-label="Primary">
+        <a href="#builds">Builds</a>
+        <a href="#craft">Craft</a>
+        <a href="#services">Services</a>
+        <a href="#shop">Shop</a>
+        <a class="ch-header__cta" href="#contact">
+          Start a project
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO — monumental chrome wordmark -->
+    <section class="ch-hero" id="top">
+      <div class="ch-wrap" data-reveal>
+        <p class="ch-rule">Est. Southern California · Custom</p>
+        <h1 class="ch-hero__mark ch-sweep" aria-label="After Hourz">
+          <svg viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="18%" stop-color="#e9eef5" />
+                <stop offset="45%" stop-color="#9aa6b4" />
+                <stop offset="53%" stop-color="#525b6a" />
+                <stop offset="66%" stop-color="#aeb9c7" />
+                <stop offset="100%" stop-color="#f4f8fd" />
+              </linearGradient>
+            </defs>
+            <g
+              font-family="'Space Grotesk', ui-sans-serif, system-ui, sans-serif"
+              font-weight="700"
+              text-anchor="middle"
+              letter-spacing="2"
+            >
+              <text x="500" y="132" font-size="150" fill="#2e7bff" opacity="0.35">
+                AFTER
+              </text>
+              <text x="500" y="130" font-size="150" fill="url(#chrome)">
+                AFTER
+              </text>
+              <text x="500" y="280" font-size="150" fill="#2e7bff" opacity="0.35">
+                HOURZ
+              </text>
+              <text x="500" y="278" font-size="150" fill="url(#chrome)">
+                HOURZ
+              </text>
+            </g>
+          </svg>
+        </h1>
+        <p class="ch-hero__by">by Anthony Montoya</p>
+        <p class="ch-plaque ch-plaque--lit ch-hero__plaque">
+          Auto Body · Custom Paint · Restoration
+        </p>
+        <p class="ch-hero__cats">Cars · Trucks · Bikes</p>
+        <div class="ch-hero__actions">
+          <a class="ch-btn ch-btn--chrome" href="#contact">
+            Start a project
+          </a>
+          <a class="ch-btn" href="#builds">
+            See the builds
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOWPIECE — chrome-framed vehicle with wet reflection -->
+    <section class="ch-showpiece">
+      <div class="ch-wrap" data-reveal>
+        <div class="ch-frame ch-sweep">
+          <div class="ch-frame__inner">
+            <Picture
+              src={sideProfile}
+              formats={['avif', 'webp']}
+              widths={[700, 1100, 1400, 1536]}
+              sizes="(max-width: 1024px) 100vw, 84vw"
+              alt="Blue-and-white classic Chevrolet in full profile — long body line, chrome trim, wire wheels."
+              loading="eager"
+            />
+            <div class="ch-frame__cap">
+              <span>Classic Chevrolet · profile</span>
+              <span>Custom · Southern California</span>
+            </div>
+          </div>
+        </div>
+        <div class="ch-reflect" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- BUILDS -->
+    <section class="ch-section" id="builds">
+      <div class="ch-wrap">
+        <div data-reveal>
+          <p class="ch-kicker">The Builds</p>
+          <h2 class="ch-title ch-chrome">Iron worth the hours</h2>
+          <p class="ch-sub">
+            Every build is treated like a showpiece — because on the street, it is one.
+          </p>
+        </div>
+        <div class="ch-builds" data-reveal>
+          <article class="ch-build">
+            <div class="ch-build__media">
+              <Picture
+                src={sideProfile}
+                formats={['avif', 'webp']}
+                widths={[500, 900]}
+                sizes="(max-width: 768px) 100vw, 33vw"
+                alt="Classic Chevrolet, profile detail."
+                loading="lazy"
+              />
+            </div>
+            <div class="ch-build__meta">
+              <h3>Two-tone classic</h3>
+              <p>Blue &amp; white · chrome &amp; wire</p>
+            </div>
+          </article>
+          <article class="ch-build">
+            <div class="ch-build__media">
+              <Picture
+                src={frontQuarter}
+                formats={['avif', 'webp']}
+                widths={[400, 640]}
+                sizes="(max-width: 768px) 100vw, 33vw"
+                alt="Classic Chevrolet, front three-quarter."
+                loading="lazy"
+              />
+            </div>
+            <div class="ch-build__meta">
+              <h3>Front three-quarter</h3>
+              <p>Grille · bumper · stance</p>
+            </div>
+          </article>
+          <article class="ch-build">
+            <div
+              class="ch-build__media"
+              style="background: radial-gradient(120% 120% at 30% 20%, #2e7bff 0%, #0b1a3a 30%, #05070c 70%);"
+            >
+              <svg
+                viewBox="0 0 400 300"
+                width="100%"
+                height="100%"
+                aria-hidden="true"
+                preserveAspectRatio="xMidYMid slice"
+              >
+                <defs>
+                  <radialGradient id="flake" cx="32%" cy="24%" r="80%">
+                    <stop offset="0%" stop-color="#bcd4ff" />
+                    <stop offset="35%" stop-color="#1f5fd6" />
+                    <stop offset="100%" stop-color="#05070c" />
+                  </radialGradient>
+                  <filter id="grain">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" />
+                    <feColorMatrix
+                      type="matrix"
+                      values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0"
+                    />
+                  </filter>
+                </defs>
+                <rect width="400" height="300" fill="url(#flake)" />
+                <rect width="400" height="300" filter="url(#grain)" />
+              </svg>
+            </div>
+            <div class="ch-build__meta">
+              <h3>Metallic flake</h3>
+              <p>Clearcoat depth · finish study</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CRAFT -->
+    <section class="ch-section" id="craft">
+      <div class="ch-wrap">
+        <div data-reveal>
+          <p class="ch-kicker">The Craft</p>
+          <h2 class="ch-title ch-chrome">Built in layers</h2>
+          <p class="ch-sub">
+            A finish is made, not sprayed. Four moves on every project, in the order that lasts.
+          </p>
+        </div>
+        <div class="ch-process" data-reveal>
+          {process.map(([n, t, b]) => (
+            <article class="ch-proc ch-plaque">
+              <div class="ch-proc__n">{n}</div>
+              <h3>{t}</h3>
+              <p>{b}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="ch-section" id="services">
+      <div class="ch-wrap">
+        <div data-reveal>
+          <p class="ch-kicker">Services</p>
+          <h2 class="ch-title ch-chrome">What rolls out different</h2>
+        </div>
+        <div class="ch-services" data-reveal>
+          {services.map(([t, b]) => (
+            <article class="ch-serv ch-plaque">
+              <h3>{t}</h3>
+              <p>{b}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOP -->
+    <section class="ch-section" id="shop">
+      <div class="ch-wrap" data-reveal style="max-width:60rem;">
+        <p class="ch-kicker">The Shop</p>
+        <h2 class="ch-title ch-chrome">After Hourz</h2>
+        <p class="ch-sub">
+          A Southern California custom shop built on the work that happens after the world goes
+          quiet — the patient hours where a finish is actually made. The name is literal.
+        </p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="contact">
+      <div class="ch-cta ch-plaque ch-plaque--lit ch-wrap" data-reveal>
+        <p class="ch-kicker">Pull up</p>
+        <h2 class="ch-chrome">Bring the vehicle. We&rsquo;ll bring the hours.</h2>
+        <p>
+          Tell us what you&rsquo;re building. No pressure, no upsell — just an honest read on the
+          work.
+        </p>
+        <div class="ch-hero__actions" style="margin-bottom:var(--spacing-lg);">
+          <a class="ch-btn ch-btn--chrome" href="#contact">
+            Start a project
+          </a>
+        </div>
+        <div class="ch-contact">
+          <span>
+            Phone · <b>Coming soon</b>
+          </span>
+          <span>
+            Location · <b>Southern California</b>
+          </span>
+          <span>
+            Instagram · <b>Coming soon</b>
+          </span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ch-footer">
+    <div class="ch-wrap">
+      <p>
+        AFTER HOURZ · Concept direction: Chrome Heritage · <a href="/design-lab/">Design Lab</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const h = document.querySelector<HTMLElement>('.ch-header');
+    if (h) {
+      const s = () => h.setAttribute('data-scrolled', String(window.scrollY > 24));
+      s();
+      window.addEventListener('scroll', s, { passive: true });
+    }
+  </script>
+</PrototypeLayout>

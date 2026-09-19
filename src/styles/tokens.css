@@ -114,3 +114,31 @@
   --edge-hairline: 1px solid var(--color-ash);
   --focus-ring: 0 0 0 2px var(--color-ink), 0 0 0 4px var(--color-signal);
 }
+
+/*
+  Prototype palettes (extend the base ladder for the three competing directions).
+  Plain :root vars (not Tailwind utilities) — consumed by prototype-scoped CSS.
+*/
+:root {
+  /* Chrome Heritage — cobalt-on-black, polished chrome, illuminated plaque edges (poster DNA) */
+  --ch-cobalt-deep: #062a7a;
+  --ch-cobalt: #0b47c4;
+  --ch-electric: #2e7bff;
+  --ch-ice: #cfe0ff;
+  --ch-chrome-hi: #f7f9fb;
+  --ch-chrome-mid: #aeb7c2;
+  --ch-chrome-lo: #4a5260;
+  --ch-plaque: #0c0f14;
+  --ch-plaque-edge: #1c2230;
+
+  /* After Dark — dusk-to-night, sodium/amber street warmth against cobalt night */
+  --ad-night: #0b0e14;
+  --ad-dusk-top: #14233f;
+  --ad-dusk-mid: #3a2a3f;
+  --ad-dusk-low: #6d3b2f;
+  --ad-sodium: #ff9d4d;
+  --ad-sodium-hot: #ffc07a;
+  --ad-amber-glow: rgba(255, 157, 77, 0.5);
+  --ad-blue: #3f7bd6;
+  --ad-asphalt: #101318;
+}

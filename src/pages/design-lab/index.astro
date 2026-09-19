@@ -1,106 +1,89 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-// The Design Lab hub. Routes to foundations + the three competing prototype directions.
-// Prototypes not yet built are shown as status cards (no dead links) until approved.
-const foundations = {
-  href: '/design-lab/foundations/',
-  label: 'Foundations',
-  desc: 'Type, color, material, light, spacing, geometry — the token system, live.',
-};
-
 const prototypes = [
   {
+    href: '/design-lab/prototypes/chrome-heritage/',
+    code: '01',
+    name: 'Chrome Heritage',
+    thesis:
+      'Custom automotive heritage rebuilt for a contemporary canvas — chrome, cobalt, ornament.',
+    preview: 'ch',
+  },
+  {
     href: '/design-lab/prototypes/booth-light/',
-    code: 'A',
+    code: '02',
     name: 'Booth Light',
-    status: 'ready',
-    thesis:
-      'Near-black space, one controlled light, the finish revealed slowly. Depth over decoration.',
+    thesis: 'Craft revealed under controlled inspection light — image-led, cinematic, near-black.',
+    preview: 'bl',
   },
   {
-    href: null,
-    code: 'B',
-    name: 'Precision Machine',
-    status: 'pending approval',
-    thesis:
-      'Engineered, technical, spec-plate rigor — the shop as a precision instrument. (Built after the Booth Light bar is approved.)',
-  },
-  {
-    href: null,
-    code: 'C',
+    href: '/design-lab/prototypes/after-dark/',
+    code: '03',
     name: 'After Dark',
-    status: 'pending approval',
     thesis:
-      'The nocturnal, cinematic edge of custom car culture — the most atmospheric direction. (Built after approval.)',
+      'SoCal craftsmanship when the doors stay open after sunset — warm, momentum, editorial.',
+    preview: 'ad',
   },
+];
+
+const labs = [
+  ['Foundations', '/design-lab/foundations/', 'Type · color · material · spacing · geometry'],
 ];
 ---
 
-<BaseLayout title="Design Lab — After Hourz" description="Internal creative-development lab.">
+<BaseLayout title="Design Lab — After Hourz" description="Enterprise prototype lab.">
   <div class="lab lab__booth">
     <header class="lab__masthead">
       <div class="lab__wrap lab__eyebrow">
-        <p class="spec-label">After Hourz · Design Lab · internal · not the public site</p>
-        <p class="spec-label">Three competing directions</p>
+        <p class="spec-label">After Hourz · Enterprise Prototype Lab</p>
+        <p class="spec-label">Three directions · compare &amp; choose</p>
       </div>
     </header>
 
     <main id="main" class="lab__wrap" style="padding-block: var(--section-pad);">
-      <div style="display:grid; gap:var(--spacing-md); max-width:var(--measure); margin-bottom:var(--spacing-2xl);">
+      <div style="max-width:var(--measure); margin-bottom:var(--spacing-2xl); display:grid; gap:var(--spacing-md);">
         <p class="spec-label" style="color:var(--color-signal);">
-          Design Lab
+          After Hourz
         </p>
-        <h1 style="font-size:var(--text-h1);">Three directions, proven side by side</h1>
+        <h1 style="font-size:var(--text-h1);">Enterprise Prototype Lab</h1>
         <p style="color:var(--color-aluminum);">
-          This is the internal laboratory. Below: the shared foundations, and three complete,
-          competing creative directions for the After Hourz experience. We do not pick the homepage
-          first — the directions prove themselves, then one is chosen with the client.
+          Three complete, competing creative directions for the After Hourz experience — each a
+          real, openable website prototype. Compare them; a direction is chosen with the client, not
+          here.
         </p>
       </div>
 
-      <!-- Foundations -->
-      <a
-        href={foundations.href}
-        class="hub-card hub-card--wide"
-        style="text-decoration:none; display:block; margin-bottom:var(--spacing-xl);"
-      >
-        <span class="spec-label" style="color:var(--color-signal);">
-          Foundations
-        </span>
-        <h2 style="font-size:var(--text-h3); margin-block:var(--spacing-2xs);">
-          {foundations.label}
-        </h2>
-        <p style="color:var(--color-aluminum); max-width:var(--measure);">{foundations.desc}</p>
-        <span class="hub-card__go">Open foundations →</span>
-      </a>
+      <div class="proto-grid">
+        {prototypes.map((p) => (
+          <a href={p.href} class="proto-panel" data-reveal>
+            <div class={`proto-preview proto-preview--${p.preview}`} aria-hidden="true">
+              <span class="proto-preview__mark">AFTER HOURZ</span>
+            </div>
+            <div class="proto-panel__body">
+              <div class="proto-panel__top">
+                <span class="proto-panel__code">{p.code}</span>
+                <span class="proto-panel__status">ready</span>
+              </div>
+              <h2>{p.name}</h2>
+              <p>{p.thesis}</p>
+              <span class="hub-card__go">Open prototype →</span>
+            </div>
+          </a>
+        ))}
+      </div>
 
-      <p class="spec-label" style="margin-bottom:var(--spacing-sm);">
-        Prototypes
+      <p class="spec-label" style="margin:var(--spacing-2xl) 0 var(--spacing-sm);">
+        Supporting labs
       </p>
       <div class="hub-grid">
-        {prototypes.map((p) =>
-          p.href ? (
-            <a href={p.href} class="hub-card hub-card--proto" style="text-decoration:none;">
-              <div class="hub-card__top">
-                <span class="hub-card__code">{p.code}</span>
-                <span class="hub-card__status hub-card__status--ready">{p.status}</span>
-              </div>
-              <h3 style="font-size:var(--text-h3);">{p.name}</h3>
-              <p style="color:var(--color-aluminum);">{p.thesis}</p>
-              <span class="hub-card__go">Open prototype →</span>
-            </a>
-          ) : (
-            <div class="hub-card hub-card--proto hub-card--pending" aria-disabled="true">
-              <div class="hub-card__top">
-                <span class="hub-card__code">{p.code}</span>
-                <span class="hub-card__status">{p.status}</span>
-              </div>
-              <h3 style="font-size:var(--text-h3); color:var(--color-aluminum);">{p.name}</h3>
-              <p style="color:var(--color-pewter);">{p.thesis}</p>
-            </div>
-          ),
-        )}
+        {labs.map(([name, href, desc]) => (
+          <a href={href} class="hub-card" style="text-decoration:none;">
+            <h3 style="font-size:var(--text-h4); color:var(--color-chrome);">{name}</h3>
+            <p style="color:var(--color-aluminum); margin-top:var(--spacing-2xs);">{desc}</p>
+            <span class="hub-card__go">Open →</span>
+          </a>
+        ))}
       </div>
     </main>
 

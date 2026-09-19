@@ -1,373 +1,264 @@
 ---
 import { Picture } from 'astro:assets';
-import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import PrototypeLayout from '../../../../layouts/PrototypeLayout.astro';
 import '../../../../styles/prototype-booth-light.css';
-// Derivatives of client source photos (originals immutable — PROVENANCE.md). astro:assets -> AVIF/WebP.
 import sideProfile from '../../../../assets/derived/study-chevy-side-profile.png';
 import frontQuarter from '../../../../assets/derived/study-chevy-front-quarter.png';
 
-// Truthful content only. Unknown business facts are marked CLIENT INPUT REQUIRED — never invented.
 const steps = [
-  [
-    '01',
-    'Strip & assess',
-    'Every project starts with an honest look at the metal. What is straight, what is not, what the last shop hid.',
-  ],
-  [
-    '02',
-    'Metal & bodywork',
-    'Panels made true. Gaps set. The foundation the paint will sit on — because paint only shows what is underneath.',
-  ],
-  [
-    '03',
-    'Base · color · clear',
-    'Sealer, color, and clear built in patient layers. Cure time is not wasted time.',
-  ],
-  [
-    '04',
-    'Cut & buff',
-    'Wet-sand and polish until the reflection is dead flat and the depth reads from across the lot.',
-  ],
+  ['01', 'Strip & assess', 'An honest read on the metal before anything else.'],
+  ['02', 'Metal & bodywork', 'Panels made true, gaps set — the base every reflection needs.'],
+  ['03', 'Base · color · clear', 'Depth built in patient layers under booth light.'],
+  ['04', 'Cut & buff', 'Wet-sanded and polished until the reflection runs flat.'],
 ];
-
 const services = [
   [
-    'Auto body',
-    'Collision, rust, fabrication, and panel work — the structure beneath a good finish.',
+    'Auto Body',
+    'Collision, rust, fabrication and panel work — the structure beneath a good finish.',
   ],
-  [
-    'Custom paint',
-    'Full colour changes, factory-correct refinishing, and custom work built to last.',
-  ],
-  [
-    'Restoration',
-    'Bringing classic and custom vehicles back — and forward — with modern materials.',
-  ],
+  ['Custom Paint', 'Colour changes, factory-correct refinishing, and custom work built to last.'],
+  ['Restoration', 'Classic and custom vehicles brought back true — and forward.'],
 ];
 ---
 
-<BaseLayout
-  title="After Hourz — Booth Light (prototype)"
-  description="Design direction prototype for After Hourz. Not the live site."
+<PrototypeLayout
+  title="After Hourz — Booth Light"
+  description="Booth Light design direction for After Hourz. Concept prototype."
+  bodyClass="bl"
 >
-  <div class="bl">
-    <!-- Prototype ribbon -->
-    <div class="bl-ribbon">
-      <div class="bl-wrap bl-ribbon__row">
-        <span>DESIGN DIRECTION PROTOTYPE · A / BOOTH LIGHT · not the live site</span>
-        <span>
-          <a href="/design-lab/">← Design Lab</a>
-        </span>
-      </div>
+  <div class="bl-topline">
+    <div class="bl-wrap bl-topline__row">
+      <span>CONCEPT PROTOTYPE · 02 / BOOTH LIGHT · not client-approved</span>
+      <span>
+        <a href="/design-lab/">Design Lab</a>
+      </span>
     </div>
+  </div>
 
-    <!-- Header -->
-    <header class="bl-header" data-scrolled="false">
-      <div class="bl-wrap bl-header__row">
-        <a class="bl-logo" href="#top">
-          AFTER&nbsp;HOUR<span>Z</span>
+  <header class="bl-header" data-scrolled="false">
+    <div class="bl-wrap bl-header__row">
+      <a class="bl-logo" href="#top">
+        AFTER&nbsp;HOUR<span>Z</span>
+      </a>
+      <nav class="bl-nav" aria-label="Primary">
+        <a href="#work">Work</a>
+        <a href="#craft">Craft</a>
+        <a href="#services">Services</a>
+        <a class="bl-nav__cta" href="#contact">
+          Start a project
         </a>
-        <nav class="bl-nav" aria-label="Primary">
-          <a href="#work">Work</a>
-          <a href="#craft">Craft</a>
-          <a href="#services">Services</a>
-          <a href="#about">Shop</a>
-          <a class="bl-nav__cta" href="#contact">
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- HERO: vehicle framed by black, inspection light sweeping across it -->
+    <section class="bl-hero" id="top">
+      <div class="bl-hero__media">
+        <Picture
+          src={sideProfile}
+          formats={['avif', 'webp']}
+          widths={[900, 1400, 1536]}
+          sizes="100vw"
+          alt="Blue-and-white classic Chevrolet emerging from darkness under inspection light."
+          loading="eager"
+        />
+      </div>
+      <div class="bl-hero__vignette" aria-hidden="true"></div>
+      <div class="bl-hero__light" aria-hidden="true"></div>
+      <div class="bl-wrap bl-hero__content" data-reveal>
+        <p class="bl-eyebrow">Custom paint · body · restoration</p>
+        <h1 class="bl-hero__mark">
+          Craft,
+          <br />
+          revealed <em>under light.</em>
+        </h1>
+        <p class="bl-hero__sub">
+          A finish only shows what&rsquo;s underneath. We build both — patiently, in the booth,
+          until the reflection is flawless.
+        </p>
+        <div class="bl-hero__actions">
+          <a class="bl-btn bl-btn--primary" href="#contact">
             Start a project
           </a>
-        </nav>
+          <a class="bl-btn" href="#work">
+            See the work
+          </a>
+        </div>
       </div>
-    </header>
+    </section>
 
-    <main id="main">
-      <!-- HERO -->
-      <section class="bl-hero" id="top">
-        <div class="bl-wrap bl-hero__grid" data-reveal>
-          <p class="bl-eyebrow">Auto body · custom paint · restoration</p>
-          <h1 class="bl-hero__mark">
-            Finished <em>after hours.</em>
-          </h1>
-          <p class="bl-hero__sub">
-            Custom paint, bodywork, and restoration for cars, trucks, and bikes — built with the
-            patience the work actually takes.
-          </p>
-          <div class="bl-hero__meta">
-            <span>Southern California</span>
-            <span>By Anthony Montoya</span>
-            <span>Cars · Trucks · Bikes</span>
-          </div>
-          <div class="bl-hero__actions">
-            <a class="bl-btn bl-btn--primary" href="#contact">
-              Start a project
-            </a>
-            <a class="bl-btn" href="#work">
-              See the work
-            </a>
-          </div>
-        </div>
-        <div class="bl-scrollcue" aria-hidden="true">
-          SCROLL
-        </div>
-      </section>
-
-      <!-- STATEMENT -->
-      <section class="bl-section">
-        <div class="bl-wrap" data-reveal>
-          <p class="bl-statement">
-            Every panel true. Every finish deep. Done when it&rsquo;s <b>right</b> — not when
-            it&rsquo;s quick.
+    <!-- WORK: full vehicle + detail column -->
+    <section class="bl-section" id="work">
+      <div class="bl-wrap">
+        <div class="bl-section__head" data-reveal>
+          <p class="bl-eyebrow">The work</p>
+          <h2 class="bl-section__title">Read the surface</h2>
+          <p class="bl-lead">
+            Full vehicle, then the details that decide whether a finish is real.
           </p>
         </div>
-      </section>
-
-      <!-- WORK -->
-      <section class="bl-section" id="work">
-        <div class="bl-wrap">
-          <div class="bl-section__head" data-reveal>
-            <p class="bl-eyebrow">The work</p>
-            <h2 class="bl-section__title">The finish speaks first</h2>
-            <p class="bl-section__lead">
-              A finished car under controlled light. This is where real project photography will
-              live — cinematic, honest, Anthony&rsquo;s own work.
-            </p>
-          </div>
-
-          <div class="bl-band" data-reveal style="aspect-ratio: 21 / 9;">
+        <div class="bl-split" data-reveal>
+          <div class="bl-media">
             <Picture
               src={sideProfile}
               formats={['avif', 'webp']}
-              widths={[600, 1000, 1400, 1536]}
-              sizes="(max-width: 1024px) 100vw, 80vw"
-              alt="A blue-and-white classic Chevrolet in full side profile — long, clean body line, chrome trim, wire wheels."
+              widths={[700, 1100, 1400]}
+              sizes="(max-width: 900px) 100vw, 60vw"
+              alt="Classic Chevrolet in profile — the full body line."
               loading="lazy"
             />
-            <div class="bl-band__scrim"></div>
-            <div class="bl-band__cap">
-              <h3>Classic lines, brought back true</h3>
-              <p>Blue-and-white classic Chevrolet — client source photo, used here as a study.</p>
-            </div>
-            <div class="bl-band__label">
-              <span>CLIENT SOURCE · side profile</span>
-              <span>ATTRIBUTION UNCONFIRMED · CLIENT INPUT REQUIRED</span>
-            </div>
+            <span class="bl-media__tag">Classic Chevrolet · profile</span>
           </div>
-
-          <div class="bl-work-grid" data-reveal>
-            <figure>
+          <div class="bl-detail">
+            <div class="bl-media" style="aspect-ratio: 4/3;">
               <Picture
                 src={frontQuarter}
                 formats={['avif', 'webp']}
-                widths={[320, 640]}
-                sizes="(max-width: 768px) 100vw, 33vw"
-                alt="The same blue-and-white classic Chevrolet, front three-quarter view."
+                widths={[400, 640]}
+                sizes="(max-width: 900px) 100vw, 40vw"
+                alt="Classic Chevrolet, front three-quarter — grille and chrome."
                 loading="lazy"
               />
-              <figcaption>CLIENT SOURCE · front 3/4 · low-res</figcaption>
-            </figure>
-            <figure>
-              <div class="placeholder">
-                MISSING SHOT
-                <br />
-                macro paint detail
-                <br />
-                CLIENT INPUT REQUIRED
-              </div>
-              <figcaption>PLACEHOLDER · reshoot ≥4000px</figcaption>
-            </figure>
-            <figure>
-              <div class="placeholder">
-                MISSING SHOT
-                <br />
-                before / after
-                <br />
-                CLIENT INPUT REQUIRED
-              </div>
-              <figcaption>PLACEHOLDER · real jobs only</figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
-
-      <!-- CRAFT -->
-      <section class="bl-section" id="craft">
-        <div class="bl-wrap">
-          <div class="bl-section__head" data-reveal>
-            <p class="bl-eyebrow">The craft</p>
-            <h2 class="bl-section__title">Layers, patience, then light</h2>
-            <p class="bl-section__lead">
-              A finish is built, not sprayed. The same four moves on every project, done in the
-              order that lasts.
-            </p>
-          </div>
-          <div class="bl-steps" data-reveal>
-            {steps.map(([n, title, body]) => (
-              <article class="bl-step">
-                <div class="bl-step__n">{n}</div>
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <!-- SERVICES -->
-      <section class="bl-section" id="services">
-        <div class="bl-wrap">
-          <div class="bl-section__head" data-reveal>
-            <p class="bl-eyebrow">Services</p>
-            <h2 class="bl-section__title">What we do</h2>
-          </div>
-          <div class="bl-services" data-reveal>
-            {services.map(([title, body]) => (
-              <article class="bl-service">
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </article>
-            ))}
-          </div>
-          <div class="bl-chips" data-reveal aria-label="Vehicle categories">
-            <span class="bl-chip">Cars</span>
-            <span class="bl-chip">Trucks</span>
-            <span class="bl-chip">Bikes</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- ABOUT -->
-      <section class="bl-section" id="about">
-        <div class="bl-wrap bl-about">
-          <div class="bl-about__body" data-reveal>
-            <p class="bl-eyebrow">The shop</p>
-            <h2 class="bl-section__title" style="margin-block:var(--spacing-xs) var(--spacing-md);">
-              After Hourz, by Anthony Montoya
-            </h2>
-            <p>
-              After Hourz is a Southern California custom shop built on the kind of work that
-              happens when the world goes quiet — the patient, obsessive hours where a finish is
-              actually made.
-            </p>
-            <p>
-              The name is literal. The best work is rarely the fastest. Every project gets the time
-              the metal and the paint actually need.
-            </p>
-            <p class="bl-note">
-              Shop story, credentials, and years in business — CLIENT INPUT REQUIRED (nothing here
-              is invented).
-            </p>
-          </div>
-          <aside class="bl-panel" data-reveal aria-label="Shop details">
-            <dl>
-              <dt>Owner</dt>
-              <dd>Anthony Montoya</dd>
-              <dt>Region</dt>
-              <dd>Southern California</dd>
-              <dt>Work</dt>
-              <dd>Body · custom paint · restoration</dd>
-              <dt>Vehicles</dt>
-              <dd>Cars · trucks · bikes</dd>
-              <dt>Est.</dt>
-              <dd>
-                <span class="bl-tbd">CLIENT INPUT REQUIRED</span>
-              </dd>
-              <dt>Certifications</dt>
-              <dd>
-                <span class="bl-tbd">CLIENT INPUT REQUIRED</span>
-              </dd>
-            </dl>
-          </aside>
-        </div>
-      </section>
-
-      <!-- CONTACT / CTA -->
-      <section class="bl-cta" id="contact">
-        <div class="bl-wrap bl-cta__grid">
-          <div data-reveal>
-            <p class="bl-eyebrow">Start a project</p>
-            <h2 class="bl-section__title" style="margin-block:var(--spacing-xs) var(--spacing-md);">
-              Pull up.
-            </h2>
-            <p style="color:var(--color-aluminum); max-width:36ch;">
-              Tell us about the vehicle and what you want done. No pressure, no upsell — just an
-              honest read on the work.
-            </p>
-            <dl class="bl-panel" style="margin-top:var(--spacing-md);">
-              <div style="display:grid; grid-template-columns:auto 1fr; gap:var(--spacing-2xs) var(--spacing-md);">
-                <dt class="bl-eyebrow" style="color:var(--color-pewter);">
-                  Phone
-                </dt>
-                <dd style="margin:0;">
-                  <span class="bl-tbd">CLIENT INPUT REQUIRED</span>
-                </dd>
-                <dt class="bl-eyebrow" style="color:var(--color-pewter);">
-                  Location
-                </dt>
-                <dd style="margin:0;">
-                  <span class="bl-tbd">CLIENT INPUT REQUIRED</span>
-                </dd>
-                <dt class="bl-eyebrow" style="color:var(--color-pewter);">
-                  Instagram
-                </dt>
-                <dd style="margin:0;">
-                  <span class="bl-tbd">CLIENT INPUT REQUIRED</span>
-                </dd>
-              </div>
-            </dl>
-          </div>
-
-          <form
-            class="bl-form"
-            data-reveal
-            aria-label="Project enquiry (prototype)"
-            onsubmit="return false;"
-          >
-            <div class="bl-field">
-              <label for="bl-name">Your name</label>
-              <input id="bl-name" name="name" type="text" autocomplete="name" placeholder="Name" />
+              <span class="bl-media__tag">Front 3/4 · chrome</span>
             </div>
-            <div class="bl-field">
-              <label for="bl-vehicle">Vehicle</label>
-              <input id="bl-vehicle" name="vehicle" type="text" placeholder="Year · make · model" />
+            <div class="bl-macro" aria-hidden="true">
+              <svg
+                viewBox="0 0 400 300"
+                width="100%"
+                height="100%"
+                preserveAspectRatio="xMidYMid slice"
+              >
+                <defs>
+                  <radialGradient id="bl-flake" cx="34%" cy="28%" r="85%">
+                    <stop offset="0%" stop-color="#eaf1ff" />
+                    <stop offset="22%" stop-color="#2e7bff" />
+                    <stop offset="60%" stop-color="#0b1a3a" />
+                    <stop offset="100%" stop-color="#05070c" />
+                  </radialGradient>
+                  <filter id="bl-grain">
+                    <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" />
+                    <feColorMatrix
+                      type="matrix"
+                      values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.08 0"
+                    />
+                  </filter>
+                </defs>
+                <rect width="400" height="300" fill="url(#bl-flake)" />
+                <rect width="400" height="300" filter="url(#bl-grain)" />
+              </svg>
             </div>
-            <div class="bl-field">
-              <label for="bl-msg">What do you want done?</label>
-              <textarea
-                id="bl-msg"
-                name="message"
-                rows="4"
-                placeholder="Paint, bodywork, restoration…"
-              ></textarea>
-            </div>
-            <div>
-              <button class="bl-btn bl-btn--primary" type="submit">
-                Send enquiry
-              </button>
-            </div>
-            <p class="bl-note">
-              Prototype form — not wired to a backend. Real submission handling is CLIENT INPUT
-              REQUIRED.
-            </p>
-          </form>
+          </div>
         </div>
-      </section>
-    </main>
-
-    <footer class="bl-footer">
-      <div class="bl-wrap bl-footer__row">
-        <span class="bl-footer__mark">AFTER HOURZ</span>
-        <span class="bl-note">Design direction prototype · Booth Light · DEPLOYED: NO</span>
-        <span class="bl-note">Socials · CLIENT INPUT REQUIRED</span>
       </div>
-    </footer>
-  </div>
+    </section>
 
-  <!-- Sticky header state: small isolated JS (not motion). -->
+    <!-- CRAFT -->
+    <section class="bl-section" id="craft">
+      <div class="bl-wrap">
+        <div class="bl-section__head" data-reveal>
+          <p class="bl-eyebrow">The craft</p>
+          <h2 class="bl-section__title">Layers, patience, then light</h2>
+        </div>
+        <div class="bl-steps" data-reveal>
+          {steps.map(([n, t, b]) => (
+            <article class="bl-step">
+              <div class="bl-step__n">{n}</div>
+              <h3>{t}</h3>
+              <p>{b}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="bl-section" id="services">
+      <div class="bl-wrap">
+        <div class="bl-section__head" data-reveal>
+          <p class="bl-eyebrow">Services</p>
+          <h2 class="bl-section__title">What we do</h2>
+        </div>
+        <div class="bl-services" data-reveal>
+          {services.map(([t, b]) => (
+            <div class="bl-serv">
+              <h3>{t}</h3>
+              <p>{b}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="bl-cta" id="contact">
+      <div class="bl-wrap bl-cta__grid">
+        <div data-reveal>
+          <p class="bl-eyebrow">Start a project</p>
+          <h2 class="bl-section__title" style="margin-block:var(--spacing-xs) var(--spacing-md);">
+            Pull up.
+          </h2>
+          <p style="color:var(--color-aluminum); max-width:38ch;">
+            Tell us about the vehicle and what you want done. No pressure — just an honest read.
+          </p>
+          <div class="bl-contact-rows">
+            <span>
+              Phone · <b>Coming soon</b>
+            </span>
+            <span>
+              Location · <b>Southern California</b>
+            </span>
+            <span>
+              Instagram · <b>Coming soon</b>
+            </span>
+          </div>
+        </div>
+        <form
+          class="bl-form"
+          data-reveal
+          aria-label="Project enquiry (prototype)"
+          onsubmit="return false;"
+        >
+          <div class="bl-field">
+            <label for="bl-name">Your name</label>
+            <input id="bl-name" name="name" type="text" autocomplete="name" placeholder="Name" />
+          </div>
+          <div class="bl-field">
+            <label for="bl-vehicle">Vehicle</label>
+            <input id="bl-vehicle" name="vehicle" type="text" placeholder="Year · make · model" />
+          </div>
+          <div class="bl-field">
+            <label for="bl-msg">What do you want done?</label>
+            <textarea
+              id="bl-msg"
+              name="message"
+              rows="4"
+              placeholder="Paint, bodywork, restoration…"
+            ></textarea>
+          </div>
+          <div>
+            <button class="bl-btn bl-btn--primary" type="submit">
+              Send enquiry
+            </button>
+          </div>
+          <p class="bl-note">Prototype form — not wired to a backend.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bl-footer">
+    <div class="bl-wrap">
+      AFTER HOURZ · Concept direction: Booth Light · <a href="/design-lab/">Design Lab</a>
+    </div>
+  </footer>
+
   <script>
-    const header = document.querySelector<HTMLElement>('.bl-header');
-    if (header) {
-      const onScroll = () => header.setAttribute('data-scrolled', String(window.scrollY > 24));
-      onScroll();
-      window.addEventListener('scroll', onScroll, { passive: true });
+    const h = document.querySelector<HTMLElement>('.bl-header');
+    if (h) {
+      const s = () => h.setAttribute('data-scrolled', String(window.scrollY > 24));
+      s();
+      window.addEventListener('scroll', s, { passive: true });
     }
   </script>
-</BaseLayout>
+</PrototypeLayout>

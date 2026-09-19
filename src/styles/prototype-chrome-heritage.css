@@ -1,0 +1,503 @@
+/*
+  Prototype 01 — CHROME HERITAGE
+  Thesis: custom automotive heritage rebuilt for a contemporary digital canvas.
+  DNA from the client poster: dimensional chrome lettering, cobalt-on-black, illuminated
+  bordered plaques, wet reflection, monumental centered composition, ornamental framing.
+  Motion thesis: POLISH / REFLECTION (specular sweep across chrome edges).
+  Distinct from Booth Light: CENTERED + symmetrical + ornamental (vs left editorial).
+*/
+
+.ch {
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(11, 71, 196, 0.22), rgba(6, 8, 14, 0) 55%),
+    radial-gradient(100% 60% at 50% 120%, rgba(11, 71, 196, 0.14), rgba(6, 8, 14, 0) 50%), #06080e;
+  color: var(--ch-chrome-mid);
+  overflow-x: clip;
+}
+.ch-wrap {
+  width: 100%;
+  max-width: 84rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Chrome text helper — polished metal gradient + subtle emboss */
+.ch-chrome {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #e9eef5 18%,
+    #9aa6b4 42%,
+    #5c6675 52%,
+    #aeb9c7 66%,
+    #f4f8fd 88%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Illuminated plaque (poster's bordered signage) */
+.ch-plaque {
+  position: relative;
+  background: linear-gradient(180deg, #0d1118, #080b11);
+  border: 1px solid var(--ch-plaque-edge);
+  border-radius: var(--radius-sm);
+  box-shadow:
+    inset 0 0 0 1px rgba(46, 123, 255, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 24px rgba(11, 71, 196, 0.12);
+}
+.ch-plaque--lit {
+  box-shadow:
+    inset 0 0 0 1px rgba(46, 123, 255, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 40px rgba(46, 123, 255, 0.22);
+}
+
+/* ---- Ribbon (internal marker, kept minimal & neutral for client review) ---- */
+.ch-topline {
+  border-bottom: 1px solid var(--ch-plaque-edge);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--ch-chrome-lo);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.ch-topline__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding-block: var(--spacing-2xs);
+}
+.ch-topline a {
+  color: var(--ch-chrome-mid);
+  text-decoration: underline;
+}
+
+/* ---- Header ---- */
+.ch-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition:
+    background var(--duration-ui) var(--ease-mech),
+    border-color var(--duration-ui) var(--ease-mech);
+  border-bottom: 1px solid transparent;
+}
+.ch-header[data-scrolled='true'] {
+  background: rgba(6, 8, 14, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom-color: var(--ch-plaque-edge);
+}
+.ch-header__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  padding-block: var(--spacing-sm);
+  position: relative;
+}
+.ch-header__logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  font-size: var(--text-body);
+  text-decoration: none;
+}
+.ch-header__nav {
+  display: flex;
+  gap: var(--spacing-md);
+}
+.ch-header__nav a {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ch-chrome-lo);
+  text-decoration: none;
+  transition: color var(--duration-micro) var(--ease-mech);
+}
+.ch-header__nav a:hover {
+  color: var(--ch-ice);
+}
+.ch-header__cta {
+  color: var(--ch-ice) !important;
+  border: 1px solid var(--ch-plaque-edge);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-3xs) var(--spacing-md);
+}
+.ch-header__cta:hover {
+  border-color: var(--ch-electric);
+}
+@media (max-width: 860px) {
+  .ch-header__nav a:not(.ch-header__cta) {
+    display: none;
+  }
+}
+
+/* ---- HERO — monumental centered ---- */
+.ch-hero {
+  position: relative;
+  text-align: center;
+  padding-block: var(--spacing-2xl) var(--spacing-xl);
+  isolation: isolate;
+}
+.ch-hero::before {
+  /* central cobalt glow behind the mark */
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(60% 45% at 50% 40%, rgba(46, 123, 255, 0.16), rgba(6, 8, 14, 0) 70%);
+}
+.ch-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  color: var(--ch-electric);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-md);
+}
+.ch-rule::before,
+.ch-rule::after {
+  content: '';
+  height: 1px;
+  width: clamp(2rem, 12vw, 9rem);
+  background: linear-gradient(90deg, transparent, var(--ch-electric), transparent);
+}
+.ch-hero__mark {
+  margin: 0 auto;
+}
+.ch-hero__mark svg {
+  width: min(94%, 62rem);
+  height: auto;
+  display: block;
+  margin-inline: auto;
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.7));
+}
+.ch-hero__by {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ch-chrome-lo);
+  margin-top: var(--spacing-sm);
+}
+.ch-hero__plaque {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs) var(--spacing-md);
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-2xs) var(--spacing-lg);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: clamp(0.9rem, 0.6rem + 1vw, 1.25rem);
+  color: var(--ch-ice);
+}
+.ch-hero__cats {
+  margin-top: var(--spacing-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ch-chrome-lo);
+}
+.ch-hero__actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--spacing-lg);
+}
+
+/* Buttons */
+.ch-btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: var(--text-caption);
+  text-decoration: none;
+  padding: var(--spacing-xs) var(--spacing-lg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--ch-plaque-edge);
+  color: var(--ch-ice);
+  background: linear-gradient(180deg, #10151f, #0a0d13);
+  transition:
+    border-color var(--duration-micro) var(--ease-mech),
+    box-shadow var(--duration-micro) var(--ease-mech),
+    transform var(--duration-micro) var(--ease-mech);
+}
+.ch-btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--ch-electric);
+  box-shadow: 0 0 24px rgba(46, 123, 255, 0.28);
+}
+.ch-btn--chrome {
+  color: #0a0d13;
+  background: linear-gradient(180deg, #ffffff, #c3ccd8 55%, #eef3f9);
+  border-color: #ffffff;
+  font-weight: 600;
+}
+.ch-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ---- Vehicle showpiece: chrome-framed panel with wet reflection ---- */
+.ch-showpiece {
+  padding-block: var(--spacing-2xl);
+}
+.ch-frame {
+  position: relative;
+  border-radius: var(--radius-md);
+  padding: 3px;
+  background: linear-gradient(180deg, #f4f8fd, #6b7482 40%, #10151f 60%, #3a4150);
+  box-shadow: 0 0 60px rgba(11, 71, 196, 0.18);
+}
+.ch-frame__inner {
+  position: relative;
+  border-radius: calc(var(--radius-md) - 2px);
+  overflow: hidden;
+  background: #05070c;
+}
+.ch-frame__inner img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: brightness(0.92) contrast(1.06) saturate(1.05);
+}
+.ch-frame__cap {
+  position: absolute;
+  left: var(--spacing-md);
+  bottom: var(--spacing-md);
+  right: var(--spacing-md);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-2xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  color: var(--ch-chrome-mid);
+  text-transform: uppercase;
+}
+/* CSS wet reflection under the frame */
+.ch-reflect {
+  margin-top: -1px;
+  height: 6rem;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  background: linear-gradient(180deg, rgba(46, 123, 255, 0.16), rgba(6, 8, 14, 0));
+  transform: scaleY(-1);
+  filter: blur(2px);
+  opacity: 0.5;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent);
+}
+
+/* ---- Section scaffolding ---- */
+.ch-section {
+  padding-block: var(--section-pad);
+  text-align: center;
+  position: relative;
+}
+.ch-section + .ch-section {
+  border-top: 1px solid var(--ch-plaque-edge);
+}
+.ch-kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ch-electric);
+}
+.ch-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-h2);
+  letter-spacing: 0.01em;
+  margin-top: var(--spacing-xs);
+}
+.ch-sub {
+  color: var(--ch-chrome-lo);
+  max-width: 52ch;
+  margin: var(--spacing-sm) auto 0;
+}
+
+/* Builds grid */
+.ch-builds {
+  display: grid;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+.ch-build {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--ch-plaque-edge);
+  background: #080b11;
+  text-align: left;
+}
+.ch-build__media {
+  aspect-ratio: 4 / 3;
+  position: relative;
+  overflow: hidden;
+}
+.ch-build__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ch-build__meta {
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md);
+}
+.ch-build__meta h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  color: var(--ch-chrome-hi);
+}
+.ch-build__meta p {
+  color: var(--ch-chrome-lo);
+  margin-top: var(--spacing-3xs);
+  font-size: var(--text-caption);
+}
+
+/* Process plaques */
+.ch-process {
+  display: grid;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  text-align: left;
+}
+.ch-proc {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-sm);
+}
+.ch-proc__n {
+  font-family: var(--font-mono);
+  color: var(--ch-electric);
+  font-size: var(--text-h4);
+}
+.ch-proc h3 {
+  font-family: var(--font-display);
+  color: var(--ch-chrome-hi);
+  margin-block: var(--spacing-2xs);
+}
+.ch-proc p {
+  color: var(--ch-chrome-lo);
+  font-size: var(--text-caption);
+}
+
+/* Services */
+.ch-services {
+  display: grid;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  text-align: left;
+}
+.ch-serv {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-sm);
+}
+.ch-serv h3 {
+  font-family: var(--font-display);
+  font-size: var(--text-h4);
+  color: var(--ch-chrome-hi);
+}
+.ch-serv p {
+  color: var(--ch-chrome-lo);
+  margin-top: var(--spacing-2xs);
+}
+
+/* CTA plaque */
+.ch-cta {
+  margin: var(--section-pad) auto;
+  max-width: 56rem;
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+.ch-cta h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-h1);
+}
+.ch-cta p {
+  color: var(--ch-chrome-lo);
+  max-width: 44ch;
+  margin: var(--spacing-sm) auto var(--spacing-lg);
+}
+.ch-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm) var(--spacing-xl);
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ch-chrome-lo);
+}
+.ch-contact b {
+  color: var(--ch-electric);
+  font-weight: 400;
+}
+
+/* Footer */
+.ch-footer {
+  border-top: 1px solid var(--ch-plaque-edge);
+  padding-block: var(--spacing-xl);
+  text-align: center;
+  color: var(--ch-chrome-lo);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.1em;
+}
+.ch-footer a {
+  color: var(--ch-chrome-mid);
+  text-decoration: underline;
+}
+
+/* Specular sweep across chrome elements (POLISH motion thesis) */
+@media (prefers-reduced-motion: no-preference) {
+  .ch-sweep {
+    position: relative;
+    overflow: hidden;
+  }
+  .ch-sweep::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      110deg,
+      transparent 35%,
+      rgba(255, 255, 255, 0.14) 48%,
+      rgba(207, 224, 255, 0.22) 50%,
+      transparent 63%
+    );
+    transform: translateX(-120%);
+    animation: ch-sweep 6s var(--ease-soft) infinite;
+    pointer-events: none;
+  }
+  @keyframes ch-sweep {
+    0%,
+    100% {
+      transform: translateX(-120%);
+    }
+    18%,
+    30% {
+      transform: translateX(120%);
+    }
+  }
+}
