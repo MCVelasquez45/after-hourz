@@ -63,7 +63,7 @@ const work = [
     note: 'Basecoat under a controlled cool key — the application half of the arc.',
   },
   {
-    cls: 'bl-fig--tall',
+    cls: 'bl-fig--tall bl-fig--cool',
     src: `${P}/materials-detail/copper-gloss-body-panel-chrome-trim-cPN7dnQRyiY.jpg`,
     w: 2400,
     h: 1600,
@@ -197,7 +197,7 @@ const process = [
           />
           <span class="bl-hero__rake" aria-hidden="true"></span>
           <span class="bl-hero__grade" aria-hidden="true"></span>
-          <span class="bl-stamp">External reference · prototype</span>
+          <span class="bl-stamp">Reference imagery</span>
         </div>
         <div class="bl-hero__panel" data-ground="dark">
           <p class="bl-hero__kicker">Southern California · body &amp; paint</p>
@@ -253,7 +253,7 @@ const process = [
                 loading="lazy"
                 decoding="async"
               />
-              <span class="bl-stamp">Reference</span>
+              <span class="bl-stamp">Reference imagery</span>
             </div>
             <div class="bl-service-lead__body">
               <h3>Custom paint</h3>
@@ -281,6 +281,9 @@ const process = [
       </div>
     </section>
 
+    <!-- Light-sweep divider: the inspection light passing across the seam. -->
+    <div class="bl-sweepdiv" aria-hidden="true"></div>
+
     <!-- ================= WORK / BUILDS ================= -->
     <section class="bl-section" id="work" aria-labelledby="work-h">
       <div class="bl-wrap">
@@ -294,6 +297,13 @@ const process = [
           </p>
         </div>
 
+        <!-- ONE provenance caption for the whole block (not a badge per tile). -->
+        <p class="bl-provline" data-bl-reveal>
+          <span class="bl-provline__dot" aria-hidden="true"></span>
+          Reference imagery — external, chosen to argue this direction. Not After Hourz&rsquo;s
+          completed work.
+        </p>
+
         <div class="bl-work" data-bl-reveal>
           {work.map((f) => (
             <figure class={`bl-fig ${f.cls}`}>
@@ -306,7 +316,6 @@ const process = [
                   loading="lazy"
                   decoding="async"
                 />
-                <span class="bl-stamp">Reference</span>
               </div>
               <figcaption>
                 <span class="bl-fig__cap-title">{f.title}</span>
@@ -317,6 +326,9 @@ const process = [
         </div>
       </div>
     </section>
+
+    <!-- Light-sweep divider: the inspection light passing across the seam. -->
+    <div class="bl-sweepdiv" aria-hidden="true"></div>
 
     <!-- ================= PROCESS ================= -->
     <section class="bl-section" id="process" aria-labelledby="process-h">
@@ -383,7 +395,7 @@ const process = [
           />
           <span class="bl-reveal__light" aria-hidden="true"></span>
           <span class="bl-reveal__seam" aria-hidden="true"></span>
-          <span class="bl-stamp">Reference</span>
+          <span class="bl-stamp">Reference imagery</span>
         </div>
       </div>
     </section>
@@ -401,7 +413,7 @@ const process = [
               loading="lazy"
               decoding="async"
             />
-            <span class="bl-stamp">Reference</span>
+            <span class="bl-stamp">Reference imagery</span>
           </div>
           <div class="bl-story__body">
             <span class="bl-story__region">Southern California raised</span>

@@ -36,31 +36,41 @@ const feature = {
   alt: 'Extreme close-up of a candy-copper metalflake hood with fine gold-leaf scrollwork and hand pinstriping, chrome grille and bumper below catching light.',
 };
 
-// Services — the craft lanes. Factual, no invented specifics.
+// Services — the HERITAGE BUILD SHEET. Each lane is a ledger line with a big
+// drop-cap numeral, a chrome hairline rule, and a right-aligned CANDY swatch chip
+// (a real paint/finish family for that lane). Factual, no invented specifics.
 const services = [
   {
     n: '01',
     name: 'Custom Paint',
     desc: 'Candy and metalflake color, factory-correct refinishing, and one-off custom work built in patient layers for depth that lasts.',
     tag: 'Color · Candy · Flake',
+    swatch: 'candy',
+    finish: 'Candy metalflake',
   },
   {
     n: '02',
     name: 'Body Work',
     desc: 'Collision repair, rust remediation, panel fabrication and gap-setting — the straight foundation every reflection depends on.',
     tag: 'Metal · Panels · Gaps',
+    swatch: 'chrome',
+    finish: 'Straight steel',
   },
   {
     n: '03',
     name: 'Restoration',
     desc: 'Classic and custom vehicles brought back true — and forward. Cars, trucks and bikes given an honest, complete read.',
     tag: 'Classic · Custom',
+    swatch: 'leaf',
+    finish: 'Gold-leaf lineage',
   },
   {
     n: '04',
     name: 'Detail & Polish',
     desc: 'Cut, buff and finish work — wet-sanded and polished until the reflection runs dead flat and the chrome reads clean.',
     tag: 'Cut · Buff · Chrome',
+    swatch: 'asphalt',
+    finish: 'Wet reflection',
   },
 ];
 
@@ -118,12 +128,14 @@ const gallery = [
   },
 ];
 
-// Process — POLISH / REFLECTION arc.
+// Process — POLISHED IN LAYERS. A literal layered paint-coat STACK (bottom coat →
+// top coat), not four equal cells. Each coat is a horizontal band; the stack builds
+// up to the final reflection. coat = the paint-schedule name that anchors the metaphor.
 const process = [
-  ['01', 'Strip & Read', 'The metal gets an honest read before anything else — what is true, and what is hidden underneath.'],
-  ['02', 'Metal & Gaps', 'Panels made straight and gaps set even. The flat foundation every later reflection depends on.'],
-  ['03', 'Base · Color · Clear', 'Built up in patient layers — candy, flake and clearcoat. Depth is earned in the booth, not rushed.'],
-  ['04', 'Cut & Reflect', 'Wet-sanded, cut and buffed until the surface runs dead flat and the light rakes across it clean.'],
+  { n: '01', coat: 'Substrate', t: 'Strip & Read', b: 'The metal gets an honest read before anything else — what is true, and what is hidden underneath.' },
+  { n: '02', coat: 'Foundation', t: 'Metal & Gaps', b: 'Panels made straight and gaps set even. The flat foundation every later reflection depends on.' },
+  { n: '03', coat: 'Color coats', t: 'Base · Candy · Flake', b: 'Built up in patient layers — base, candy and metalflake. Depth is earned in the booth, not rushed.' },
+  { n: '04', coat: 'Clear & cut', t: 'Clear & Reflect', b: 'Clearcoat laid, then wet-sanded, cut and buffed until the surface runs dead flat and the light rakes clean.' },
 ];
 
 const materials = [
@@ -192,13 +204,18 @@ const navLinks = [
         decoding="async"
       />
       <div class="chp-hero__grade" aria-hidden="true"></div>
+      <div class="chp-hero__highlight" aria-hidden="true"></div>
       <div class="chp-hero__sheen" aria-hidden="true"></div>
+
+      <!-- SAME provenance badge the gallery uses — the hero is not exempt -->
+      <span class="chp-ref chp-ref--hero">Reference imagery</span>
 
       <div class="chp-wrap">
         <div class="chp-hero__content">
           <p class="chp-hero__eyebrow">After Hourz · Anthony Montoya</p>
           <h1 class="chp-hero__title" id="hero-h">
-            Built after hours,<br /><em>finished by hand.</em>
+            <span class="chp-hero__l1">Built after hours,</span>
+            <em class="chp-hero__l2">finished by hand.</em>
           </h1>
           <p class="chp-hero__kicker">
             <b>Custom paint · body work · restoration</b>
@@ -212,10 +229,6 @@ const navLinks = [
           </div>
         </div>
       </div>
-
-      <p class="chp-hero__ref">
-        Prototype reference photo — not client work
-      </p>
     </section>
 
     <!-- ============ SERVICES ============ -->
@@ -226,20 +239,33 @@ const navLinks = [
             <span class="chp-eyebrow__n">01</span> Services
             <span class="chp-eyebrow__rule" aria-hidden="true"></span>
           </p>
-          <h2 class="chp-title" id="services-h">The craft lanes</h2>
+          <h2 class="chp-title" id="services-h">The build sheet</h2>
           <p class="chp-lead">
-            Cars, trucks and bikes. Four lanes of work — each one an honest read on the
-            metal before the light ever hits it.
+            Cars, trucks and bikes. Four lines on every build sheet — each an honest read
+            on the metal, and the finish family it&rsquo;s carried in.
           </p>
         </div>
 
-        <div class="chp-services" data-reveal>
+        <!-- HERITAGE BUILD SHEET / MAGAZINE LEDGER: drop-cap numerals, chrome hairline
+             rules, and a right-aligned CANDY finish swatch chip per lane. -->
+        <div class="chp-sheet" data-reveal>
+          <div class="chp-sheet__colhead" aria-hidden="true">
+            <span>No.</span>
+            <span>Line of work</span>
+            <span class="chp-sheet__colhead-fin">Finish family</span>
+          </div>
           {services.map((s) => (
-            <article class="chp-serv">
-              <span class="chp-serv__n">{s.n}</span>
-              <h3 class="chp-serv__name">{s.name}</h3>
-              <p class="chp-serv__desc">{s.desc}</p>
-              <span class="chp-serv__tag">{s.tag}</span>
+            <article class="chp-line">
+              <span class="chp-line__n" aria-hidden="true">{s.n}</span>
+              <div class="chp-line__body">
+                <h3 class="chp-line__name">{s.name}</h3>
+                <p class="chp-line__desc">{s.desc}</p>
+                <span class="chp-line__tag">{s.tag}</span>
+              </div>
+              <div class="chp-line__finish">
+                <span class={`chp-chip chp-chip--${s.swatch}`} aria-hidden="true"></span>
+                <span class="chp-line__finlabel">{s.finish}</span>
+              </div>
             </article>
           ))}
         </div>
@@ -286,10 +312,15 @@ const navLinks = [
       </figure>
 
       <div class="chp-wrap">
+        <!-- ONE clear provenance caption for the whole block — not a badge per tile.
+             The full-bleed feature above carries its own single badge. -->
+        <p class="chp-gallery__prov">
+          <span class="chp-gallery__prov-dot" aria-hidden="true"></span>
+          Reference imagery — study crops, not Anthony&rsquo;s completed work.
+        </p>
         <div class="chp-gallery" data-reveal>
           {gallery.map((g) => (
             <figure class={`chp-shot chp-shot--${g.key}`}>
-              <span class="chp-ref">Reference</span>
               <img
                 src={g.src}
                 width={g.w}
@@ -331,12 +362,17 @@ const navLinks = [
           </p>
         </div>
 
-        <ol class="chp-process" aria-label="The four-step process">
-          {process.map(([n, t, b], i) => (
-            <li class="chp-step" data-reveal data-delay={i * 90}>
-              <span class="chp-step__n">{n}</span>
-              <h3 class="chp-step__t">{t}</h3>
-              <p class="chp-step__b">{b}</p>
+        <!-- LAYERED PAINT-COAT STACK: coats build bottom → top toward the final
+             reflection. Deliberately NOT four equal cells. -->
+        <ol class="chp-stack" aria-label="The layered build — four coats">
+          {process.map((p, i) => (
+            <li class={`chp-coat chp-coat--${p.n}`} data-reveal style={`--i:${i}`}>
+              <span class="chp-coat__n" aria-hidden="true">{p.n}</span>
+              <span class="chp-coat__label">{p.coat}</span>
+              <div class="chp-coat__body">
+                <h3 class="chp-coat__t">{p.t}</h3>
+                <p class="chp-coat__b">{p.b}</p>
+              </div>
             </li>
           ))}
         </ol>

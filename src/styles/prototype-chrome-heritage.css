@@ -436,10 +436,19 @@
 .chp-nav__links a:not(.chp-btn):hover::after {
   width: 100%;
 }
+/* Header conversion — a FILLED candy button that survives every scroll state.
+   A hairline dark ring keeps its edge crisp against the blurred scrolled bar. */
 .chp-nav__cta {
   min-height: 44px;
-  padding: 0.6em 1.2em;
+  padding: 0.6em 1.3em;
   font-size: 0.82rem;
+  color: #1a0703; /* explicit: never inherits the muted link color */
+}
+.chp-nav[data-scrolled='true'] .chp-nav__cta {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 0 0 1px rgba(5, 7, 12, 0.6),
+    0 6px 18px rgba(122, 30, 18, 0.5);
 }
 
 /* Hamburger */
@@ -523,6 +532,19 @@
     /* thin warm candy horizon glow, low-right */
     radial-gradient(60% 30% at 82% 62%, rgba(232, 135, 60, 0.16), rgba(5, 7, 12, 0) 60%);
 }
+/* Reclaim the dead upper-right: a soft chrome reflection highlight sits where the
+   sky was empty, so the corner reads as lit sheet-metal, not vacancy. Static. */
+.chp-hero__highlight {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(38% 44% at 86% 16%, rgba(247, 249, 251, 0.14), rgba(5, 7, 12, 0) 62%),
+    radial-gradient(20% 24% at 92% 8%, rgba(232, 135, 60, 0.12), rgba(5, 7, 12, 0) 70%);
+  mix-blend-mode: screen;
+}
+
 /* Signature POLISH sweep — one restrained specular pass across the frame */
 .chp-hero__sheen {
   position: absolute;
@@ -566,13 +588,14 @@
   color: var(--candy-ember);
   margin: 0 0 var(--spacing-sm);
 }
-/* H1 — the ONE Fraunces hero line, set into the dark. Type is the brightest object. */
+/* H1 — the ONE Fraunces hero moment, set into the dark. Two DELIBERATE lines:
+   line 1 roman, line 2 italic on its own line. No orphan word, hyphens off. */
 .chp-hero__title {
   font-family: var(--p-display);
   font-weight: 600;
   font-optical-sizing: auto;
   font-size: clamp(2.9rem, 1.2rem + 8vw, 6.6rem);
-  line-height: 0.94;
+  line-height: 0.96;
   letter-spacing: -0.02em;
   color: var(--chrome-hi);
   margin: 0;
@@ -581,10 +604,19 @@
   word-break: keep-all;
   text-shadow: 0 2px 40px rgba(5, 7, 12, 0.8);
 }
+/* Each authored line is its own block → exactly two lines, italic on its own
+   deliberate line, and no single-word orphan can form. balance tidies any wrap
+   on the rare narrow case. */
+.chp-hero__l1,
+.chp-hero__title em {
+  display: block;
+  text-wrap: balance;
+}
 .chp-hero__title em {
   font-style: italic;
   font-weight: 340;
   color: var(--chrome-mid);
+  margin-top: 0.06em;
 }
 /* Literal service kicker — comprehension in the first viewport */
 .chp-hero__kicker {
@@ -611,21 +643,14 @@
   gap: var(--spacing-sm) var(--spacing-md);
   align-items: center;
 }
-/* Provenance note on the hero photo (bottom-right) */
-.chp-hero__ref {
-  position: absolute;
+/* Hero provenance badge — SAME affordance the gallery uses, seated top-right so it
+   never fights the headline in the lower-left. */
+.chp-ref--hero {
+  top: auto;
+  left: auto;
   right: var(--gutter);
   bottom: var(--spacing-sm);
   z-index: 2;
-  font-family: var(--p-body);
-  font-size: 0.62rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--chrome-faint);
-  max-width: 24ch;
-  text-align: right;
-  border-right: 2px solid rgba(232, 135, 60, 0.5);
-  padding-right: 8px;
 }
 
 /* ==========================================================================
@@ -643,36 +668,80 @@
 }
 
 /* ==========================================================================
-   4 · SERVICES — asymmetric craft-lane ledger (not a 3-card grid)
+   4 · SERVICES — HERITAGE BUILD SHEET / MAGAZINE LEDGER
+   Large drop-cap numeral · chrome hairline rules · right-aligned candy finish chip.
+   Deliberately NOT After Dark's number-then-body two-column list.
 ========================================================================== */
-.chp-services {
+.chp-sheet {
   margin-top: var(--spacing-xl);
-  display: grid;
-  gap: 0;
-  border-top: 1px solid var(--p-edge);
+  border-top: 2px solid var(--p-edge);
+  border-bottom: 2px solid var(--p-edge);
 }
-.chp-serv {
+/* Ledger column header — magazine build-sheet chrome */
+.chp-sheet__colhead {
   display: grid;
-  grid-template-columns: 4.5rem minmax(0, 1.1fr) minmax(0, 1.4fr) auto;
+  grid-template-columns: 6.4rem 1fr auto;
   gap: var(--spacing-md);
-  align-items: baseline;
+  align-items: center;
+  padding-block: var(--spacing-xs);
+  border-bottom: 1px solid var(--p-edge);
+  font-family: var(--p-heading);
+  font-weight: 600;
+  font-size: 0.64rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--chrome-faint);
+}
+.chp-sheet__colhead-fin {
+  text-align: right;
+}
+
+.chp-line {
+  display: grid;
+  grid-template-columns: 6.4rem 1fr auto;
+  gap: var(--spacing-md);
+  align-items: center;
   padding-block: var(--spacing-lg);
   border-bottom: 1px solid var(--p-edge);
   position: relative;
   transition: background var(--duration-ui) var(--ease-mech);
 }
-.chp-serv:hover {
-  background: linear-gradient(90deg, rgba(192, 90, 43, 0.06), rgba(5, 7, 12, 0) 60%);
+.chp-line:last-child {
+  border-bottom: 0;
 }
-.chp-serv__n {
+/* candy wash sweeps in from the left on hover — a paint pass, not a box fill */
+.chp-line:hover {
+  background: linear-gradient(90deg, rgba(192, 90, 43, 0.09), rgba(5, 7, 12, 0) 62%);
+}
+/* Large DROP-CAP numeral rendered in chrome material */
+.chp-line__n {
   font-family: var(--p-heading);
-  font-weight: 600;
-  font-size: 1rem;
-  letter-spacing: 0.1em;
-  color: var(--candy-ember);
+  font-weight: 700;
+  font-size: clamp(3.2rem, 2rem + 4.5vw, 5.4rem);
+  line-height: 0.82;
+  letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
+  color: transparent;
+  background: var(--chrome-fill);
+  -webkit-background-clip: text;
+  background-clip: text;
+  align-self: start;
+  /* a candy underscore ties the numeral to the paint DNA */
+  position: relative;
 }
-.chp-serv__name {
+.chp-line__n::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.12em;
+  width: 1.6ch;
+  height: 3px;
+  background: linear-gradient(90deg, var(--candy-ember), var(--candy-copper));
+}
+.chp-line__body {
+  min-width: 0;
+}
+.chp-line__name {
   font-family: var(--p-heading);
   font-weight: 600;
   font-size: clamp(1.4rem, 1rem + 1.4vw, 2.1rem);
@@ -683,21 +752,80 @@
   margin: 0;
   hyphens: none;
 }
-.chp-serv__desc {
+.chp-line__desc {
   font-family: var(--p-body);
   font-size: 0.98rem;
   line-height: 1.55;
   color: var(--chrome-mid);
-  margin: 0;
+  margin: var(--spacing-2xs) 0 0;
+  max-width: 54ch;
 }
-.chp-serv__tag {
+.chp-line__tag {
+  display: inline-block;
+  margin-top: var(--spacing-xs);
   font-family: var(--p-body);
   font-size: 0.66rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--chrome-faint);
+  color: var(--chrome-low);
+}
+/* Right-aligned CANDY finish chip + label */
+.chp-line__finish {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  justify-content: flex-end;
+  text-align: right;
   white-space: nowrap;
+}
+.chp-line__finlabel {
+  font-family: var(--p-heading);
+  font-weight: 600;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--chrome-mid);
+}
+/* Swatch chip — the real finish family, rendered as CSS material (swap test:
+   reads "candy / chrome / gold-leaf / wet asphalt" with photos removed). */
+.chp-chip {
+  flex: 0 0 auto;
+  width: 3.2rem;
+  height: 2.2rem;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--p-edge);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.chp-chip--candy {
+  background:
+    radial-gradient(1.3px 1.3px at 26% 32%, rgba(255, 224, 188, 0.95), transparent 60%),
+    radial-gradient(1.2px 1.2px at 68% 60%, rgba(255, 238, 214, 0.85), transparent 60%),
+    radial-gradient(1.3px 1.3px at 84% 24%, rgba(232, 135, 60, 0.95), transparent 60%),
+    linear-gradient(150deg, var(--candy-copper-hot), var(--candy-copper) 46%, var(--candy-maroon-deep) 100%);
+  background-size: 12px 12px, 16px 16px, 20px 20px, 100% 100%;
+}
+.chp-chip--chrome {
+  background: linear-gradient(177deg, #fff 0%, #e6edf6 14%, #9aa7b8 34%, #454e5c 50%, #808c9d 60%, #eef3fa 82%, #c3ccd8 100%);
+}
+.chp-chip--chrome::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 42%, rgba(255, 255, 255, 0.85) 50%, transparent 58%);
+  mix-blend-mode: screen;
+}
+.chp-chip--leaf {
+  background:
+    repeating-linear-gradient(48deg, rgba(255, 224, 170, 0.4) 0 1px, transparent 1px 6px),
+    linear-gradient(160deg, #e0a94a 0%, #8a5a1c 60%, #3a2408 100%);
+}
+.chp-chip--asphalt {
+  background:
+    radial-gradient(80% 50% at 50% 100%, rgba(232, 135, 60, 0.28), transparent 70%),
+    linear-gradient(180deg, #0c0f16 0%, #05070c 100%);
 }
 
 /* ==========================================================================
@@ -768,6 +896,27 @@
   max-width: 46ch;
   color: var(--chrome-mid);
   font-size: 1rem;
+}
+
+/* ONE provenance caption for the whole supporting block (badge noise reduced) */
+.chp-gallery__prov {
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
+  margin: var(--spacing-lg) 0 var(--spacing-sm);
+  font-family: var(--p-body);
+  font-weight: 700;
+  font-size: 0.64rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--chrome-low);
+}
+.chp-gallery__prov-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--candy-ember);
+  box-shadow: 0 0 6px rgba(232, 135, 60, 0.9);
 }
 
 /* Supporting rhythm — deliberately uneven (not an even masonry) */
@@ -842,71 +991,118 @@
 }
 
 /* ==========================================================================
-   6 · PROCESS — POLISH / REFLECTION arc (horizontal weighted settle)
+   6 · PROCESS — "POLISHED IN LAYERS": a stacked paint-COAT build.
+   Coats are horizontal bands that build up toward the final reflection, each
+   inset a touch further right so the stack reads as depth. Distinct from After
+   Dark's equal-width strip AND from a four-cell grid.
 ========================================================================== */
-.chp-process {
+.chp-stack {
   margin-top: var(--spacing-xl);
+  list-style: none;
+  padding: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 0;
   border: 1px solid var(--p-edge);
   border-radius: var(--radius-sm);
   overflow: hidden;
-}
-.chp-step {
-  padding: var(--spacing-lg) var(--spacing-md);
+  background: linear-gradient(180deg, var(--p-black), var(--p-panel));
   position: relative;
-  border-right: 1px solid var(--p-edge);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-sm);
-  background: linear-gradient(180deg, var(--p-panel), var(--p-black));
 }
-.chp-step:last-child {
-  border-right: 0;
-}
-/* candy-lit progress bar that "polishes" left→right across the arc */
-.chp-step::before {
+/* The final reflection line at the top of the stack — the payoff of the coats */
+.chp-stack::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--candy-ember), var(--candy-copper));
-  transform: scaleX(0);
-  transform-origin: left;
+  height: 2px;
+  background: var(--chrome-fill);
+  opacity: 0.5;
+  z-index: 2;
+}
+.chp-coat {
+  position: relative;
+  display: grid;
+  grid-template-columns: 5.4rem minmax(0, 12rem) 1fr;
+  gap: var(--spacing-md);
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+  border-top: 1px solid var(--p-edge);
+  /* each coat sits on a slightly warmer/deeper wash — the paint stacking up */
+  background: linear-gradient(
+    180deg,
+    rgba(192, 90, 43, calc(0.02 + var(--i) * 0.028)),
+    rgba(5, 7, 12, 0)
+  );
+  /* progressive inset so the top coats read as laid over the lower ones */
+  margin-left: calc(var(--i) * 0.9rem);
+}
+.chp-coat:first-child {
+  border-top: 0;
+}
+/* candy edge on the left of each coat — the wet paint boundary */
+.chp-coat::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    180deg,
+    var(--candy-ember),
+    var(--candy-copper) 55%,
+    var(--candy-maroon)
+  );
+  transform: scaleY(0);
+  transform-origin: top;
   transition: transform var(--duration-cinematic) var(--ease-mech);
+  transition-delay: calc(var(--i) * 90ms);
 }
-.chp-step.is-revealed::before {
-  transform: scaleX(1);
+.chp-coat.is-revealed::before {
+  transform: scaleY(1);
 }
-.chp-step__n {
+.chp-coat__n {
   font-family: var(--p-heading);
   font-weight: 700;
-  font-size: 2.4rem;
-  line-height: 1;
+  font-size: clamp(2.4rem, 1.6rem + 2.4vw, 3.4rem);
+  line-height: 0.82;
   color: transparent;
   background: var(--chrome-fill);
   -webkit-background-clip: text;
   background-clip: text;
   font-variant-numeric: tabular-nums;
+  align-self: start;
 }
-.chp-step__t {
+.chp-coat__label {
   font-family: var(--p-heading);
   font-weight: 600;
-  font-size: 1.15rem;
-  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--candy-ember);
+  align-self: start;
+  padding-top: 0.35em;
+}
+.chp-coat__body {
+  min-width: 0;
+}
+.chp-coat__t {
+  font-family: var(--p-heading);
+  font-weight: 600;
+  font-size: clamp(1.15rem, 0.95rem + 0.8vw, 1.5rem);
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--chrome-hi);
-  margin: 0;
+  margin: 0 0 0.25rem;
 }
-.chp-step__b {
+.chp-coat__b {
   font-family: var(--p-body);
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   line-height: 1.5;
   color: var(--chrome-mid);
   margin: 0;
+  max-width: 56ch;
 }
 
 /* ==========================================================================
@@ -1306,25 +1502,39 @@
     grid-template-columns: 1fr;
     gap: var(--spacing-xl);
   }
-  .chp-serv {
-    grid-template-columns: 3.2rem minmax(0, 1fr);
+  /* Build sheet → numeral over body, finish chip drops beneath as its own row */
+  .chp-sheet__colhead {
+    display: none;
+  }
+  .chp-line {
+    grid-template-columns: 4.4rem 1fr;
     grid-template-areas:
-      'n name'
-      'n desc'
-      'n tag';
+      'n body'
+      'fin fin';
+    row-gap: var(--spacing-sm);
+    align-items: start;
+  }
+  .chp-line__n { grid-area: n; }
+  .chp-line__body { grid-area: body; }
+  .chp-line__finish {
+    grid-area: fin;
+    justify-content: flex-start;
+    text-align: left;
+    padding-left: 4.4rem;
+    padding-left: calc(4.4rem + var(--spacing-md));
+  }
+  /* Coat stack: labels tuck under numerals; keep the layered inset gentle */
+  .chp-coat {
+    grid-template-columns: 4.4rem 1fr;
+    grid-template-areas:
+      'n label'
+      'n body';
     row-gap: var(--spacing-2xs);
+    margin-left: calc(var(--i) * 0.5rem);
   }
-  .chp-serv__n { grid-area: n; }
-  .chp-serv__name { grid-area: name; }
-  .chp-serv__desc { grid-area: desc; }
-  .chp-serv__tag { grid-area: tag; }
-  .chp-process {
-    grid-template-columns: 1fr 1fr;
-  }
-  .chp-step:nth-child(2) { border-right: 0; }
-  .chp-step:nth-child(1), .chp-step:nth-child(2) {
-    border-bottom: 1px solid var(--p-edge);
-  }
+  .chp-coat__n { grid-area: n; }
+  .chp-coat__label { grid-area: label; padding-top: 0; }
+  .chp-coat__body { grid-area: body; }
 }
 
 @media (max-width: 860px) {
@@ -1418,8 +1628,10 @@
   .chp-hero__eyebrow {
     padding-top: var(--spacing-2xs);
   }
+  /* size so each authored line ("Built after hours," / "finished by hand.")
+     fits on one line at 320–430px without clipping or a third wrapped line */
   .chp-hero__title {
-    font-size: clamp(2.6rem, 1.6rem + 8vw, 3.6rem);
+    font-size: clamp(2rem, 1.15rem + 5.2vw, 3rem);
   }
   .chp-hero__ref {
     position: static;
@@ -1448,14 +1660,10 @@
     grid-column: span 12;
     min-height: 15rem;
   }
-  .chp-process {
-    grid-template-columns: 1fr;
+  .chp-coat {
+    margin-left: 0;
+    padding-inline: var(--spacing-md);
   }
-  .chp-step {
-    border-right: 0;
-    border-bottom: 1px solid var(--p-edge);
-  }
-  .chp-step:last-child { border-bottom: 0; }
   .chp-form {
     padding: var(--spacing-md);
   }
@@ -1482,8 +1690,9 @@
     transform: none;
     transition: none;
   }
-  .chp-step::before {
+  .chp-coat::before {
     transition: none;
+    transform: scaleY(1);
   }
   .chp-shot img,
   .chp-btn,

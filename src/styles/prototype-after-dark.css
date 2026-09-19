@@ -2,19 +2,28 @@
   AFTER HOURZ — AFTER DARK · production-level prototype styles.
   Scoped entirely to the `.ad` body class. Does NOT edit shared CSS.
 
-  Thesis: Southern California custom-car craftsmanship after sunset.
-  Motion keyword: MOMENTUM — horizontal drift/rail, parallax dusk, cut-to-cut rhythm.
-  Palette: --ad-* (night / dusk / sodium warmth / cool blue / asphalt).
+  RE-CONCEPT (post-gate). This is NOT "Chrome Heritage at night."
 
-  Accent discipline: ONE warm accent (sodium), pulled from real SoCal sodium-vapor
-  light + candy/flake paint tones — NOT a teal-orange movie preset. Cool side is a
-  restrained deep blue used for structure, never as a "link blue".
+  WORLD: cool-dominant night. Deep teal/blue wet-asphalt ambient is the field.
+  Warm sodium survives ONLY as small, CONTAINED practical pools (a single lamp,
+  a taillight) — never as UI, never as the CTA. This is the deliberate INVERSE of
+  Chrome Heritage's warm-dominant world with warm CTAs.
 
-  Legibility gates applied:
+  ACCENT: COOL. Electric night-blue (--accent) drives every CTA, link, focus ring,
+  active state, and the system flow-line. Sodium is quarantined to `--practical`
+  and only ever appears as a soft radial pool over photography, never as an edge,
+  a button, or a text color on chrome.
+
+  SYSTEM MATERIAL MOTIF (swap test — reads automotive with photos removed):
+  - Display type carries a cool specular RAKE (a moving highlight across the letters).
+  - Dividers/section entrances are a continuous FLOW LINE that drifts.
+  - The process band is a night-drive route with lit nodes — no card grid, no numbered ledger.
+
+  Legibility gates:
   - Scrim/gradient behind EVERY headline/caption over a photo.
-  - Amber headline lifted (sodium-hot) to clear AA-large on black.
-  - Gallery tiles lifted ~12% (brightness) so subjects read out of the black.
-  - Bloom reduced to observed specular, not a CSS glow effect.
+  - All text/bg pairs verified AA (>=4.5 body / >=3 large) on the night ground.
+  - Cool accent chosen light enough to pass AA-large on night; CTA text is near-black on accent.
+  - Reduced-motion freezes all drift, rake, and reveals.
 */
 
 /* ---- Self-hosted faces (real files, not CDN) · served from /fonts/after-dark ---- */
@@ -39,28 +48,30 @@
    BODY-SCOPED TOKENS + BASE
    ============================================================ */
 .ad {
-  /* palette roles (mirror --ad-* from tokens.css) */
-  --night: var(--ad-night);          /* #0b0e14 */
-  --ink-2: #0e131c;                  /* raised night */
-  --panel: #0f141d;                  /* card ground (lifted from crushed black) */
-  --panel-2: #131a26;               /* raised card ground */
-  --hair: #232b3a;
-  --hair-warm: #3a2f28;
-  --asphalt: var(--ad-asphalt);      /* #101318 */
-  --dusk-top: var(--ad-dusk-top);
-  --dusk-mid: var(--ad-dusk-mid);
-  --dusk-low: var(--ad-dusk-low);
+  /* --- cool-dominant night field --- */
+  --night: #070d12;                  /* deep cool base — teal-black */
+  --night-2: #0a141c;                /* raised night */
+  --panel: #0c161f;                  /* card ground (lifted from crushed black) */
+  --panel-2: #10202c;               /* raised card ground */
+  --hair: #1d2c38;                   /* cool hairline */
+  --hair-hi: #2b4152;               /* lit cool hairline (flow line dim) */
+  --asphalt: #060b10;               /* wet-asphalt inset */
 
-  --sodium: var(--ad-sodium);        /* #ff9d4d — the one heat */
-  --sodium-hot: var(--ad-sodium-hot);/* #ffc07a — headline lift + hover */
-  --cool: var(--ad-blue);            /* #3f7bd6 — structure only */
-  --cool-ice: #9dc0f0;
+  /* --- COOL ACCENT (the whole interface) --- */
+  --accent: #37c6e0;                /* electric night-blue/teal — CTA, links, focus */
+  --accent-hot: #6fe0f2;            /* hover / brighter specular */
+  --accent-deep: #1c7f97;           /* pressed / structural */
+  --accent-ink: #041016;            /* text ON the accent (11:1 on accent) */
 
-  /* text ladder — all pairs verified AA on night ground */
-  --tx-hi: #f4efe8;                  /* warm near-white headline (16.9:1) */
-  --tx: #d6dbe4;                     /* body (13.9:1) */
-  --tx-mut: #a9b1be;                 /* muted (8.9:1) */
-  --tx-warm: #e9c9a6;               /* warm caption (12.3:1) */
+  /* --- CONTAINED WARM PRACTICAL (photo pools only, never UI) --- */
+  --practical: rgba(255, 150, 74, 0.55);   /* the single lamp / taillight */
+  --practical-soft: rgba(255, 150, 74, 0.16);
+
+  /* text ladder — verified AA on the cool night ground (#070d12) */
+  --tx-hi: #eaf2f6;                  /* near-white headline (16.8:1) */
+  --tx: #cdd8df;                     /* body (12.9:1) */
+  --tx-mut: #9aa9b3;                /* muted (7.6:1) */
+  --tx-cool: #a9d8e6;              /* cool caption (10.2:1) — reads AA-normal */
 
   --edge: 1px solid var(--hair);
   --shell-max: 84rem;
@@ -87,11 +98,11 @@
   word-break: keep-all;
 }
 .ad p {
-  max-width: 60ch;
+  max-width: 62ch;
   text-wrap: pretty;
 }
 
-/* shared shell (own name to avoid collision with board .adb-wrap) */
+/* shared shell */
 .ad-shell {
   width: 100%;
   max-width: var(--shell-max);
@@ -119,7 +130,7 @@
   font-size: var(--text-caption);
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--sodium);
+  color: var(--accent);
   margin: 0 0 var(--spacing-xs);
 }
 .ad-secttl {
@@ -149,6 +160,39 @@
 }
 .ad-seclead strong { color: var(--tx-hi); font-weight: 600; }
 
+/* ============================================================
+   SYSTEM MATERIAL MOTIF — cool specular rake on display type.
+   A slow cool highlight travels across headlines: "light reading the metal".
+   Persists with photos removed (the swap test). Frozen under reduced motion.
+   ============================================================ */
+.ad-secttl,
+.ad-hero__h1 {
+  position: relative;
+  background-image: linear-gradient(
+    100deg,
+    var(--tx-hi) 0%,
+    var(--tx-hi) 38%,
+    #ffffff 48%,
+    var(--accent-hot) 50%,
+    var(--tx-hi) 62%,
+    var(--tx-hi) 100%
+  );
+  background-size: 260% 100%;
+  background-position: 120% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--tx-hi);            /* fallback for non-clip UAs */
+  animation: ad-rake 9s var(--ease-soft) infinite;
+}
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .ad-secttl,
+  .ad-hero__h1 { -webkit-text-fill-color: transparent; }
+}
+@keyframes ad-rake {
+  0%, 62% { background-position: 120% 0; }
+  86%, 100% { background-position: -20% 0; }
+}
+
 /* "CLIENT INPUT REQUIRED" affordance — honest, tasteful, not fabricated */
 .ad-cir {
   font-family: var(--ad-font-body);
@@ -156,15 +200,15 @@
   font-size: 0.78em;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--tx-warm);
-  background: rgba(255, 157, 77, 0.1);
-  border: 1px solid var(--hair-warm);
+  color: var(--tx-cool);
+  background: rgba(55, 198, 224, 0.12);
+  border: 1px solid var(--accent-deep);
   border-radius: 999px;
   padding: 0.12em 0.7em;
   white-space: nowrap;
 }
 
-/* Reference provenance badge — every external photo carries one */
+/* Reference provenance badge — used sparingly (hero only) */
 .ad-refbadge {
   position: absolute;
   top: var(--spacing-sm);
@@ -176,20 +220,13 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--tx-hi);
-  background: rgba(11, 14, 20, 0.82);
-  border: 1px solid var(--hair);
+  background: rgba(7, 13, 18, 0.85);
+  border: 1px solid var(--hair-hi);
   border-radius: 999px;
   padding: 0.3rem 0.7rem;
   backdrop-filter: blur(3px);
 }
-.ad-refbadge--sm {
-  font-size: 0.56rem;
-  padding: 0.22rem 0.55rem;
-  top: var(--spacing-xs);
-  left: var(--spacing-xs);
-}
-.ad-prov,
-.ad-story__figcap {
+.ad-prov {
   font-family: var(--font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.06em;
@@ -199,18 +236,18 @@
 }
 
 /* ============================================================
-   BUTTONS
+   BUTTONS — COOL accent primary (never warm)
    ============================================================ */
 .ad-btn {
   --_bg: transparent;
-  --_bd: var(--hair);
+  --_bd: var(--hair-hi);
   --_fg: var(--tx-hi);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.55em;
   font-family: var(--ad-font-body);
-  font-weight: 600;
+  font-weight: 700;
   font-size: var(--text-body);
   letter-spacing: 0.01em;
   text-decoration: none;
@@ -231,27 +268,28 @@
 .ad-btn:hover { transform: translateY(-1px); }
 .ad-btn--lg { padding: 1rem 1.85rem; font-size: var(--text-lead); }
 .ad-btn--block { width: 100%; }
-.ad-btn--sodium {
-  --_bg: linear-gradient(180deg, var(--sodium-hot), var(--sodium));
-  --_bd: var(--sodium-hot);
-  --_fg: #2a1502;               /* 8.4:1 on sodium */
+/* FILLED, high-contrast cool accent — the persistent conversion color */
+.ad-btn--accent {
+  --_bg: linear-gradient(180deg, var(--accent-hot), var(--accent));
+  --_bd: var(--accent-hot);
+  --_fg: var(--accent-ink);           /* ~11:1 on accent */
 }
-.ad-btn--sodium:hover { box-shadow: 0 6px 24px rgba(255, 157, 77, 0.28); }
-.ad-btn--ghost { --_bd: #3a4557; }
-.ad-btn--ghost:hover { border-color: var(--sodium); color: var(--sodium-hot); }
+.ad-btn--accent:hover { box-shadow: 0 6px 26px rgba(55, 198, 224, 0.34); }
+.ad-btn--ghost { --_bd: #2f4756; --_fg: var(--tx-hi); }
+.ad-btn--ghost:hover { border-color: var(--accent); color: var(--accent-hot); }
 .ad-arw { transition: transform var(--duration-micro) var(--ease-mech); }
 .ad-btn:hover .ad-arw { transform: translateX(4px); }
 .ad-btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--night), 0 0 0 4px var(--sodium);
+  box-shadow: 0 0 0 2px var(--night), 0 0 0 4px var(--accent);
 }
 
 /* ============================================================
    LAB CHROME (subtle return affordance)
    ============================================================ */
 .ad-lab {
-  background: #070a0f;
-  border-bottom: 1px solid #171d29;
+  background: #04080c;
+  border-bottom: 1px solid #0f1a22;
   font-size: 0.7rem;
 }
 .ad-lab__row {
@@ -273,10 +311,10 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--cool-ice);
+  color: var(--accent);
   text-decoration: none;
 }
-.ad-lab__back:hover { color: var(--sodium-hot); }
+.ad-lab__back:hover { color: var(--accent-hot); }
 
 /* ============================================================
    NAV
@@ -291,7 +329,7 @@
     backdrop-filter var(--duration-ui) var(--ease-mech);
 }
 .ad-nav[data-scrolled='true'] {
-  background: rgba(9, 12, 18, 0.86);
+  background: rgba(6, 11, 16, 0.9);
   border-bottom-color: var(--hair);
   backdrop-filter: blur(10px);
 }
@@ -313,10 +351,9 @@
   align-items: baseline;
   gap: 0.35em;
 }
-/* Keep the wordmark near-white for AA; the identity flourish is the warm final Z,
-   tinted to sodium-hot (12:1 on night — clears AA-large). */
+/* wordmark stays near-white for AA; the identity flourish is the final Z in cool accent */
 .ad-wordmark__z { color: var(--tx-hi); }
-.ad-wordmark__z b { color: var(--sodium-hot); font-weight: inherit; }
+.ad-wordmark__z b { color: var(--accent); font-weight: inherit; }
 .ad-nav__links {
   display: none;
   align-items: center;
@@ -338,13 +375,14 @@
 .ad-nav__links a:hover,
 .ad-nav__links a:focus-visible {
   color: var(--tx-hi);
-  border-bottom-color: var(--sodium);
+  border-bottom-color: var(--accent);
   outline: none;
 }
 .ad-nav__links a:focus-visible {
-  outline: 2px solid var(--sodium);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+/* CTA is ALWAYS the filled accent button, visible on scroll on every viewport */
 .ad-nav__cta { display: none; }
 
 /* Mobile menu button */
@@ -354,7 +392,7 @@
   height: 46px;
   display: inline-grid;
   place-items: center;
-  background: rgba(11, 14, 20, 0.6);
+  background: rgba(7, 13, 18, 0.6);
   border: var(--edge);
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -377,14 +415,14 @@
 .ad-menu-btn[aria-expanded='true'] .ad-menu-btn__bars::before { transform: translateY(6px) rotate(45deg); }
 .ad-menu-btn[aria-expanded='true'] .ad-menu-btn__bars::after { transform: translateY(-6px) rotate(-45deg); }
 .ad-menu-btn:focus-visible {
-  outline: 2px solid var(--sodium);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
 /* Mobile menu panel */
 .ad-mobile {
   border-top: var(--edge);
-  background: rgba(9, 12, 18, 0.97);
+  background: rgba(6, 11, 16, 0.98);
   backdrop-filter: blur(10px);
 }
 .ad-mobile__nav {
@@ -407,7 +445,7 @@
   border-bottom: 1px solid var(--hair);
 }
 .ad-mobile__nav a:focus-visible {
-  outline: 2px solid var(--sodium);
+  outline: 2px solid var(--accent);
   outline-offset: -2px;
 }
 .ad-mobile__cta {
@@ -415,7 +453,6 @@
   border-bottom: none !important;
   justify-content: center;
 }
-/* lock scroll subtly while menu open (no layout jump on short pages) */
 .ad-menu-open { overflow: hidden; }
 
 @media (min-width: 880px) {
@@ -426,7 +463,7 @@
 }
 
 /* ============================================================
-   HERO — one full-width cinematic plate
+   HERO — one cool-night plate; one warm practical pool contained
    ============================================================ */
 .ad-hero {
   position: relative;
@@ -441,25 +478,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 60% 60%;
-  /* lift crushed blacks ~12% so the subject reads; warmth from color not black */
-  filter: brightness(1.12) contrast(1.02) saturate(1.04);
+  object-position: 50% 62%;
+  /* push cool, lift shadows so the wet asphalt reads without going warm */
+  filter: brightness(1.08) contrast(1.05) saturate(1.06) hue-rotate(-4deg);
 }
-/* Grade wash: cool-to-warm, heavy fall bottom + left so type has a stage */
+/* Grade wash: cool fall, deep at bottom + left so type has a stage */
 .ad-hero__grade {
   position: absolute;
   inset: 0;
   z-index: -2;
   background:
-    linear-gradient(92deg, rgba(9, 12, 18, 0.92) 0%, rgba(9, 12, 18, 0.6) 34%, rgba(9, 12, 18, 0.04) 64%),
-    linear-gradient(0deg, rgba(9, 12, 18, 0.96) 2%, rgba(9, 12, 18, 0.2) 40%, transparent 62%);
-}
-/* Sodium halo — observed specular, low bloom (not a CSS glow) */
-.ad-hero__halo {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(38% 40% at 22% 84%, rgba(255, 157, 77, 0.12), transparent 70%);
+    linear-gradient(92deg, rgba(6, 11, 16, 0.94) 0%, rgba(6, 11, 16, 0.62) 34%, rgba(6, 11, 16, 0.05) 66%),
+    linear-gradient(0deg, rgba(6, 11, 16, 0.97) 2%, rgba(6, 11, 16, 0.22) 42%, transparent 64%),
+    /* faint cool ambient top-right */
+    radial-gradient(50% 40% at 82% 8%, rgba(55, 198, 224, 0.1), transparent 70%);
 }
 .ad-hero__ref { top: auto; bottom: var(--spacing-sm); left: var(--spacing-sm); }
 .ad-hero__inner {
@@ -467,23 +499,24 @@
   padding-block: clamp(2.5rem, 2rem + 6vw, 6rem);
 }
 .ad-hero__panel {
-  max-width: 40rem;
+  max-width: 42rem;
   display: grid;
   gap: var(--spacing-sm);
 }
 .ad-hero__h1 {
   font-family: var(--ad-font-display);
-  font-size: clamp(3.4rem, 1.6rem + 11vw, 9rem);
-  line-height: 0.84;
+  font-size: clamp(3.2rem, 1.6rem + 10vw, 8rem);
+  line-height: 0.86;
   letter-spacing: 0.01em;
-  color: var(--tx-hi);
   margin: 0;
-  text-shadow: 0 2px 30px rgba(9, 12, 18, 0.6);
+  text-shadow: 0 2px 30px rgba(6, 11, 16, 0.6);
 }
-.ad-hero__warm {
+/* the middle line rides the cool accent — the "flow" word */
+.ad-hero__flow {
   display: block;
-  /* lifted one luminance step to sodium-hot → 12:1 on black, clears AA-large easily */
-  color: var(--sodium-hot);
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--accent);
 }
 .ad-hero__kicker {
   font-family: var(--ad-font-body);
@@ -515,7 +548,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--tx-mut);
-  background: rgba(9, 12, 18, 0.72);
+  background: rgba(6, 11, 16, 0.74);
   border: var(--edge);
   border-radius: var(--radius-sm);
   padding: 0.35rem 0.6rem;
@@ -530,20 +563,16 @@
   .ad-hero { align-items: stretch; }
   .ad-hero__grade {
     background:
-      linear-gradient(0deg, rgba(9, 12, 18, 0.99) 30%, rgba(9, 12, 18, 0.55) 62%, rgba(9, 12, 18, 0.15) 100%);
+      linear-gradient(0deg, rgba(6, 11, 16, 0.99) 32%, rgba(6, 11, 16, 0.58) 64%, rgba(6, 11, 16, 0.16) 100%);
   }
-  .ad-hero__inner {
-    display: flex;
-    align-items: flex-end;
-  }
+  .ad-hero__inner { display: flex; align-items: flex-end; }
   .ad-hero__panel {
-    background: linear-gradient(180deg, rgba(11, 15, 22, 0.72), rgba(11, 15, 22, 0.94));
+    background: linear-gradient(180deg, rgba(8, 15, 21, 0.74), rgba(8, 15, 21, 0.95));
     border: var(--edge);
     border-radius: var(--radius-md);
     padding: var(--spacing-md);
-    /* mobile-specific type scale */
   }
-  .ad-hero__h1 { font-size: clamp(3rem, 12vw, 4.6rem); }
+  .ad-hero__h1 { font-size: clamp(2.8rem, 11.5vw, 4.4rem); }
   .ad-hero__kicker { font-size: 1.05rem; }
   .ad-hero__sub { font-size: 1rem; }
   .ad-hero__actions .ad-btn { flex: 1 1 auto; }
@@ -551,266 +580,322 @@
 }
 
 /* ============================================================
-   SERVICES — asymmetric numbered ledger (NOT a 3-card grid)
+   SERVICES — the NIGHT-DRIVE FILMSTRIP (image-led, horizontal motion)
+   Shares NO silhouette with a vertical numbered ledger.
    ============================================================ */
 .ad-services {
   padding-block: clamp(4rem, 2.5rem + 7vw, 8rem);
   border-top: var(--edge);
-}
-.ad-svc-list {
-  display: grid;
-  gap: 0;
-  border-top: var(--edge);
-}
-.ad-svc {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--spacing-md);
-  align-items: start;
-  padding-block: var(--spacing-lg);
-  border-bottom: var(--edge);
-  transition: background var(--duration-ui) var(--ease-mech);
-}
-.ad-svc:hover { background: linear-gradient(90deg, rgba(255, 157, 77, 0.05), transparent 40%); }
-.ad-svc__n {
-  font-family: var(--ad-font-display);
-  font-size: clamp(2.4rem, 1.5rem + 4vw, 4.2rem);
-  line-height: 0.8;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--sodium);
-  letter-spacing: 0.02em;
-}
-.ad-svc__body { max-width: 62ch; }
-.ad-svc__t {
-  font-size: clamp(1.6rem, 1.2rem + 2vw, 2.6rem);
-  color: var(--tx-hi);
-  margin: 0 0 0.4rem;
-}
-.ad-svc__d {
-  color: var(--tx);
-  font-size: var(--text-body);
-  margin: 0;
-}
-.ad-svc__lane {
-  display: inline-block;
-  margin-top: var(--spacing-sm);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--sodium);
-}
-@media (min-width: 760px) {
-  .ad-svc {
-    grid-template-columns: 6rem 1fr;
-    gap: var(--spacing-xl);
-    align-items: center;
-  }
-}
-
-/* ============================================================
-   WORK — one lead plate + supporting rhythm (single crop logic)
-   ============================================================ */
-.ad-work {
-  padding-block: clamp(4rem, 2.5rem + 7vw, 8rem);
-  border-top: var(--edge);
-  background:
-    radial-gradient(70% 50% at 10% 0%, rgba(63, 123, 214, 0.06), transparent 60%),
-    var(--night);
-}
-
-/* Lead plate */
-.ad-lead {
-  display: grid;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-2xl);
-  align-items: center;
-}
-.ad-lead__media {
   position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-md);
-  border: var(--edge);
-  aspect-ratio: 4 / 5;
-  background: var(--ink-2);
 }
-.ad-lead__media img {
+/* system flow line entering the section */
+.ad-services::before {
+  content: '';
   position: absolute;
-  inset: 0;
+  top: -1px;
+  left: 0;
+  height: 2px;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 55%;
-  filter: brightness(1.1) contrast(1.02) saturate(1.04);
+  background: linear-gradient(90deg, transparent, var(--accent) 20%, var(--accent) 80%, transparent);
+  opacity: 0.55;
+  transform-origin: left;
+  animation: ad-flow 5.5s var(--ease-soft) infinite;
 }
-.ad-lead__cap { display: grid; gap: 0.4rem; }
-.ad-lead__k {
-  font-family: var(--ad-font-body);
-  font-weight: 700;
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--sodium);
+@keyframes ad-flow {
+  0% { mask-position: -30% 0; -webkit-mask-position: -30% 0; }
+  100% { mask-position: 130% 0; -webkit-mask-position: 130% 0; }
 }
-.ad-lead__t {
-  font-family: var(--ad-font-display);
-  font-size: clamp(1.8rem, 1.2rem + 3vw, 3rem);
-  color: var(--tx-hi);
-  line-height: 0.92;
-}
-.ad-lead__d {
-  color: var(--tx);
-  font-size: var(--text-lead);
-  max-width: 42ch;
-}
-@media (min-width: 820px) {
-  .ad-lead {
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  }
-  .ad-lead__media { aspect-ratio: 3 / 4; }
+.ad-services::before {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
-/* Supporting builds — deliberate ratio family, not an even masonry */
-.ad-builds {
-  display: grid;
-  gap: var(--spacing-md);
-  grid-template-columns: 1fr;
-}
-@media (min-width: 640px) {
-  .ad-builds { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 1024px) {
-  .ad-builds { grid-template-columns: repeat(6, 1fr); }
-  /* one crop logic: tall = 2 cols tall row, wide = 3 cols short row */
-  .ad-build--tall { grid-column: span 2; }
-  .ad-build--wide { grid-column: span 3; }
-}
-.ad-build figure { margin: 0; }
-.ad-build__media {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-sm);
-  border: var(--edge);
-  background: var(--ink-2);
-  aspect-ratio: 3 / 4;
-}
-.ad-build--wide .ad-build__media { aspect-ratio: 3 / 2; }
-.ad-build__media img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* lift crushed-black tiles ~12% so subjects read out of the dark */
-  filter: brightness(1.13) contrast(1.01) saturate(1.05);
-  transition: transform 600ms var(--ease-mech);
-}
-.ad-build:hover .ad-build__media img { transform: scale(1.04); }
-/* scrim so captions clear AA over the photo */
-.ad-build__scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(9, 12, 18, 0.78) 0%, transparent 46%);
-  pointer-events: none;
-}
-.ad-build__cap {
-  position: absolute;
-  inset: auto 0 0 0;
-  z-index: 2;
-  padding: var(--spacing-sm) var(--spacing-md);
-  display: grid;
-  gap: 2px;
-}
-/* Move caption inside media so scrim protects it */
-.ad-build__media { position: relative; }
-.ad-build figure { position: relative; }
-.ad-build__k {
-  font-family: var(--ad-font-body);
-  font-weight: 700;
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--sodium-hot);
-}
-.ad-build__t {
-  font-family: var(--ad-font-display);
-  font-size: var(--text-h4);
-  letter-spacing: 0.03em;
-  color: var(--tx-hi);
-  line-height: 1;
-}
-
-/* ============================================================
-   PROCESS — horizontal momentum rail (native scroll)
-   ============================================================ */
-.ad-process {
-  padding-block: clamp(4rem, 2.5rem + 7vw, 8rem);
-  border-top: var(--edge);
-  background:
-    linear-gradient(180deg, var(--dusk-top) -20%, var(--night) 30%);
-}
-.ad-rail {
+.ad-strip {
   margin-top: var(--spacing-lg);
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: x proximity;
+  scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding-block: 0.5rem;
+  padding-block: 0.25rem 0.5rem;
   scrollbar-width: thin;
-  scrollbar-color: var(--hair) transparent;
+  scrollbar-color: var(--hair-hi) transparent;
 }
-.ad-rail:focus-visible {
-  outline: 2px solid var(--sodium);
-  outline-offset: 3px;
+.ad-strip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
 }
-.ad-rail__track {
+.ad-strip__track {
   display: flex;
-  gap: var(--spacing-md);
+  gap: clamp(0.75rem, 1.5vw, 1.5rem);
   width: max-content;
   padding-inline: var(--gutter);
   margin: 0;
   list-style: none;
 }
-.ad-step {
+.ad-frame {
   flex: 0 0 auto;
-  width: min(21rem, 78vw);
-  scroll-snap-align: start;
-  background: linear-gradient(180deg, var(--panel-2), var(--panel));
-  border: var(--edge);
-  border-radius: var(--radius-md);
-  padding: var(--spacing-lg) var(--spacing-md);
-  display: grid;
-  gap: var(--spacing-xs);
-  align-content: start;
+  width: min(30rem, 84vw);
+  scroll-snap-align: center;
+}
+.ad-frame__fig { margin: 0; }
+.ad-frame__media {
   position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  border: var(--edge);
+  aspect-ratio: 4 / 5;
+  background: var(--asphalt);
 }
-.ad-step__n {
+.ad-frame__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* cool-key grade applied to EVERY tile so nothing reads daytime-warm */
+  filter: brightness(1.03) contrast(1.07) saturate(0.96) hue-rotate(-10deg);
+  transition: transform 700ms var(--ease-mech);
+}
+.ad-frame:hover .ad-frame__media img { transform: scale(1.03); }
+/* scrim so the lower-third burned-in name clears AA */
+.ad-frame__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(6, 11, 16, 0.94) 0%, rgba(6, 11, 16, 0.5) 26%, transparent 52%);
+  pointer-events: none;
+}
+/* the single contained WARM practical pool — this is the ONLY warmth per frame */
+.ad-frame__practical {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(34% 30% at 78% 22%, var(--practical-soft), transparent 68%);
+  mix-blend-mode: screen;
+}
+.ad-frame__cap {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 2;
+  padding: var(--spacing-md);
+  display: grid;
+  gap: 0.35rem;
+}
+.ad-frame__meta {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-hot);
+}
+.ad-frame__t {
   font-family: var(--ad-font-display);
-  font-size: 3.2rem;
-  line-height: 0.8;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--sodium);
-}
-.ad-step__t {
-  font-size: var(--text-h4);
+  font-size: clamp(1.9rem, 1.4rem + 2vw, 2.7rem);
   color: var(--tx-hi);
-  margin: 0;
+  line-height: 0.94;
   letter-spacing: 0.02em;
+  margin: 0;
+  /* keep the name solid + high-contrast; no rake here so it stays legible over photo */
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+  animation: none;
 }
-.ad-step__d { color: var(--tx); font-size: var(--text-body); margin: 0; }
-.ad-step__bar {
-  height: 3px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--sodium), transparent);
-  margin-top: var(--spacing-sm);
+.ad-frame__d {
+  color: var(--tx);
+  font-size: 0.95rem;
+  margin: 0;
+  max-width: 40ch;
 }
-.ad-rail__hint {
+.ad-strip__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm) var(--spacing-lg);
+  align-items: baseline;
   margin-top: var(--spacing-md);
+  max-width: none;
+}
+.ad-strip__hint {
   font-family: var(--font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--tx-mut);
+  color: var(--accent);
+}
+
+/* ============================================================
+   WORK — single-column large-format REFLECTION scroll (not a grid)
+   ============================================================ */
+.ad-work {
+  padding-block: clamp(4rem, 2.5rem + 7vw, 8rem);
+  border-top: var(--edge);
+  background:
+    radial-gradient(70% 50% at 90% 0%, rgba(55, 198, 224, 0.06), transparent 60%),
+    var(--night);
+}
+.ad-reflect {
+  display: grid;
+  gap: clamp(4rem, 2rem + 8vw, 9rem);   /* hard negative space between frames */
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  margin-top: var(--spacing-xl);
+}
+.ad-refl { margin: 0; display: grid; gap: var(--spacing-lg); align-items: center; }
+.ad-refl__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  border: var(--edge);
+  background: var(--asphalt);
+}
+.ad-refl--tall .ad-refl__media { aspect-ratio: 4 / 5; }
+.ad-refl--wide .ad-refl__media { aspect-ratio: 3 / 2; }
+.ad-refl__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* one cool-key formula on every frame */
+  filter: brightness(1.06) contrast(1.06) saturate(1.03) hue-rotate(-6deg);
+}
+/* contained warm pool — reflection lit by a single found light */
+.ad-refl__pool {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(40% 34% at 24% 84%, var(--practical-soft), transparent 66%);
+  mix-blend-mode: screen;
+}
+.ad-refl__cap { display: grid; grid-template-columns: auto 1fr; gap: var(--spacing-md); align-items: start; }
+.ad-refl__idx {
+  font-family: var(--ad-font-display);
+  font-size: clamp(2.4rem, 1.6rem + 3vw, 3.6rem);
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--accent);
+  letter-spacing: 0.02em;
+}
+.ad-refl__text { display: grid; gap: 0.5rem; }
+.ad-refl__k {
+  font-family: var(--ad-font-body);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.ad-refl__t {
+  font-family: var(--ad-font-display);
+  font-size: clamp(1.9rem, 1.3rem + 3vw, 3rem);
+  color: var(--tx-hi);
+  line-height: 0.94;
+}
+.ad-refl__d {
+  color: var(--tx);
+  font-size: var(--text-lead);
+  max-width: 52ch;
+}
+@media (min-width: 860px) {
+  .ad-refl--tall { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); }
+  .ad-refl--wide { grid-template-columns: 1fr; }
+  .ad-refl--wide .ad-refl__cap { max-width: 60rem; }
+  /* alternate the tall frame so the eye drives left↔right down the column */
+  .ad-refl--tall:nth-of-type(odd) .ad-refl__cap { order: 2; }
+}
+
+/* ============================================================
+   PROCESS — the NIGHT DRIVE (continuous flow line + lit nodes).
+   Distinct silhouette: a route, not cards, not a numbered rail.
+   ============================================================ */
+.ad-process {
+  padding-block: clamp(4rem, 2.5rem + 7vw, 8rem);
+  border-top: var(--edge);
+  background: linear-gradient(180deg, #05131a -10%, var(--night) 34%);
+  position: relative;
+}
+.ad-drive {
+  list-style: none;
+  margin: var(--spacing-xl) 0 0;
+  padding: 0;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  gap: var(--spacing-lg);
+  position: relative;
+}
+/* the route line runs down the left node column */
+.ad-drive::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--gutter) + 7px);
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-deep) 60%, transparent);
+  opacity: 0.5;
+}
+.ad-leg {
+  position: relative;
+  padding-left: 2.5rem;
+  display: grid;
+  gap: 0.25rem;
+}
+.ad-leg__node {
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid var(--accent);
+  background: var(--night);
+  box-shadow: 0 0 0 4px rgba(55, 198, 224, 0.12);
+}
+.ad-leg__node::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 999px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity var(--duration-ui) var(--ease-mech);
+}
+.ad-leg.is-revealed .ad-leg__node::after { opacity: 1; }
+.ad-leg__n {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+.ad-leg__t {
+  font-family: var(--ad-font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.1rem);
+  color: var(--tx-hi);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+.ad-leg__d { color: var(--tx); font-size: var(--text-body); margin: 0; max-width: 54ch; }
+/* horizontal route from tablet up — the drive reads left→right */
+@media (min-width: 820px) {
+  .ad-drive {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-xl);
+  }
+  .ad-drive::before {
+    left: var(--gutter);
+    right: var(--gutter);
+    top: 7px;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-deep) 70%, transparent);
+  }
+  .ad-leg {
+    padding-left: 0;
+    padding-top: 2.25rem;
+  }
+  .ad-leg__node { top: 0; left: 0; }
 }
 
 /* ============================================================
@@ -828,8 +913,8 @@
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(50% 60% at 88% 20%, rgba(255, 157, 77, 0.08), transparent 60%),
-    radial-gradient(60% 70% at 8% 90%, rgba(63, 123, 214, 0.08), transparent 60%);
+    radial-gradient(52% 60% at 90% 84%, rgba(255, 150, 74, 0.06), transparent 62%),
+    radial-gradient(60% 70% at 6% 12%, rgba(55, 198, 224, 0.09), transparent 60%);
 }
 .ad-story__grid {
   display: grid;
@@ -860,7 +945,7 @@
   border-radius: var(--radius-md);
   border: var(--edge);
   aspect-ratio: 4 / 5;
-  background: var(--ink-2);
+  background: var(--asphalt);
 }
 .ad-story__media img {
   position: absolute;
@@ -869,7 +954,15 @@
   height: 100%;
   object-fit: cover;
   object-position: 50% 40%;
-  filter: brightness(1.12) contrast(1.02) saturate(1.03);
+  filter: brightness(1.06) contrast(1.06) saturate(1.02) hue-rotate(-6deg);
+}
+.ad-story__figcap {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  color: var(--tx-mut);
+  text-transform: uppercase;
+  line-height: 1.5;
 }
 
 /* ============================================================
@@ -886,7 +979,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: radial-gradient(60% 50% at 50% 118%, rgba(255, 157, 77, 0.14), transparent 66%);
+  background: radial-gradient(60% 50% at 50% 118%, rgba(55, 198, 224, 0.14), transparent 66%);
 }
 .ad-contact__grid {
   display: grid;
@@ -906,19 +999,19 @@
   display: grid;
   gap: var(--spacing-md);
 }
-.ad-channel { display: grid; gap: 4px; border-left: 2px solid var(--sodium); padding-left: var(--spacing-md); }
+.ad-channel { display: grid; gap: 4px; border-left: 2px solid var(--accent); padding-left: var(--spacing-md); }
 .ad-channel dt {
   font-family: var(--ad-font-body);
   font-weight: 600;
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--sodium);
+  color: var(--accent);
 }
 .ad-channel dd { margin: 0; color: var(--tx); font-size: var(--text-body); }
 .ad-channel__sub { color: var(--tx-mut); font-size: 0.85em; }
 
-/* Form */
+/* Form — visible borders/fill, persistent labels, >=44px targets */
 .ad-form {
   background: linear-gradient(180deg, var(--panel-2), var(--panel));
   border: var(--edge);
@@ -938,9 +1031,21 @@
 .ad-field label {
   font-family: var(--ad-font-body);
   font-weight: 600;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: var(--tx);              /* AA-normal, not the muted tone */
+  display: flex;
+  gap: 0.6em;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.ad-field__hint {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
   color: var(--tx-mut);
 }
 .ad-field input,
@@ -950,21 +1055,21 @@
   font-size: var(--text-body);
   color: var(--tx-hi);
   background: var(--asphalt);
-  border: 1px solid var(--hair);
+  border: 1px solid var(--hair-hi);   /* visible border */
   border-radius: var(--radius-sm);
   padding: 0.8rem 0.9rem;
   width: 100%;
-  min-height: 44px;
+  min-height: 46px;
 }
 .ad-field textarea { resize: vertical; line-height: 1.5; }
 .ad-field input::placeholder,
-.ad-field textarea::placeholder { color: #7c8492; }
+.ad-field textarea::placeholder { color: #7f8b95; }
 .ad-field input:focus-visible,
 .ad-field textarea:focus-visible,
 .ad-select select:focus-visible {
   outline: none;
-  border-color: var(--sodium);
-  box-shadow: 0 0 0 3px rgba(255, 157, 77, 0.24);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(55, 198, 224, 0.26);
 }
 .ad-select { position: relative; }
 .ad-select select { appearance: none; padding-right: 2.4rem; cursor: pointer; }
@@ -973,16 +1078,16 @@
   right: 0.9rem;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--sodium);
+  color: var(--accent);
   pointer-events: none;
   font-size: 0.9rem;
 }
 .ad-form__ack {
-  background: rgba(255, 157, 77, 0.1);
-  border: 1px solid var(--hair-warm);
+  background: rgba(55, 198, 224, 0.1);
+  border: 1px solid var(--accent-deep);
   border-radius: var(--radius-sm);
   padding: var(--spacing-sm) var(--spacing-md);
-  color: var(--tx-warm);
+  color: var(--tx-cool);
   font-size: var(--text-caption);
   line-height: 1.6;
   margin: 0;
@@ -1002,7 +1107,7 @@
 .ad-footer {
   border-top: var(--edge);
   padding-block: var(--spacing-2xl) var(--spacing-3xl);
-  background: #070a0f;
+  background: #04080c;
 }
 .ad-footer__grid {
   display: grid;
@@ -1021,23 +1126,23 @@
   font-size: 0.95rem;
   width: max-content;
 }
-.ad-footer__nav a:hover { color: var(--sodium-hot); }
+.ad-footer__nav a:hover { color: var(--accent-hot); }
 .ad-footer__meta { display: grid; gap: var(--spacing-sm); }
 .ad-footer__prov,
 .ad-footer__cir { color: var(--tx-mut); font-size: var(--text-caption); line-height: 1.6; margin: 0; }
 .ad-footer__lab {
   font-family: var(--ad-font-body);
   font-weight: 600;
-  color: var(--cool-ice);
+  color: var(--accent);
   text-decoration: none;
   font-size: 0.85rem;
   letter-spacing: 0.06em;
   width: max-content;
 }
-.ad-footer__lab:hover { color: var(--sodium-hot); }
+.ad-footer__lab:hover { color: var(--accent-hot); }
 
 /* ============================================================
-   STICKY MOBILE CONTACT DOCK (thumb zone, ≥44px)
+   STICKY MOBILE CONTACT DOCK (thumb zone, >=44px, high contrast)
    ============================================================ */
 .ad-dock {
   position: fixed;
@@ -1048,32 +1153,35 @@
   display: flex;
   gap: var(--spacing-sm);
   padding: 0.6rem var(--gutter) calc(0.6rem + env(safe-area-inset-bottom, 0px));
-  background: rgba(7, 10, 15, 0.94);
-  border-top: var(--edge);
+  background: rgba(4, 8, 12, 0.96);
+  border-top: 1px solid var(--hair-hi);
   backdrop-filter: blur(10px);
 }
 .ad-dock__call {
   flex: 1 1 auto;
-  display: grid;
-  gap: 1px;
-  align-content: center;
-  justify-items: center;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
   min-height: 48px;
   padding: 0.4rem 0.75rem;
-  border: 1px solid var(--hair);
+  border: 1px solid var(--hair-hi);
   border-radius: var(--radius-sm);
-  background: rgba(11, 14, 20, 0.6);
+  background: rgba(10, 20, 28, 0.85);
   color: var(--tx-hi);
   text-decoration: none;
   font-family: var(--ad-font-body);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.95rem;
 }
-.ad-dock__ico { color: var(--sodium); }
+.ad-dock__ico { color: var(--accent); font-size: 1.1rem; }
+.ad-dock__label { display: grid; gap: 0; line-height: 1.05; justify-items: center; }
 .ad-dock__note {
   font-family: var(--font-mono);
+  font-weight: 400;
   font-size: 0.5rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--tx-mut);
 }
 .ad-dock__quote {
@@ -1090,14 +1198,15 @@
 }
 
 /* ============================================================
-   REVEAL (shared [data-reveal] pattern) + reduced-motion guard
+   REVEAL (shared [data-reveal] pattern) — DIRECTIONAL DRIFT.
+   Content drifts sideways into frame (the flow motif), settles.
    ============================================================ */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateX(-26px);
   transition:
-    opacity var(--duration-transition) var(--ease-mech),
-    transform var(--duration-transition) var(--ease-mech);
+    opacity var(--duration-transition) var(--ease-soft),
+    transform var(--duration-transition) var(--ease-soft);
   transition-delay: var(--reveal-delay, 0ms);
 }
 [data-reveal='side'] { transform: translateX(28px); }
@@ -1112,6 +1221,15 @@
     transition-duration: 0.001ms !important;
   }
   .ad [data-reveal] { opacity: 1 !important; transform: none !important; }
-  .ad-build:hover .ad-build__media img { transform: none; }
-  .ad-rail { scroll-behavior: auto; }
+  .ad-frame:hover .ad-frame__media img { transform: none; }
+  .ad-strip { scroll-behavior: auto; }
+  /* freeze the specular rake at the settled headline color */
+  .ad-secttl,
+  .ad-hero__h1 {
+    animation: none !important;
+    background-image: none !important;
+    -webkit-text-fill-color: currentColor !important;
+    color: var(--tx-hi) !important;
+  }
+  .ad-services::before { animation: none !important; }
 }
