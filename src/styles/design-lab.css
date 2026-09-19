@@ -476,3 +476,425 @@ a.hub-card:focus-visible {
   color: var(--color-aluminum);
   margin-top: var(--spacing-2xs);
 }
+
+/* =====================================================================
+   DESIGN LAB HUB v2 — a neutral, premium review room (reset §27/§31/§32).
+   Leads with the three directions as large, immersive live previews.
+   Deliberately restrained so no single direction's look is cloned; the
+   three read as equal candidates.
+   ===================================================================== */
+
+/* --- Masthead / topline --- */
+.hub2 {
+  min-height: 100dvh;
+}
+.hub2__topline {
+  border-bottom: var(--edge-hairline);
+}
+.hub2__topline-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2xs) var(--spacing-md);
+  align-items: baseline;
+  justify-content: space-between;
+  padding-block: var(--spacing-sm);
+}
+.hub2__dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-signal);
+  margin-right: var(--spacing-3xs);
+  vertical-align: middle;
+}
+
+/* --- Hero intro --- */
+.hub2__hero {
+  padding-block: var(--section-pad) var(--spacing-xl);
+  display: grid;
+  gap: var(--spacing-md);
+  max-width: 60rem;
+}
+.hub2__eyebrow {
+  color: var(--color-signal);
+}
+.hub2__h1 {
+  font-size: var(--text-h1);
+  color: var(--color-chrome);
+}
+.hub2__lede {
+  color: var(--color-aluminum);
+  font-size: var(--text-lead);
+  max-width: var(--measure);
+}
+
+/* --- Section headings inside the hub --- */
+.hub2__sechead {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: var(--edge-hairline);
+}
+.hub2__sechead h2 {
+  font-size: var(--text-h4);
+  color: var(--color-chrome);
+}
+.hub2__sechead .spec-label {
+  color: var(--color-pewter);
+}
+
+/* --- The three direction stages --- */
+.hub2__stages {
+  display: grid;
+  gap: var(--spacing-2xl);
+}
+
+.stage {
+  display: grid;
+  gap: var(--spacing-lg);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 60rem) {
+  .stage {
+    grid-template-columns: 1.35fr 1fr;
+  }
+  /* Alternate: even stages put copy on the left, preview on the right. */
+  .stage--flip .stage__viewport-wrap {
+    order: 2;
+  }
+  .stage--flip .stage__body {
+    order: 1;
+  }
+}
+
+/* Live preview viewport — a real, scaled iframe of the prototype in a 16:9 frame. */
+.stage__viewport-wrap {
+  position: relative;
+  border: var(--edge-hairline);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-ink);
+  aspect-ratio: 16 / 9;
+  isolation: isolate;
+  transition:
+    border-color var(--duration-ui) var(--ease-mech),
+    transform var(--duration-ui) var(--ease-mech),
+    box-shadow var(--duration-ui) var(--ease-mech);
+}
+/* the whole viewport is a click target that opens the prototype */
+a.stage__viewport-wrap:hover {
+  border-color: var(--color-aluminum);
+  transform: translateY(-3px);
+  box-shadow: 0 18px 48px -24px rgba(0, 0, 0, 0.8);
+}
+a.stage__viewport-wrap:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+/* Scaled iframe: renders the prototype at 1440px then scales into the frame.
+   pointer-events:none + inert so the wrapping link owns all interaction. */
+.stage__frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1440px;
+  height: 810px; /* 16:9 slice of the top of the page */
+  border: 0;
+  transform-origin: top left;
+  /* fallback scale for the smallest frames; refined per-breakpoint below */
+  transform: scale(0.28);
+  pointer-events: none;
+  background: var(--color-ink);
+}
+/* Scale the 1440px-wide iframe to the wrapper width at each recomposition point.
+   width_of_wrapper ≈ (container - gutters) * column-fraction. Values chosen to
+   comfortably cover the frame at each band; slight overscan is harmless (overflow hidden). */
+@media (min-width: 20rem) {
+  .stage__frame {
+    transform: scale(0.32);
+  }
+}
+@media (min-width: 30rem) {
+  .stage__frame {
+    transform: scale(0.42);
+  }
+}
+@media (min-width: 48rem) {
+  .stage__frame {
+    transform: scale(0.6);
+  }
+}
+@media (min-width: 60rem) {
+  .stage__frame {
+    transform: scale(0.5);
+  }
+}
+@media (min-width: 80rem) {
+  .stage__frame {
+    transform: scale(0.62);
+  }
+}
+@media (min-width: 100rem) {
+  .stage__frame {
+    transform: scale(0.78);
+  }
+}
+
+/* A soft directional glaze so each preview reads distinct + premium; never hides content. */
+.stage__glaze {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: screen;
+  opacity: 0.5;
+}
+.stage--ch .stage__glaze {
+  background: radial-gradient(90% 70% at 20% 0%, rgba(46, 123, 255, 0.22), transparent 60%);
+}
+.stage--bl .stage__glaze {
+  background: radial-gradient(80% 60% at 70% 10%, rgba(185, 212, 255, 0.18), transparent 62%);
+}
+.stage--ad .stage__glaze {
+  background: radial-gradient(80% 70% at 30% 100%, rgba(255, 157, 77, 0.16), transparent 60%);
+}
+
+/* Corner index chip + live badge over the viewport */
+.stage__chip {
+  position: absolute;
+  z-index: 2;
+  top: var(--spacing-2xs);
+  left: var(--spacing-2xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  color: var(--color-chrome);
+  background: color-mix(in srgb, var(--color-ink) 72%, transparent);
+  border: var(--edge-hairline);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-3xs) var(--spacing-2xs);
+  backdrop-filter: blur(4px);
+}
+.stage__hint {
+  position: absolute;
+  z-index: 2;
+  bottom: var(--spacing-2xs);
+  right: var(--spacing-2xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-silver);
+  background: color-mix(in srgb, var(--color-ink) 72%, transparent);
+  border: var(--edge-hairline);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-3xs) var(--spacing-2xs);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity var(--duration-ui) var(--ease-mech),
+    transform var(--duration-ui) var(--ease-mech);
+}
+a.stage__viewport-wrap:hover .stage__hint,
+a.stage__viewport-wrap:focus-visible .stage__hint {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stage copy column */
+.stage__body {
+  display: grid;
+  gap: var(--spacing-sm);
+  align-content: center;
+}
+.stage__index {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.1em;
+  color: var(--color-signal);
+}
+.stage__name {
+  font-size: var(--text-h2);
+  color: var(--color-chrome);
+  line-height: 1.02;
+}
+.stage__thesis {
+  color: var(--color-silver);
+  font-size: var(--text-lead);
+  max-width: 40ch;
+}
+.stage__what {
+  color: var(--color-aluminum);
+  max-width: 46ch;
+}
+.stage__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2xs) var(--spacing-sm);
+  margin-top: var(--spacing-2xs);
+  align-items: center;
+}
+.stage__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: var(--spacing-2xs) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  border: var(--edge-hairline);
+  background: var(--color-steel);
+  color: var(--color-chrome);
+  transition:
+    background var(--duration-micro) var(--ease-mech),
+    border-color var(--duration-micro) var(--ease-mech),
+    color var(--duration-micro) var(--ease-mech);
+}
+.stage__link:hover {
+  border-color: var(--color-aluminum);
+  background: color-mix(in srgb, var(--color-aluminum) 12%, var(--color-steel));
+  color: var(--color-chrome);
+}
+.stage__link--primary {
+  background: var(--color-signal);
+  border-color: var(--color-signal);
+  color: var(--color-specular);
+}
+.stage__link--primary:hover {
+  background: var(--color-signal-hot);
+  border-color: var(--color-signal-hot);
+  color: var(--color-specular);
+}
+.stage__link:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* --- Secondary row: boards + foundations --- */
+.hub2__secondary {
+  display: grid;
+  gap: var(--spacing-md);
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+}
+.hub2-card {
+  display: block;
+  border: var(--edge-hairline);
+  border-radius: var(--radius-md);
+  background: var(--color-graphite);
+  padding: var(--spacing-md);
+  text-decoration: none;
+  transition:
+    border-color var(--duration-ui) var(--ease-mech),
+    transform var(--duration-ui) var(--ease-mech),
+    background var(--duration-ui) var(--ease-mech);
+}
+.hub2-card:hover {
+  border-color: var(--color-ash);
+  background: color-mix(in srgb, var(--color-steel) 55%, var(--color-graphite));
+  transform: translateY(-2px);
+}
+.hub2-card:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.hub2-card__kind {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-signal);
+}
+.hub2-card__name {
+  font-size: var(--text-h4);
+  color: var(--color-chrome);
+  margin-top: var(--spacing-3xs);
+}
+.hub2-card__desc {
+  color: var(--color-aluminum);
+  margin-top: var(--spacing-2xs);
+}
+.hub2-card__go {
+  display: inline-block;
+  margin-top: var(--spacing-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-ice);
+}
+
+/* --- Utility / QA strip (lab chrome; visually subordinate) --- */
+.hub2__utility {
+  margin-top: var(--spacing-2xl);
+  border: var(--edge-hairline);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-graphite) 70%, var(--color-ink));
+  padding: var(--spacing-md);
+}
+.hub2__utility-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2xs) var(--spacing-md);
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-sm);
+}
+.hub2__utility-head h2 {
+  font-size: var(--text-body);
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-aluminum);
+}
+.hub2__utility-grid {
+  display: grid;
+  gap: var(--spacing-md);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 48rem) {
+  .hub2__utility-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+.hub2__probe {
+  border: var(--edge-hairline);
+  border-radius: var(--radius-sm);
+  background: var(--color-graphite);
+  padding: var(--spacing-sm);
+}
+.hub2__probe-label {
+  color: var(--color-pewter);
+  margin-bottom: var(--spacing-2xs);
+}
+.hub2__qa-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--spacing-2xs);
+}
+.hub2__qa-list li {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-aluminum);
+  border: var(--edge-hairline);
+  border-radius: var(--radius-sm);
+  background: var(--color-graphite);
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+.hub2__qa-list code {
+  color: var(--color-chrome);
+}
+
+/* --- Footer --- */
+.hub2__footer {
+  padding-block: var(--spacing-2xl);
+  color: var(--color-pewter);
+}

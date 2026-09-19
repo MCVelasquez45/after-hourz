@@ -21,6 +21,8 @@
   Per-shot "viewports"/"fullPage" override the top-level defaults.
   Emits one PNG per (shot × viewport): <outDir>/<name>__<label>.png and prints a JSON summary.
 */
+/* global document, window */
+// (document/window appear only inside page.evaluate callbacks that run in the browser context.)
 import { chromium } from '@playwright/test';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -65,7 +67,9 @@ for (const shot of m.shots) {
       if (msg.type() === 'error') consoleErrors.push(msg.text());
     });
     const failedRequests = [];
-    page.on('requestfailed', (req) => failedRequests.push(`${req.url()} — ${req.failure()?.errorText ?? '?'}`));
+    page.on('requestfailed', (req) =>
+      failedRequests.push(`${req.url()} — ${req.failure()?.errorText ?? '?'}`),
+    );
 
     const url = base + shot.route;
     const file = join(outDir, `${shot.name}__${vp.label}.png`);
@@ -107,11 +111,18 @@ for (const shot of m.shots) {
       results.push({ name: shot.name, route: shot.route, viewport: vp.label, file, error: err });
     }
     await context.close();
-    console.log(`${ok ? 'shot' : 'FAIL'}: ${shot.name} @ ${vp.label} -> ${file}${err ? ' :: ' + err : ''}`);
+    console.log(
+      `${ok ? 'shot' : 'FAIL'}: ${shot.name} @ ${vp.label} -> ${file}${err ? ' :: ' + err : ''}`,
+    );
   }
 }
 
 await browser.close();
 const summaryPath = join(outDir, 'summary.json');
-await writeFile(summaryPath, JSON.stringify({ base, outDir, count: results.length, failures, results }, null, 2));
-console.log(`\nshoot complete: ${results.length} images, ${failures} shots with issues. Summary: ${summaryPath}`);
+await writeFile(
+  summaryPath,
+  JSON.stringify({ base, outDir, count: results.length, failures, results }, null, 2),
+);
+console.log(
+  `\nshoot complete: ${results.length} images, ${failures} shots with issues. Summary: ${summaryPath}`,
+);

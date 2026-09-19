@@ -132,17 +132,53 @@ const gallery = [
 // top coat), not four equal cells. Each coat is a horizontal band; the stack builds
 // up to the final reflection. coat = the paint-schedule name that anchors the metaphor.
 const process = [
-  { n: '01', coat: 'Substrate', t: 'Strip & Read', b: 'The metal gets an honest read before anything else — what is true, and what is hidden underneath.' },
-  { n: '02', coat: 'Foundation', t: 'Metal & Gaps', b: 'Panels made straight and gaps set even. The flat foundation every later reflection depends on.' },
-  { n: '03', coat: 'Color coats', t: 'Base · Candy · Flake', b: 'Built up in patient layers — base, candy and metalflake. Depth is earned in the booth, not rushed.' },
-  { n: '04', coat: 'Clear & cut', t: 'Clear & Reflect', b: 'Clearcoat laid, then wet-sanded, cut and buffed until the surface runs dead flat and the light rakes clean.' },
+  {
+    n: '01',
+    coat: 'Substrate',
+    t: 'Strip & Read',
+    b: 'The metal gets an honest read before anything else — what is true, and what is hidden underneath.',
+  },
+  {
+    n: '02',
+    coat: 'Foundation',
+    t: 'Metal & Gaps',
+    b: 'Panels made straight and gaps set even. The flat foundation every later reflection depends on.',
+  },
+  {
+    n: '03',
+    coat: 'Color coats',
+    t: 'Base · Candy · Flake',
+    b: 'Built up in patient layers — base, candy and metalflake. Depth is earned in the booth, not rushed.',
+  },
+  {
+    n: '04',
+    coat: 'Clear & cut',
+    t: 'Clear & Reflect',
+    b: 'Clearcoat laid, then wet-sanded, cut and buffed until the surface runs dead flat and the light rakes clean.',
+  },
 ];
 
 const materials = [
-  ['candy', 'Candy Metalflake', 'Deep pooled candy over a sparse specular flake — depth in layers, the brand-core hue.'],
-  ['chrome', 'Polished Chrome', 'A hard light-to-dark ladder with one raking highlight — a lit edge, never a gray fill.'],
-  ['leaf', 'Gold-Leaf Stripe', 'Hand-laid leaf and pinstripe — the custom-lettering lineage behind the wordmark.'],
-  ['asphalt', 'Wet Asphalt', 'Near-black ground holding a single warm reflection — the after-hours light.'],
+  [
+    'candy',
+    'Candy Metalflake',
+    'Deep pooled candy over a sparse specular flake — depth in layers, the brand-core hue.',
+  ],
+  [
+    'chrome',
+    'Polished Chrome',
+    'A hard light-to-dark ladder with one raking highlight — a lit edge, never a gray fill.',
+  ],
+  [
+    'leaf',
+    'Gold-Leaf Stripe',
+    'Hand-laid leaf and pinstripe — the custom-lettering lineage behind the wordmark.',
+  ],
+  [
+    'asphalt',
+    'Wet Asphalt',
+    'Near-black ground holding a single warm reflection — the after-hours light.',
+  ],
 ];
 
 const navLinks = [
@@ -163,7 +199,9 @@ const navLinks = [
   <div class="chp-topline">
     <div class="chp-wrap chp-topline__row">
       <span>Design Lab · Prototype 01 · Chrome Heritage · Concept — not client-approved</span>
-      <span><a href="/design-lab/">&larr; Design Lab</a></span>
+      <span>
+        <a href="/design-lab/">&larr; Design Lab</a>
+      </span>
     </div>
   </div>
 
@@ -171,7 +209,9 @@ const navLinks = [
   <header class="chp-nav" data-scrolled="false" data-open="false">
     <div class="chp-wrap chp-nav__row">
       <a class="chp-brand" href="#top" aria-label="After Hourz — home">
-        <span class="chp-chrome-text">After&nbsp;Hour<span class="chp-brand__z">z</span></span>
+        <span class="chp-chrome-text">
+          After&nbsp;Hour<span class="chp-brand__z">z</span>
+        </span>
       </a>
 
       <button
@@ -185,8 +225,12 @@ const navLinks = [
       </button>
 
       <nav class="chp-nav__links" id="chp-menu" aria-label="Primary">
-        {navLinks.map(([href, label]) => <a href={href}>{label}</a>)}
-        <a class="chp-btn chp-btn--primary chp-nav__cta" href="#contact">Request a Quote</a>
+        {navLinks.map(([href, label]) => (
+          <a href={href}>{label}</a>
+        ))}
+        <a class="chp-btn chp-btn--primary chp-nav__cta" href="#contact">
+          Request a Quote
+        </a>
       </nav>
     </div>
   </header>
@@ -222,9 +266,14 @@ const navLinks = [
             <span class="chp-hero__region"> — Southern California</span>
           </p>
           <div class="chp-hero__actions">
-            <a class="chp-btn chp-btn--primary" href="#contact">Request a Quote</a>
+            <a class="chp-btn chp-btn--primary" href="#contact">
+              Request a Quote
+            </a>
             <a class="chp-btn chp-btn--ghost" href="#work">
-              See the work <span class="chp-arw" aria-hidden="true">&rarr;</span>
+              See the work{' '}
+              <span class="chp-arw" aria-hidden="true">
+                &rarr;
+              </span>
             </a>
           </div>
         </div>
@@ -239,10 +288,12 @@ const navLinks = [
             <span class="chp-eyebrow__n">01</span> Services
             <span class="chp-eyebrow__rule" aria-hidden="true"></span>
           </p>
-          <h2 class="chp-title" id="services-h">The build sheet</h2>
+          <h2 class="chp-title" id="services-h">
+            The build sheet
+          </h2>
           <p class="chp-lead">
-            Cars, trucks and bikes. Four lines on every build sheet — each an honest read
-            on the metal, and the finish family it&rsquo;s carried in.
+            Cars, trucks and bikes. Four lines on every build sheet — each an honest read on the
+            metal, and the finish family it&rsquo;s carried in.
           </p>
         </div>
 
@@ -256,7 +307,9 @@ const navLinks = [
           </div>
           {services.map((s) => (
             <article class="chp-line">
-              <span class="chp-line__n" aria-hidden="true">{s.n}</span>
+              <span class="chp-line__n" aria-hidden="true">
+                {s.n}
+              </span>
               <div class="chp-line__body">
                 <h3 class="chp-line__name">{s.name}</h3>
                 <p class="chp-line__desc">{s.desc}</p>
@@ -280,10 +333,12 @@ const navLinks = [
             <span class="chp-eyebrow__n">02</span> Work
             <span class="chp-eyebrow__rule" aria-hidden="true"></span>
           </p>
-          <h2 class="chp-title" id="work-h">Iron worth the hours</h2>
+          <h2 class="chp-title" id="work-h">
+            Iron worth the hours
+          </h2>
           <p class="chp-lead">
-            A look at the finish this direction is built to hold. Every image below is
-            reference material chosen to prove the Chrome Heritage look.
+            A look at the finish this direction is built to hold. Every image below is reference
+            material chosen to prove the Chrome Heritage look.
           </p>
         </div>
       </div>
@@ -305,8 +360,8 @@ const navLinks = [
           <p class="chp-feature__eyebrow">Finish study · candy metalflake</p>
           <h3 class="chp-feature__title">Candy, flake &amp; gold-leaf</h3>
           <p class="chp-feature__desc">
-            Deep candy over metalflake, hand-laid gold-leaf scroll and pinstripe — the depth
-            and lettering lineage this direction is drawn from.
+            Deep candy over metalflake, hand-laid gold-leaf scroll and pinstripe — the depth and
+            lettering lineage this direction is drawn from.
           </p>
         </figcaption>
       </figure>
@@ -355,10 +410,12 @@ const navLinks = [
             <span class="chp-eyebrow__n">03</span> Process
             <span class="chp-eyebrow__rule" aria-hidden="true"></span>
           </p>
-          <h2 class="chp-title" id="process-h">Polished in layers</h2>
+          <h2 class="chp-title" id="process-h">
+            Polished in layers
+          </h2>
           <p class="chp-lead">
-            A finish is made, not sprayed. Four moves on every project, in the order that
-            earns a reflection you can read.
+            A finish is made, not sprayed. Four moves on every project, in the order that earns a
+            reflection you can read.
           </p>
         </div>
 
@@ -367,7 +424,9 @@ const navLinks = [
         <ol class="chp-stack" aria-label="The layered build — four coats">
           {process.map((p, i) => (
             <li class={`chp-coat chp-coat--${p.n}`} data-reveal style={`--i:${i}`}>
-              <span class="chp-coat__n" aria-hidden="true">{p.n}</span>
+              <span class="chp-coat__n" aria-hidden="true">
+                {p.n}
+              </span>
               <span class="chp-coat__label">{p.coat}</span>
               <div class="chp-coat__body">
                 <h3 class="chp-coat__t">{p.t}</h3>
@@ -388,11 +447,13 @@ const navLinks = [
               <span class="chp-eyebrow__n">04</span> The Shop
               <span class="chp-eyebrow__rule" aria-hidden="true"></span>
             </p>
-            <h2 class="chp-title" id="story-h">After Hourz</h2>
+            <h2 class="chp-title" id="story-h">
+              After Hourz
+            </h2>
             <p>
               After Hourz is a Southern California custom shop owned by <b>Anthony Montoya</b>,
-              built on the work that happens once the world goes quiet — the patient hours where
-              a finish is actually made.
+              built on the work that happens once the world goes quiet — the patient hours where a
+              finish is actually made.
             </p>
             <p>
               The name is literal. Depth in candy paint, a straight body line, chrome that reads
@@ -428,7 +489,9 @@ const navLinks = [
               <span class="chp-eyebrow__n">05</span> Contact
               <span class="chp-eyebrow__rule" aria-hidden="true"></span>
             </p>
-            <h2 class="chp-title" id="contact-h">Request a quote</h2>
+            <h2 class="chp-title" id="contact-h">
+              Request a quote
+            </h2>
             <p>
               Tell us what you&rsquo;re building. No pressure, no upsell — just an honest read on
               the work and what it takes to do it right.
@@ -440,7 +503,8 @@ const navLinks = [
               </li>
               <li class="chp-channel">
                 <span class="chp-channel__label">Shop / Area</span>
-                <span class="chp-channel__val">Southern California
+                <span class="chp-channel__val">
+                  Southern California
                   <span class="chp-channel__val--req"> — exact address: CLIENT INPUT REQUIRED</span>
                 </span>
               </li>
@@ -454,12 +518,35 @@ const navLinks = [
           <form class="chp-form chp-plaque" id="chp-quote" novalidate data-reveal>
             <div class="chp-form__grid">
               <div class="chp-field">
-                <label for="q-name">Name <span class="req" aria-hidden="true">*</span></label>
-                <input id="q-name" name="name" type="text" autocomplete="name" required placeholder="Your name" />
+                <label for="q-name">
+                  Name{' '}
+                  <span class="req" aria-hidden="true">
+                    *
+                  </span>
+                </label>
+                <input
+                  id="q-name"
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                  required
+                  placeholder="Your name"
+                />
               </div>
               <div class="chp-field">
-                <label for="q-vehicle">Vehicle <span class="req" aria-hidden="true">*</span></label>
-                <input id="q-vehicle" name="vehicle" type="text" required placeholder="Year · make · model" />
+                <label for="q-vehicle">
+                  Vehicle{' '}
+                  <span class="req" aria-hidden="true">
+                    *
+                  </span>
+                </label>
+                <input
+                  id="q-vehicle"
+                  name="vehicle"
+                  type="text"
+                  required
+                  placeholder="Year · make · model"
+                />
               </div>
               <div class="chp-field chp-field--full">
                 <label for="q-service">Service</label>
@@ -473,21 +560,34 @@ const navLinks = [
                 </select>
               </div>
               <div class="chp-field chp-field--full">
-                <label for="q-message">What do you want done? <span class="req" aria-hidden="true">*</span></label>
-                <textarea id="q-message" name="message" rows="4" required placeholder="Paint, bodywork, restoration — tell us about the build."></textarea>
+                <label for="q-message">
+                  What do you want done?{' '}
+                  <span class="req" aria-hidden="true">
+                    *
+                  </span>
+                </label>
+                <textarea
+                  id="q-message"
+                  name="message"
+                  rows="4"
+                  required
+                  placeholder="Paint, bodywork, restoration — tell us about the build."
+                ></textarea>
               </div>
             </div>
 
             <div class="chp-form__actions">
-              <button class="chp-btn chp-btn--primary" type="submit">Send request</button>
+              <button class="chp-btn chp-btn--primary" type="submit">
+                Send request
+              </button>
               <p class="chp-form__note">
                 Prototype form — not wired to a backend. Nothing is sent.
               </p>
             </div>
 
             <p class="chp-ack" id="chp-ack" hidden role="status" aria-live="polite">
-              Thanks — this is a <b>prototype</b>, so nothing was actually sent. In the live
-              site this would reach the shop. Contact channels are marked
+              Thanks — this is a <b>prototype</b>, so nothing was actually sent. In the live site
+              this would reach the shop. Contact channels are marked
               <b>CLIENT INPUT REQUIRED</b> until confirmed.
             </p>
           </form>
@@ -501,7 +601,9 @@ const navLinks = [
     <div class="chp-wrap">
       <div class="chp-footer__top">
         <div>
-          <div class="chp-footer__brand">After&nbsp;Hour<span class="chp-brand__z">z</span></div>
+          <div class="chp-footer__brand">
+            After&nbsp;Hour<span class="chp-brand__z">z</span>
+          </div>
           <p class="chp-footer__tagline">
             Custom paint, body work and restoration. Southern California. Built after hours,
             finished by hand.
@@ -511,16 +613,30 @@ const navLinks = [
           <h4>Explore</h4>
           <ul>
             {navLinks.map(([href, label]) => (
-              <li><a href={href}>{label}</a></li>
+              <li>
+                <a href={href}>{label}</a>
+              </li>
             ))}
           </ul>
         </div>
         <div class="chp-footer__col">
           <h4>Contact</h4>
           <ul>
-            <li><span>Phone · <span class="chp-footer__req">CLIENT INPUT REQUIRED</span></span></li>
-            <li><span>Address · <span class="chp-footer__req">CLIENT INPUT REQUIRED</span></span></li>
-            <li><span>Instagram · <span class="chp-footer__req">CLIENT INPUT REQUIRED</span></span></li>
+            <li>
+              <span>
+                Phone · <span class="chp-footer__req">CLIENT INPUT REQUIRED</span>
+              </span>
+            </li>
+            <li>
+              <span>
+                Address · <span class="chp-footer__req">CLIENT INPUT REQUIRED</span>
+              </span>
+            </li>
+            <li>
+              <span>
+                Instagram · <span class="chp-footer__req">CLIENT INPUT REQUIRED</span>
+              </span>
+            </li>
           </ul>
         </div>
       </div>
@@ -528,15 +644,21 @@ const navLinks = [
         <span class="chp-footer__prov">
           Prototype — reference imagery, not client work. Concept direction: Chrome Heritage.
         </span>
-        <span><a href="/design-lab/">Back to Design Lab</a></span>
+        <span>
+          <a href="/design-lab/">Back to Design Lab</a>
+        </span>
       </div>
     </div>
   </footer>
 
   <!-- ============ STICKY MOBILE CONTACT BAR ============ -->
   <div class="chp-mobilebar" aria-label="Quick contact">
-    <a class="chp-mobilebar__call" href="#contact">Call</a>
-    <a class="chp-mobilebar__quote" href="#contact">Request a Quote</a>
+    <a class="chp-mobilebar__call" href="#contact">
+      Call
+    </a>
+    <a class="chp-mobilebar__quote" href="#contact">
+      Request a Quote
+    </a>
   </div>
 
   <!-- ============ ISOLATED JS — nav scroll state, mobile menu, form ============ -->
@@ -544,8 +666,7 @@ const navLinks = [
     // Nav: scrolled state (bg on scroll)
     const nav = document.querySelector<HTMLElement>('.chp-nav');
     if (nav) {
-      const setScrolled = () =>
-        nav.setAttribute('data-scrolled', String(window.scrollY > 24));
+      const setScrolled = () => nav.setAttribute('data-scrolled', String(window.scrollY > 24));
       setScrolled();
       window.addEventListener('scroll', setScrolled, { passive: true });
 
@@ -561,9 +682,7 @@ const navLinks = [
         setOpen(nav.getAttribute('data-open') !== 'true');
       });
       // Close on link click + on Escape (restore focus to burger)
-      menu?.querySelectorAll('a').forEach((a) =>
-        a.addEventListener('click', () => setOpen(false)),
-      );
+      menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && nav.getAttribute('data-open') === 'true') {
           setOpen(false);

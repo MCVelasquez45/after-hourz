@@ -1,93 +1,206 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import QualityStatus from '../../islands/QualityStatus.tsx';
 
-const prototypes = [
+/*
+  DESIGN LAB — HOME (reset §27/§31/§32)
+  A visual design-review room, not a developer dashboard. It leads with the THREE
+  competing directions as large, immersive, LIVE previews (scaled iframes of the
+  real prototype routes), then a secondary row for the art-direction boards +
+  foundations, then a clearly-subordinate utility/QA strip that preserves the
+  QualityStatus island.
+
+  Guardrails honored here: SoCal only (no NorCal/QUINCY); external prototype photos
+  live inside the prototype iframes and are already badged there — this hub adds no
+  photos and fabricates no business facts; every route is under /design-lab/*.
+  The hub keeps a NEUTRAL premium identity so no single direction is favored.
+*/
+
+const directions = [
   {
-    href: '/design-lab/prototypes/chrome-heritage/',
-    code: '01',
+    slug: 'chrome-heritage',
+    mod: 'ch',
+    index: '01',
     name: 'Chrome Heritage',
     thesis:
-      'Custom automotive heritage rebuilt for a contemporary canvas — chrome, cobalt, ornament.',
-    preview: 'ch',
+      'Custom automotive heritage rebuilt for a contemporary canvas — candy paint, polished chrome, hand-laid ornament.',
+    what: 'A warm-dominant, magazine-ledger world: heritage serif, drop-cap build sheet, layered paint-coat process.',
   },
   {
-    href: '/design-lab/prototypes/booth-light/',
-    code: '02',
+    slug: 'booth-light',
+    mod: 'bl',
+    index: '02',
     name: 'Booth Light',
-    thesis: 'Craft revealed under controlled inspection light — image-led, cinematic, near-black.',
-    preview: 'bl',
+    thesis:
+      'Craft revealed under controlled inspection light — image-led, cinematic, resolving into near-black.',
+    what: 'The higher-key direction: precise grotesk + mono spec labels, a bright booth that ends on a single-light reveal.',
   },
   {
-    href: '/design-lab/prototypes/after-dark/',
-    code: '03',
+    slug: 'after-dark',
+    mod: 'ad',
+    index: '03',
     name: 'After Dark',
     thesis:
-      'SoCal craftsmanship when the doors stay open after sunset — warm, momentum, editorial.',
-    preview: 'ad',
+      'The night drive — a cool Southern California night world where craft is read in the reflection.',
+    what: 'Cinematic condensed display, a horizontal night-drive filmstrip, and a single-column reflection scroll.',
   },
 ];
 
-const labs = [
-  ['Foundations', '/design-lab/foundations/', 'Type · color · material · spacing · geometry'],
+const boards = directions.map((d) => ({
+  href: `/design-lab/directions/${d.slug}/`,
+  kind: 'Art-direction board',
+  name: d.name,
+  desc: 'Thesis, palette, type, material and light studies behind the prototype.',
+}));
+
+// Lab QA affordances — real toolchain, surfaced as read-only lab chrome (docs/17, §QA).
+const qa = [
+  ['Fast gate', 'pnpm qa'],
+  ['Milestone gate', 'pnpm qa:full'],
+  ['Visual snapshots', 'pnpm test:visual'],
+  ['Accessibility (axe)', 'pnpm test:a11y'],
 ];
 ---
 
-<BaseLayout title="Design Lab — After Hourz" description="Enterprise prototype lab.">
-  <div class="lab lab__booth">
-    <header class="lab__masthead">
-      <div class="lab__wrap lab__eyebrow">
-        <p class="spec-label">After Hourz · Enterprise Prototype Lab</p>
-        <p class="spec-label">Three directions · compare &amp; choose</p>
+<BaseLayout
+  title="Design Lab — After Hourz"
+  description="After Hourz Design Lab: three competing creative directions, each a live, openable prototype."
+>
+  <div class="lab lab__booth hub2">
+    <!-- TOPLINE -->
+    <header class="hub2__topline">
+      <div class="lab__wrap hub2__topline-row">
+        <p class="spec-label">
+          <span class="hub2__dot" aria-hidden="true"></span>After Hourz · Design Lab
+        </p>
+        <p class="spec-label">Internal · not deployed · direction studies</p>
       </div>
     </header>
 
-    <main id="main" class="lab__wrap" style="padding-block: var(--section-pad);">
-      <div style="max-width:var(--measure); margin-bottom:var(--spacing-2xl); display:grid; gap:var(--spacing-md);">
-        <p class="spec-label" style="color:var(--color-signal);">
-          After Hourz
+    <main id="main" class="lab__wrap">
+      <!-- HERO INTRO -->
+      <section class="hub2__hero" aria-labelledby="hub-h1">
+        <p class="spec-label hub2__eyebrow">Choose a direction</p>
+        <h1 class="hub2__h1" id="hub-h1">
+          Three directions for After Hourz.
+        </h1>
+        <p class="hub2__lede">
+          Each direction below is a complete, openable website prototype — previewed live. Compare
+          them side by side, open any one full-screen, or hand a client the distraction-free review
+          view. A direction is chosen with the client, not decided here.
         </p>
-        <h1 style="font-size:var(--text-h1);">Enterprise Prototype Lab</h1>
-        <p style="color:var(--color-aluminum);">
-          Three complete, competing creative directions for the After Hourz experience — each a
-          real, openable website prototype. Compare them; a direction is chosen with the client, not
-          here.
-        </p>
-      </div>
+      </section>
 
-      <div class="proto-grid">
-        {prototypes.map((p) => (
-          <a href={p.href} class="proto-panel" data-reveal>
-            <div class={`proto-preview proto-preview--${p.preview}`} aria-hidden="true">
-              <span class="proto-preview__mark">AFTER HOURZ</span>
-            </div>
-            <div class="proto-panel__body">
-              <div class="proto-panel__top">
-                <span class="proto-panel__code">{p.code}</span>
-                <span class="proto-panel__status">ready</span>
+      <!-- THE THREE STAGES -->
+      <section aria-labelledby="stages-h">
+        <div class="hub2__sechead">
+          <h2 id="stages-h">The directions</h2>
+          <p class="spec-label">Live previews · 01–03</p>
+        </div>
+
+        <div class="hub2__stages">
+          {directions.map((d, i) => (
+            <article
+              class={`stage stage--${d.mod} ${i % 2 === 1 ? 'stage--flip' : ''}`}
+              data-reveal
+            >
+              <a
+                class="stage__viewport-wrap"
+                href={`/design-lab/prototypes/${d.slug}/`}
+                aria-label={`Open the ${d.name} prototype`}
+              >
+                <span class="stage__chip">
+                  {d.index} / {d.name}
+                </span>
+                <iframe
+                  class="stage__frame"
+                  src={`/design-lab/prototypes/${d.slug}/`}
+                  title={`Live preview — ${d.name} prototype`}
+                  loading="lazy"
+                  tabindex="-1"
+                  aria-hidden="true"
+                ></iframe>
+                <span class="stage__glaze" aria-hidden="true" />
+                <span class="stage__hint">Open prototype &rarr;</span>
+              </a>
+
+              <div class="stage__body">
+                <p class="stage__index">Direction {d.index}</p>
+                <h3 class="stage__name">{d.name}</h3>
+                <p class="stage__thesis">{d.thesis}</p>
+                <p class="stage__what">{d.what}</p>
+                <div class="stage__actions">
+                  <a
+                    class="stage__link stage__link--primary"
+                    href={`/design-lab/prototypes/${d.slug}/`}
+                  >
+                    Open prototype
+                  </a>
+                  <a class="stage__link" href={`/design-lab/prototypes/${d.slug}/?review=1`}>
+                    Open in client-review
+                  </a>
+                </div>
               </div>
-              <h2>{p.name}</h2>
-              <p>{p.thesis}</p>
-              <span class="hub-card__go">Open prototype →</span>
-            </div>
-          </a>
-        ))}
-      </div>
+            </article>
+          ))}
+        </div>
+      </section>
 
-      <p class="spec-label" style="margin:var(--spacing-2xl) 0 var(--spacing-sm);">
-        Supporting labs
-      </p>
-      <div class="hub-grid">
-        {labs.map(([name, href, desc]) => (
-          <a href={href} class="hub-card" style="text-decoration:none;">
-            <h3 style="font-size:var(--text-h4); color:var(--color-chrome);">{name}</h3>
-            <p style="color:var(--color-aluminum); margin-top:var(--spacing-2xs);">{desc}</p>
-            <span class="hub-card__go">Open →</span>
+      <!-- SECONDARY: BOARDS + FOUNDATIONS -->
+      <section aria-labelledby="support-h" style="margin-top:var(--spacing-2xl);">
+        <div class="hub2__sechead">
+          <h2 id="support-h">Behind the directions</h2>
+          <p class="spec-label">Boards &amp; foundations</p>
+        </div>
+
+        <div class="hub2__secondary">
+          {boards.map((b) => (
+            <a class="hub2-card" href={b.href}>
+              <p class="hub2-card__kind">{b.kind}</p>
+              <p class="hub2-card__name">{b.name}</p>
+              <p class="hub2-card__desc">{b.desc}</p>
+              <span class="hub2-card__go">Open board &rarr;</span>
+            </a>
+          ))}
+          <a class="hub2-card" href="/design-lab/foundations/">
+            <p class="hub2-card__kind">Foundations</p>
+            <p class="hub2-card__name">Design system</p>
+            <p class="hub2-card__desc">
+              Type, colour, material, light, spacing and geometry — the shared token layer under all
+              three.
+            </p>
+            <span class="hub2-card__go">Open foundations &rarr;</span>
           </a>
-        ))}
-      </div>
+        </div>
+      </section>
+
+      <!-- UTILITY / QA (lab chrome; subordinate) -->
+      <section class="hub2__utility" aria-labelledby="utility-h">
+        <div class="hub2__utility-head">
+          <h2 id="utility-h">Lab utilities</h2>
+          <p class="spec-label">Read-only · internal</p>
+        </div>
+        <div class="hub2__utility-grid">
+          <div class="hub2__probe">
+            <p class="spec-label hub2__probe-label">Live runtime probe</p>
+            <QualityStatus client:visible />
+          </div>
+          <div class="hub2__probe">
+            <p class="spec-label hub2__probe-label">Quality gates</p>
+            <ul class="hub2__qa-list">
+              {qa.map(([label, cmd]) => (
+                <li>
+                  <span>{label}</span>
+                  <code>{cmd}</code>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <footer class="lab__wrap" style="padding-block:var(--spacing-2xl); color:var(--color-pewter);">
+    <footer class="lab__wrap hub2__footer">
       <p class="spec-label">
         Internal design lab · no production content · no client facts fabricated · DEPLOYED: NO
       </p>

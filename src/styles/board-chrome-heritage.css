@@ -22,9 +22,9 @@
   font-display: swap;
   src: url('/fonts/fraunces/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeP2Xz5c.woff2')
     format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF, U+FFFD;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074,
+    U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
   font-family: 'Fraunces';
@@ -33,9 +33,9 @@
   font-display: swap;
   src: url('/fonts/fraunces/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxCFTeP2Xz5fU8w.woff2')
     format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF, U+FFFD;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074,
+    U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 /* Archivo — condensed-friendly industrial grotesk, variable weight. */
 @font-face {
@@ -44,9 +44,9 @@
   font-weight: 100 900;
   font-display: swap;
   src: url('/fonts/archivo/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxKsv4Rn.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF, U+FFFD;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074,
+    U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /* ---------- Board-local palette aliases (from --ch-* + base ladder) ---------- */
@@ -809,7 +809,13 @@
 .chb-mat--gloss .chb-mat__swatch {
   background:
     radial-gradient(120% 80% at 30% 12%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 30%),
-    linear-gradient(160deg, #1f5bd6 0%, var(--chb-cobalt) 44%, var(--chb-cobalt-deep) 78%, #030a1c 100%);
+    linear-gradient(
+      160deg,
+      #1f5bd6 0%,
+      var(--chb-cobalt) 44%,
+      var(--chb-cobalt-deep) 78%,
+      #030a1c 100%
+    );
 }
 .chb-mat--gloss .chb-mat__swatch::after {
   content: '';
@@ -847,7 +853,12 @@
     radial-gradient(1.2px 1.2px at 30% 66%, rgba(207, 224, 255, 0.7), transparent 60%),
     radial-gradient(120% 90% at 50% 0%, #16337a, #05070c 72%);
   background-size:
-    18px 18px, 22px 22px, 26px 26px, 20px 20px, 24px 24px, 100% 100%;
+    18px 18px,
+    22px 22px,
+    26px 26px,
+    20px 20px,
+    24px 24px,
+    100% 100%;
 }
 
 /* ================================================================
@@ -942,7 +953,9 @@
 }
 .chb-card:hover {
   border-color: var(--chb-edge-lit);
-  box-shadow: inset 0 0 0 1px rgba(46, 123, 255, 0.16), 0 12px 30px rgba(3, 7, 18, 0.5);
+  box-shadow:
+    inset 0 0 0 1px rgba(46, 123, 255, 0.16),
+    0 12px 30px rgba(3, 7, 18, 0.5);
 }
 .chb-card__idx {
   font-family: var(--chb-body);
@@ -1198,7 +1211,12 @@
   }
   .chb-hero__grade {
     background:
-      linear-gradient(0deg, rgba(5, 7, 12, 0.96) 6%, rgba(5, 7, 12, 0.15) 60%, rgba(5, 7, 12, 0) 100%),
+      linear-gradient(
+        0deg,
+        rgba(5, 7, 12, 0.96) 6%,
+        rgba(5, 7, 12, 0.15) 60%,
+        rgba(5, 7, 12, 0) 100%
+      ),
       radial-gradient(140% 60% at 70% 20%, rgba(46, 123, 255, 0.18), rgba(5, 7, 12, 0) 60%);
   }
   .chb-photos {

@@ -82,41 +82,37 @@
 .bl-proto {
   /* --- Light primitives: reused everywhere so "light" is a material, not paint. --- */
   /* Cool blue-white booth KEY with soft falloff — the ground is never flat white. */
-  --bl-keylight:
-    radial-gradient(
-      145% 120% at 22% -8%,
-      #ffffff 0%,
-      #f2f6fb 26%,
-      #e6edf5 52%,
-      #d7e2ee 78%,
-      #cbd8e7 100%
-    );
+  --bl-keylight: radial-gradient(
+    145% 120% at 22% -8%,
+    #ffffff 0%,
+    #f2f6fb 26%,
+    #e6edf5 52%,
+    #d7e2ee 78%,
+    #cbd8e7 100%
+  );
   /* Cooler, deeper version for larger fields. */
-  --bl-keylight-deep:
-    radial-gradient(
-      130% 115% at 78% -12%,
-      #f4f8fc 0%,
-      #e4ecf5 40%,
-      #d2dfee 74%,
-      #c0d0e2 100%
-    );
+  --bl-keylight-deep: radial-gradient(
+    130% 115% at 78% -12%,
+    #f4f8fc 0%,
+    #e4ecf5 40%,
+    #d2dfee 74%,
+    #c0d0e2 100%
+  );
   /* A single raking specular line — the reflection running across wet paint. */
-  --bl-rake:
-    linear-gradient(
-      104deg,
-      transparent 0%,
-      transparent 40%,
-      color-mix(in srgb, #dbe9ff 42%, transparent) 49%,
-      color-mix(in srgb, #ffffff 60%, transparent) 50.5%,
-      color-mix(in srgb, #dbe9ff 42%, transparent) 52%,
-      transparent 61%,
-      transparent 100%
-    );
+  --bl-rake: linear-gradient(
+    104deg,
+    transparent 0%,
+    transparent 40%,
+    color-mix(in srgb, #dbe9ff 42%, transparent) 49%,
+    color-mix(in srgb, #ffffff 60%, transparent) 50.5%,
+    color-mix(in srgb, #dbe9ff 42%, transparent) 52%,
+    transparent 61%,
+    transparent 100%
+  );
   /* Near-black inspection ground with one implied cool key from top-right.
      Deliberately the SAME dark room as the reveal beat — one lighting system, not
      two themes. Every dark band is this room with the inspection light on it. */
-  --bl-inkfield:
-    radial-gradient(120% 90% at 82% -10%, #1a2733 0%, #0e141b 46%, #0a0d12 100%);
+  --bl-inkfield: radial-gradient(120% 90% at 82% -10%, #1a2733 0%, #0e141b 46%, #0a0d12 100%);
 
   /* --- STRUCTURAL INSPECTION LIGHT (swap-test primitives) ---
      These make "clinical booth light on paint" read even with photos removed. */
@@ -124,18 +120,21 @@
      falloff vignette on the lower-right so a plain surface still reads "lit". */
   --bl-rake-section:
     radial-gradient(150% 120% at 8% -30%, rgba(255, 255, 255, 0.85) 0%, rgba(226, 236, 247, 0) 42%),
-    radial-gradient(120% 140% at 108% 128%, rgba(120, 138, 160, 0.16) 0%, rgba(120, 138, 160, 0) 46%);
+    radial-gradient(
+      120% 140% at 108% 128%,
+      rgba(120, 138, 160, 0.16) 0%,
+      rgba(120, 138, 160, 0) 46%
+    );
   /* A single specular light-sweep for the divider between sections — the same
      controlled inspection light passing across the seam. */
-  --bl-sweep:
-    linear-gradient(
-      90deg,
-      transparent 0%,
-      color-mix(in srgb, var(--bl-signal) 22%, transparent) 20%,
-      color-mix(in srgb, #ffffff 78%, transparent) 50%,
-      color-mix(in srgb, var(--bl-signal) 22%, transparent) 80%,
-      transparent 100%
-    );
+  --bl-sweep: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--bl-signal) 22%, transparent) 20%,
+    color-mix(in srgb, #ffffff 78%, transparent) 50%,
+    color-mix(in srgb, var(--bl-signal) 22%, transparent) 80%,
+    transparent 100%
+  );
   /* Physical booth material: a faint overspray dust / plastic-sheeting haze so
      the clean surfaces read body-shop, not SaaS. Layered CSS only, no raster. */
   --bl-overspray:
@@ -284,7 +283,9 @@
   transition: box-shadow var(--duration-ui) var(--ease-mech);
 }
 .bl-nav[data-scrolled='true'] {
-  box-shadow: 0 1px 0 var(--bl-line), 0 10px 30px -22px rgba(12, 16, 20, 0.5);
+  box-shadow:
+    0 1px 0 var(--bl-line),
+    0 10px 30px -22px rgba(12, 16, 20, 0.5);
 }
 .bl-nav__row {
   display: flex;
@@ -382,7 +383,9 @@
   height: 2px;
   width: 100%;
   background: var(--bl-ink);
-  transition: transform var(--duration-ui) var(--ease-mech), opacity var(--duration-ui) var(--ease-mech);
+  transition:
+    transform var(--duration-ui) var(--ease-mech),
+    opacity var(--duration-ui) var(--ease-mech);
 }
 .bl-nav[data-menu='open'] .bl-burger__bar:nth-child(1) {
   transform: translateY(6px) rotate(45deg);
@@ -669,13 +672,26 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(120% 90% at 18% 6%, color-mix(in srgb, #cfe2ff 22%, transparent) 0%, transparent 46%),
-    linear-gradient(90deg, transparent 0%, transparent 52%, color-mix(in srgb, var(--bl-ink) 62%, transparent) 100%);
+    radial-gradient(
+      120% 90% at 18% 6%,
+      color-mix(in srgb, #cfe2ff 22%, transparent) 0%,
+      transparent 46%
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      transparent 52%,
+      color-mix(in srgb, var(--bl-ink) 62%, transparent) 100%
+    );
 }
 @media (min-width: 940px) {
   .bl-hero__grade {
     background:
-      radial-gradient(110% 90% at 14% 4%, color-mix(in srgb, #cfe2ff 24%, transparent) 0%, transparent 42%),
+      radial-gradient(
+        110% 90% at 14% 4%,
+        color-mix(in srgb, #cfe2ff 24%, transparent) 0%,
+        transparent 42%
+      ),
       linear-gradient(90deg, transparent 0%, transparent 62%, var(--bl-ink) 98%);
   }
 }
@@ -849,12 +865,11 @@
   height: 10px;
   z-index: 2;
   pointer-events: none;
-  background:
-    repeating-linear-gradient(
-      -63deg,
-      color-mix(in srgb, var(--bl-tape-edge) 92%, #000) 0 6px,
-      var(--bl-tape-edge) 6px 12px
-    );
+  background: repeating-linear-gradient(
+    -63deg,
+    color-mix(in srgb, var(--bl-tape-edge) 92%, #000) 0 6px,
+    var(--bl-tape-edge) 6px 12px
+  );
   box-shadow: 0 -1px 2px rgba(12, 16, 20, 0.28);
   opacity: 0.92;
 }
@@ -1007,7 +1022,12 @@
   position: absolute;
   inset: auto 0 0 0;
   padding: var(--spacing-md) var(--spacing-sm) var(--spacing-sm);
-  background: linear-gradient(0deg, rgba(8, 11, 15, 0.9) 0%, rgba(8, 11, 15, 0.6) 60%, transparent 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(8, 11, 15, 0.9) 0%,
+    rgba(8, 11, 15, 0.6) 60%,
+    transparent 100%
+  );
   color: #eef2f6;
 }
 .bl-fig__cap-title {
@@ -1066,7 +1086,11 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(90% 70% at 12% -20%, color-mix(in srgb, #cfe2ff 40%, transparent) 0%, transparent 55%);
+  background: radial-gradient(
+    90% 70% at 12% -20%,
+    color-mix(in srgb, #cfe2ff 40%, transparent) 0%,
+    transparent 55%
+  );
 }
 .bl-pstep > * {
   position: relative;
@@ -1105,7 +1129,14 @@
   margin-top: var(--spacing-lg);
   height: 6px;
   border-radius: 3px;
-  background: linear-gradient(90deg, #eef4fb 0%, #cfe0f2 30%, #4d6b8f 62%, #16202b 84%, #0a0d12 100%);
+  background: linear-gradient(
+    90deg,
+    #eef4fb 0%,
+    #cfe0f2 30%,
+    #4d6b8f 62%,
+    #16202b 84%,
+    #0a0d12 100%
+  );
   border: 1px solid var(--bl-line);
 }
 .bl-arclabels {
@@ -1234,15 +1265,14 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(
-      108deg,
-      transparent 36%,
-      color-mix(in srgb, #dbeaff 32%, transparent) 48.5%,
-      color-mix(in srgb, #ffffff 50%, transparent) 50.5%,
-      color-mix(in srgb, #dbeaff 32%, transparent) 53%,
-      transparent 64%
-    );
+  background: linear-gradient(
+    108deg,
+    transparent 36%,
+    color-mix(in srgb, #dbeaff 32%, transparent) 48.5%,
+    color-mix(in srgb, #ffffff 50%, transparent) 50.5%,
+    color-mix(in srgb, #dbeaff 32%, transparent) 53%,
+    transparent 64%
+  );
   mix-blend-mode: screen;
   opacity: 0.82;
   z-index: 2;
@@ -1710,4 +1740,23 @@
     transform: none;
     opacity: 0.45;
   }
+}
+
+/* ==========================================================================
+   CLIENT-REVIEW MODE  (html[data-review="1"] set by PrototypeLayout before paint)
+   Hides ALL internal chrome so the client sees only the site: the Design-Lab
+   labstrip + direction-study tag, every "Reference imagery" stamp + provenance
+   line, and the CLIENT INPUT REQUIRED contact facts / notes. Real content, nav,
+   hero, services, work, process, story, the quote FORM and footer all remain.
+   The Service-area fact (a real fact) is kept; only unknown-fact rows are hidden.
+========================================================================== */
+html[data-review="1"] body.bl-proto .bl-labstrip,        /* Design-Lab strip + study tag */
+html[data-review="1"] body.bl-proto .bl-stamp,           /* "Reference imagery" badges */
+html[data-review="1"] body.bl-proto .bl-provline,        /* block provenance caption */
+html[data-review="1"] body.bl-proto .bl-story__p--cir,   /* CLIENT INPUT REQUIRED story note */
+html[data-review="1"] body.bl-proto .bl-footer__prov,    /* footer provenance line */
+html[data-review="1"] body.bl-proto .bl-footer__cir,     /* footer CIR / not-deployed line */
+html[data-review="1"] body.bl-proto .bl-contact__fact:has(.bl-contact__req) {
+  /* CIR contact facts */
+  display: none !important;
 }

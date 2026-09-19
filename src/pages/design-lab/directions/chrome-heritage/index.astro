@@ -116,10 +116,26 @@ const shots = [
 ];
 
 const materials = [
-  ['chrome', 'Polished chrome edge', 'Hard light-to-dark ladder with one raking specular — a lit edge, never a gray fill.'],
-  ['gloss', 'Candy cobalt gloss', 'Wet clearcoat depth: bright top highlight, deep pooled shadow, the brand-core hue.'],
-  ['plaque', 'Illuminated plaque', 'The poster signage evolved — a real lit cobalt edge framing a near-black panel.'],
-  ['flake', 'Metalflake clearcoat', 'Sparse specular flake over deep cobalt — depth built in layers, not texture noise.'],
+  [
+    'chrome',
+    'Polished chrome edge',
+    'Hard light-to-dark ladder with one raking specular — a lit edge, never a gray fill.',
+  ],
+  [
+    'gloss',
+    'Candy cobalt gloss',
+    'Wet clearcoat depth: bright top highlight, deep pooled shadow, the brand-core hue.',
+  ],
+  [
+    'plaque',
+    'Illuminated plaque',
+    'The poster signage evolved — a real lit cobalt edge framing a near-black panel.',
+  ],
+  [
+    'flake',
+    'Metalflake clearcoat',
+    'Sparse specular flake over deep cobalt — depth built in layers, not texture noise.',
+  ],
 ];
 
 const comps = [
@@ -147,8 +163,12 @@ const comps = [
   <header class="chb-masthead" id="board">
     <div class="chb-wrap">
       <div class="chb-masthead__top">
-        <span class="chb-tag">Design Lab · Direction Study · Concept — <b>Not Client-Approved</b></span>
-        <a class="chb-backlink" href="/design-lab/">&larr; Design Lab</a>
+        <span class="chb-tag">
+          Design Lab · Direction Study · Concept — <b>Not Client-Approved</b>
+        </span>
+        <a class="chb-backlink" href="/design-lab/">
+          &larr; Design Lab
+        </a>
       </div>
 
       <div class="chb-masthead__grid">
@@ -159,7 +179,10 @@ const comps = [
         <dl class="chb-masthead__meta">
           <div class="chb-meta-row">
             <dt>Thesis</dt>
-            <dd>A contemporary digital evolution of the After Hourz poster — <b>custom lettering, chrome, cobalt on black</b>.</dd>
+            <dd>
+              A contemporary digital evolution of the After Hourz poster —{' '}
+              <b>custom lettering, chrome, cobalt on black</b>.
+            </dd>
           </div>
           <div class="chb-meta-row">
             <dt>Poster DNA</dt>
@@ -167,7 +190,9 @@ const comps = [
           </div>
           <div class="chb-meta-row">
             <dt>Motion</dt>
-            <dd><b>Polish / Reflection</b> — a specular sweep raking across chrome &amp; gloss.</dd>
+            <dd>
+              <b>Polish / Reflection</b> — a specular sweep raking across chrome &amp; gloss.
+            </dd>
           </div>
           <div class="chb-meta-row">
             <dt>Region</dt>
@@ -196,18 +221,28 @@ const comps = [
       <div class="chb-wrap chb-hero__content">
         <p class="chb-hero__eyebrow">Custom paint · body · restoration</p>
         <h2 class="chb-hero__title" id="hero-h">
-          Built after<br />
-          hours, <em>finished<br />
-          by hand.</em>
+          Built after
+          <br />
+          hours,{' '}
+          <em>
+            finished
+            <br />
+            by hand.
+          </em>
         </h2>
         <p class="chb-hero__sub">
-          Classic-car craft rebuilt for the screen — chrome that catches a real light,
-          candy paint with depth, lettering with a heritage of its own.
+          Classic-car craft rebuilt for the screen — chrome that catches a real light, candy paint
+          with depth, lettering with a heritage of its own.
         </p>
         <div class="chb-hero__actions">
-          <a class="chb-btn chb-btn--primary" href="#photography">See the finish</a>
+          <a class="chb-btn chb-btn--primary" href="#photography">
+            See the finish
+          </a>
           <a class="chb-btn chb-btn--ghost" href="#type">
-            Explore the system <span class="chb-btn__ico" aria-hidden="true">&rarr;</span>
+            Explore the system{' '}
+            <span class="chb-btn__ico" aria-hidden="true">
+              &rarr;
+            </span>
           </a>
         </div>
       </div>
@@ -236,7 +271,9 @@ const comps = [
               <span class="l1">After Hourz</span>
               <span class="l2">high-contrast heritage serif</span>
             </p>
-            <p class="chb-glyphset" aria-hidden="true">Aa Gg Rz &amp; 0123456789</p>
+            <p class="chb-glyphset" aria-hidden="true">
+              Aa Gg Rz &amp; 0123456789
+            </p>
             <p class="chb-body-demo" style="margin-top:var(--spacing-md);">
               Fraunces runs at a <b>heavy optical weight with tight tracking</b> for ornamental
               heritage headlines, and drops to a light italic for the second voice — the ornate
@@ -253,14 +290,17 @@ const comps = [
               {scale.map(([sz, sample]) => (
                 <div class="chb-scale-row">
                   <span class="sz">{sz}px</span>
-                  <span class="sample" style={`font-size:${Number(sz) / 16}rem;`}>{sample}</span>
+                  <span class="sample" style={`font-size:${Number(sz) / 16}rem;`}>
+                    {sample}
+                  </span>
                 </div>
               ))}
             </div>
             <p class="chb-body-demo">
-              Archivo is the machined industrial-gothic voice: <b>wide-tracked all-caps for
-              eyebrows and info</b>, comfortable at reading measure for body. It carries every
-              label, spec and control so the display face stays reserved for identity moments.
+              Archivo is the machined industrial-gothic voice:{' '}
+              <b>wide-tracked all-caps for eyebrows and info</b>, comfortable at reading measure for
+              body. It carries every label, spec and control so the display face stays reserved for
+              identity moments.
             </p>
           </article>
         </div>
@@ -280,7 +320,11 @@ const comps = [
           <!-- CONCEPT A — Polished chrome serif -->
           <article class="chb-plaque chb-mark">
             <div class="chb-mark__stage">
-              <svg viewBox="0 0 360 132" role="img" aria-label="After Hourz wordmark, concept A — polished chrome serif">
+              <svg
+                viewBox="0 0 360 132"
+                role="img"
+                aria-label="After Hourz wordmark, concept A — polished chrome serif"
+              >
                 <defs>
                   <linearGradient id="chb-mk-a" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0" stop-color="#ffffff" />
@@ -291,10 +335,27 @@ const comps = [
                     <stop offset="0.9" stop-color="#f4f8fd" />
                   </linearGradient>
                 </defs>
-                <text x="180" y="58" text-anchor="middle" fill="url(#chb-mk-a)"
-                  style="font-family:var(--chb-display);font-weight:640;font-size:44px;letter-spacing:-0.01em;">AFTER</text>
-                <text x="180" y="108" text-anchor="middle" fill="url(#chb-mk-a)"
-                  style="font-family:var(--chb-display);font-weight:640;font-size:44px;letter-spacing:0.02em;">HOUR<tspan font-style="italic" font-weight="400">z</tspan></text>
+                <text
+                  x="180"
+                  y="58"
+                  text-anchor="middle"
+                  fill="url(#chb-mk-a)"
+                  style="font-family:var(--chb-display);font-weight:640;font-size:44px;letter-spacing:-0.01em;"
+                >
+                  AFTER
+                </text>
+                <text
+                  x="180"
+                  y="108"
+                  text-anchor="middle"
+                  fill="url(#chb-mk-a)"
+                  style="font-family:var(--chb-display);font-weight:640;font-size:44px;letter-spacing:0.02em;"
+                >
+                  HOUR
+                  <tspan font-style="italic" font-weight="400">
+                    z
+                  </tspan>
+                </text>
               </svg>
             </div>
             <div class="chb-mark__cap">
@@ -306,13 +367,39 @@ const comps = [
           <!-- CONCEPT B — Stacked plaque lockup -->
           <article class="chb-plaque chb-mark">
             <div class="chb-mark__stage">
-              <svg viewBox="0 0 360 132" role="img" aria-label="After Hourz wordmark, concept B — plaque monogram lockup">
-                <rect x="14" y="16" width="332" height="100" rx="4" fill="none" stroke="#2e7bff" stroke-opacity="0.4" />
+              <svg
+                viewBox="0 0 360 132"
+                role="img"
+                aria-label="After Hourz wordmark, concept B — plaque monogram lockup"
+              >
+                <rect
+                  x="14"
+                  y="16"
+                  width="332"
+                  height="100"
+                  rx="4"
+                  fill="none"
+                  stroke="#2e7bff"
+                  stroke-opacity="0.4"
+                />
                 <rect x="22" y="24" width="316" height="84" rx="2" fill="none" stroke="#1b2130" />
-                <text x="180" y="60" text-anchor="middle" fill="#cfe0ff"
-                  style="font-family:var(--chb-body);font-weight:700;font-size:15px;letter-spacing:0.42em;">AFTER</text>
-                <text x="180" y="96" text-anchor="middle"
-                  style="font-family:var(--chb-display);font-weight:640;font-size:34px;letter-spacing:0.04em;fill:#f7f9fb;">HOURZ</text>
+                <text
+                  x="180"
+                  y="60"
+                  text-anchor="middle"
+                  fill="#cfe0ff"
+                  style="font-family:var(--chb-body);font-weight:700;font-size:15px;letter-spacing:0.42em;"
+                >
+                  AFTER
+                </text>
+                <text
+                  x="180"
+                  y="96"
+                  text-anchor="middle"
+                  style="font-family:var(--chb-display);font-weight:640;font-size:34px;letter-spacing:0.04em;fill:#f7f9fb;"
+                >
+                  HOURZ
+                </text>
               </svg>
             </div>
             <div class="chb-mark__cap">
@@ -324,11 +411,37 @@ const comps = [
           <!-- CONCEPT C — Monoline pinstripe -->
           <article class="chb-plaque chb-mark">
             <div class="chb-mark__stage">
-              <svg viewBox="0 0 360 132" role="img" aria-label="After Hourz wordmark, concept C — pinstripe monoline">
-                <text x="180" y="74" text-anchor="middle" fill="none" stroke="#cfe0ff" stroke-width="0.8"
-                  style="font-family:var(--chb-display);font-weight:400;font-style:italic;font-size:46px;letter-spacing:0.01em;">After Hourz</text>
-                <path d="M60 92 q120 22 240 0" fill="none" stroke="#2e7bff" stroke-width="1.4" stroke-linecap="round" />
-                <path d="M84 100 q96 14 192 0" fill="none" stroke="#2e7bff" stroke-opacity="0.5" stroke-width="1" stroke-linecap="round" />
+              <svg
+                viewBox="0 0 360 132"
+                role="img"
+                aria-label="After Hourz wordmark, concept C — pinstripe monoline"
+              >
+                <text
+                  x="180"
+                  y="74"
+                  text-anchor="middle"
+                  fill="none"
+                  stroke="#cfe0ff"
+                  stroke-width="0.8"
+                  style="font-family:var(--chb-display);font-weight:400;font-style:italic;font-size:46px;letter-spacing:0.01em;"
+                >
+                  After Hourz
+                </text>
+                <path
+                  d="M60 92 q120 22 240 0"
+                  fill="none"
+                  stroke="#2e7bff"
+                  stroke-width="1.4"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M84 100 q96 14 192 0"
+                  fill="none"
+                  stroke="#2e7bff"
+                  stroke-opacity="0.5"
+                  stroke-width="1"
+                  stroke-linecap="round"
+                />
               </svg>
             </div>
             <div class="chb-mark__cap">
@@ -392,8 +505,8 @@ const comps = [
         <p class="chb-photos__note">
           All imagery here is <b>external prototype / reference material</b> selected to prove the
           Chrome Heritage look — never presented as Anthony&rsquo;s completed work. Production
-          portfolio must be his real, shot work, graded to the cool-key chrome family; missing
-          shots are marked <b>CLIENT INPUT REQUIRED</b>, never fabricated.
+          portfolio must be his real, shot work, graded to the cool-key chrome family; missing shots
+          are marked <b>CLIENT INPUT REQUIRED</b>, never fabricated.
         </p>
       </div>
     </section>
@@ -433,12 +546,19 @@ const comps = [
           <div class="chb-plaque chb-ui__cell">
             <span class="chb-ui__label">Buttons</span>
             <div class="chb-ui__row">
-              <a class="chb-btn chb-btn--primary" href="#ui">Start a project</a>
-              <a class="chb-btn" href="#ui">See the work</a>
+              <a class="chb-btn chb-btn--primary" href="#ui">
+                Start a project
+              </a>
+              <a class="chb-btn" href="#ui">
+                See the work
+              </a>
             </div>
             <div class="chb-ui__row">
               <a class="chb-btn chb-btn--ghost" href="#ui">
-                Text-link CTA <span class="chb-btn__ico" aria-hidden="true">&rarr;</span>
+                Text-link CTA{' '}
+                <span class="chb-btn__ico" aria-hidden="true">
+                  &rarr;
+                </span>
               </a>
             </div>
           </div>
@@ -446,14 +566,19 @@ const comps = [
           <div class="chb-plaque chb-ui__cell">
             <span class="chb-ui__label">Navigation &amp; links</span>
             <nav class="chb-navdemo" aria-label="Sample navigation">
-              <a href="#ui" aria-current="page">Work</a>
+              <a href="#ui" aria-current="page">
+                Work
+              </a>
               <a href="#ui">Craft</a>
               <a href="#ui">Services</a>
               <a href="#ui">Contact</a>
             </nav>
             <p style="font-family:var(--chb-body);font-size:0.86rem;color:var(--chb-chrome-mid);margin:0;">
-              An inline <a class="chb-textlink" href="#ui">chrome text link</a> sits inside body copy
-              with a lit cobalt underline.
+              An inline{' '}
+              <a class="chb-textlink" href="#ui">
+                chrome text link
+              </a>{' '}
+              sits inside body copy with a lit cobalt underline.
             </p>
           </div>
 
@@ -470,11 +595,22 @@ const comps = [
             <span class="chb-ui__label">Form field</span>
             <div class="chb-field">
               <label for="chb-demo-name">Your name</label>
-              <input id="chb-demo-name" type="text" name="name" placeholder="Name" autocomplete="name" />
+              <input
+                id="chb-demo-name"
+                type="text"
+                name="name"
+                placeholder="Name"
+                autocomplete="name"
+              />
             </div>
             <div class="chb-field">
               <label for="chb-demo-veh">Vehicle</label>
-              <input id="chb-demo-veh" type="text" name="vehicle" placeholder="Year · make · model" />
+              <input
+                id="chb-demo-veh"
+                type="text"
+                name="vehicle"
+                placeholder="Year · make · model"
+              />
             </div>
           </div>
 
@@ -482,7 +618,12 @@ const comps = [
             <span class="chb-ui__label">Message field</span>
             <div class="chb-field">
               <label for="chb-demo-msg">What do you want done?</label>
-              <textarea id="chb-demo-msg" name="message" rows="3" placeholder="Paint, bodywork, restoration…"></textarea>
+              <textarea
+                id="chb-demo-msg"
+                name="message"
+                rows="3"
+                placeholder="Paint, bodywork, restoration…"
+              ></textarea>
             </div>
           </div>
         </div>
@@ -506,17 +647,25 @@ const comps = [
               performs.
             </p>
             <p>
-              Everything else stays still. Reveals settle with a weighted mechanical ease
-              (<b>--ease-mech</b>), never springy. One sweep per hero, one per section at most — the
+              Everything else stays still. Reveals settle with a weighted mechanical ease (
+              <b>--ease-mech</b>), never springy. One sweep per hero, one per section at most — the
               rest is confident stillness. Under <b>prefers-reduced-motion</b> the sweep resolves to
               a static specular and nothing travels.
             </p>
           </div>
-          <div class="chb-motion__stage" tabindex="0" aria-label="Demonstration: focus or hover to send a polish sweep across the wordmark">
+          <div
+            class="chb-motion__stage"
+            tabindex="0"
+            aria-label="Demonstration: focus or hover to send a polish sweep across the wordmark"
+          >
             <span class="chb-motion__word">
-              <span class="chb-chrome-text" style="font-family:var(--chb-display);">After Hourz</span>
+              <span class="chb-chrome-text" style="font-family:var(--chb-display);">
+                After Hourz
+              </span>
             </span>
-            <span class="chb-motion__hint" aria-hidden="true">Hover / focus — polish sweep</span>
+            <span class="chb-motion__hint" aria-hidden="true">
+              Hover / focus — polish sweep
+            </span>
           </div>
         </div>
       </div>
@@ -533,10 +682,23 @@ const comps = [
         <div class="chb-comps">
           <!-- HERO thumbnail -->
           <article class="chb-plaque chb-comp">
-            <div class="chb-comp__frame" role="img" aria-label="Hero composition thumbnail: vehicle at frame-right, headline and CTA in reserved dark space at left.">
-              <span class="chb-blk chb-blk--img" style="right:4%;top:12%;width:52%;height:76%;"></span>
-              <span class="chb-blk chb-blk--type" style="left:6%;top:26%;width:34%;height:22%;"></span>
-              <span class="chb-blk chb-blk--cta" style="left:6%;top:54%;width:18%;height:9%;"></span>
+            <div
+              class="chb-comp__frame"
+              role="img"
+              aria-label="Hero composition thumbnail: vehicle at frame-right, headline and CTA in reserved dark space at left."
+            >
+              <span
+                class="chb-blk chb-blk--img"
+                style="right:4%;top:12%;width:52%;height:76%;"
+              ></span>
+              <span
+                class="chb-blk chb-blk--type"
+                style="left:6%;top:26%;width:34%;height:22%;"
+              ></span>
+              <span
+                class="chb-blk chb-blk--cta"
+                style="left:6%;top:54%;width:18%;height:9%;"
+              ></span>
             </div>
             <div class="chb-comp__cap">
               <b>Hero</b>
@@ -546,11 +708,27 @@ const comps = [
 
           <!-- MID-PAGE thumbnail -->
           <article class="chb-plaque chb-comp">
-            <div class="chb-comp__frame" role="img" aria-label="Mid-page story thumbnail: tall image left, copy column right, hairline divider.">
-              <span class="chb-blk chb-blk--img" style="left:6%;top:10%;width:40%;height:80%;"></span>
-              <span class="chb-blk chb-blk--type" style="right:6%;top:22%;width:40%;height:14%;"></span>
-              <span class="chb-blk chb-blk--type" style="right:6%;top:42%;width:34%;height:8%;background:rgba(207,224,255,0.06);"></span>
-              <span class="chb-blk chb-blk--cta" style="right:6%;top:60%;width:16%;height:7%;"></span>
+            <div
+              class="chb-comp__frame"
+              role="img"
+              aria-label="Mid-page story thumbnail: tall image left, copy column right, hairline divider."
+            >
+              <span
+                class="chb-blk chb-blk--img"
+                style="left:6%;top:10%;width:40%;height:80%;"
+              ></span>
+              <span
+                class="chb-blk chb-blk--type"
+                style="right:6%;top:22%;width:40%;height:14%;"
+              ></span>
+              <span
+                class="chb-blk chb-blk--type"
+                style="right:6%;top:42%;width:34%;height:8%;background:rgba(207,224,255,0.06);"
+              ></span>
+              <span
+                class="chb-blk chb-blk--cta"
+                style="right:6%;top:60%;width:16%;height:7%;"
+              ></span>
             </div>
             <div class="chb-comp__cap">
               <b>Mid-page story</b>
@@ -560,10 +738,23 @@ const comps = [
 
           <!-- CLOSING thumbnail -->
           <article class="chb-plaque chb-comp">
-            <div class="chb-comp__frame" role="img" aria-label="Closing CTA thumbnail: centered plaque with illuminated edge, wordmark and single CTA.">
-              <span class="chb-blk chb-blk--img" style="left:12%;top:14%;width:76%;height:72%;border-color:rgba(46,123,255,0.45);background:none;box-shadow:inset 0 0 24px rgba(46,123,255,0.18);"></span>
-              <span class="chb-blk chb-blk--type" style="left:30%;top:36%;width:40%;height:14%;"></span>
-              <span class="chb-blk chb-blk--cta" style="left:41%;top:58%;width:18%;height:8%;"></span>
+            <div
+              class="chb-comp__frame"
+              role="img"
+              aria-label="Closing CTA thumbnail: centered plaque with illuminated edge, wordmark and single CTA."
+            >
+              <span
+                class="chb-blk chb-blk--img"
+                style="left:12%;top:14%;width:76%;height:72%;border-color:rgba(46,123,255,0.45);background:none;box-shadow:inset 0 0 24px rgba(46,123,255,0.18);"
+              ></span>
+              <span
+                class="chb-blk chb-blk--type"
+                style="left:30%;top:36%;width:40%;height:14%;"
+              ></span>
+              <span
+                class="chb-blk chb-blk--cta"
+                style="left:41%;top:58%;width:18%;height:8%;"
+              ></span>
             </div>
             <div class="chb-comp__cap">
               <b>Closing CTA</b>
@@ -578,7 +769,9 @@ const comps = [
   <footer class="chb-footer">
     <div class="chb-wrap chb-footer__row">
       <span>After Hourz · Direction study — Chrome Heritage · Concept, not client-approved</span>
-      <span><a href="/design-lab/">Back to Design Lab</a></span>
+      <span>
+        <a href="/design-lab/">Back to Design Lab</a>
+      </span>
     </div>
   </footer>
 </PrototypeLayout>

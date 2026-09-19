@@ -32,9 +32,9 @@
   font-weight: 400 700;
   font-display: swap;
   src: url('/fonts/oswald/oswald-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
-    U+FEFF, U+FFFD;
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
   font-family: 'Oswald';
@@ -42,9 +42,10 @@
   font-weight: 400 700;
   font-display: swap;
   src: url('/fonts/oswald/oswald-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
-    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
-    U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range:
+    U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
+    U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
 }
 
 /* ==========================================================================
@@ -61,21 +62,21 @@
   /* ACCENT — CANDY PAINT (sampled from candy-metalflake-hood-goldleaf).
      This is the automotive-heritage voice: the system reads "candy paint on chrome"
      even with photos removed. */
-  --candy-ember: #e8873c;      /* warm specular highlight of candy / gold-leaf edge */
-  --candy-copper: #c05a2b;     /* candy-copper body — PRIMARY accent (CTA, active) */
+  --candy-ember: #e8873c; /* warm specular highlight of candy / gold-leaf edge */
+  --candy-copper: #c05a2b; /* candy-copper body — PRIMARY accent (CTA, active) */
   --candy-copper-hot: #dd7238; /* hover brighten */
-  --candy-maroon: #7a1e12;     /* deep pooled candy maroon — pressed / shadowed accent */
-  --candy-maroon-deep: #4a0f0a;/* darkest candy shadow */
+  --candy-maroon: #7a1e12; /* deep pooled candy maroon — pressed / shadowed accent */
+  --candy-maroon-deep: #4a0f0a; /* darkest candy shadow */
 
   /* COOL SECONDARY — demoted cobalt. Rules / minor focus assist only, never the CTA. */
   --cool-cobalt: #2e6bd8;
   --cool-ice: #9fc0ef;
 
   /* Chrome ladder (text on dark) */
-  --chrome-hi: #f7f9fb;   /* headline peak / specular */
-  --chrome-mid: #c3ccd8;  /* body text on dark — AA on panel */
-  --chrome-low: #8b94a1;  /* muted label — AA (4.5:1) on panel */
-  --chrome-faint: #5a6472;/* decorative tracked labels only (large/UI, >=3:1) */
+  --chrome-hi: #f7f9fb; /* headline peak / specular */
+  --chrome-mid: #c3ccd8; /* body text on dark — AA on panel */
+  --chrome-low: #8b94a1; /* muted label — AA (4.5:1) on panel */
+  --chrome-faint: #5a6472; /* decorative tracked labels only (large/UI, >=3:1) */
 
   /* Chrome material fill (headline peaks / wordmark) */
   --chrome-fill: linear-gradient(
@@ -89,9 +90,9 @@
     #cfd8e4 100%
   );
 
-  --p-display: var(--ch-font-display);   /* Fraunces — wordmark + one hero line ONLY */
+  --p-display: var(--ch-font-display); /* Fraunces — wordmark + one hero line ONLY */
   --p-heading: 'Oswald', 'Oswald Fallback', var(--ch-font-body); /* section headlines */
-  --p-body: var(--ch-font-body);         /* Archivo */
+  --p-body: var(--ch-font-body); /* Archivo */
 
   /* Ground: near-black with a faint candy-warm horizon glow at the base, cool halo top-right */
   background:
@@ -290,7 +291,12 @@
   border-color: transparent;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0) 42%),
-    linear-gradient(180deg, var(--candy-ember) 0%, var(--candy-copper) 52%, var(--candy-maroon) 100%);
+    linear-gradient(
+      180deg,
+      var(--candy-ember) 0%,
+      var(--candy-copper) 52%,
+      var(--candy-maroon) 100%
+    );
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.5),
     0 0 0 1px rgba(232, 135, 60, 0.35),
@@ -472,7 +478,9 @@
   width: 20px;
   height: 2px;
   background: currentColor;
-  transition: transform var(--duration-ui) var(--ease-mech), opacity var(--duration-ui);
+  transition:
+    transform var(--duration-ui) var(--ease-mech),
+    opacity var(--duration-ui);
 }
 .chp-burger__bars {
   position: relative;
@@ -524,9 +532,20 @@
   z-index: -2;
   background:
     /* sky → near-black from the top */
-    linear-gradient(180deg, rgba(5, 7, 12, 0.9) 0%, rgba(5, 7, 12, 0.28) 26%, rgba(5, 7, 12, 0) 46%),
+    linear-gradient(
+      180deg,
+      rgba(5, 7, 12, 0.9) 0%,
+      rgba(5, 7, 12, 0.28) 26%,
+      rgba(5, 7, 12, 0) 46%
+    ),
     /* reserve the left column for type */
-    linear-gradient(90deg, rgba(5, 7, 12, 0.96) 0%, rgba(5, 7, 12, 0.72) 30%, rgba(5, 7, 12, 0.05) 62%, rgba(5, 7, 12, 0) 78%),
+    linear-gradient(
+        90deg,
+        rgba(5, 7, 12, 0.96) 0%,
+        rgba(5, 7, 12, 0.72) 30%,
+        rgba(5, 7, 12, 0.05) 62%,
+        rgba(5, 7, 12, 0) 78%
+      ),
     /* anchor the base (asphalt) */
     linear-gradient(0deg, rgba(5, 7, 12, 0.98) 4%, rgba(5, 7, 12, 0.5) 26%, rgba(5, 7, 12, 0) 52%),
     /* thin warm candy horizon glow, low-right */
@@ -568,8 +587,12 @@
   animation: chp-sweep 2800ms var(--ease-mech) 420ms 1 both;
 }
 @keyframes chp-sweep {
-  from { background-position: 180% 0; }
-  to { background-position: -80% 0; }
+  from {
+    background-position: 180% 0;
+  }
+  to {
+    background-position: -80% 0;
+  }
 }
 
 .chp-hero__content {
@@ -804,17 +827,40 @@
     radial-gradient(1.3px 1.3px at 26% 32%, rgba(255, 224, 188, 0.95), transparent 60%),
     radial-gradient(1.2px 1.2px at 68% 60%, rgba(255, 238, 214, 0.85), transparent 60%),
     radial-gradient(1.3px 1.3px at 84% 24%, rgba(232, 135, 60, 0.95), transparent 60%),
-    linear-gradient(150deg, var(--candy-copper-hot), var(--candy-copper) 46%, var(--candy-maroon-deep) 100%);
-  background-size: 12px 12px, 16px 16px, 20px 20px, 100% 100%;
+    linear-gradient(
+      150deg,
+      var(--candy-copper-hot),
+      var(--candy-copper) 46%,
+      var(--candy-maroon-deep) 100%
+    );
+  background-size:
+    12px 12px,
+    16px 16px,
+    20px 20px,
+    100% 100%;
 }
 .chp-chip--chrome {
-  background: linear-gradient(177deg, #fff 0%, #e6edf6 14%, #9aa7b8 34%, #454e5c 50%, #808c9d 60%, #eef3fa 82%, #c3ccd8 100%);
+  background: linear-gradient(
+    177deg,
+    #fff 0%,
+    #e6edf6 14%,
+    #9aa7b8 34%,
+    #454e5c 50%,
+    #808c9d 60%,
+    #eef3fa 82%,
+    #c3ccd8 100%
+  );
 }
 .chp-chip--chrome::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, transparent 42%, rgba(255, 255, 255, 0.85) 50%, transparent 58%);
+  background: linear-gradient(
+    100deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.85) 50%,
+    transparent 58%
+  );
   mix-blend-mode: screen;
 }
 .chp-chip--leaf {
@@ -971,11 +1017,26 @@
   line-height: 1.35;
 }
 /* uneven spans — a lead tall + varied companions */
-.chp-shot--a { grid-column: span 7; min-height: 24rem; }
-.chp-shot--b { grid-column: span 5; min-height: 24rem; }
-.chp-shot--c { grid-column: span 4; min-height: 18rem; }
-.chp-shot--d { grid-column: span 4; min-height: 18rem; }
-.chp-shot--e { grid-column: span 4; min-height: 18rem; }
+.chp-shot--a {
+  grid-column: span 7;
+  min-height: 24rem;
+}
+.chp-shot--b {
+  grid-column: span 5;
+  min-height: 24rem;
+}
+.chp-shot--c {
+  grid-column: span 4;
+  min-height: 18rem;
+}
+.chp-shot--d {
+  grid-column: span 4;
+  min-height: 18rem;
+}
+.chp-shot--e {
+  grid-column: span 4;
+  min-height: 18rem;
+}
 
 .chp-work__note {
   margin-top: var(--spacing-lg);
@@ -1185,17 +1246,35 @@
     radial-gradient(1.2px 1.2px at 66% 58%, rgba(255, 235, 210, 0.8), transparent 60%),
     radial-gradient(1.3px 1.3px at 82% 26%, rgba(232, 135, 60, 0.9), transparent 60%),
     radial-gradient(120% 90% at 30% 0%, var(--candy-copper), var(--candy-maroon-deep) 78%);
-  background-size: 14px 14px, 18px 18px, 22px 22px, 100% 100%;
+  background-size:
+    14px 14px,
+    18px 18px,
+    22px 22px,
+    100% 100%;
 }
 /* polished chrome edge */
 .chp-mat--chrome .chp-mat__sw {
-  background: linear-gradient(177deg, #fff 0%, #e6edf6 14%, #9aa7b8 34%, #454e5c 50%, #808c9d 60%, #eef3fa 82%, #c3ccd8 100%);
+  background: linear-gradient(
+    177deg,
+    #fff 0%,
+    #e6edf6 14%,
+    #9aa7b8 34%,
+    #454e5c 50%,
+    #808c9d 60%,
+    #eef3fa 82%,
+    #c3ccd8 100%
+  );
 }
 .chp-mat--chrome .chp-mat__sw::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, transparent 44%, rgba(255, 255, 255, 0.85) 50%, transparent 56%);
+  background: linear-gradient(
+    100deg,
+    transparent 44%,
+    rgba(255, 255, 255, 0.85) 50%,
+    transparent 56%
+  );
   mix-blend-mode: screen;
 }
 /* gold-leaf pinstripe */
@@ -1298,7 +1377,8 @@
   padding: 0.75em 0.85em;
   min-height: 48px;
   width: 100%;
-  transition: border-color var(--duration-micro) var(--ease-mech),
+  transition:
+    border-color var(--duration-micro) var(--ease-mech),
     box-shadow var(--duration-micro) var(--ease-mech);
 }
 .chp-field textarea {
@@ -1514,8 +1594,12 @@
     row-gap: var(--spacing-sm);
     align-items: start;
   }
-  .chp-line__n { grid-area: n; }
-  .chp-line__body { grid-area: body; }
+  .chp-line__n {
+    grid-area: n;
+  }
+  .chp-line__body {
+    grid-area: body;
+  }
   .chp-line__finish {
     grid-area: fin;
     justify-content: flex-start;
@@ -1532,9 +1616,16 @@
     row-gap: var(--spacing-2xs);
     margin-left: calc(var(--i) * 0.5rem);
   }
-  .chp-coat__n { grid-area: n; }
-  .chp-coat__label { grid-area: label; padding-top: 0; }
-  .chp-coat__body { grid-area: body; }
+  .chp-coat__n {
+    grid-area: n;
+  }
+  .chp-coat__label {
+    grid-area: label;
+    padding-top: 0;
+  }
+  .chp-coat__body {
+    grid-area: body;
+  }
 }
 
 @media (max-width: 860px) {
@@ -1609,7 +1700,12 @@
     height: 62vh;
     min-height: 380px;
     background:
-      linear-gradient(180deg, rgba(5, 7, 12, 0.72) 0%, rgba(5, 7, 12, 0.1) 40%, rgba(5, 7, 12, 0) 62%),
+      linear-gradient(
+        180deg,
+        rgba(5, 7, 12, 0.72) 0%,
+        rgba(5, 7, 12, 0.1) 40%,
+        rgba(5, 7, 12, 0) 62%
+      ),
       linear-gradient(0deg, var(--p-black) 2%, rgba(5, 7, 12, 0.4) 30%, rgba(5, 7, 12, 0) 60%),
       radial-gradient(60% 30% at 78% 46%, rgba(232, 135, 60, 0.18), rgba(5, 7, 12, 0) 60%);
   }
@@ -1702,4 +1798,23 @@
   .chp-shot:hover img {
     transform: none;
   }
+}
+
+/* ==========================================================================
+   11 · CLIENT-REVIEW MODE  (html[data-review="1"] set by PrototypeLayout before paint)
+   Hides ALL internal chrome so the client sees only the site: the Design-Lab
+   return strip, the CONCEPT / not-client-approved tags, every "Reference imagery"
+   / provenance badge + caption, and the CLIENT INPUT REQUIRED contact rows.
+   Real content, nav, hero, services, work, process, story, the quote FORM and
+   footer all remain. Normal mode (no ?review) keeps everything visible.
+========================================================================== */
+html[data-review="1"] body.chp .chp-topline,          /* Design-Lab strip + concept tag */
+html[data-review="1"] body.chp .chp-ref,               /* reference badges (incl. hero) */
+html[data-review="1"] body.chp .chp-gallery__prov,     /* block provenance caption */
+html[data-review="1"] body.chp .chp-work__note,        /* provenance / CIR note */
+html[data-review="1"] body.chp .chp-footer__prov,      /* footer provenance line */
+html[data-review="1"] body.chp .chp-contact__channels, /* CLIENT INPUT REQUIRED contact rows */
+html[data-review="1"] body.chp .chp-footer__col:has(.chp-footer__req) {
+  /* footer CIR contact col */
+  display: none !important;
 }

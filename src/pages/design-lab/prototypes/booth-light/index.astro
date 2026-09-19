@@ -121,9 +121,24 @@ const work = [
 // --- Process: the application -> inspection arc ---
 const process = [
   ['01', 'Strip & assess', 'An honest read on the metal before anything else is decided.', 'Read'],
-  ['02', 'Metal & bodywork', 'Panels made true, gaps set — the base every reflection needs.', 'True'],
-  ['03', 'Base · color · clear', 'Depth built in patient coats under a controlled booth key.', 'Build'],
-  ['04', 'Inspection reveal', 'Read under one raking light until the reflection runs flat.', 'Expose'],
+  [
+    '02',
+    'Metal & bodywork',
+    'Panels made true, gaps set — the base every reflection needs.',
+    'True',
+  ],
+  [
+    '03',
+    'Base · color · clear',
+    'Depth built in patient coats under a controlled booth key.',
+    'Build',
+  ],
+  [
+    '04',
+    'Inspection reveal',
+    'Read under one raking light until the reflection runs flat.',
+    'Expose',
+  ],
 ];
 ---
 
@@ -135,8 +150,12 @@ const process = [
   <!-- LAB CHROME · subtle Design-Lab return (suppressible in client-review mode) -->
   <div class="bl-labstrip">
     <div class="bl-wrap bl-labstrip__row">
-      <span>Design Lab · Prototype · <b>Booth Light</b> · direction study, not client-approved</span>
-      <span><a href="/design-lab/">&larr; Design Lab</a></span>
+      <span>
+        Design Lab · Prototype · <b>Booth Light</b> · direction study, not client-approved
+      </span>
+      <span>
+        <a href="/design-lab/">&larr; Design Lab</a>
+      </span>
     </div>
   </div>
 
@@ -148,11 +167,15 @@ const process = [
       </a>
       <nav class="bl-nav__links" aria-label="Primary">
         {nav.map(([label, href]) => (
-          <a class="bl-nav__link" href={href}>{label}</a>
+          <a class="bl-nav__link" href={href}>
+            {label}
+          </a>
         ))}
       </nav>
       <div class="bl-nav__end">
-        <a class="bl-btn bl-btn--primary" href="#contact">Request a Quote</a>
+        <a class="bl-btn bl-btn--primary" href="#contact">
+          Request a Quote
+        </a>
         <button
           type="button"
           class="bl-burger"
@@ -177,7 +200,9 @@ const process = [
           <span>{String(i + 1).padStart(2, '0')}</span>
         </a>
       ))}
-      <a class="bl-btn bl-btn--primary" href="#contact" data-menu-link>Request a Quote</a>
+      <a class="bl-btn bl-btn--primary" href="#contact" data-menu-link>
+        Request a Quote
+      </a>
     </div>
   </div>
 
@@ -216,14 +241,24 @@ const process = [
           <div class="bl-hero__actions">
             <a class="bl-btn bl-btn--primary" href="#contact">
               Request a Quote
-              <span class="bl-btn__arrow" aria-hidden="true">&rarr;</span>
+              <span class="bl-btn__arrow" aria-hidden="true">
+                &rarr;
+              </span>
             </a>
-            <a class="bl-btn bl-btn--onink" href="#work">See the work</a>
+            <a class="bl-btn bl-btn--onink" href="#work">
+              See the work
+            </a>
           </div>
           <ul class="bl-hero__readout" aria-label="Shop signature">
-            <li><b>Custom paint</b>colour &amp; refinish</li>
-            <li><b>Body work</b>metal &amp; panel</li>
-            <li><b>Restoration</b>classic &amp; custom</li>
+            <li>
+              <b>Custom paint</b>colour &amp; refinish
+            </li>
+            <li>
+              <b>Body work</b>metal &amp; panel
+            </li>
+            <li>
+              <b>Restoration</b>classic &amp; custom
+            </li>
           </ul>
         </div>
       </div>
@@ -234,7 +269,9 @@ const process = [
       <div class="bl-wrap">
         <div class="bl-shead" data-bl-reveal>
           <span class="bl-shead__no">Services</span>
-          <h2 id="services-h" class="bl-shead__title">The craft lanes</h2>
+          <h2 id="services-h" class="bl-shead__title">
+            The craft lanes
+          </h2>
           <p class="bl-shead__lead">
             Four things, done with the same patience. The paint is what you see; the work underneath
             is what makes it last.
@@ -261,7 +298,9 @@ const process = [
                 Colour changes, factory-correct refinishing and custom finishes — flake, candy and
                 clear built in coats, then cut back until the depth reads true under light.
               </p>
-              <a class="bl-textlink" href="#contact">Start a paint quote &rarr;</a>
+              <a class="bl-textlink" href="#contact">
+                Start a paint quote &rarr;
+              </a>
             </div>
           </article>
 
@@ -289,10 +328,12 @@ const process = [
       <div class="bl-wrap">
         <div class="bl-shead" data-bl-reveal>
           <span class="bl-shead__no">Work</span>
-          <h2 id="work-h" class="bl-shead__title">Read the surface</h2>
+          <h2 id="work-h" class="bl-shead__title">
+            Read the surface
+          </h2>
           <p class="bl-shead__lead">
-            A visual study of the craft — application, material and the details that decide whether a
-            finish is real. Every frame below is external reference for this direction, not After
+            A visual study of the craft — application, material and the details that decide whether
+            a finish is real. Every frame below is external reference for this direction, not After
             Hourz&rsquo;s completed work.
           </p>
         </div>
@@ -335,10 +376,12 @@ const process = [
       <div class="bl-wrap">
         <div class="bl-shead" data-bl-reveal>
           <span class="bl-shead__no">Process</span>
-          <h2 id="process-h" class="bl-shead__title">Application, then inspection</h2>
+          <h2 id="process-h" class="bl-shead__title">
+            Application, then inspection
+          </h2>
           <p class="bl-shead__lead">
-            The arc runs one way: from a bright, clinical booth to a single-light inspection. Nothing
-            ships until the last light reads clean.
+            The arc runs one way: from a bright, clinical booth to a single-light inspection.
+            Nothing ships until the last light reads clean.
           </p>
         </div>
 
@@ -379,9 +422,15 @@ const process = [
             this, it survives daylight.
           </p>
           <div class="bl-reveal__spec">
-            <span><b>1</b>raking light</span>
-            <span><b>0</b>places to hide</span>
-            <span><b>Flat</b>reflection or it goes back</span>
+            <span>
+              <b>1</b>raking light
+            </span>
+            <span>
+              <b>0</b>places to hide
+            </span>
+            <span>
+              <b>Flat</b>reflection or it goes back
+            </span>
           </div>
         </div>
         <div class="bl-reveal__media">
@@ -426,7 +475,7 @@ const process = [
               right, and paint laid in coats that earn their depth. The name is the promise — the
               work that happens after the easy version is finished.
             </p>
-            <p class="bl-story__p">
+            <p class="bl-story__p bl-story__p--cir">
               This is a direction study. The shop&rsquo;s full story, its builds and its people are
               <b> CLIENT INPUT REQUIRED</b> and will replace the reference imagery shown here.
             </p>
@@ -441,7 +490,9 @@ const process = [
         <div class="bl-contact__grid">
           <div class="bl-contact__aside" data-bl-reveal>
             <span class="bl-shead__no">Contact</span>
-            <h2 id="contact-h" class="bl-contact__title">Request a quote</h2>
+            <h2 id="contact-h" class="bl-contact__title">
+              Request a quote
+            </h2>
             <p class="bl-contact__p">
               Tell us about the vehicle and what you want done. No pressure, no upsell — just an
               honest read on the work and where to start.
@@ -449,15 +500,21 @@ const process = [
             <dl class="bl-contact__facts">
               <div class="bl-contact__fact">
                 <dt>Phone</dt>
-                <dd><span class="bl-contact__req">Client input required</span></dd>
+                <dd>
+                  <span class="bl-contact__req">Client input required</span>
+                </dd>
               </div>
               <div class="bl-contact__fact">
                 <dt>Email</dt>
-                <dd><span class="bl-contact__req">Client input required</span></dd>
+                <dd>
+                  <span class="bl-contact__req">Client input required</span>
+                </dd>
               </div>
               <div class="bl-contact__fact">
                 <dt>Instagram</dt>
-                <dd><span class="bl-contact__req">Client input required</span></dd>
+                <dd>
+                  <span class="bl-contact__req">Client input required</span>
+                </dd>
               </div>
               <div class="bl-contact__fact">
                 <dt>Service area</dt>
@@ -468,15 +525,40 @@ const process = [
 
           <!-- Prototype form: preventDefault + tasteful acknowledgement. No backend. -->
           <form class="bl-form" data-bl-reveal aria-labelledby="form-h" data-quote-form novalidate>
-            <h3 id="form-h" class="bl-spec" style="color:var(--bl-slate);">Quote request — prototype</h3>
+            <h3 id="form-h" class="bl-spec" style="color:var(--bl-slate);">
+              Quote request — prototype
+            </h3>
             <div class="bl-form__grid">
               <div class="bl-field">
-                <label for="q-name">Your name <span class="bl-req" aria-hidden="true">*</span></label>
-                <input id="q-name" name="name" type="text" autocomplete="name" required placeholder="Your name" />
+                <label for="q-name">
+                  Your name{' '}
+                  <span class="bl-req" aria-hidden="true">
+                    *
+                  </span>
+                </label>
+                <input
+                  id="q-name"
+                  name="name"
+                  type="text"
+                  autocomplete="name"
+                  required
+                  placeholder="Your name"
+                />
               </div>
               <div class="bl-field">
-                <label for="q-vehicle">Vehicle <span class="bl-req" aria-hidden="true">*</span></label>
-                <input id="q-vehicle" name="vehicle" type="text" required placeholder="Year · make · model" />
+                <label for="q-vehicle">
+                  Vehicle{' '}
+                  <span class="bl-req" aria-hidden="true">
+                    *
+                  </span>
+                </label>
+                <input
+                  id="q-vehicle"
+                  name="vehicle"
+                  type="text"
+                  required
+                  placeholder="Year · make · model"
+                />
               </div>
               <div class="bl-field bl-field--full">
                 <label for="q-service">Service</label>
@@ -491,13 +573,19 @@ const process = [
               </div>
               <div class="bl-field bl-field--full">
                 <label for="q-msg">What do you want done?</label>
-                <textarea id="q-msg" name="message" placeholder="Paint, bodywork, restoration — tell us the goal."></textarea>
+                <textarea
+                  id="q-msg"
+                  name="message"
+                  placeholder="Paint, bodywork, restoration — tell us the goal."
+                ></textarea>
               </div>
             </div>
             <div class="bl-form__foot">
               <button class="bl-btn bl-btn--primary" type="submit">
                 Request a Quote
-                <span class="bl-btn__arrow" aria-hidden="true">&rarr;</span>
+                <span class="bl-btn__arrow" aria-hidden="true">
+                  &rarr;
+                </span>
               </button>
               <p class="bl-form__note">Prototype form — not wired to a backend.</p>
             </div>
@@ -516,7 +604,9 @@ const process = [
     <div class="bl-wrap">
       <div class="bl-footer__top">
         <div>
-          <p class="bl-footer__mark">AFTER HOUR<span>Z</span></p>
+          <p class="bl-footer__mark">
+            AFTER HOUR<span>Z</span>
+          </p>
           <p class="bl-footer__tag">
             Custom paint, body work and restoration — Southern California. Craft revealed through
             controlled inspection light.
@@ -531,7 +621,7 @@ const process = [
       </div>
       <div class="bl-footer__bottom">
         <span class="bl-footer__prov">Prototype — reference imagery, not client work</span>
-        <span>Contact details · CLIENT INPUT REQUIRED · Not deployed</span>
+        <span class="bl-footer__cir">Contact details · CLIENT INPUT REQUIRED · Not deployed</span>
       </div>
     </div>
   </footer>
@@ -539,11 +629,15 @@ const process = [
   <!-- STICKY MOBILE CONTACT BAR · thumb zone. No fabricated phone number. -->
   <div class="bl-cta-bar" aria-label="Quick contact">
     <a class="bl-cta-bar__link bl-cta-bar__link--call" href="#contact">
-      <span class="bl-cta-bar__ico" aria-hidden="true">&#9990;</span>
+      <span class="bl-cta-bar__ico" aria-hidden="true">
+        &#9990;
+      </span>
       Callback
     </a>
     <a class="bl-cta-bar__link bl-cta-bar__link--quote" href="#contact">
-      <span class="bl-cta-bar__ico" aria-hidden="true">&rarr;</span>
+      <span class="bl-cta-bar__ico" aria-hidden="true">
+        &rarr;
+      </span>
       Request a Quote
     </a>
   </div>
@@ -554,8 +648,7 @@ const process = [
     // --- Nav scrolled state (shadow) ---
     const navEl = document.querySelector<HTMLElement>('.bl-nav');
     if (navEl) {
-      const setScrolled = () =>
-        navEl.setAttribute('data-scrolled', String(window.scrollY > 24));
+      const setScrolled = () => navEl.setAttribute('data-scrolled', String(window.scrollY > 24));
       setScrolled();
       window.addEventListener('scroll', setScrolled, { passive: true });
     }
@@ -578,9 +671,9 @@ const process = [
         if (navEl.getAttribute('data-menu') === 'open') close();
         else open();
       });
-      document.querySelectorAll<HTMLElement>('[data-menu-link]').forEach((l) =>
-        l.addEventListener('click', () => close(false)),
-      );
+      document
+        .querySelectorAll<HTMLElement>('[data-menu-link]')
+        .forEach((l) => l.addEventListener('click', () => close(false)));
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && navEl.getAttribute('data-menu') === 'open') close();
       });
