@@ -24,6 +24,7 @@ export function isMain(importMetaUrl) {
 }
 
 export const D1_DATABASE = 'after-hourz-review';
+export const R2_BUCKET = 'after-hourz-review-assets';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 /** Repo root (scripts/review/ -> ../../). */
@@ -176,4 +177,110 @@ export function sqlStr(value) {
 /** Human-readable target label for messages. */
 export function targetLabel(remote) {
   return remote ? 'remote (Cloudflare)' : 'local';
+}
+
+/**
+ * Fetch review_assets rows for one submission id. Returns [] on any error and sets
+ * result.unavailable = <reason> so callers can degrade gracefully (context/brief must never
+ * crash just because the asset table is missing or wrangler is unavailable).
+ *
+ * @param {string} submissionId
+ * @param {{ remote?: boolean }} opts
+ * @returns {Array & { unavailable?: string }}
+ */
+export function assetRowsForSubmission(submissionId, { remote = false } = {}) {
+  const sql =
+    'SELECT asset_id, review_session_id, submission_id, category, original_filename, ' +
+    'object_key, mime_type, size_bytes, status, created_at ' +
+    `FROM review_assets WHERE submission_id = ${sqlStr(submissionId)} ORDER BY created_at ASC;`;
+  try {
+    const rows = d1Query(sql, { remote });
+    return rows;
+  } catch (err) {
+    const rows = [];
+    rows.unavailable = err instanceof ReviewCliError ? err.message : String(err && err.message);
+    return rows;
+  }
+}
+
+/** Tally asset rows by category -> { [category]: count } plus a `total`. */
+export function countAssetsByCategory(rows) {
+  const counts = {};
+  let total = 0;
+  for (const r of rows) {
+    const cat = r.category || 'other';
+    counts[cat] = (counts[cat] ?? 0) + 1;
+    total += 1;
+  }
+  counts.total = total;
+  return counts;
+}
+
+/**
+ * Replace any character outside [A-Za-z0-9._-] with '_' and strip path separators so a
+ * client-influenced filename can never escape the destination directory. Falls back to the
+ * asset id when nothing safe remains.
+ */
+export function safeFilename(name, fallback = 'asset') {
+  const base = String(name ?? '')
+    .replace(/[\\/]/g, '_') // no path traversal
+    .replace(/[^A-Za-z0-9._-]/g, '_')
+    .replace(/^\.+/, '') // no leading dots (hidden / traversal)
+    .replace(/_+/g, '_')
+    .slice(0, 120)
+    .trim();
+  return base.length > 0 ? base : String(fallback);
+}
+
+/**
+ * Fetch one R2 object to a local file via wrangler. Returns { ok, skipped, error }.
+ * Never throws — the caller loops over many assets and prints a per-file status line.
+ *
+ * @param {string} objectKey  R2 object key (server-generated; never client text)
+ * @param {string} destPath   absolute local file path to write
+ * @param {{ remote?: boolean }} opts
+ */
+export function r2ObjectGet(objectKey, destPath, { remote = false } = {}) {
+  const args = [
+    'exec',
+    'wrangler',
+    'r2',
+    'object',
+    'get',
+    `${R2_BUCKET}/${objectKey}`,
+    '--file',
+    destPath,
+  ];
+  if (remote) args.push('--remote');
+  else args.push('--local');
+
+  let res;
+  try {
+    res = spawnSync('pnpm', args, {
+      cwd: REPO_ROOT,
+      encoding: 'utf8',
+      maxBuffer: 8 * 1024 * 1024,
+    });
+  } catch (err) {
+    return { ok: false, error: `could not launch wrangler: ${err.message}` };
+  }
+  if (res.error) {
+    if (res.error.code === 'ENOENT') return { ok: false, error: 'pnpm not found on PATH' };
+    return { ok: false, error: res.error.message };
+  }
+  if (res.status !== 0) {
+    const combined = `${res.stdout ?? ''}\n${res.stderr ?? ''}`;
+    if (remote && looksLikeAuthFailure(combined)) {
+      return {
+        ok: false,
+        error:
+          'Cloudflare auth required for --remote R2. Run `pnpm exec wrangler login` and retry.',
+      };
+    }
+    if (/not found|no such key|does not exist|404/i.test(combined)) {
+      return { ok: false, skipped: true, error: 'object not found in R2' };
+    }
+    return { ok: false, error: (res.stderr || res.stdout || '').trim().slice(0, 400) };
+  }
+  return { ok: true };
 }

@@ -94,7 +94,6 @@ export function Turnstile(props: {
         widgetIdRef.current = null;
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.siteKey]);
 
   return <div className="rv-turnstile" ref={containerRef} data-testid="turnstile" />;

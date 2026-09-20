@@ -9,6 +9,7 @@ import {
   REVIEW_CLIENT_SLUG,
   reviewSubmissionSchema,
   type AfterHourzReviewSubmission,
+  type AssetRef,
 } from '../../lib/review/schema';
 
 /** localStorage key is versioned so a schema bump never resurrects an incompatible draft. */
@@ -18,9 +19,23 @@ export const RECEIPT_KEY = `ah-review-receipt:${REVIEW_CLIENT_SLUG}:v${SCHEMA_VE
 /** Yes/No/Maybe values used by several fields; '' means "no answer yet". */
 export type YNM = '' | 'yes' | 'no' | 'maybe';
 
+/**
+ * An inspiration/reference the client added: a pasted link (or @handle) and/or an uploaded
+ * image. Mirrors referenceSchema but always fully-serializable for the draft.
+ */
+export interface DraftReference {
+  kind: 'link' | 'image';
+  value?: string; // the link/handle (forgiving)
+  assetId?: string; // when kind==='image'
+  filename?: string; // display name for an uploaded image (UI only)
+  note?: string;
+}
+
 /** Flat, fully-serializable editing model. Strings default '', multi-selects default []. */
 export interface ReviewDraft {
   idempotencyKey: string;
+  /** Stable id linking pre-submission uploads (R2) to this submission. */
+  reviewSessionId: string;
 
   design: {
     selection: string; // '' until picked
@@ -104,6 +119,10 @@ export interface ReviewDraft {
     phase2Acknowledged: boolean;
     thirdPartyCostsAcknowledged: boolean;
   };
+  /** Uploaded asset REFERENCES (binary lives in R2). Persist across Back/Continue. */
+  assets: AssetRef[];
+  /** Inspiration references — pasted links and/or uploaded images. */
+  references: DraftReference[];
   additionalNotes: string;
 }
 
@@ -122,6 +141,7 @@ function randomKey(): string {
 export function emptyDraft(): ReviewDraft {
   return {
     idempotencyKey: randomKey(),
+    reviewSessionId: randomKey(),
     design: { selection: '', likes: [], changes: '', borrowedIdeas: '' },
     business: {
       description: '',
@@ -166,6 +186,8 @@ export function emptyDraft(): ReviewDraft {
       phase2Acknowledged: false,
       thirdPartyCostsAcknowledged: false,
     },
+    assets: [],
+    references: [],
     additionalNotes: '',
   };
 }
@@ -179,10 +201,30 @@ export function reviveDraft(raw: unknown): ReviewDraft {
   if (typeof stored.idempotencyKey === 'string' && stored.idempotencyKey.length >= 6) {
     base.idempotencyKey = stored.idempotencyKey;
   }
+  // preserve the stable reviewSessionId so uploads made earlier still associate on submit
+  if (typeof stored.reviewSessionId === 'string' && stored.reviewSessionId.length >= 6) {
+    base.reviewSessionId = stored.reviewSessionId;
+  }
+  // top-level arrays (uploaded assets + inspiration references) — replace wholesale if valid
+  if (Array.isArray(stored.assets)) {
+    base.assets = (stored.assets as unknown[]).filter(
+      (a): a is AssetRef =>
+        !!a && typeof a === 'object' && typeof (a as AssetRef).assetId === 'string',
+    );
+  }
+  if (Array.isArray(stored.references)) {
+    base.references = (stored.references as unknown[]).filter(
+      (r): r is DraftReference =>
+        !!r &&
+        typeof r === 'object' &&
+        ((r as DraftReference).kind === 'link' || (r as DraftReference).kind === 'image'),
+    );
+  }
+  const SKIP = new Set(['idempotencyKey', 'reviewSessionId', 'assets', 'references']);
   for (const key of Object.keys(base) as (keyof ReviewDraft)[]) {
-    if (key === 'idempotencyKey') continue;
+    if (SKIP.has(key)) continue;
     const section = stored[key];
-    if (section && typeof section === 'object') {
+    if (section && typeof section === 'object' && !Array.isArray(section)) {
       Object.assign(base[key] as object, section);
     }
   }
@@ -223,6 +265,8 @@ export interface StoredReceipt {
   id: string;
   submittedAt: string;
   selection: string;
+  /** 'submitted' on first send; 'amended' after an explicit change-my-selection resend. */
+  status: 'submitted' | 'amended';
 }
 
 export function loadReceipt(): StoredReceipt | null {
@@ -265,6 +309,7 @@ export function buildSubmission(draft: ReviewDraft): AfterHourzReviewSubmission 
     schemaVersion: SCHEMA_VERSION,
     clientSlug: REVIEW_CLIENT_SLUG,
     idempotencyKey: draft.idempotencyKey,
+    reviewSessionId: draft.reviewSessionId,
     design: {
       selection: draft.design.selection,
       likes: draft.design.likes,
@@ -347,8 +392,39 @@ export function buildSubmission(draft: ReviewDraft): AfterHourzReviewSubmission 
       phase2Acknowledged: draft.project.phase2Acknowledged,
       thirdPartyCostsAcknowledged: draft.project.thirdPartyCostsAcknowledged,
     },
+    references: draft.references.map((r) => ({
+      kind: r.kind,
+      value: s(r.value ?? ''),
+      assetId: r.assetId && r.assetId.trim() ? r.assetId.trim() : undefined,
+      note: s(r.note ?? ''),
+    })),
+    assets: draft.assets.map((a) => ({
+      assetId: a.assetId,
+      category: a.category,
+      filename: a.filename,
+    })),
     additionalNotes: s(draft.additionalNotes),
   } as AfterHourzReviewSubmission;
+}
+
+/**
+ * Gently normalize a link OR @username. We do NOT rewrite when the intent is ambiguous —
+ * the original is preserved so nothing is silently mangled. Returns the normalized string
+ * (or the original when we can't confidently improve it).
+ */
+export function normalizeLinkOrHandle(input: string): string {
+  const raw = input.trim();
+  if (!raw) return '';
+  // Already a URL — leave it, only add a scheme when it clearly looks like a bare domain.
+  if (/^https?:\/\//i.test(raw)) return raw;
+  // A bare @handle — keep as-is (preserve original; platform is resolved during build).
+  if (/^@[\w.]+$/.test(raw)) return raw;
+  // Looks like a bare domain (contains a dot, no spaces) — add https:// but keep the rest.
+  if (/^[\w-]+(\.[\w-]+)+(\/\S*)?$/.test(raw) && !raw.includes(' ')) {
+    return `https://${raw}`;
+  }
+  // Ambiguous (free text, a plain username without @, etc.) — preserve exactly.
+  return raw;
 }
 
 /** Validate the projected submission with the SHARED schema (client-side gate). */

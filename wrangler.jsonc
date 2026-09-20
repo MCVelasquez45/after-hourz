@@ -22,6 +22,9 @@
   // KV for Astro sessions (adapter v14 auto-binds SESSION). Not used by the review flow,
   // but the binding must resolve for deploy.
   "kv_namespaces": [{ "binding": "SESSION", "id": "b211da884c9d4ad195b6627151f17cb9" }],
+  // Private R2 bucket for optional client asset uploads (photos/docs). Worker-mediated only —
+  // never public. Local dev uses Miniflare's local R2; remote requires R2 enabled on the account.
+  "r2_buckets": [{ "binding": "ASSETS_BUCKET", "bucket_name": "after-hourz-review-assets" }],
   // Public Turnstile site key (safe to expose). The SECRET is set via `wrangler secret put
   // TURNSTILE_SECRET_KEY` (remote) or .dev.vars (local) — never committed.
   "vars": {

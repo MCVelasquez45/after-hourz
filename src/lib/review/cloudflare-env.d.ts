@@ -33,9 +33,23 @@ interface AfterHourzD1Database {
   exec(query: string): Promise<{ count: number; duration: number }>;
 }
 
+/** Minimal R2 bucket surface used by the upload endpoint (put only). */
+interface AfterHourzR2Bucket {
+  put(
+    key: string,
+    value: ArrayBuffer | ArrayBufferView | ReadableStream | string | null,
+    options?: {
+      httpMetadata?: { contentType?: string; [k: string]: unknown };
+      customMetadata?: Record<string, string>;
+      [k: string]: unknown;
+    },
+  ): Promise<unknown>;
+}
+
 /** The bindings + vars + secrets configured in wrangler.jsonc for this Worker. */
 interface AfterHourzReviewEnv {
   DB: AfterHourzD1Database;
+  ASSETS_BUCKET: AfterHourzR2Bucket;
   TURNSTILE_SECRET_KEY: string;
   TURNSTILE_SITE_KEY: string;
   REVIEW_CLIENT_SLUG: string;

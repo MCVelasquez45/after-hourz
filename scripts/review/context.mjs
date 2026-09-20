@@ -13,13 +13,18 @@ import { parseArgs, ReviewCliError, fail, SUBMISSIONS_DIR, isMain } from './lib.
 import { loadRecord } from './load.mjs';
 import { directionInfo, PROJECT_PHASES } from './schema-bridge.mjs';
 import { has, val, bullets, inline, quote, yesNo, docHeader, NOT_PROVIDED } from './render.mjs';
+import { clientAssetsSection, smartMissingMedia, loadAssetSummary } from './assets-summary.mjs';
 
 function section(title, body) {
   return `## ${title}\n\n${body}\n`;
 }
 
-/** Collect fields the client left blank -> phrased as open questions (never invented answers). */
-function openQuestions(p) {
+/**
+ * Collect fields the client left blank -> phrased as open questions (never invented answers).
+ * SMART: a question is skipped the moment the client has given the fact (including social /
+ * Google Business), or an uploaded asset already answers it (e.g. finished-build photos).
+ */
+function openQuestions(p, counts) {
   const q = [];
   const ask = (cond, question) => {
     if (!cond) q.push(question);
@@ -36,17 +41,27 @@ function openQuestions(p) {
   ask(has(p.location?.city) || has(p.location?.state), 'City / service area to display.');
   ask(has(p.location?.businessHours), 'Business hours.');
   ask(
-    has(p.portfolio?.completedVehiclePhotos) || has(p.portfolio?.mediaLocations),
+    has(p.portfolio?.completedVehiclePhotos) ||
+      has(p.portfolio?.mediaLocations) ||
+      (counts?.['completed-build'] ?? 0) > 0,
     'Where finished-build photography lives / can be sourced.',
+  );
+  ask(
+    has(p.social?.instagram) || has(p.social?.googleBusiness) || has(p.social?.facebook),
+    'A social / Google Business presence to link.',
   );
   ask(has(p.domain?.domain) || has(p.domain?.preferredDomain), 'Domain to launch on.');
   return q;
 }
 
-function buildMarkdown(record) {
+function buildMarkdown(record, assets) {
   const p = record.payload ?? {};
+  const counts = assets?.counts ?? { total: 0 };
   const parts = [];
   parts.push(docHeader('Client Context Brief', record, directionInfo));
+
+  // --- Client Assets Provided (counts + reference links; NO binaries) ---
+  parts.push(section('Client Assets Provided', clientAssetsSection(assets, p.references)));
 
   // --- Selected Direction ---
   const dir = directionInfo(record.designSelection);
@@ -110,19 +125,15 @@ function buildMarkdown(record) {
     ),
   );
 
-  // Missing Assets — derived strictly from which portfolio fields are blank. Not invented.
-  const missingAssets = [];
-  if (!has(p.portfolio?.completedVehiclePhotos))
-    missingAssets.push('Completed-vehicle photography');
-  if (!has(p.portfolio?.beforeAfterPhotos)) missingAssets.push('Before/after pairs');
-  if (!has(p.portfolio?.processMedia)) missingAssets.push('In-process / shop media');
-  if (!has(p.portfolio?.priorityBuilds)) missingAssets.push('A named priority build to lead with');
+  // Missing Assets — SMART: a need is dropped when an uploaded category covers it OR the client
+  // described having it. Never invented; only what is genuinely still absent is flagged.
+  const missingAssets = smartMissingMedia(p, counts);
   parts.push(
     section(
       'Missing Assets',
       missingAssets.length
         ? missingAssets.map((m) => `- ${m} — CLIENT INPUT REQUIRED`).join('\n')
-        : '- None flagged by the intake (all portfolio fields answered).',
+        : '- None outstanding — uploads and/or intake answers cover the needed assets.',
     ),
   );
 
@@ -226,7 +237,7 @@ function buildMarkdown(record) {
     ),
   );
 
-  const oq = openQuestions(p);
+  const oq = openQuestions(p, counts);
   parts.push(
     section(
       'Open Questions',
@@ -335,7 +346,8 @@ async function main() {
   if (!id) fail('usage: pnpm review:context <id> [--remote]');
 
   const { record } = await loadRecord(id, { remote });
-  const md = buildMarkdown(record);
+  const assets = loadAssetSummary(id, { remote });
+  const md = buildMarkdown(record, assets);
   const outPath = resolve(SUBMISSIONS_DIR, `${id}-context.md`);
   await writeFile(outPath, md, 'utf8');
   console.log(`\n  wrote context brief -> ${outPath}\n`);

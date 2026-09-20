@@ -3,7 +3,7 @@
   Plain, controlled, label-associated inputs. No external UI deps.
 */
 import { useId } from 'react';
-import type { YNM } from './draft';
+import { normalizeLinkOrHandle, type YNM } from './draft';
 
 export function TextField(props: {
   label: string;
@@ -42,6 +42,49 @@ export function TextField(props: {
           {props.error}
         </p>
       )}
+    </div>
+  );
+}
+
+/**
+ * A forgiving field that accepts a full link OR an @username. On blur we GENTLY normalize
+ * (add https:// to a bare domain, keep an @handle as-is) but never mangle ambiguous input —
+ * the original is preserved. Nothing is required.
+ */
+export function LinkOrHandle(props: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  hint?: React.ReactNode;
+  placeholder?: string;
+}) {
+  const id = useId();
+  const hintId = props.hint ? `${id}-hint` : undefined;
+  return (
+    <div className="rv-field">
+      <label className="rv-label" htmlFor={id}>
+        {props.label}
+      </label>
+      <input
+        id={id}
+        className="rv-input"
+        type="text"
+        inputMode="url"
+        autoCapitalize="none"
+        autoCorrect="off"
+        spellCheck={false}
+        value={props.value}
+        placeholder={props.placeholder ?? 'Paste a link or type @username'}
+        aria-describedby={hintId}
+        onChange={(e) => props.onChange(e.target.value)}
+        onBlur={(e) => {
+          const normalized = normalizeLinkOrHandle(e.target.value);
+          if (normalized !== e.target.value) props.onChange(normalized);
+        }}
+      />
+      <p className="rv-hint" id={hintId}>
+        {props.hint ?? 'A link or an @username both work — whatever’s easiest.'}
+      </p>
     </div>
   );
 }
@@ -167,6 +210,35 @@ export function YnmField(props: {
       legend={props.legend}
       hint={props.hint}
       options={YNM_OPTIONS}
+      value={props.value}
+      onChange={(v) => props.onChange(v as YNM)}
+    />
+  );
+}
+
+/**
+ * A "do you have X?" question that is ALWAYS forgiving: Yes / I don't have one / I'm not sure.
+ * Encoded onto the same YNM values (yes / no / maybe) so branching + schema stay unchanged.
+ */
+export function HaveItField(props: {
+  legend: string;
+  value: YNM;
+  onChange: (v: YNM) => void;
+  yesLabel?: string;
+  noLabel?: string;
+  maybeLabel?: string;
+  hint?: string;
+}) {
+  const options: { value: YNM; label: string }[] = [
+    { value: 'yes', label: props.yesLabel ?? 'Yes' },
+    { value: 'no', label: props.noLabel ?? "I don't have one" },
+    { value: 'maybe', label: props.maybeLabel ?? "I'm not sure" },
+  ];
+  return (
+    <RadioChips
+      legend={props.legend}
+      hint={props.hint}
+      options={options}
       value={props.value}
       onChange={(v) => props.onChange(v as YNM)}
     />

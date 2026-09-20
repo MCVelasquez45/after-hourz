@@ -12,16 +12,26 @@ import { parseArgs, ReviewCliError, fail, SUBMISSIONS_DIR, isMain } from './lib.
 import { loadRecord } from './load.mjs';
 import { directionInfo, PROJECT_PHASES } from './schema-bridge.mjs';
 import { has, val, bullets, inline, yesNo, docHeader, NOT_PROVIDED } from './render.mjs';
+import {
+  clientAssetsSection,
+  smartMissingMedia,
+  smartMissingDetails,
+  loadAssetSummary,
+} from './assets-summary.mjs';
 
 function section(title, body) {
   return `## ${title}\n\n${body}\n`;
 }
 
-function buildMarkdown(record) {
+function buildMarkdown(record, assets) {
   const p = record.payload ?? {};
+  const counts = assets?.counts ?? { total: 0 };
   const dir = directionInfo(record.designSelection);
   const parts = [];
   parts.push(docHeader('Internal Production Brief', record, directionInfo));
+
+  // --- Client Assets Provided (counts + reference links; NO binaries) ---
+  parts.push(section('Client Assets Provided', clientAssetsSection(assets, p.references)));
 
   parts.push(
     section(
@@ -111,33 +121,21 @@ function buildMarkdown(record) {
     ),
   );
 
-  // Missing media — derived strictly from blank portfolio fields.
-  const missingMedia = [];
-  if (!has(p.portfolio?.completedVehiclePhotos)) missingMedia.push('Completed-vehicle photography');
-  if (!has(p.portfolio?.beforeAfterPhotos)) missingMedia.push('Before/after pairs');
-  if (!has(p.portfolio?.processMedia)) missingMedia.push('In-process / shop media');
-  if (!has(p.portfolio?.mediaLocations)) missingMedia.push('A source location for any imagery');
+  // Missing media — SMART: dropped when an uploaded category covers it OR the client described
+  // having it. Uploaded files satisfy the corresponding portfolio need.
+  const missingMedia = smartMissingMedia(p, counts);
   parts.push(
     section(
       'Missing Media',
       missingMedia.length
         ? missingMedia.map((m) => `- ${m} — CLIENT INPUT REQUIRED`).join('\n')
-        : '- None flagged.',
+        : '- None outstanding — uploads and/or intake answers cover the needed media.',
     ),
   );
 
-  // Missing details — blank display-critical scalar fields.
-  const missingDetails = [];
-  const need = (cond, label) => {
-    if (!cond) missingDetails.push(label);
-  };
-  need(has(p.business?.knownFor), 'Positioning ("known for") statement');
-  need(has(p.services?.offered), 'Service list');
-  need(has(p.customerJourney?.primaryAction), 'Primary CTA');
-  need(has(p.contact?.phone) || has(p.contact?.email), 'Public contact method');
-  need(has(p.location?.city) || has(p.location?.state), 'Location / service area');
-  need(has(p.location?.businessHours), 'Business hours');
-  need(has(p.domain?.domain) || has(p.domain?.preferredDomain), 'Launch domain');
+  // Missing details — SMART: display-critical facts, skipping any the client already gave
+  // (a stated Instagram / Google Business / domain counts as given).
+  const missingDetails = smartMissingDetails(p);
   parts.push(
     section(
       'Missing Details',
@@ -188,7 +186,8 @@ async function main() {
   if (!id) fail('usage: pnpm review:brief <id> [--remote]');
 
   const { record } = await loadRecord(id, { remote });
-  const md = buildMarkdown(record);
+  const assets = loadAssetSummary(id, { remote });
+  const md = buildMarkdown(record, assets);
   const outPath = resolve(SUBMISSIONS_DIR, `${id}-brief.md`);
   await writeFile(outPath, md, 'utf8');
   console.log(`\n  wrote production brief -> ${outPath}\n`);

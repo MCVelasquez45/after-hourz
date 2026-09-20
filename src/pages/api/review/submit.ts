@@ -46,7 +46,8 @@ function json(body: Record<string, unknown>, status: number): Response {
 }
 
 function ok(submissionId: string, submittedAt: string): Response {
-  return json({ ok: true, submissionId, submittedAt }, 200);
+  // `id` is the field the client reads; `submissionId` kept for any external tooling.
+  return json({ ok: true, id: submissionId, submissionId, submittedAt }, 200);
 }
 
 function fail(error: string, status: number): Response {
@@ -161,6 +162,29 @@ async function persistSubmission(args: {
   return { id: candidateId };
 }
 
+/**
+ * Associate any pre-submission uploads (R2 rows created by /api/review/upload) to this
+ * submission. Keyed by (review_session_id, client_slug). Idempotent: re-running on a retry
+ * simply re-stamps the same submission_id. Never throws into the request path — a failed
+ * association is logged but does not fail an otherwise-successful submit (the asset
+ * REFERENCES also live in payload_json). Object keys are never read out or logged.
+ */
+async function associateAssets(args: {
+  reviewSessionId: string | undefined;
+  submissionId: string;
+}): Promise<void> {
+  const { reviewSessionId, submissionId } = args;
+  if (!reviewSessionId) return;
+  await env.DB.prepare(
+    `UPDATE review_assets
+        SET submission_id = ?1
+      WHERE review_session_id = ?2
+        AND client_slug = ?3`,
+  )
+    .bind(submissionId, reviewSessionId, REVIEW_CLIENT_SLUG)
+    .run();
+}
+
 export async function POST(context: APIContext): Promise<Response> {
   const { request, clientAddress } = context;
 
@@ -258,7 +282,21 @@ export async function POST(context: APIContext): Promise<Response> {
     return fail('Could not save submission. Please try again.', 500);
   }
 
-  // (11) Minimal success envelope.
+  // (11) Associate any pre-submission uploads to this submission. Best-effort and
+  // idempotent — a failure here must not fail an otherwise-successful submit, since the
+  // asset REFERENCES are also persisted in payload_json.
+  try {
+    await associateAssets({ reviewSessionId: submission.reviewSessionId, submissionId: saved.id });
+  } catch (err) {
+    safeLog({
+      result: 'warn_asset_association',
+      status: 200,
+      submissionId: saved.id,
+      errorClass: err instanceof Error ? err.constructor.name : 'UnknownError',
+    });
+  }
+
+  // (12) Minimal success envelope. Object keys are never exposed.
   safeLog({ result: 'ok', status: 200, submissionId: saved.id });
   return ok(saved.id, nowIso);
 }

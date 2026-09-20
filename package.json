@@ -27,6 +27,7 @@
     "verify:assets": "node scripts/verify-originals.mjs",
     "review:list": "node scripts/review/list.mjs",
     "review:pull": "node scripts/review/pull.mjs",
+    "review:assets": "node scripts/review/assets.mjs",
     "review:context": "node scripts/review/context.mjs",
     "review:brief": "node scripts/review/brief.mjs",
     "review:backup": "node scripts/review/backup.mjs",

@@ -5,8 +5,21 @@
 */
 import { z } from 'zod';
 
-export const SCHEMA_VERSION = 1;
+export const SCHEMA_VERSION = 2;
 export const REVIEW_CLIENT_SLUG = 'after-hourz';
+
+/** Upload categories (kept in sync with the upload endpoint + tooling). */
+export const ASSET_CATEGORIES = [
+  'completed-build',
+  'before-after',
+  'process',
+  'shop',
+  'portrait',
+  'logo',
+  'reference',
+  'vendor-document',
+  'other',
+] as const;
 
 /*
   The three website directions Anthony chooses between. `id` is the stable route slug
@@ -105,12 +118,38 @@ const shortStr = z.string().trim().max(400);
 const longStr = z.string().trim().max(4000);
 const strArr = z.array(z.string().trim().max(200)).max(40);
 
+/** An uploaded asset REFERENCE stored in the submission (binary lives in R2, not here). */
+export const assetRefSchema = z.object({
+  assetId: z.string().trim().min(1).max(80),
+  category: z.enum(ASSET_CATEGORIES as unknown as [string, ...string[]]),
+  filename: shortStr,
+});
+export type AssetRef = z.infer<typeof assetRefSchema>;
+
+/** An inspiration reference: a pasted link and/or an uploaded image. */
+export const referenceSchema = z.object({
+  kind: z.enum(['link', 'image']),
+  value: shortStr.optional(), // the link (forgiving: url or @handle)
+  assetId: z.string().trim().max(80).optional(), // when kind==='image'
+  note: shortStr.optional(),
+});
+
+/** A vendor Anthony buys from (repeatable). */
+export const vendorSchema = z.object({
+  name: shortStr.optional(),
+  website: shortStr.optional(),
+  catalogUrl: shortStr.optional(),
+  assetId: z.string().trim().max(80).optional(), // uploaded catalog/price sheet
+});
+
 /** The full, versioned submission object. Optional everywhere the client may not know a fact. */
 export const reviewSubmissionSchema = z.object({
   schemaVersion: z.literal(SCHEMA_VERSION),
   clientSlug: z.literal(REVIEW_CLIENT_SLUG).default(REVIEW_CLIENT_SLUG),
   // client-supplied draft key for idempotent retries (server still authoritative on id/time)
   idempotencyKey: z.string().trim().min(6).max(80).optional(),
+  // stable id linking pre-submission uploads (R2) to this submission
+  reviewSessionId: z.string().trim().min(6).max(80).optional(),
 
   design: z.object({
     selection: z.enum(DIRECTION_IDS as unknown as [string, ...string[]]),
@@ -184,6 +223,7 @@ export const reviewSubmissionSchema = z.object({
     productTypes: strArr.default([]),
     wholesaleVendors: longStr.optional(),
     vendors: longStr.optional(),
+    vendorList: z.array(vendorSchema).max(20).default([]),
     vendorAssets: strArr.default([]),
     fulfillment: longStr.optional(),
     initialCatalogSize: shortStr.optional(),
@@ -206,6 +246,11 @@ export const reviewSubmissionSchema = z.object({
     phase2Acknowledged: z.boolean(),
     thirdPartyCostsAcknowledged: z.boolean(),
   }),
+
+  // Inspiration references (optional links and/or uploaded images).
+  references: z.array(referenceSchema).max(30).default([]),
+  // Uploaded asset REFERENCES (binary in R2). Full metadata lives in D1 review_assets.
+  assets: z.array(assetRefSchema).max(60).default([]),
 
   additionalNotes: longStr.optional(),
 });

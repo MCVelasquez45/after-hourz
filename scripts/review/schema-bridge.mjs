@@ -24,6 +24,17 @@ if (!schemaLoaded) {
 }
 
 export const DIRECTIONS = mod?.DIRECTIONS ?? [];
+export const ASSET_CATEGORIES = mod?.ASSET_CATEGORIES ?? [
+  'completed-build',
+  'before-after',
+  'process',
+  'shop',
+  'portrait',
+  'logo',
+  'reference',
+  'vendor-document',
+  'other',
+];
 export const PROJECT_PHASES = mod?.PROJECT_PHASES ?? null;
 export const REVIEW_CLIENT_SLUG = mod?.REVIEW_CLIENT_SLUG ?? 'after-hourz';
 export const SCHEMA_VERSION = mod?.SCHEMA_VERSION ?? null;
