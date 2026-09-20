@@ -1,0 +1,213 @@
+/*
+  After Hourz — SHARED LOWRIDER SYSTEM (brand directive: "it needs to be lowriders").
+  Authentic SoCal lowrider culture: candy paint, GOLD-LEAF + CHROME, ornate sign-painting,
+  plaque framing, pinstripe. Layered on top of the --ah-* brand tokens. All three editions
+  use these so the buttons/ornament stop reading like an enterprise SaaS site.
+*/
+
+/* ---- Lowrider palette extensions (candy + gold, on the black/chrome/cobalt base) ---- */
+:root {
+  --lr-candy: #1c48b4; /* candy cobalt (lit) */
+  --lr-candy-deep: #0f2a6e; /* candy in shadow */
+  --lr-candy-hot: #3f74e6; /* candy specular edge */
+  --lr-gold: #d9a441; /* gold-leaf */
+  --lr-gold-hi: #f3d488; /* gold specular */
+  --lr-gold-deep: #8a5f1c; /* gold shadow */
+  --lr-chrome-lo: #3b434d;
+  --lr-chrome: #9aa2ac;
+  --lr-chrome-hi: #eef2f6;
+}
+
+/* ---- Ornate lettering (sign-painting / pinstripe) — accents only, never body copy ---- */
+@font-face {
+  font-family: 'Yellowtail';
+  src: url('/fonts/yellowtail/yellowtail-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Rye';
+  src: url('/fonts/rye/rye-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+.ah-script {
+  font-family: 'Yellowtail', cursive;
+  font-weight: 400;
+  color: var(--lr-gold-hi);
+  letter-spacing: 0.01em;
+}
+.ah-tuscan {
+  font-family: 'Rye', var(--font-display, serif);
+  letter-spacing: 0.01em;
+}
+
+/* ---- Gold pinstripe rule (the hairline that frames lowrider plaques) ---- */
+.ah-pinstripe {
+  height: 2px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--lr-gold) 12%,
+    var(--lr-gold-hi) 50%,
+    var(--lr-gold) 88%,
+    transparent
+  );
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+}
+
+/* ---- Ornamental plaque frame (chrome outer + gold inner hairline, like the poster) ---- */
+.ah-plaque {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.28)),
+    var(--ah-graphite, #161c26);
+  border: 1px solid var(--lr-chrome-lo);
+  border-radius: 3px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.5);
+}
+.ah-plaque::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid;
+  border-image: linear-gradient(180deg, var(--lr-gold-hi), var(--lr-gold-deep)) 1;
+  opacity: 0.75;
+  pointer-events: none;
+  border-radius: 2px;
+}
+
+/*
+  ============ PLAQUE BUTTONS (the fix for the "buttons look like shit" pills) ============
+  Beveled metallic plaque: chamfered corners, chrome/gold double border, engraved uppercase.
+  Reads like a chromed emblem, not a soft SaaS pill.
+*/
+.ah-btn {
+  --btn-fill-top: #223a86;
+  --btn-fill-bot: #0e1f56;
+  --btn-ink: var(--lr-chrome-hi);
+  --btn-frame: var(--lr-gold);
+  --btn-frame-hi: var(--lr-gold-hi);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55em;
+  padding: 0.9rem 1.7rem;
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--btn-ink);
+  cursor: pointer;
+  border: 1px solid var(--lr-chrome-lo);
+  /* chamfered / notched plaque corners */
+  clip-path: polygon(
+    10px 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% calc(100% - 10px),
+    calc(100% - 10px) 100%,
+    10px 100%,
+    0 calc(100% - 10px),
+    0 10px
+  );
+  background: linear-gradient(180deg, var(--btn-fill-top), var(--btn-fill-bot));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.55),
+    0 4px 14px rgba(0, 0, 0, 0.5);
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.6),
+    0 0 10px rgba(63, 116, 230, 0.35);
+  transition:
+    filter 160ms ease,
+    transform 120ms ease,
+    box-shadow 160ms ease;
+}
+/* inner gold pinstripe frame */
+.ah-btn::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border: 1px solid var(--btn-frame);
+  opacity: 0.85;
+  pointer-events: none;
+  clip-path: polygon(
+    8px 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 calc(100% - 8px),
+    0 8px
+  );
+}
+/* top specular sweep */
+.ah-btn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent);
+  pointer-events: none;
+  clip-path: inherit;
+}
+.ah-btn:hover {
+  filter: brightness(1.12) saturate(1.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    inset 0 -3px 8px rgba(0, 0, 0, 0.55),
+    0 6px 20px rgba(28, 72, 180, 0.45);
+}
+.ah-btn:active {
+  transform: translateY(1px);
+}
+.ah-btn:focus-visible {
+  outline: 2px solid var(--btn-frame-hi);
+  outline-offset: 3px;
+}
+
+/* Candy variant — the primary CTA (candy cobalt + gold frame, chrome-white engraved text) */
+.ah-btn--candy {
+  --btn-fill-top: #2a56c8;
+  --btn-fill-bot: #0f2a6e;
+  --btn-ink: #f5f8fb;
+  --btn-frame: var(--lr-gold);
+}
+
+/* Chrome variant — brushed chrome plaque, dark engraved text (high contrast on dark) */
+.ah-btn--chrome {
+  --btn-fill-top: #dfe4ea;
+  --btn-fill-bot: #9aa2ac;
+  --btn-ink: #10151c;
+  --btn-frame: #ffffff;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Ghost variant — secondary CTA: chrome/gold double frame on transparent, chrome text */
+.ah-btn--ghost {
+  --btn-ink: var(--lr-chrome-hi);
+  --btn-frame: var(--lr-gold);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.35));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 4px 14px rgba(0, 0, 0, 0.45);
+}
+.ah-btn--ghost:hover {
+  filter: brightness(1.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ah-btn {
+    transition: none;
+  }
+}

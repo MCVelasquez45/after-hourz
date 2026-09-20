@@ -2,24 +2,24 @@
   AFTER HOURZ — AFTER DARK · production-level prototype styles.
   Scoped entirely to the `.ad` body class. Does NOT edit shared CSS.
 
-  ONE BRAND, THREE EDITIONS. After Dark is the ENVIRONMENTAL / CULTURAL / CINEMATIC
-  edition of the LOCKED After Hourz identity: Southern California custom-car culture
-  after dark — shop life, evening, movement.
+  ONE BRAND, THREE EDITIONS. After Dark is the STREET / CRUISE edition of the LOCKED
+  After Hourz identity: AUTHENTIC Southern California LOWRIDER culture at night — candy
+  and gold, wire wheels, low stance, hydraulics, plaque culture, cruising the boulevard.
 
-  BRAND-ANCHORED PALETTE (locked family, no drift):
-  Black + chrome + cobalt / electric blue, pulled straight from the --ah-* tokens
-  (tokens.css). The previous teal accent is GONE — the interface accent is cobalt
-  electric blue (--accent = --ah-blue-hot family). Warm practical light exists ONLY
-  inside the photography (dusk sky, sodium canopy, taillights), NEVER as UI, an edge,
-  a button, or a text color.
+  BRAND-ANCHORED PALETTE (locked family + shared lowrider system):
+  Black + chrome + CANDY COBALT + GOLD. UI accent = candy cobalt electric blue
+  (--accent = --ah-blue-hot family). GOLD is essential to lowrider and lives in the
+  ornament layer: PLAQUE buttons (.ah-btn), gold .ah-pinstripe rules, .ah-plaque chrome
+  + gold frames, and the Yellowtail .ah-script accent — all from the shared lowrider.css.
+  Warm practical light also lives inside the photography (dusk, taillights, gold leaf).
 
   DISTINCT FROM THE OTHER TWO:
   - Chrome Heritage = heritage build-sheet, warm candy accent, static reflection.
   - Booth Light = clinical inspection light, high-key reveal.
-  - After Dark = the STREET after dark. A wide cinematic night plate, a horizontal
-    night-drive filmstrip (momentum), a single-column reflection scroll, a night-drive
-    route. Motion = MOMENTUM: passing light, horizontal drift, image push. Frozen under
-    reduced motion; content fails OPEN (never trapped at opacity 0).
+  - After Dark = the LOWRIDER BOULEVARD after dark. A wide cinematic night plate on a
+    real lowrider, a horizontal night-drive filmstrip (momentum) of candy/gold/hydraulics,
+    a single-column boulevard scroll, a build route. Motion = MOMENTUM: passing light,
+    horizontal drift, image push. Frozen under reduced motion; content fails OPEN.
 
   SYSTEM MATERIAL MOTIF (swap test — reads automotive with photos removed):
   - Display type carries a cool CHROME rake (a passing specular highlight — headlights
@@ -570,11 +570,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 62% 60%; /* car right, cool foggy negative space top-left for type */
+  object-position: 74% 58%; /* candy Regal front sits right; sky/trees top-left = type space */
   /* DEEPEN, don't lift: crush the shadows to a true-black floor and saturate the
      cobalt so the plate reads rich (Booth Light richness), never milky/gray. */
   filter: brightness(0.9) contrast(1.2) saturate(1.34);
   transform: scale(1.03);
+  /* anchor the Ken-Burns scale/drift to the right edge so the box grows LEFTWARD into
+     the clipped area — the right edge never spills past the viewport (geometry gate). */
+  transform-origin: 100% 50%;
   animation: ad-hero-drift 26s var(--ease-soft) infinite alternate;
 }
 /* slow cinematic push — MOMENTUM. Frozen under reduced motion. */
@@ -597,7 +600,13 @@
   z-index: -2;
   background:
     /* left/bottom black stage for the type — deepest at the copy column */
-    linear-gradient(92deg, rgba(3, 5, 9, 0.95) 0%, rgba(3, 5, 9, 0.62) 34%, rgba(3, 5, 9, 0) 64%),
+    linear-gradient(
+      92deg,
+      rgba(3, 5, 9, 0.96) 0%,
+      rgba(3, 5, 9, 0.78) 30%,
+      rgba(3, 5, 9, 0.34) 50%,
+      rgba(3, 5, 9, 0) 68%
+    ),
     linear-gradient(0deg, rgba(3, 5, 9, 0.98) 0%, rgba(3, 5, 9, 0.24) 40%, transparent 64%),
     /* cobalt streetlight ambient top-right — a passing light, not teal */
     radial-gradient(52% 42% at 84% 10%, rgba(74, 143, 224, 0.16), transparent 70%);
@@ -683,11 +692,35 @@
     white-space: nowrap;
   }
 }
-/* the second line rides the cobalt accent — the "flow" line */
+/* the second line rides a GOLD-LEAF gradient — lowrider sign-paint, not flat cobalt */
 .ad-hero__flow {
-  background-image: none;
-  -webkit-text-fill-color: currentColor;
-  color: var(--accent);
+  background-image: linear-gradient(
+    180deg,
+    var(--lr-gold-hi) 0%,
+    var(--lr-gold) 52%,
+    var(--lr-gold-deep) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--lr-gold);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+/* Yellowtail script accent — the sign-painter's flourish over the headline */
+.ad-hero__script {
+  font-size: clamp(1.6rem, 1.1rem + 2vw, 2.6rem);
+  line-height: 1;
+  margin: 0.2rem 0 -0.35rem;
+  color: var(--lr-gold-hi);
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.6),
+    0 0 18px rgba(217, 164, 65, 0.28);
+}
+/* gold pinstripe rule under the headline — poster ornament */
+.ad-hero__stripe {
+  margin: var(--spacing-sm) 0 var(--spacing-xs);
+  max-width: 22rem;
+  opacity: 0.9;
 }
 .ad-hero__kicker {
   font-family: var(--ad-font-body);
@@ -861,8 +894,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* cool cobalt-key grade on EVERY tile so nothing reads daytime-warm */
-  filter: brightness(1.02) contrast(1.06) saturate(0.98);
+  /* keep candy RICH — lowrider color is the point; deepen slightly, don't desaturate */
+  filter: brightness(0.98) contrast(1.1) saturate(1.16);
   transition: transform 700ms var(--ease-mech);
 }
 .ad-frame:hover .ad-frame__media img {
@@ -1001,7 +1034,7 @@
   font-size: clamp(2.4rem, 1.6rem + 3vw, 3.6rem);
   line-height: 0.8;
   color: transparent;
-  -webkit-text-stroke: 1px var(--accent);
+  -webkit-text-stroke: 1px var(--lr-gold);
   letter-spacing: 0.02em;
 }
 .ad-refl__text {
@@ -1014,7 +1047,7 @@
   font-size: 0.72rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--lr-gold-hi);
 }
 .ad-refl__t {
   font-family: var(--ad-font-display);
@@ -1052,6 +1085,26 @@
   border-top: var(--edge);
   background: linear-gradient(180deg, #0a1526 -10%, var(--night) 34%);
   position: relative;
+}
+/* gold pinstripe divider entering the build route — poster ornament */
+.ad-process::after,
+.ad-contact::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--lr-gold) 12%,
+    var(--lr-gold-hi) 50%,
+    var(--lr-gold) 88%,
+    transparent
+  );
+  opacity: 0.7;
+  pointer-events: none;
 }
 .ad-drive {
   list-style: none;
@@ -1176,6 +1229,15 @@
     grid-template-columns: 1.15fr 0.85fr;
   }
 }
+.ad-story__script {
+  font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.3rem);
+  line-height: 1;
+  margin: 0.35rem 0 -0.3rem;
+  color: var(--lr-gold-hi);
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.6),
+    0 0 16px rgba(217, 164, 65, 0.24);
+}
 .ad-story__lead {
   font-size: var(--text-lead);
   color: var(--tx-hi);
@@ -1260,10 +1322,14 @@
   display: grid;
   gap: var(--spacing-md);
 }
+/* poster plaque treatment on the contact info rows (chrome + gold frame) */
+.ad-channels.ah-plaque {
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+}
 .ad-channel {
   display: grid;
   gap: 4px;
-  border-left: 2px solid var(--accent);
+  border-left: 2px solid var(--lr-gold);
   padding-left: var(--spacing-md);
 }
 .ad-channel dt {
@@ -1272,7 +1338,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--lr-gold-hi);
 }
 .ad-channel dd {
   margin: 0;
@@ -1299,6 +1365,11 @@
   letter-spacing: 0.04em;
   color: var(--tx-hi);
   margin: 0;
+}
+/* the plaque submit spans the form (matches the old block button footprint) */
+.ad-form__submit {
+  width: 100%;
+  margin-top: var(--spacing-xs);
 }
 .ad-field {
   display: grid;

@@ -6,20 +6,24 @@ import '../../../../styles/prototype-after-dark.css';
 /*
   AFTER HOURZ — AFTER DARK · production-level direction prototype (Design Lab).
 
-  ONE BRAND, THREE EDITIONS. After Dark is the ENVIRONMENTAL / CULTURAL / CINEMATIC
-  edition of the LOCKED After Hourz identity.
+  ONE BRAND, THREE EDITIONS. After Dark is the STREET / CRUISE edition of the LOCKED
+  After Hourz identity — AUTHENTIC SoCal LOWRIDER culture at night.
 
-  THESIS: Southern California custom-car culture AFTER DARK — shop life, evening,
-  movement. The work lives on the street once the lot clears: lowriders on a cobalt
-  skyline, a '57 at a night station, wet asphalt doubling every light. Craft is READ
-  by found night light and by the reflection that runs down a panel.
+  THESIS: Southern California LOWRIDER culture AFTER DARK. Candy Impalas and Regals on
+  GOLD and CHROME wire-spoke wheels, low stance, hydraulics and three-wheel, whitewalls,
+  gold-leaf and pinstripe under streetlight. The boulevard is the gallery: cruising, car
+  meets, plaque culture, wet asphalt doubling every taillight. Not a premium enterprise
+  car site — a lowrider site.
 
-  BRAND-ANCHORED (locked family, no drift):
-  - Palette = BLACK + CHROME + COBALT / ELECTRIC BLUE, from the --ah-* tokens.
-    The previous teal accent is REMOVED. Warm light exists ONLY inside the photography
-    (dusk sky, sodium canopy, taillights) — never as UI, an edge, or a button.
-  - Logo = the REAL client chrome lettering via BrandMark (lockup in hero, wordmark in
-    nav + footer). No fake text wordmark.
+  BRAND-ANCHORED (locked family, plus the shared lowrider system):
+  - Palette = BLACK + CHROME + CANDY COBALT + GOLD. Gold is essential to lowrider —
+    it lives in pinstripe frames, plaque borders, and the script accent. Tokens = --ah-*
+    (brand) + --lr-* (candy / gold / chrome) from lowrider.css. Warm practical light also
+    lives inside the photography (dusk sky, sodium, taillights, gold leaf).
+  - Logo = the REAL client chrome Old-English lettering via BrandMark (lockup in hero,
+    wordmark in nav + footer). It already reads lowrider. No fake text wordmark.
+  - Ornament is GOOD here (the poster is dense/ornate): PLAQUE buttons (.ah-btn), gold
+    .ah-pinstripe rules, .ah-plaque chrome+gold frames, a Yellowtail .ah-script accent.
   - Motion = MOMENTUM: a slow cinematic hero push, a passing light sweep, a horizontal
     night-drive filmstrip, a directional reveal drift. All frozen under reduced motion;
     content fails OPEN (never trapped at opacity 0).
@@ -27,7 +31,8 @@ import '../../../../styles/prototype-after-dark.css';
   DISTINCT FROM THE OTHER TWO ON PURPOSE:
   - Chrome Heritage = heritage build-sheet ledger, warm candy accent, studio chrome.
   - Booth Light = clinical inspection light, high-key reveal, macro clearcoat.
-  - After Dark = the STREET after dark — wide environmental night plate, culture, movement.
+  - After Dark = the LOWRIDER BOULEVARD after dark — candy + wire wheels + stance,
+    cruising, hydraulics, plaque culture, gold under streetlight.
 
   PROVENANCE / TRUTH RULES (non-negotiable):
   - Every external photo is PROTOTYPE REFERENCE — never Anthony's completed work.
@@ -39,102 +44,103 @@ import '../../../../styles/prototype-after-dark.css';
 const P = '/assets/prototype';
 
 // ---- Services · the night-drive filmstrip (image-led, one practical light each) ----
-// Each frame is a craft lane READ by found night light, name burned into the lower-third.
+// Each frame is a craft lane, shown on a REAL lowrider — candy + gold-leaf + wire wheels
+// + hydraulics — name burned into the lower-third.
 const lanes = [
   {
-    src: `${P}/blue-night/blue-57-chevy-gas-station-night-_k8yCOpIXns.jpg`,
+    src: `${P}/lowrider/lincoln-candy-red-goldleaf-hood-mural-01-80Izckypu88.jpg`,
     w: 2400,
     h: 1600,
     t: 'Custom Paint',
-    d: 'Color changes, candy and flake, pinstripe and refinishing — laid down in patient layers until the reflection runs straight down the body line.',
-    meta: 'Candy · flake · pinstripe',
-    alt: 'A custom blue 1957 Chevrolet at a night gas station, deep cobalt paint holding one warm pool of sign light against the dark.',
+    d: 'Candy and metalflake, gold-leaf and pinstripe, murals and lettering — laid down in patient layers until the paint has real depth, not painted-on shine.',
+    meta: 'Candy · gold-leaf · pinstripe',
+    alt: 'A candy red Lincoln lowrider with a gold-leaf and pinstripe hood mural, deep candy paint catching the light.',
   },
   {
-    src: `${P}/materials-detail/graphite-body-panel-headlight-bezel-Mx_Oe-dv4H8.jpg`,
+    src: `${P}/lowrider/impala-blue-candy-chromewheel-pinstripe-01-y-Ye8UI6a5U.jpg`,
     w: 2400,
-    h: 1695,
+    h: 1600,
     t: 'Body Work',
-    d: 'Collision repair, rust and fabrication, panel alignment and gap-setting — the metal made true before a drop of color goes down.',
-    meta: 'Collision · fabrication · panel',
-    alt: 'A cool graphite body panel and headlight bezel photographed in low light, one specular rake reading the body line out of the dark.',
+    d: 'Panel work, gap-setting and metal made true, straight body lines that carry candy without a ripple — the foundation every wet-look finish is built on.',
+    meta: 'Panel · gaps · straight metal',
+    alt: 'The side of a blue candy Impala lowrider on a chrome wire wheel, purple pinstripe murals running down a mirror-straight body line.',
   },
   {
-    src: `${P}/booth-process/bare-metal-classic-body-restoration-cD7nA_pqj6E.jpg`,
+    src: `${P}/lowrider/montecarlo-black-hydraulics-front-up-01-xpRfkVs09MM.jpg`,
     w: 2400,
-    h: 1603,
-    t: 'Restoration',
-    d: 'Classics and customs brought back and brought forward — cars, trucks, and bikes returned to the road with the details right.',
-    meta: 'Classic · custom · frame-off',
-    alt: 'A bare-metal classic car body mid-restoration, stripped panels catching a single low light — the shell made true before any color goes down.',
+    h: 1600,
+    t: 'Restoration & Hydraulics',
+    d: 'Classics and customs brought back and set up right — frame-off restoration, chrome undercarriage, hydraulics and three-wheel dialed to hit clean.',
+    meta: 'Frame-off · chrome · hydraulics',
+    alt: 'A black Monte Carlo lowrider on hydraulics with the front end lifted, chrome wire wheels and a low stance against a SoCal sky.',
   },
   {
-    src: `${P}/culture-vehicles/craftsman-polisher-dark-portrait-M5lsL2E4ot0.jpg`,
+    src: `${P}/lowrider/goldwheel-chrome-whitewall-sunflare-macro-01-obYxajIGaVs.jpg`,
     w: 2400,
-    h: 3200,
-    t: 'Detail & Polish',
-    d: 'Cut, buff, and finish work that makes the paint read like glass — the last honest inch of a build, worked by hand under one light.',
-    meta: 'Cut · buff · protect',
-    alt: 'A craftsman works a dual-action polisher across a black panel in a dark studio, one hard light raking the wet-look finish.',
+    h: 3622,
+    t: 'Chrome & Gold Detail',
+    d: 'Engraved gold-and-chrome wire wheels, whitewalls, cut-and-buff so the finish reads like glass — the last honest inch that separates a build from a car.',
+    meta: 'Wire wheels · cut · buff',
+    alt: 'A sunlit gold-and-chrome wire-spoke wheel with a whitewall tire, star flares glinting off the polished spokes.',
   },
 ];
 
-// ---- Work / builds — single-column reflection scroll. "The truth is in the reflection." ----
-// Each entry is a large-format SoCal night frame; craft READ by found night light.
+// ---- Work / builds — single-column reflection scroll on the boulevard after dark. ----
+// Each entry is a large-format REAL lowrider night frame — candy + wire wheels + stance.
 const reflections = [
   {
-    src: `${P}/blue-booth/polish-60sCf1aITeQ.jpg`,
-    w: 2400,
-    h: 1602,
-    ratio: 'wide',
-    k: 'Craft · after dark',
-    t: 'The finish holds the light',
-    d: 'A glossy black flank and mirror pulled out of a dark bay, one cool key raking the clearcoat while warm shop bokeh floats behind. This is how the shop reads a finish after hours — material first, out of the dark, the reflection running clean down the panel.',
-    alt: 'Macro of a glossy black car body and side mirror at night, a cool blue light strip and warm out-of-focus shop lights reflected in the deep clearcoat.',
-  },
-  {
-    src: `${P}/blue-night/black-muscle-wet-asphalt-night-62blorGADtk.jpg`,
-    w: 2400,
-    h: 1920,
-    ratio: 'wide',
-    k: 'The street as a mirror',
-    t: 'Wet asphalt, doubled light',
-    d: 'A black muscle car on wet Southern-California asphalt at night — taillights and one cool rim light doubled in the glossy street. After the doors roll down, the ground doubles every light. This is the exact cinematic cobalt key After Dark grades every frame to.',
-    alt: 'The rear of a black muscle car on wet asphalt at night, red taillights and a cool rim light reflected in the mirror-black street, California plate lit.',
-  },
-  {
-    src: `${P}/blue-night/blue-57-chevy-chrome-front-night-f6UnCkEZgeE.jpg`,
+    src: `${P}/lowrider/impala-61-red-rear-night-taillights-01-eu9BLGXK44E.jpg`,
     w: 2400,
     h: 1600,
     ratio: 'wide',
-    k: 'Chrome reads the work',
-    t: 'Chrome under one light',
-    d: 'A blue 1957 Chevrolet front three-quarter at night by vintage pumps — deep chrome and cobalt lighting. If the reflection bends across the grille, the metal is not true yet. This is how the shop judges a finish.',
-    alt: 'A custom blue 1957 Chevrolet front three-quarter at night by vintage gas pumps, chrome grille and bumper catching cool light.',
+    k: 'The boulevard after dark',
+    t: 'Taillights on wet asphalt',
+    d: 'A candy ’61 Impala sitting low at night, triple taillights glowing and doubling in the wet street. When the lot clears and the boulevard opens up, the ground turns to a mirror — every light, every line of the body, read twice. This is the exact cinematic key After Dark grades every frame to.',
+    alt: 'The low rear of a red 1961 Impala lowrider at night, triple taillights glowing over a low stance on the dark street.',
+  },
+  {
+    src: `${P}/lowrider/regal-green-night-goldwheel-doors-open-01-J3vo0W5buXc.jpg`,
+    w: 2400,
+    h: 3491,
+    ratio: 'tall',
+    k: 'Gold under streetlight',
+    t: 'Gold wheels, doors up',
+    d: 'A candy green Regal parked out at night, doors open, gold wire wheels and pinstripe catching the streetlight. This is the culture the finish is built for — the meet, the plaque, the car sitting clean where people can see it. Gold and chrome do the talking after dark.',
+    alt: 'A candy green Buick Regal lowrider at night with its doors open, gold wire-spoke wheels and pinstripe glinting under a streetlight.',
+  },
+  {
+    src: `${P}/lowrider/impala-63-black-dusk-goldwheels-sunset-01-wxYh-8OMPO4.jpg`,
+    w: 2400,
+    h: 3611,
+    ratio: 'tall',
+    k: 'Stance reads the build',
+    t: 'Low against the sunset',
+    d: 'A black ’63 Impala sitting low on gold wire wheels against a pink SoCal sunset. Stance is the signature — how low it sits, how the wheels tuck, how the body line runs level from bumper to bumper. If the car sits right at rest, the build is right.',
+    alt: 'A black 1963 Impala lowrider sitting low on gold wire-spoke wheels against a pink Southern California sunset sky.',
   },
 ];
 
-// ---- Process arc — the night drive: strip → metal → color → cut/buff ----
+// ---- Process arc — the build: strip → metal → candy & gold → wheels & setup ----
 const process = [
   {
     n: '01',
     t: 'Strip & assess',
-    d: 'An honest read on the metal. What is real, what is filler, what has to be cut out and rebuilt.',
+    d: 'An honest read on the metal. What is real, what is filler, what has to be cut out and rebuilt before the car earns candy.',
   },
   {
     n: '02',
     t: 'Metal & body',
-    d: 'Panels aligned, gaps set, primer blocked flat. The finish only ever shows what is underneath.',
+    d: 'Panels aligned, gaps set, primer blocked dead flat. Candy shows everything underneath, so the body has to be true first.',
   },
   {
     n: '03',
-    t: 'Base · candy · clear',
-    d: 'Color goes down in patient layers — base, candy, flake, clear — until the depth is real, not painted on.',
+    t: 'Candy · flake · gold-leaf',
+    d: 'Color goes down in patient layers — base, candy, metalflake, clear — then pinstripe and gold-leaf by hand until the depth is real.',
   },
   {
     n: '04',
-    t: 'Cut & buff',
-    d: 'Sanded flat and buffed back up so the reflection runs straight down the body line. Then it rolls out.',
+    t: 'Wheels & setup',
+    d: 'Gold-and-chrome wire wheels, whitewalls, hydraulics or bags dialed in — the stance set so it sits clean and hits right. Then it rolls out.',
   },
 ];
 
@@ -175,7 +181,7 @@ const navLinks = [
         ))}
       </nav>
 
-      <a class="ad-btn ad-btn--accent ad-nav__cta" href="#contact">
+      <a class="ah-btn ah-btn--candy ad-nav__cta" href="#contact">
         Request a Quote
       </a>
 
@@ -197,7 +203,7 @@ const navLinks = [
         {navLinks.map(([href, label]) => (
           <a href={href}>{label}</a>
         ))}
-        <a class="ad-btn ad-btn--accent ad-mobile__cta" href="#contact">
+        <a class="ah-btn ah-btn--candy ad-mobile__cta" href="#contact">
           Request a Quote
         </a>
       </nav>
@@ -206,16 +212,18 @@ const navLinks = [
 
   <main id="main">
     <!-- ================= HERO ================= -->
-    <!-- Composed PHOTOGRAPHY-FIRST around the classic convertible on a cobalt dusk lot:
-         the car sits low-right, the deep-blue sky is the negative space the type is set into. -->
+    <!-- Composed PHOTOGRAPHY-FIRST around an unmistakable LOWRIDER on the move: a candy
+         magenta Buick Regal cruising golden hour, gold pinstripe flames, chrome wire
+         wheels, low stance, people inside. The car reads center/right; the sky + trees
+         top-left are the negative space the type is set into. This is the CRUISE edition. -->
     <section class="ad-hero" aria-labelledby="hero-h">
       <div class="ad-hero__media">
         <img
           class="ad-hero__img"
-          src={`${P}/blue-night/black-sedan-blue-fog-streetlight-SNA3GNCL2XY.jpg`}
+          src={`${P}/lowrider/regal-candy-magenta-cruise-goldenhour-hero-01-lGI79xj9EfA.jpg`}
           width="2400"
           height="1600"
-          alt="A black classic sedan low on a Southern California street in deep-blue night fog, a single streetlight glowing overhead and one wheel highlight lit — cool cobalt darkness filling the wide sky above."
+          alt="A candy magenta Buick Regal lowrider cruising a Southern California boulevard at golden hour, gold pinstripe flames down the body, chrome wire-spoke wheels and whitewalls, sitting low with two people inside."
           loading="eager"
           fetchpriority="high"
           decoding="async"
@@ -234,26 +242,29 @@ const navLinks = [
             loading="eager"
             fetchpriority="high"
           />
-          <p class="ad-eyebrow">Southern California · after dark</p>
+          <p class="ad-eyebrow">Southern California · lowrider culture</p>
+          <p class="ad-script ad-hero__script">Low &amp; slow</p>
           <h1 class="ad-hero__h1" id="hero-h">
-            <span class="ad-hero__l1">The work reads</span>
-            <span class="ad-hero__flow">in the reflection</span>
+            <span class="ad-hero__l1">Candy, chrome</span>
+            <span class="ad-hero__flow">&amp; gold after dark</span>
           </h1>
+          <hr class="ah-pinstripe ad-hero__stripe" />
           <p class="ad-hero__kicker">
             Custom paint · body work · restoration — Southern California
           </p>
           <p class="ad-hero__sub">
-            Cars, trucks, and bikes finished the way the West Coast builds them: patient,
-            hand-worked, and judged by the line one light draws down a wet panel.
+            Candy and metalflake, gold-leaf and pinstripe, wire wheels and hydraulics — classic and
+            custom builds finished the way the West Coast has always done it: low, clean, and built
+            to cruise.
           </p>
           <div class="ad-hero__actions">
-            <a class="ad-btn ad-btn--accent ad-btn--lg" href="#contact">
+            <a class="ah-btn ah-btn--candy" href="#contact">
               Request a Quote{' '}
               <span class="ad-arw" aria-hidden="true">
                 &rarr;
               </span>
             </a>
-            <a class="ad-btn ad-btn--ghost ad-btn--lg" href="#work">
+            <a class="ah-btn ah-btn--ghost" href="#work">
               See the work
             </a>
           </div>
@@ -269,11 +280,11 @@ const navLinks = [
         <div class="ad-sechead">
           <p class="ad-eyebrow">Services</p>
           <h2 class="ad-secttl" id="svc-h">
-            Four lanes, one night
+            What we build
           </h2>
           <p class="ad-seclead">
-            Roll the strip. Each frame is a craft lane read by a single found light — the same
-            honest arc every build runs: metal true first, color last.
+            Roll the strip. Every lane runs the same honest arc — metal true first, candy and gold
+            last — from a bare shell to a car that sits low and hits clean.
           </p>
         </div>
       </div>
@@ -329,13 +340,14 @@ const navLinks = [
       <div class="ad-shell">
         <div class="ad-sechead ad-sechead--split">
           <div>
-            <p class="ad-eyebrow">Work · the reflection</p>
+            <p class="ad-eyebrow">Work · the boulevard</p>
             <h2 class="ad-secttl" id="work-h">
-              The truth is in the reflection
+              Out on the boulevard
             </h2>
           </div>
           <p class="ad-seclead">
-            Southern California custom-car culture, one frame at a time, read by found night light.
+            Southern California lowrider culture, one frame at a time — candy, gold wire wheels, low
+            stance, read by found night light.
             <span class="ad-provclause">
               {' '}
               The images below are
@@ -381,13 +393,13 @@ const navLinks = [
     <section class="ad-process" id="process" aria-labelledby="proc-h">
       <div class="ad-shell">
         <div class="ad-sechead">
-          <p class="ad-eyebrow">Process · the night drive</p>
+          <p class="ad-eyebrow">Process · the build</p>
           <h2 class="ad-secttl" id="proc-h">
-            Strip → metal → color → cut
+            Strip → metal → candy → setup
           </h2>
           <p class="ad-seclead">
-            The build moves in one direction, like a drive across town after midnight. Four stops,
-            one continuous line — it holds still if you prefer reduced motion.
+            A build moves in one direction, and there are no shortcuts to a clean lowrider. Four
+            stops, one continuous line — it holds still if you prefer reduced motion.
           </p>
         </div>
       </div>
@@ -410,39 +422,40 @@ const navLinks = [
       <div class="ad-shell ad-story__grid">
         <div class="ad-story__copy" data-reveal>
           <p class="ad-eyebrow">The shop</p>
+          <p class="ad-script ad-story__script">Built by hand</p>
           <h2 class="ad-secttl" id="story-h">
-            The finish speaks. The copy stays quiet.
+            Low, clean, and done right.
           </h2>
           <p class="ad-story__lead">
-            After Hourz is Southern California custom-car work — body, paint, and restoration for
-            people who care how the light runs down a panel.
+            After Hourz is Southern California lowrider work — body, paint, and restoration for
+            people who care how the car sits and how the candy holds the light.
           </p>
           <p class="ad-story__p">
             The name is the method. When the lot clears and the world goes home, the real work
-            starts: no rush, no audience, one light on the metal until the reflection is straight
-            and the gaps are right.
+            starts: no rush, no audience, laying candy and gold-leaf until the paint has depth and
+            the body line runs dead straight.
           </p>
           <p class="ad-story__note">
-            <span class="ad-cir">Client input required</span> — owner bio, shop history, and
-            founding year. Nothing here is invented; the voice is a placeholder for Anthony&rsquo;s
-            own words.
+            <span class="ad-cir">Client input required</span> — owner bio, shop history, car club
+            affiliation, and founding year. Nothing here is invented; the voice is a placeholder for
+            Anthony&rsquo;s own words.
           </p>
         </div>
 
         <figure class="ad-story__fig" data-reveal="side">
           <div class="ad-story__media">
             <img
-              src={`${P}/blue-night/garage-classic-taillights-worker-night-7qLT-Msda1k.jpg`}
+              src={`${P}/lowrider/impala-65-teal-krazyvatos-carclub-wall-01-S3aYtjE0YyI.jpg`}
               width="2400"
-              height="1398"
-              alt="A low-angle night shop interior: a classic car with its door open, red taillights lit, a work light and a craftsperson working on the build."
+              height="1299"
+              alt="A teal 1965 Impala lowrider beside its owner against a colorful mural wall — Southern California car-club culture, gold wire wheels and a low stance."
               loading="lazy"
               decoding="async"
             />
             <div class="ad-refl__pool" aria-hidden="true"></div>
           </div>
           <figcaption class="ad-story__figcap">
-            Prototype reference · stock — not Anthony&rsquo;s shop. Real portraits:
+            Prototype reference · stock — not Anthony&rsquo;s shop or club. Real portraits:
             <span class="ad-cir">Client input required</span>.
           </figcaption>
         </figure>
@@ -462,7 +475,7 @@ const navLinks = [
             We&rsquo;ll give you an honest read on the work — no pressure, no upsell.
           </p>
 
-          <dl class="ad-channels">
+          <dl class="ad-channels ah-plaque">
             <div class="ad-channel">
               <dt>Phone</dt>
               <dd>
@@ -534,7 +547,7 @@ const navLinks = [
             ></textarea>
           </div>
 
-          <button class="ad-btn ad-btn--accent ad-btn--block" type="submit">
+          <button class="ah-btn ah-btn--candy ad-form__submit" type="submit">
             Send request{' '}
             <span class="ad-arw" aria-hidden="true">
               &rarr;
@@ -593,7 +606,7 @@ const navLinks = [
         Call<span class="ad-dock__note">Client input required</span>
       </span>
     </a>
-    <a class="ad-dock__quote ad-btn ad-btn--accent" href="#contact">
+    <a class="ad-dock__quote ah-btn ah-btn--candy" href="#contact">
       Request a Quote
     </a>
   </div>

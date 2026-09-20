@@ -27,7 +27,7 @@ import BrandMark from '../../../../components/brand/BrandMark.astro';
 import '../../../../styles/prototype-booth-light.css';
 
 const P = '/assets/prototype';
-const BB = `${P}/blue-booth`;
+const LR = `${P}/lowrider`;
 
 // --- Primary nav (anchors must resolve to real section ids) ---
 const nav = [
@@ -42,122 +42,129 @@ const nav = [
 const serviceList = [
   [
     '02',
-    'Body work',
-    'Collision, rust and panel fabrication — the true structure a finish is only as good as.',
+    'Body & metal work',
+    'Collision, rust and panel fabrication — the straight metal a candy job is only as good as.',
   ],
   [
     '03',
     'Restoration',
-    'Classic and custom vehicles brought back true — metal, trim and finish, together.',
+    'Impalas, Regals, Cutlasses and Lincolns brought back true — metal, chrome and candy together.',
   ],
   [
     '04',
-    'Detail & polish',
-    'Cut, buff and correction until the reflection runs flat and the light reads clean.',
+    'Chrome, wire & detail',
+    'Gold-and-chrome wire wheels, engraving and cut-and-buff until the candy reads deep and clean.',
   ],
 ];
 
-// --- WORK gallery: one dominant frame + a supporting rhythm. Each is REFERENCE. ---
+// --- WORK gallery: the CANDY-FINISH study. How a lowrider earns its candy —
+//     gold-leaf, pinstripe, candy under light, wire-wheel + chrome detail.
+//     One dominant frame + a supporting rhythm. Each is external REFERENCE. ---
 const work = [
   {
     cls: 'bl-fig--lead',
-    src: `${BB}/bluepaint-6_Rv_qzog90.jpg`,
+    src: `${LR}/candy-orange-metalflake-goldleaf-hood-macro-01-33Me56HyM_8.jpg`,
     w: 2400,
-    h: 4265,
-    pos: '52% 42%',
-    alt: 'Curved high-gloss cobalt body panel meeting a run of bright chrome window trim, both catching a single directional light against near-black reflections.',
-    title: 'Panel & chrome',
-    note: 'Where finish depth meets a chrome edge — the surface reading true.',
+    h: 3600,
+    pos: '50% 44%',
+    alt: 'Macro of a candy-orange metalflake hood with hand-laid gold-leaf scrollwork and fine pinstripe catching a single raking light.',
+    title: 'Gold-leaf & candy',
+    note: 'Hand-laid gold-leaf over candy metalflake — the finish that reads twice.',
   },
   {
     cls: 'bl-fig--tall',
-    src: `${BB}/metallic-BY59EiUXxuw.jpg`,
+    src: `${LR}/candy-metalflake-pinstripe-goldleaf-macro-01-PTxSbnFA2aE.jpg`,
     w: 2400,
     h: 3600,
     pos: '50% 46%',
-    alt: 'Cobalt metallic hood and headlight under a soft top highlight, cool gloss resolving into dark accents.',
-    title: 'Cobalt gloss',
-    note: 'Metallic depth under a controlled key.',
+    alt: 'Candy metalflake panel with pinstripe and gold-leaf scrollwork, flake sparkling under a controlled key light.',
+    title: 'Metalflake, lit',
+    note: 'A single key turns the flake to sparks.',
   },
   {
     cls: 'bl-fig--half',
-    src: `${BB}/clearcoat-dSBsnAKTAi8.jpg`,
+    src: `${LR}/goldwheel-chrome-whitewall-sunflare-macro-01-obYxajIGaVs.jpg`,
     w: 2400,
-    h: 2400,
+    h: 3622,
     pos: '50% 50%',
-    alt: 'Macro of a headlight and cobalt clearcoat beaded with water under cool, controlled inspection light.',
-    title: 'Clearcoat, beaded',
-    note: 'Precise reflection on a fresh clear.',
+    alt: 'Sunlit gold-and-chrome wire-spoke wheel with a whitewall tire, specular star-flares off the spokes.',
+    title: 'Gold wire, chrome',
+    note: 'Gold-and-chrome wire spokes — the lowrider signature.',
   },
   {
     cls: 'bl-fig--half',
-    src: `${BB}/polish-B7hVEFTFUWs.jpg`,
+    src: `${LR}/lincoln-candy-red-pinstripe-side-murals-01-8ZrI15afLCk.jpg`,
     w: 2400,
     h: 1600,
-    pos: '50% 42%',
-    alt: 'Dual-action buffer polishing a dark car near a lit headlight strip inside a detailing bay on a near-black ground.',
-    title: 'Cut & buff',
-    note: 'The reflection run flat — precision made visible.',
+    pos: '50% 46%',
+    alt: 'Candy-red Lincoln body panel with fine pinstripe and gold-leaf side murals under warm directional light.',
+    title: 'Pinstripe & mural',
+    note: 'Pinstripe and gold-leaf murals laid straight by hand.',
   },
   {
     cls: 'bl-fig--third',
-    src: `${BB}/bluepaint-IqPGeGbBROY.jpg`,
+    src: `${LR}/goldwheel-engraved-whitewall-yellowcandy-macro-01-4Xhi09hdwDE.jpg`,
     w: 2400,
-    h: 1200,
+    h: 1600,
     pos: '50% 50%',
-    alt: 'Macro of deep blue metallic clearcoat with a single water bead and a raking specular streak against near-black shadow.',
-    title: 'Metalflake',
-    note: 'A single raking streak proves the flake.',
+    alt: 'Engraved chrome wire wheel and whitewall against candy-yellow metalflake, one raking streak across the flake.',
+    title: 'Engraved chrome',
+    note: 'Engraved knock-off, whitewall, candy behind.',
   },
   {
     cls: 'bl-fig--third',
-    src: `${BB}/clearcoat-dveDkZQJVjQ.jpg`,
+    src: `${LR}/impala-blue-candy-chromewheel-pinstripe-01-y-Ye8UI6a5U.jpg`,
     w: 2400,
-    h: 3600,
-    pos: '50% 40%',
-    alt: 'Moody cobalt rear panel and taillight emerging from a dark surround, cinematic and cool in tone.',
-    title: 'Rear panel',
-    note: 'Gloss emerging from darkness.',
-  },
-  {
-    cls: 'bl-fig--third',
-    src: `${BB}/chrome-v8H6bnjmths.jpg`,
-    w: 2400,
-    h: 3600,
+    h: 1600,
     pos: '50% 50%',
-    alt: 'Dark side mirror and glossy body panel emerging from shadow with cool blue-black reflections and a chrome edge catching light.',
-    title: 'Chrome edge',
-    note: 'One lit edge out of shadow.',
+    alt: 'Candy-cobalt Impala side with chrome wire wheel and purple pinstripe murals, low stance in SoCal light.',
+    title: 'Candy cobalt',
+    note: 'Candy cobalt on chrome wire, purple pinstripe.',
+  },
+  {
+    cls: 'bl-fig--third',
+    src: `${LR}/impala-chrome-emblem-macro-candy-01-VNdZyGjd0ko.jpg`,
+    w: 2400,
+    h: 1597,
+    pos: '50% 50%',
+    alt: 'Chrome Impala emblem macro sitting proud on deep candy paint, one lit chrome edge out of shadow.',
+    title: 'Chrome emblem',
+    note: 'One lit chrome edge on deep candy.',
   },
 ];
 
 // --- PROCESS: the application -> inspection arc ---
 const process = [
-  ['01', 'Strip & assess', 'An honest read on the metal before anything else is decided.', 'Read'],
   [
-    '02',
-    'Metal & bodywork',
-    'Panels made true, gaps set — the base every reflection needs.',
+    '01',
+    'Strip & straighten',
+    'Metal made true and gaps set — no candy hides a bad panel.',
     'True',
   ],
   [
+    '02',
+    'Base · metalflake',
+    'Ground coats and flake laid even, so the candy has something to burn on.',
+    'Flake',
+  ],
+  [
     '03',
-    'Base · color · clear',
-    'Depth built in patient coats under a controlled booth key.',
-    'Build',
+    'Candy · gold-leaf · stripe',
+    'Candy built in coats, gold-leaf and pinstripe laid by hand.',
+    'Lay it',
   ],
   [
     '04',
-    'Inspection reveal',
-    'Read under one raking light until the reflection runs flat.',
-    'Expose',
+    'Clear · cut · buff',
+    'Buried in clear, then cut back till the candy runs wet and deep.',
+    'Wet',
   ],
 ];
 ---
 
 <PrototypeLayout
   title="After Hourz — Booth Light"
-  description="Booth Light design direction for After Hourz: craft revealed through controlled inspection light on high-gloss cobalt and chrome. Concept prototype — reference imagery, not client work."
+  description="Booth Light design direction for After Hourz: the candy-finish lowrider edition — candy over metalflake, gold-leaf and pinstripe, gold-and-chrome wire wheels, read under one light. Concept prototype — reference imagery, not client work."
   bodyClass="bl-proto"
 >
   <!-- LAB CHROME · subtle Design-Lab return (suppressed in client-review mode) -->
@@ -186,7 +193,7 @@ const process = [
         ))}
       </nav>
       <div class="bl-nav__end">
-        <a class="bl-btn bl-btn--primary" href="#contact">
+        <a class="ah-btn ah-btn--candy bl-nav__cta" href="#contact">
           Request a Quote
         </a>
         <button
@@ -213,7 +220,7 @@ const process = [
           <span>{String(i + 1).padStart(2, '0')}</span>
         </a>
       ))}
-      <a class="bl-btn bl-btn--primary" href="#contact" data-menu-link>
+      <a class="ah-btn ah-btn--candy bl-mobilemenu__cta" href="#contact" data-menu-link>
         Request a Quote
       </a>
     </div>
@@ -226,10 +233,10 @@ const process = [
     <section class="bl-hero" aria-labelledby="hero-h">
       <img
         class="bl-hero__img"
-        src={`${BB}/clearcoat-_0eOyLYXIto.jpg`}
+        src={`${LR}/goldwheel-chrome-red-convertible-lowangle-01-Oq8G_2134uk.jpg`}
         width="2400"
-        height="1600"
-        alt="A cobalt-blue supercar body emerging from a near-black studio, a single raking rim-light tracing the panel edges."
+        height="3600"
+        alt="Low-angle close-up of a candy-red lowrider's rear quarter and a chrome-and-gold wire-spoke wheel with knock-off and whitewall, deep candy paint holding a clean reflection at golden hour."
         loading="eager"
         fetchpriority="high"
         decoding="async"
@@ -249,25 +256,23 @@ const process = [
             fetchpriority="high"
           />
           <p class="bl-hero__kicker">
-            Custom paint · body work · restoration · Southern California
+            <span class="ah-tuscan">Candy · Gold-leaf · Pinstripe</span> · Southern California
           </p>
+          <p class="bl-hero__script ah-script">Laid on right, under the light.</p>
           <h1 id="hero-h" class="bl-hero__h1">
-            The finish only shows
+            Candy that shows
             <br />
             what&rsquo;s <em>underneath.</em>
           </h1>
           <p class="bl-hero__sub">
-            Built patiently in the booth, then read under a single controlled inspection light —
-            high-gloss cobalt, a clean chrome edge, a reflection that runs flat.
+            Built in coats and read under one controlled light — candy over metalflake, gold-leaf
+            laid by hand, pinstripe straight, chrome and gold wire wheels that never quit.
           </p>
           <div class="bl-hero__actions">
-            <a class="bl-btn bl-btn--primary bl-btn--lg" href="#contact">
+            <a class="ah-btn ah-btn--candy bl-hero__cta" href="#contact">
               Request a Quote
-              <span class="bl-btn__arrow" aria-hidden="true">
-                &rarr;
-              </span>
             </a>
-            <a class="bl-btn bl-btn--onink bl-btn--lg" href="#work">
+            <a class="ah-btn ah-btn--ghost" href="#work">
               See the work
             </a>
           </div>
@@ -278,13 +283,13 @@ const process = [
       <div class="bl-hero__readout" aria-label="Shop scope">
         <div class="bl-wrap bl-hero__readout-row">
           <span>
-            <b>Custom paint</b>colour &amp; refinish
+            <b>Candy paint</b>flake &amp; refinish
           </span>
           <span>
-            <b>Body work</b>metal &amp; panel
+            <b>Gold-leaf</b>leaf &amp; pinstripe
           </span>
           <span>
-            <b>Restoration</b>classic &amp; custom
+            <b>Chrome &amp; wire</b>wheels &amp; trim
           </span>
           <span class="bl-hero__readout-region">
             <b>SoCal</b>service area
@@ -298,13 +303,14 @@ const process = [
       <div class="bl-wrap">
         <div class="bl-shead" data-bl-reveal>
           <span class="bl-shead__no">Work</span>
+          <p class="bl-shead__script ah-script">Candy, gold-leaf &amp; wire</p>
           <h2 id="work-h" class="bl-shead__title">
-            Read the surface
+            How the candy gets made
           </h2>
           <p class="bl-shead__lead">
-            A visual study of the craft — high-gloss cobalt, chrome edges and the macro details that
-            decide whether a finish is real. Every frame below is external reference for this
-            direction, not After Hourz&rsquo;s completed work.
+            A study of the finish — candy over metalflake, gold-leaf and pinstripe laid by hand,
+            gold-and-chrome wire wheels under a single key. Every frame below is external reference
+            for this direction, not After Hourz&rsquo;s completed work.
           </p>
         </div>
 
@@ -345,34 +351,36 @@ const process = [
     <section class="bl-reveal" aria-labelledby="reveal-h" data-bl-reveal data-bl-expose>
       <div class="bl-reveal__grid">
         <div class="bl-reveal__copy">
-          <p class="bl-reveal__kicker">The inspection reveal</p>
+          <p class="bl-reveal__kicker">The candy reveal</p>
+          <p class="bl-reveal__script ah-script">Wet, deep &amp; dead straight</p>
           <h2 id="reveal-h" class="bl-reveal__h2">
             One light.
             <br />
-            The whole <em>truth.</em>
+            The candy <em>talks.</em>
           </h2>
           <p class="bl-reveal__p">
-            A single raking light runs the body line, and every wave, every high spot, every honest
-            coat shows itself. If it survives this, it survives daylight.
+            A single light runs the panel and the candy goes deep — flake lighting up like sparks,
+            gold-leaf catching, pinstripe dead straight. If it reads here, it reads on the
+            boulevard.
           </p>
           <div class="bl-reveal__spec">
             <span>
               <b>1</b>raking light
             </span>
             <span>
-              <b>0</b>places to hide
+              <b>&infin;</b>coats of depth
             </span>
             <span>
-              <b>Flat</b>reflection or it goes back
+              <b>Flake</b>lit up like sparks
             </span>
           </div>
         </div>
         <div class="bl-reveal__media">
           <img
-            src={`${P}/materials-detail/near-black-body-line-study-fBjCurUh-9w.jpg`}
+            src={`${LR}/candy-orange-metalflake-goldleaf-hood-macro-01-33Me56HyM_8.jpg`}
             width="2400"
-            height="4266"
-            alt="A single specular highlight traces the body line of a near-black painted panel in near-total darkness."
+            height="3600"
+            alt="A single raking light crosses a candy-orange metalflake hood, gold-leaf scrollwork and pinstripe lighting up out of deep shadow."
             loading="lazy"
             decoding="async"
           />
@@ -393,14 +401,16 @@ const process = [
     <!-- ================= PROCESS ================= -->
     <section class="bl-section bl-section--process" id="process" aria-labelledby="process-h">
       <div class="bl-wrap">
+        <hr class="ah-pinstripe bl-pinstripe" aria-hidden="true" />
         <div class="bl-shead" data-bl-reveal>
           <span class="bl-shead__no">Process</span>
+          <p class="bl-shead__script ah-script">From bare metal to candy</p>
           <h2 id="process-h" class="bl-shead__title">
-            Application, then inspection
+            Coats, leaf &amp; clear
           </h2>
           <p class="bl-shead__lead">
-            The arc runs one way: from a controlled booth key to a single-light inspection. Nothing
-            ships until the last light reads clean.
+            The arc runs one way: straight metal, flake, candy, gold-leaf and pinstripe, then buried
+            in clear and cut back. Nothing rolls out until the candy runs deep.
           </p>
         </div>
 
@@ -418,8 +428,8 @@ const process = [
         <div data-bl-reveal>
           <div class="bl-arcbar" aria-hidden="true"></div>
           <div class="bl-arclabels">
-            <span>Controlled booth key</span>
-            <span>Single-light inspection</span>
+            <span>Bare metal</span>
+            <span>Wet candy under the light</span>
           </div>
         </div>
       </div>
@@ -428,26 +438,28 @@ const process = [
     <!-- ================= SERVICES ================= -->
     <section class="bl-section" id="services" aria-labelledby="services-h">
       <div class="bl-wrap">
+        <hr class="ah-pinstripe bl-pinstripe" aria-hidden="true" />
         <div class="bl-shead" data-bl-reveal>
           <span class="bl-shead__no">Services</span>
+          <p class="bl-shead__script ah-script">What the shop lays down</p>
           <h2 id="services-h" class="bl-shead__title">
             The craft lanes
           </h2>
           <p class="bl-shead__lead">
-            Four things, done with the same patience. The paint is what you see; the work underneath
-            is what makes it last.
+            Four things, done with the same patience. The candy is what you see; the straight metal
+            and the hand-work underneath are what make it last.
           </p>
         </div>
 
         <div class="bl-services" data-bl-reveal>
           <!-- Lead lane: custom paint, with a real reference frame -->
-          <article class="bl-service-lead">
+          <article class="bl-service-lead ah-plaque">
             <div class="bl-service-lead__media">
               <img
-                src={`${BB}/clearcoat-G6sI_6B_FFY.jpg`}
+                src={`${LR}/lincoln-candy-red-goldleaf-hood-mural-01-80Izckypu88.jpg`}
                 width="2400"
                 height="1600"
-                alt="Gloved hands peeling protective blue film off a freshly finished cobalt panel under cool workshop light."
+                alt="A candy-red Lincoln hood with hand-laid gold-leaf mural and pinstripe under warm directional light."
                 loading="lazy"
                 decoding="async"
               />
@@ -455,10 +467,10 @@ const process = [
             </div>
             <div class="bl-service-lead__body">
               <span class="bl-service-lead__no">01</span>
-              <h3>Custom paint</h3>
+              <h3>Custom candy &amp; gold-leaf</h3>
               <p>
-                Colour changes, factory-correct refinishing and custom finishes — flake, candy and
-                clear built in coats, then cut back until the depth reads true under light.
+                Colour changes, candy and metalflake, gold-leaf and pinstripe — built in coats, laid
+                by hand, then buried in clear and cut back till the candy runs wet and deep.
               </p>
               <a class="bl-textlink" href="#contact">
                 Start a paint quote &rarr;
@@ -486,12 +498,12 @@ const process = [
     <section class="bl-section bl-section--story" id="story" aria-labelledby="story-h">
       <div class="bl-wrap">
         <div class="bl-story" data-bl-reveal>
-          <div class="bl-story__media">
+          <div class="bl-story__media ah-plaque">
             <img
-              src={`${P}/culture-vehicles/craftsman-polisher-dark-portrait-M5lsL2E4ot0.jpg`}
+              src={`${LR}/impala-63-black-dusk-goldwheels-sunset-01-wxYh-8OMPO4.jpg`}
               width="2400"
-              height="3200"
-              alt="A craftsman working a polisher in low light, concentrated on the panel in front of them."
+              height="3611"
+              alt="A black 1963 Impala lowrider on gold wire-spoke wheels sitting low against a pink Southern California sunset."
               loading="lazy"
               decoding="async"
             />
@@ -499,14 +511,15 @@ const process = [
           </div>
           <div class="bl-story__body">
             <span class="bl-story__region">Southern California raised</span>
+            <p class="bl-story__script ah-script">Firme, from the frame up</p>
             <blockquote class="bl-story__quote" id="story-h">
-              After Hourz is where the <em>extra hours</em> go — the ones that turn a repair into a
-              finish worth looking at twice.
+              After Hourz is where the <em>extra hours</em> go — the ones that turn a build into
+              candy worth looking at twice.
             </blockquote>
             <p class="bl-story__p">
               Owned by Anthony Montoya, After Hourz is built on patience: metal made true, gaps set
-              right, and paint laid in coats that earn their depth. The name is the promise — the
-              work that happens after the easy version is finished.
+              right, candy and gold-leaf laid in coats that earn their depth. The name is the
+              promise — the work that happens after the easy version is finished.
             </p>
             <p class="bl-story__p bl-story__p--cir">
               This is a direction study. The shop&rsquo;s full story, its builds and its people are
@@ -523,6 +536,7 @@ const process = [
         <div class="bl-contact__grid">
           <div class="bl-contact__aside" data-bl-reveal>
             <span class="bl-shead__no">Contact</span>
+            <p class="bl-shead__script ah-script">Bring us the ride</p>
             <h2 id="contact-h" class="bl-contact__title">
               Request a quote
             </h2>
@@ -614,11 +628,8 @@ const process = [
               </div>
             </div>
             <div class="bl-form__foot">
-              <button class="bl-btn bl-btn--primary" type="submit">
+              <button class="ah-btn ah-btn--candy" type="submit">
                 Request a Quote
-                <span class="bl-btn__arrow" aria-hidden="true">
-                  &rarr;
-                </span>
               </button>
               <p class="bl-form__note">Prototype form — not wired to a backend.</p>
             </div>
@@ -645,8 +656,8 @@ const process = [
             loading="lazy"
           />
           <p class="bl-footer__tag">
-            Custom paint, body work and restoration — Southern California. Craft revealed through
-            controlled inspection light.
+            Custom candy, gold-leaf, body work and restoration — Southern California. Lowrider
+            craft, laid on right and read under the light.
           </p>
         </div>
         <nav class="bl-footer__nav" aria-label="Footer">
@@ -665,16 +676,10 @@ const process = [
 
   <!-- STICKY MOBILE CONTACT BAR · thumb zone. No fabricated phone number. -->
   <div class="bl-cta-bar" aria-label="Quick contact">
-    <a class="bl-cta-bar__link bl-cta-bar__link--call" href="#contact">
-      <span class="bl-cta-bar__ico" aria-hidden="true">
-        &#9990;
-      </span>
+    <a class="ah-btn ah-btn--chrome bl-cta-bar__link bl-cta-bar__link--call" href="#contact">
       Callback
     </a>
-    <a class="bl-cta-bar__link bl-cta-bar__link--quote" href="#contact">
-      <span class="bl-cta-bar__ico" aria-hidden="true">
-        &rarr;
-      </span>
+    <a class="ah-btn ah-btn--candy bl-cta-bar__link bl-cta-bar__link--quote" href="#contact">
       Request a Quote
     </a>
   </div>
