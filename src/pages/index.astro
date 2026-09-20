@@ -1,0 +1,26 @@
+---
+// Prerendered root redirect → the Design Lab (no production homepage yet).
+// Static so it works under the QA static-serve harness AND on the Cloudflare Worker.
+export const prerender = true;
+const target = '/design-lab/';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={target} />
+    <title>After Hourz — Design Lab</title>
+    <script is:inline define:vars={{ target }}>
+      location.replace(target);
+    </script>
+  </head>
+  <body>
+    <p>
+      Redirecting to the <a href={target}>After Hourz Design Lab</a>…
+    </p>
+  </body>
+</html>

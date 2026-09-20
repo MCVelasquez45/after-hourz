@@ -1,0 +1,28 @@
+{
+  // After Hourz — TEMPORARY CLIENT-REVIEW Worker (design-lab only; NOT production).
+  // Deploy via Wrangler from the local build (no GitHub push). Authorized for review only.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "after-hourz-client-review",
+  "compatibility_date": "2026-09-18",
+  "compatibility_flags": ["nodejs_compat"],
+  // main + assets are managed by @astrojs/cloudflare (v14) / @cloudflare/vite-plugin.
+  "observability": {
+    "enabled": true,
+  },
+  // D1 — questionnaire storage. database_id is filled AFTER `wrangler d1 create after-hourz-review`
+  // (requires Cloudflare auth). Local dev/tests use a local simulated D1 keyed by binding+name.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "after-hourz-review",
+      "database_id": "PLACEHOLDER_SET_AFTER_D1_CREATE",
+      "migrations_dir": "migrations",
+    },
+  ],
+  // Public Turnstile site key (safe to expose). The SECRET is set via `wrangler secret put
+  // TURNSTILE_SECRET_KEY` (remote) or .dev.vars (local) — never committed.
+  "vars": {
+    "TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
+    "REVIEW_CLIENT_SLUG": "after-hourz",
+  },
+}

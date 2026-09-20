@@ -8,7 +8,8 @@ import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { join, extname, normalize } from 'node:path';
 
-const ROOT = new URL('../dist/', import.meta.url).pathname;
+// @astrojs/cloudflare (v14) emits prerendered static output to dist/client/ (worker -> dist/server/).
+const ROOT = new URL('../dist/client/', import.meta.url).pathname;
 const PORT = Number(process.env.PORT ?? 4321);
 
 const TYPES = {

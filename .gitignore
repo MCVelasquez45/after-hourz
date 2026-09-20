@@ -27,3 +27,11 @@ coverage/
 # NOTE: public/assets/originals/ is intentionally TRACKED (immutable client source).
 # NOTE: generated derivatives in public/assets/derived/ may be regenerated; keep tracked
 #       for now so provenance stays reproducible until a build-time pipeline exists.
+
+# Cloudflare review workflow
+.local/
+.wrangler/
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.lighthouseci/

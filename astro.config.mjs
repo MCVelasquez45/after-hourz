@@ -1,17 +1,26 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
+import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 
 // After Hourz — Astro config.
 // HTML-first, React only for genuine islands (see .ai/decisions/0005).
 // Tailwind v4 via the current @tailwindcss/vite plugin (not the deprecated integration).
+//
+// Output = 'server' with the Cloudflare adapter so the ONE dynamic surface (the review
+// submission endpoint) can run on a Worker. EVERY existing page stays static via
+// `export const prerender = true` in its frontmatter — only /api/review/* is on-demand
+// (reset directive §4: minimum dynamic surface). Design Lab / prototypes remain prerendered.
 export default defineConfig({
   site: 'http://localhost:4321',
-  // No production homepage yet (design-lab stage only). Root redirects into the lab.
-  redirects: {
-    '/': '/design-lab/',
-  },
+  output: 'server',
+  adapter: cloudflare({
+    platformProxy: { enabled: true }, // local D1/bindings via `astro dev` + wrangler proxy
+  }),
+  // No production homepage yet. Root redirect is a PRERENDERED page (src/pages/index.astro)
+  // so it is static-serveable and works identically on the Worker (server-mode config
+  // redirects would be runtime-only and invisible to the static QA harness).
   integrations: [react()],
   vite: {
     plugins: [tailwindcss()],

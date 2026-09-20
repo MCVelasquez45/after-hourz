@@ -29,6 +29,7 @@
     "qa:full": "pnpm typecheck && pnpm format:check && pnpm lint && pnpm test && pnpm build && pnpm exec playwright test --grep-invert @full && pnpm test:a11y && (pnpm test:visual || echo '::visual regression is a non-blocking reviewed artifact (full-page photographic flake); see tests/e2e/visual.spec.ts-snapshots::') && pnpm test:performance"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.3.2",
     "@astrojs/react": "^6.0.6",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.3",
@@ -54,6 +55,7 @@
     "sharp": "^0.35.4",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.70.0",
-    "vitest": "^5.0.1"
+    "vitest": "^5.0.1",
+    "wrangler": "^4.135.0"
   }
 }
