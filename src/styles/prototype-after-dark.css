@@ -1304,6 +1304,8 @@
 }
 .ad-contact__grid {
   display: grid;
+  /* cap the single column to the container so a child can't stretch it past 320 */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--spacing-xl);
   align-items: start;
 }
@@ -1406,6 +1408,10 @@
   border-radius: var(--radius-sm);
   padding: 0.8rem 0.9rem;
   width: 100%;
+  /* let controls shrink inside a narrow grid track (no intrinsic min-width overflow at 320) */
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
   min-height: 46px;
 }
 .ad-field textarea {
