@@ -1,0 +1,10 @@
+# Cloudflare _redirects — honored ONLY by the deployed Worker (astro dev + the static QA
+# harness ignore this file), so the internal Design Lab stays available LOCALLY while the
+# DEPLOYED client-review environment shows Anthony the client experience only.
+/                          /review/after-hourz/   302
+/design-lab                /review/after-hourz/   302
+/design-lab/               /review/after-hourz/   302
+/design-lab/foundations/*  /review/after-hourz/   302
+/design-lab/directions/*   /review/after-hourz/   302
+/design-lab/quality/*      /review/after-hourz/   302
+/design-lab/material/*     /review/after-hourz/   302

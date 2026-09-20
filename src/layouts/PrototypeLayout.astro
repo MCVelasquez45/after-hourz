@@ -7,6 +7,12 @@ interface Props {
   bodyClass: string;
 }
 const { title, description = 'After Hourz — design direction prototype.', bodyClass } = Astro.props;
+// CLIENT-MODE-BY-DEFAULT: the deployed client-review build is compiled with
+// PUBLIC_CLIENT_MODE=1, which bakes client mode on (no ?review query needed by Anthony).
+// Local builds leave it unset → internal chrome shows; ?review=1 still toggles for testing.
+const clientMode = import.meta.env.PUBLIC_CLIENT_MODE === '1';
+// In client mode the browser tab shows just the brand (no internal direction name leak).
+const displayTitle = clientMode ? 'After Hourz' : title;
 ---
 
 <!doctype html>
@@ -16,22 +22,20 @@ const { title, description = 'After Hourz — design direction prototype.', body
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="robots" content="noindex, nofollow" />
-    <title>{title}</title>
-    <script is:inline>
+    <title>{displayTitle}</title>
+    <script is:inline define:vars={{ clientMode }}>
       document.documentElement.classList.add('js');
-      // CLIENT-REVIEW MODE: a prototype URL with ?review=1 enters client-review mode.
-      // Runs before paint (in <head>) so internal chrome never flashes. Sets/removes
-      // data-review on <html>; scoped CSS in each prototype hides lab strips, concept
-      // tags, provenance/reference badges, and CLIENT INPUT REQUIRED rows when set.
+      // CLIENT-REVIEW MODE. On the deployed build clientMode is baked true (Anthony needs no
+      // query string). Locally, ?review=1 toggles it for testing. Runs before paint so no flash.
       try {
         const review = new URLSearchParams(window.location.search).get('review');
-        if (review === '1') {
+        if (clientMode || review === '1') {
           document.documentElement.dataset.review = '1';
         } else {
           delete document.documentElement.dataset.review;
         }
       } catch {
-        /* no-op: never block paint on a URL parse edge case */
+        if (clientMode) document.documentElement.dataset.review = '1';
       }
     </script>
   </head>

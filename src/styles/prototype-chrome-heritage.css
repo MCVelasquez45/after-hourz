@@ -530,9 +530,11 @@
 ========================================================================== */
 .chp-hero {
   position: relative;
-  min-height: min(92vh, 880px);
+  /* Composed FRAME: image + headline + support + CTA read within ~one screen.
+     Trimmed from 92vh/880px so the actions never fall off a ~900px viewport. */
+  min-height: min(84vh, 760px);
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   overflow: clip;
   isolation: isolate;
   border-bottom: 1px solid var(--p-edge);
@@ -621,7 +623,9 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  padding-block: clamp(2.6rem, 1.4rem + 6vw, 6rem);
+  /* Vertically centered block — trimmed so the CTA stays connected to the copy
+     inside the frame rather than being pushed to the lower edge. */
+  padding-block: clamp(2rem, 1.2rem + 3vw, 3.6rem);
   max-width: 40rem;
 }
 .chp-hero__eyebrow {
@@ -639,8 +643,8 @@
   font-family: var(--p-display);
   font-weight: 600;
   font-optical-sizing: auto;
-  font-size: clamp(2.9rem, 1.2rem + 8vw, 6.6rem);
-  line-height: 0.96;
+  font-size: clamp(2.9rem, 1.4rem + 7vw, 5.9rem);
+  line-height: 0.98;
   letter-spacing: -0.02em;
   color: var(--chrome-hi);
   margin: 0;
@@ -701,7 +705,7 @@
   font-weight: 500;
 }
 .chp-hero__actions {
-  margin-top: var(--spacing-lg);
+  margin-top: var(--spacing-md);
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-sm) var(--spacing-md);
@@ -931,7 +935,10 @@
   overflow: clip;
   border-block: 1px solid var(--p-edge);
   isolation: isolate;
-  min-height: min(70vh, 640px);
+  /* Portrait source (2:3) in a full-bleed landscape band. Give it more height on
+     wide screens so the frame is a composed crop of the candy hood + gold-leaf
+     scroll, not an over-cropped horizontal sliver of a tall photo. */
+  min-height: clamp(30rem, 60vh, 46rem);
   display: flex;
   align-items: flex-end;
 }
@@ -941,7 +948,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 48%;
+  /* keep the gold-leaf diamond + scroll + chrome grille in frame */
+  object-position: 54% 42%;
   z-index: -2;
   filter: saturate(1.02) contrast(1.05);
 }
@@ -1723,35 +1731,48 @@
   .chp-hero {
     min-height: auto;
     display: block;
+    /* reserve the photographic band so the copy panel flows BELOW the absolute
+       image instead of sitting on top of it (image is position:absolute) */
+    padding-top: clamp(340px, 52vh, 460px);
   }
+  /* Mobile hero is its OWN composition: a clean photographic band that shows the
+     teal Impala on its gold wires, then a solid copy panel below it — not a
+     vertically squeezed desktop. The image is tall enough (52vh) to read the
+     subject, cropped to favor the car body/wheel via object-position. */
   .chp-hero__img,
   .chp-hero__sheen {
-    height: 62vh;
-    min-height: 380px;
+    height: 52vh;
+    min-height: 340px;
+    max-height: 460px;
+  }
+  /* favor the vehicle silhouette + gold wheel on the tight mobile crop */
+  .chp-hero__img {
+    object-position: 62% 62%;
   }
   .chp-hero__grade {
-    height: 62vh;
-    min-height: 380px;
+    height: 52vh;
+    min-height: 340px;
+    max-height: 460px;
     background:
       linear-gradient(
         180deg,
-        rgba(5, 7, 12, 0.72) 0%,
-        rgba(5, 7, 12, 0.1) 40%,
-        rgba(5, 7, 12, 0) 62%
+        rgba(5, 7, 12, 0.66) 0%,
+        rgba(5, 7, 12, 0.08) 34%,
+        rgba(5, 7, 12, 0) 56%
       ),
-      linear-gradient(0deg, var(--p-black) 2%, rgba(5, 7, 12, 0.4) 30%, rgba(5, 7, 12, 0) 60%),
-      radial-gradient(60% 30% at 78% 46%, rgba(217, 164, 65, 0.18), rgba(5, 7, 12, 0) 60%);
+      linear-gradient(0deg, var(--p-black) 1%, rgba(5, 7, 12, 0.35) 24%, rgba(5, 7, 12, 0) 52%),
+      radial-gradient(60% 30% at 70% 52%, rgba(217, 164, 65, 0.18), rgba(5, 7, 12, 0) 60%);
   }
-  /* Mobile hero copy sits on a SOLID scrim panel — never raw text over photo.
-     Panel begins below the image band so the sticky wordmark never overlaps it. */
+  /* Copy sits on a SOLID panel that begins BELOW the image band — no negative
+     margin, so the sticky wordmark can never overlap the hero lockup. */
   .chp-hero .chp-wrap {
     padding-inline: 0;
   }
   .chp-hero__content {
     max-width: none;
-    margin-top: -6vh;
-    padding: var(--spacing-md) var(--gutter) var(--spacing-lg);
-    background: linear-gradient(180deg, rgba(5, 7, 12, 0.6), var(--p-black) 18%);
+    margin-top: 0;
+    padding: var(--spacing-lg) var(--gutter) var(--spacing-lg);
+    background: var(--p-black);
   }
   /* clear separation from the sticky wordmark above */
   .chp-hero__eyebrow {

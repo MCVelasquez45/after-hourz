@@ -8,15 +8,31 @@ import { z } from 'zod';
 export const SCHEMA_VERSION = 1;
 export const REVIEW_CLIENT_SLUG = 'after-hourz';
 
-/** The three approved lowrider directions Anthony chooses between. */
+/*
+  The three website directions Anthony chooses between. `id` is the stable route slug
+  (unchanged); `name` is the CLIENT-FACING name used everywhere (cards, selection,
+  questionnaire, confirmation, context brief). `tagline` is a plain-language "feel"
+  sentence — no design-industry jargon.
+*/
 export const DIRECTIONS = [
   {
     id: 'chrome-heritage',
+    no: '01',
     name: 'Chrome Heritage',
-    tagline: 'Showroom heritage — candy, chrome & gold-leaf.',
+    tagline: 'Bold and classic — chrome, candy paint, and gold-leaf lettering.',
   },
-  { id: 'booth-light', name: 'Booth Light', tagline: 'Candy finish read under one light.' },
-  { id: 'after-dark', name: 'After Dark', tagline: 'The lowrider boulevard after dark.' },
+  {
+    id: 'booth-light',
+    no: '02',
+    name: 'Candy Cobalt',
+    tagline: 'Clean and modern — deep candy-blue paint under bright light.',
+  },
+  {
+    id: 'after-dark',
+    no: '03',
+    name: 'Midnight Boulevard',
+    tagline: 'Cinematic night — cruising, chrome wire wheels, and city lights.',
+  },
 ] as const;
 export const DIRECTION_IDS = DIRECTIONS.map((d) => d.id);
 

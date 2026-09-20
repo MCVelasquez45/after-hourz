@@ -556,9 +556,14 @@
 .ad-hero {
   position: relative;
   isolation: isolate;
-  min-height: min(94svh, 54rem);
+  /* Seated to ONE composed screen: nav + hero + CTA read within a single view at
+     1440/1728/1920 (was 94svh/54rem — CTA fell at/below the fold). */
+  min-height: min(84svh, 46rem);
   display: grid;
-  align-items: end;
+  /* center the type column vertically so copy isn't jammed against the bottom edge
+     and the photo reads as one framed composition with the headline, not a caption
+     dropped in the lower corner. */
+  align-items: center;
   overflow: hidden;
 }
 .ad-hero__media {
@@ -570,7 +575,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 74% 58%; /* candy Regal front sits right; sky/trees top-left = type space */
+  /* Pan the crop RIGHT so the candy body + cabin clear the left type column: the
+     headline seats over the darker asphalt/negative space instead of colliding with
+     the passenger and bright paint. Subject (car) stays the dominant right-frame mass. */
+  object-position: 84% 60%; /* candy Regal front sits right; asphalt/trees left = type space */
   /* DEEPEN, don't lift: crush the shadows to a true-black floor and saturate the
      cobalt so the plate reads rich (Booth Light richness), never milky/gray. */
   filter: brightness(0.9) contrast(1.2) saturate(1.34);
@@ -660,7 +668,9 @@
 }
 .ad-hero__inner {
   width: 100%;
-  padding-block: clamp(2.5rem, 2rem + 6vw, 6rem);
+  /* trimmed: the hero now centers its panel, so heavy block padding is no longer
+     needed to lift the copy off the bottom edge. */
+  padding-block: clamp(2rem, 1.5rem + 3vw, 3.5rem);
 }
 /* Copy is constrained to its own dark column with a controlled measure so the
    whole hero reads as ONE resolved type composition — never colliding with the
@@ -770,7 +780,10 @@
     min-height: auto;
   }
   .ad-hero__img {
-    object-position: 60% 40%;
+    /* favor the CAR, not the tree canopy: seat the crop on the cabin/candy body so
+       the subject fills the band above the copy panel (a tighter detail than the
+       desktop full-car frame), not a dead field of trees. */
+    object-position: 62% 74%;
   }
   .ad-hero__grade {
     background: linear-gradient(
@@ -783,7 +796,9 @@
   .ad-hero__inner {
     display: flex;
     align-items: flex-end;
-    padding-top: 40svh; /* let the photo breathe above the copy panel */
+    /* photo band above the copy panel — reads as a framed subject, not a dead field.
+       Was 40svh (a half-screen of empty tree canopy); now a tight crop window. */
+    padding-top: 21svh;
     padding-bottom: calc(var(--spacing-xl) + 4.5rem); /* clear the sticky dock */
   }
   .ad-hero__panel {
@@ -981,11 +996,15 @@
 }
 .ad-reflect {
   display: grid;
-  gap: clamp(4rem, 2rem + 8vw, 9rem); /* hard negative space between frames */
+  /* paced negative space — enough to separate frames without a dead black column
+     between each plate (was 4–9rem, which read as empty gaps down the section). */
+  gap: clamp(2.5rem, 1.5rem + 4vw, 5rem);
   max-width: 72rem;
   margin-inline: auto;
   padding-inline: var(--gutter);
-  margin-top: var(--spacing-xl);
+  /* sechead already supplies its own bottom margin; the stacked spacing-xl here
+     doubled it into a dead band before the first frame. */
+  margin-top: var(--spacing-lg);
 }
 .ad-refl {
   margin: 0;
@@ -1004,7 +1023,14 @@
   aspect-ratio: 4 / 5;
 }
 .ad-refl--wide .ad-refl__media {
-  aspect-ratio: 3 / 2;
+  /* slightly wider cinema crop keeps the boulevard plate from eating a full screen
+     of vertical space on wide viewports (was 3/2 → ~768px tall at container width). */
+  aspect-ratio: 16 / 9;
+}
+/* Ceiling so no single plate exceeds ~68vh — keeps the scroll a paced sequence of
+   framed shots rather than a stack of near-full-screen images with dead gaps. */
+.ad-refl__media {
+  max-height: 68vh;
 }
 .ad-refl__media img {
   position: absolute;
@@ -1012,6 +1038,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* seat the vehicle in the crop when the aspect ratio is capped */
+  object-position: 50% 55%;
   /* one cool cobalt-key formula on every frame */
   filter: brightness(1.04) contrast(1.05) saturate(1.02);
 }

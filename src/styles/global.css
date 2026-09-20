@@ -81,3 +81,17 @@ a:hover {
 .skip-link:focus {
   transform: translateY(0);
 }
+
+/* Client-review mode: hide internal Design-Lab RETURN links everywhere (exact /design-lab/
+   only — the review app's /design-lab/prototypes/... preview links are unaffected).
+   Anthony never sees a path back into the internal lab. */
+html[data-review='1'] a[href='/design-lab/'] {
+  display: none !important;
+}
+
+/* Client-review mode: hide the developer form-disclaimer notes (they say "prototype"/
+   "no backend"); Anthony is reviewing the design, not using these preview contact forms.
+   His real intake is the /review/after-hourz questionnaire. */
+html[data-review='1'] :is(.chp-form__note, .bl-form__note, .ad-form__fine) {
+  display: none !important;
+}

@@ -604,8 +604,18 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 62% 62%;
+  /* Mobile portrait frame: center on the wire-wheel hub so the chrome spokes +
+     candy quarter both read; avoids pushing the subject down behind the copy and
+     avoids the dead asphalt band at the source foot. */
+  object-position: 54% 42%;
   z-index: -3;
+}
+/* Desktop/tablet wide frame: bias right toward the candy panel + let the full
+   wheel breathe against the left type well (the frame was composed for this). */
+@media (min-width: 720px) {
+  .bl-hero__img {
+    object-position: 62% 58%;
+  }
 }
 /* GRADE: darken toward the top-left so type sits on the photo's own negative
    space with full AA contrast; keep the cobalt body reading on the lower-right. */
@@ -687,13 +697,16 @@
 @media (min-width: 720px) {
   .bl-hero__inner {
     /* On >=720 the readout strip is shown; reserve room for it + fill the frame. */
-    min-height: 78vh;
-    padding-block: clamp(5rem, 3rem + 6vw, 8rem) calc(clamp(3rem, 2rem + 4vw, 5rem) + 72px);
+    min-height: 74vh;
+    padding-block: clamp(4rem, 2.5rem + 5vw, 6.5rem) calc(clamp(2.5rem, 1.75rem + 3vw, 4rem) + 72px);
   }
 }
 @media (min-width: 940px) {
   .bl-hero__inner {
-    min-height: min(90vh, 820px);
+    /* Compose the whole hero (lockup -> headline -> CTA + pinned readout) inside
+       one screen at 1440/1728/1920 — image + headline + support + CTA read as one
+       photographic frame, CTA no longer jammed against the bottom edge. */
+    min-height: min(82vh, 760px);
   }
 }
 .bl-hero__content {
@@ -1015,8 +1028,11 @@
 }
 @media (min-width: 940px) {
   .bl-reveal__grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.28fr);
-    min-height: min(94vh, 880px);
+    /* Media ~56% of the composition, copy ~44% — a balanced asymmetric split that
+       reads as one frame; height trimmed so the beat resolves within ~one screen
+       and the vignette no longer opens a tall near-black lower field. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.24fr);
+    min-height: min(86vh, 780px);
   }
 }
 .bl-reveal__copy {
@@ -1096,7 +1112,9 @@
 .bl-reveal__media {
   position: relative;
   overflow: hidden;
-  min-height: 58vh;
+  /* Trimmed so the mobile beat is a composed candy frame, not a tall near-black
+     field; the crop bias keeps the lit subject dominant within it. */
+  min-height: 46vh;
   order: 1;
   background: #05070a;
 }
@@ -1110,7 +1128,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 50%;
+  /* Bias UP: the lit candy + gold-leaf + pinstripe subject lives in the upper
+     half of this portrait source; centering dragged in the dead near-black foot.
+     This fills the frame with the finish that is the whole point of the beat. */
+  object-position: 50% 38%;
   display: block;
 }
 /* Single controlled inspection light raking across the near-black body. */

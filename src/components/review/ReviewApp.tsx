@@ -254,7 +254,7 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
   }
 
   // gate transitions off selection / phases with a gentle inline message
-  if (step.id === 'design-selection') {
+  if (step.id === 'design-review' || step.id === 'design-selection') {
     nextDisabled = !canLeaveSelection;
   }
   if (step.id === 'phases') {
@@ -299,8 +299,8 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
       {body}
 
       {/* inline gate messages */}
-      {step.id === 'design-selection' && nextDisabled && (
-        <p className="rv-field-error">Pick a direction to continue.</p>
+      {(step.id === 'design-review' || step.id === 'design-selection') && nextDisabled && (
+        <p className="rv-field-error">Choose a direction to continue.</p>
       )}
       {step.id === 'phases' && nextDisabled && (
         <p className="rv-field-error">Please check all three boxes to continue.</p>

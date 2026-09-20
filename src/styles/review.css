@@ -220,6 +220,138 @@
   flex-wrap: wrap;
 }
 
+/* ---- Welcome ---- */
+.rv-welcome .rv-lede strong {
+  color: var(--color-chrome, #e6eaef);
+}
+.rv-welcome-cta {
+  margin-top: 0.5rem;
+}
+
+/* ---- Large website previews (the three looks) ---- */
+.rv-previews {
+  display: grid;
+  gap: 1.5rem;
+}
+.rv-preview {
+  border: 1px solid var(--lr-chrome-lo, #3b434d);
+  border-radius: var(--radius-md, 8px);
+  background: rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+.rv-preview.is-selected {
+  border-color: var(--lr-gold-hi, #f3d488);
+  box-shadow: 0 0 0 2px rgba(217, 164, 65, 0.35);
+}
+
+/* Framed live preview. We render the prototype at a fixed logical width and scale it
+   down so a whole page reads as one large, real image. The link overlay makes the
+   whole frame tappable (the iframe itself is inert: aria-hidden + tabIndex -1). */
+.rv-preview-frame {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  overflow: hidden;
+  background: var(--ah-black, #08090c);
+  border-bottom: 1px solid var(--lr-chrome-lo, #3b434d);
+  cursor: pointer;
+}
+.rv-preview-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1280px;
+  height: 1980px;
+  border: 0;
+  transform: scale(0.35);
+  transform-origin: top left;
+  pointer-events: none;
+}
+.rv-preview-open {
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0.6rem;
+  z-index: 2;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--color-chrome, #e6eaef);
+  background: rgba(8, 9, 12, 0.82);
+  border: 1px solid var(--lr-chrome-lo, #3b434d);
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  backdrop-filter: blur(2px);
+}
+.rv-preview-frame:hover .rv-preview-open,
+.rv-preview-frame:focus-visible .rv-preview-open {
+  color: #10151c;
+  background: linear-gradient(180deg, var(--lr-gold-hi, #f3d488), var(--lr-gold, #d9a441));
+  border-color: var(--lr-gold-hi, #f3d488);
+}
+.rv-preview-frame:focus-visible {
+  outline: 2px solid var(--lr-gold-hi, #f3d488);
+  outline-offset: -2px;
+}
+.rv-preview-body {
+  padding: clamp(1rem, 3vw, 1.35rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.rv-preview-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+.rv-preview-no {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  color: var(--lr-gold-hi, #f3d488);
+  letter-spacing: 0.1em;
+}
+.rv-preview-name {
+  font-family: var(--font-display, sans-serif);
+  font-weight: 700;
+  font-size: clamp(1.35rem, 1rem + 2vw, 1.75rem);
+  color: var(--color-chrome, #e6eaef);
+  line-height: 1.1;
+}
+.rv-preview-tag {
+  color: var(--color-aluminum, #8b94a1);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.rv-preview-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+.rv-preview-btn {
+  flex: 1 1 12rem;
+  text-align: center;
+  justify-content: center;
+}
+
+@media (min-width: 700px) {
+  .rv-preview-iframe {
+    /* 1280 logical px scaled to fill wider frames (frame width ~ up to 640px in a 46rem shell) */
+    transform: scale(0.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-preview,
+  .rv-preview-open {
+    transition: none;
+  }
+}
+
 /* ---- Direction cards (design review) ---- */
 .rv-directions {
   display: grid;

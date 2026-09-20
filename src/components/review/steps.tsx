@@ -56,16 +56,73 @@ export interface StepDef {
 
 const PROTOTYPE_BASE = '/design-lab/prototypes';
 
-function DirectionCard({ id, name, tagline }: { id: string; name: string; tagline: string }) {
+/**
+ * A LARGE, real preview of a website direction: a scaled live view of the prototype
+ * (client-review mode via ?review=1 so no internal chrome shows), the client-facing
+ * name, one plain "feel" sentence, and two clear actions — open the full website, or
+ * choose this direction. No thesis/palette/typography/board/technical notes.
+ */
+function DirectionPreview({
+  id,
+  no,
+  name,
+  tagline,
+  selected,
+  onChoose,
+}: {
+  id: string;
+  no: string;
+  name: string;
+  tagline: string;
+  selected: boolean;
+  onChoose: () => void;
+}) {
   const href = `${PROTOTYPE_BASE}/${id}/?review=1`;
   return (
-    <div className="ah-plaque rv-direction">
-      <span className="rv-direction-name">{name}</span>
-      <span className="rv-direction-tag">{tagline}</span>
-      <div className="rv-direction-actions">
-        <a className="ah-btn ah-btn--ghost" href={href} target="_blank" rel="noopener noreferrer">
-          Open preview
-        </a>
+    <div className={`rv-preview${selected ? ' is-selected' : ''}`}>
+      <a
+        className="rv-preview-frame"
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open the ${name} website in a new tab`}
+      >
+        <iframe
+          className="rv-preview-iframe"
+          src={href}
+          title={`${name} website preview`}
+          loading="lazy"
+          tabIndex={-1}
+          aria-hidden="true"
+        />
+        <span className="rv-preview-open" aria-hidden="true">
+          Tap to open
+        </span>
+      </a>
+      <div className="rv-preview-body">
+        <div className="rv-preview-head">
+          <span className="rv-preview-no">{no}</span>
+          <span className="rv-preview-name">{name}</span>
+        </div>
+        <p className="rv-preview-tag">{tagline}</p>
+        <div className="rv-preview-actions">
+          <a
+            className="ah-btn ah-btn--ghost rv-preview-btn"
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Website
+          </a>
+          <button
+            type="button"
+            className={`ah-btn rv-preview-btn ${selected ? 'ah-btn--ghost' : 'ah-btn--candy'}`}
+            aria-pressed={selected}
+            onClick={onChoose}
+          >
+            {selected ? '✓ Chosen' : 'Choose This Direction'}
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -77,37 +134,57 @@ export const STEPS: StepDef[] = [
     id: 'welcome',
     title: 'Welcome',
     counted: false,
-    render: () => (
-      <div className="ah-plaque rv-card">
-        <h2>Let&apos;s build the After Hourz website</h2>
+    render: ({ goToStepId }) => (
+      <div className="ah-plaque rv-card rv-welcome">
+        <h2>Your After Hourz Website</h2>
         <p className="rv-lede">
-          Anthony — this is a quick review to lock the look and gather the facts we need. First
-          you&apos;ll look at three design directions and pick your favorite, then answer a few
-          questions about the shop, your work, and how you want customers to reach you.
+          Hey Anthony — welcome. We took your brand, your custom work, and lowrider culture and
+          built <strong>three different looks</strong> for the After Hourz website. They&apos;re all
+          real, working web pages — same shop, three different feels.
+        </p>
+        <p className="rv-lede">
+          Have a look at all three and pick the one that feels the most like After Hourz. After
+          that, we&apos;ll ask you a few easy questions so we can build the site around what you
+          actually need.
         </p>
         <p className="rv-hint">
           There are no wrong answers, and you don&apos;t have to know everything. Skip anything
-          you&apos;re unsure about — leave it blank and we&apos;ll follow up. Your progress saves
-          automatically on this device, so you can stop and come back.
+          you&apos;re unsure about and we&apos;ll follow up. Your place saves automatically on this
+          device, so you can stop and come back anytime.
         </p>
+        <button
+          type="button"
+          className="ah-btn ah-btn--candy rv-btn-full rv-welcome-cta"
+          onClick={() => goToStepId('design-review')}
+        >
+          View the Designs
+        </button>
       </div>
     ),
   },
   {
     id: 'design-review',
-    title: 'Design review',
+    title: 'The three looks',
     counted: true,
-    render: () => (
+    render: ({ draft, update }) => (
       <div className="ah-plaque rv-card">
-        <h2>Three directions to consider</h2>
+        <h2>Three looks for After Hourz</h2>
         <p className="rv-lede">
-          Each of these is a full design direction for After Hourz — same brand, three different
-          moods. Open each preview in a new tab and get a feel for them. On the next step
-          you&apos;ll pick the one that feels most like the shop.
+          Here are the three directions. Tap <strong>View Website</strong> to see the full page,
+          then tap <strong>Choose This Direction</strong> on the one that feels most like the shop.
+          You can change your mind later.
         </p>
-        <div className="rv-directions">
+        <div className="rv-previews">
           {DIRECTIONS.map((d) => (
-            <DirectionCard key={d.id} id={d.id} name={d.name} tagline={d.tagline} />
+            <DirectionPreview
+              key={d.id}
+              id={d.id}
+              no={d.no}
+              name={d.name}
+              tagline={d.tagline}
+              selected={draft.design.selection === d.id}
+              onChoose={() => update('design', { selection: d.id })}
+            />
           ))}
         </div>
       </div>
@@ -119,9 +196,11 @@ export const STEPS: StepDef[] = [
     counted: true,
     render: ({ draft, update }) => (
       <div className="ah-plaque rv-card">
-        <h2>Which direction is it?</h2>
+        <h2>Your choice</h2>
         <p className="rv-lede">
-          Pick the one that feels most like After Hourz. You can change it later.
+          {draft.design.selection
+            ? 'Here’s the look you picked. If it still feels right, keep going. To switch, just tap another one.'
+            : 'Pick the one that feels most like After Hourz. You can change it later.'}
         </p>
         <div className="rv-directions">
           {DIRECTIONS.map((d) => {
@@ -159,7 +238,7 @@ export const STEPS: StepDef[] = [
           legend="What did you like? (pick any)"
           options={[
             'The colors',
-            'The typography / lettering',
+            'The lettering & fonts',
             'The photos & layout',
             'The overall mood',
             'The chrome & gold details',
@@ -505,14 +584,14 @@ export const STEPS: StepDef[] = [
   },
   {
     id: 'phases',
-    title: 'Project phases',
+    title: 'What happens next',
     counted: true,
     render: ({ draft, update }) => (
       <div className="ah-plaque rv-card">
-        <h2>How the project works</h2>
+        <h2>What happens next</h2>
         <p className="rv-lede">
-          A quick heads-up on how we&apos;ll build this and what it involves. Please check each box
-          to show you&apos;ve read it.
+          Here&apos;s the plan, in plain terms. Give each part a read and check the box so we know
+          you&apos;ve seen it — nothing here is a contract, it just keeps us on the same page.
         </p>
 
         <div className="ah-plaque rv-phase">
@@ -523,7 +602,26 @@ export const STEPS: StepDef[] = [
         <div className="ah-plaque rv-phase">
           <div className="rv-phase-title">{PROJECT_PHASES.phase2.title}</div>
           <div className="rv-phase-fee">{PROJECT_PHASES.phase2.fee}</div>
-          <div className="rv-phase-blurb">{PROJECT_PHASES.phase2.blurb}</div>
+          <div className="rv-phase-blurb">
+            {PROJECT_PHASES.phase2.blurb} It&apos;s optional — we&apos;ll only build it if you want
+            it, based on the answers you gave earlier.
+          </div>
+        </div>
+        <div className="ah-plaque rv-phase">
+          <div className="rv-phase-title">A few costs that go to other companies</div>
+          <div className="rv-phase-blurb">
+            <p style={{ marginBottom: '0.6rem' }}>
+              A <strong>domain</strong> is your website address — for example,{' '}
+              <strong>afterhourz.com</strong>. You own it and pay for it directly (it&apos;s usually
+              a small yearly fee), and we connect it to your site for you.
+            </p>
+            <p>
+              A few other things may bill you directly if you use them: paid hosting only if it
+              becomes necessary, payment-processing fees if you take payments online, a business
+              email address if you want one, and any optional paid services. We&apos;ll always tell
+              you before anything like that is set up.
+            </p>
+          </div>
         </div>
 
         <div className="rv-ack">
@@ -534,7 +632,7 @@ export const STEPS: StepDef[] = [
             onChange={(e) => update('project', { phase1Acknowledged: e.target.checked })}
           />
           <label htmlFor="ack-p1">
-            I&apos;ve read Phase 1 — the core website and launch, with its{' '}
+            I&apos;ve read about Phase 1 — the website and launch — and its{' '}
             {PROJECT_PHASES.phase1.fee.toLowerCase()}.
           </label>
         </div>
@@ -546,7 +644,7 @@ export const STEPS: StepDef[] = [
             onChange={(e) => update('project', { phase2Acknowledged: e.target.checked })}
           />
           <label htmlFor="ack-p2">
-            I understand Phase 2 — online store and/or booking — is optional and has its own{' '}
+            I understand Phase 2 — an online store and/or booking — is optional and has its own{' '}
             {PROJECT_PHASES.phase2.fee.toLowerCase()}.
           </label>
         </div>
@@ -557,7 +655,10 @@ export const STEPS: StepDef[] = [
             checked={draft.project.thirdPartyCostsAcknowledged}
             onChange={(e) => update('project', { thirdPartyCostsAcknowledged: e.target.checked })}
           />
-          <label htmlFor="ack-3p">{PROJECT_PHASES.thirdParty}</label>
+          <label htmlFor="ack-3p">
+            I understand the domain and any other third-party costs above are paid by me directly,
+            and you&apos;ll connect everything for me.
+          </label>
         </div>
       </div>
     ),

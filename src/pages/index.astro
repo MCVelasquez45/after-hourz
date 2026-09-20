@@ -2,7 +2,9 @@
 // Prerendered root redirect → the Design Lab (no production homepage yet).
 // Static so it works under the QA static-serve harness AND on the Cloudflare Worker.
 export const prerender = true;
-const target = '/design-lab/';
+// Deployed client build (PUBLIC_CLIENT_MODE=1) sends the root to the client review;
+// local build sends it to the internal Design Lab.
+const target = import.meta.env.PUBLIC_CLIENT_MODE === '1' ? '/review/after-hourz/' : '/design-lab/';
 ---
 
 <!doctype html>
