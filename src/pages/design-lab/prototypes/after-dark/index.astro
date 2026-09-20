@@ -1,47 +1,54 @@
 ---
 import PrototypeLayout from '../../../../layouts/PrototypeLayout.astro';
+import BrandMark from '../../../../components/brand/BrandMark.astro';
 import '../../../../styles/prototype-after-dark.css';
 
 /*
   AFTER HOURZ — AFTER DARK · production-level direction prototype (Design Lab).
 
-  RE-CONCEPT (post-gate): this direction is NOT "Chrome Heritage at night."
-  Thesis: THE NIGHT DRIVE. A cool-dominant night world — deep teal/blue wet-asphalt
-  ambient — where craft is READ by found night light. Warm sodium survives ONLY as
-  small, contained practical pools (a single lamp, a taillight), never as the UI/CTA.
-  The interface accent is COOL (electric night-blue). Motion = DIRECTIONAL FLOW:
-  connected rules that drift, section entrances that slide along a continuous line.
+  ONE BRAND, THREE EDITIONS. After Dark is the ENVIRONMENTAL / CULTURAL / CINEMATIC
+  edition of the LOCKED After Hourz identity.
 
-  Distinct from the other two on purpose:
-  - Chrome Heritage = warm-dominant world, warm CTA. After Dark = cool-dominant, cool CTA.
-  - Booth Light = the reveal is EXPOSURE (light switched on in a booth).
-    After Dark = the reveal is REFLECTION ("the truth is in the reflection") —
-    work read on wet asphalt / under a single streetlight.
-  - Services here is a NIGHT-DRIVE FILMSTRIP (horizontal, image-led), NOT a numbered ledger.
-  - Gallery here is a single-column large-format vertical reflection scroll, NOT a grid.
+  THESIS: Southern California custom-car culture AFTER DARK — shop life, evening,
+  movement. The work lives on the street once the lot clears: lowriders on a cobalt
+  skyline, a '57 at a night station, wet asphalt doubling every light. Craft is READ
+  by found night light and by the reflection that runs down a panel.
+
+  BRAND-ANCHORED (locked family, no drift):
+  - Palette = BLACK + CHROME + COBALT / ELECTRIC BLUE, from the --ah-* tokens.
+    The previous teal accent is REMOVED. Warm light exists ONLY inside the photography
+    (dusk sky, sodium canopy, taillights) — never as UI, an edge, or a button.
+  - Logo = the REAL client chrome lettering via BrandMark (lockup in hero, wordmark in
+    nav + footer). No fake text wordmark.
+  - Motion = MOMENTUM: a slow cinematic hero push, a passing light sweep, a horizontal
+    night-drive filmstrip, a directional reveal drift. All frozen under reduced motion;
+    content fails OPEN (never trapped at opacity 0).
+
+  DISTINCT FROM THE OTHER TWO ON PURPOSE:
+  - Chrome Heritage = heritage build-sheet ledger, warm candy accent, studio chrome.
+  - Booth Light = clinical inspection light, high-key reveal, macro clearcoat.
+  - After Dark = the STREET after dark — wide environmental night plate, culture, movement.
 
   PROVENANCE / TRUTH RULES (non-negotiable):
   - Every external photo is PROTOTYPE REFERENCE — never Anthony's completed work.
-    ONE clear provenance caption per image block (not a badge on every tile).
-  - No fabricated business facts. Phone/address/social/hours = CLIENT INPUT REQUIRED.
+  - No fabricated business facts. Phone / address / social / hours = CLIENT INPUT REQUIRED.
   - Craft lane only: custom paint / body / restoration on classic + custom vehicles.
-    Modern EV/supercar framing intentionally DROPPED.
-  - SoCal only. No NorCal text/maps/badges.
+  - SoCal only. No NorCal text/maps/badges/QUINCY.
 */
 
 const P = '/assets/prototype';
 
 // ---- Services · the night-drive filmstrip (image-led, one practical light each) ----
-// Each frame is a craft lane lit by a single found light, name burned into the lower-third.
+// Each frame is a craft lane READ by found night light, name burned into the lower-third.
 const lanes = [
   {
-    src: `${P}/materials-detail/blue-metalflake-clearcoat-waterbead-IqPGeGbBROY.jpg`,
+    src: `${P}/blue-night/blue-57-chevy-gas-station-night-_k8yCOpIXns.jpg`,
     w: 2400,
-    h: 1200,
+    h: 1600,
     t: 'Custom Paint',
     d: 'Color changes, candy and flake, pinstripe and refinishing — laid down in patient layers until the reflection runs straight down the body line.',
     meta: 'Candy · flake · pinstripe',
-    alt: 'Deep candy-blue metalflake clearcoat panel beaded with water, a single hard specular streak raking across the wet surface in the dark.',
+    alt: 'A custom blue 1957 Chevrolet at a night gas station, deep cobalt paint holding one warm pool of sign light against the dark.',
   },
   {
     src: `${P}/materials-detail/graphite-body-panel-headlight-bezel-Mx_Oe-dv4H8.jpg`,
@@ -50,7 +57,7 @@ const lanes = [
     t: 'Body Work',
     d: 'Collision repair, rust and fabrication, panel alignment and gap-setting — the metal made true before a drop of color goes down.',
     meta: 'Collision · fabrication · panel',
-    alt: 'Cool graphite body panel and headlight bezel photographed in low light, one specular rake reading the body line out of the dark.',
+    alt: 'A cool graphite body panel and headlight bezel photographed in low light, one specular rake reading the body line out of the dark.',
   },
   {
     src: `${P}/booth-process/bare-metal-classic-body-restoration-cD7nA_pqj6E.jpg`,
@@ -73,37 +80,37 @@ const lanes = [
 ];
 
 // ---- Work / builds — single-column reflection scroll. "The truth is in the reflection." ----
-// Each entry is a large-format frame; craft is READ by found night light on wet/gloss surfaces.
+// Each entry is a large-format SoCal night frame; craft READ by found night light.
 const reflections = [
   {
-    src: `${P}/materials-detail/near-black-body-line-study-fBjCurUh-9w.jpg`,
+    src: `${P}/blue-night/blue-lowrider-cobalt-skyline-deHNvti6jsw.jpg`,
     w: 2400,
-    h: 4266,
+    h: 3200,
     ratio: 'tall',
-    k: 'The reflection reads the work',
-    t: 'Near-black body line',
-    d: 'One soft source runs the length of a near-black panel. If the reflection bends, the metal is not true yet. This is how the shop judges a finish — not by color, by the line the light draws.',
-    alt: 'A near-black body panel emerging from darkness, a single soft reflection tracing the body line across the metal.',
+    k: 'Culture · after dark',
+    t: 'Cobalt on the skyline',
+    d: 'A blue lowrider on chrome wire wheels against a cobalt dusk skyline — Southern California custom-car culture the moment the light drops. Cool everywhere, one warm pool where the city glows.',
+    alt: 'A blue Oldsmobile lowrider on chrome wire wheels beside a person, set against a deep cobalt dusk city skyline.',
   },
   {
-    src: `${P}/environment-dusk/black-sedan-station-canopy-wet-gloss-night-fngi9wSSpms.jpg`,
+    src: `${P}/blue-night/black-muscle-wet-asphalt-night-62blorGADtk.jpg`,
     w: 2400,
-    h: 3593,
-    ratio: 'tall',
-    k: 'Wet asphalt · doubled light',
-    t: 'The street as a mirror',
-    d: 'After the doors roll down, the wet ground doubles every light. Cool ambient everywhere, one warm pool where the canopy lamp lands — the exact key After Dark grades every frame to.',
-    alt: 'A dark sedan under a lit station canopy on a wet night, its gloss and the mirror-black ground doubling the cool ambient and one warm pool of canopy light.',
-  },
-  {
-    src: `${P}/materials-detail/blue-metalflake-clearcoat-waterbead-IqPGeGbBROY.jpg`,
-    w: 2400,
-    h: 1200,
+    h: 1920,
     ratio: 'wide',
-    k: 'Reflection on the paint',
-    t: 'Candy under one light',
-    d: 'A genuine wet-night panel macro — reflection on the paint, not a lit sign. Water beads sit proud of a candy-flake clear while a single specular streak proves the depth is real, not painted on.',
-    alt: 'Macro of a candy-blue metalflake clearcoat beaded with water, a single hard specular streak crossing the wet finish.',
+    k: 'The street as a mirror',
+    t: 'Wet asphalt, doubled light',
+    d: 'A black muscle car on wet Southern-California asphalt at night — taillights and one cool rim light doubled in the glossy street. After the doors roll down, the ground doubles every light. This is the exact cinematic cobalt key After Dark grades every frame to.',
+    alt: 'The rear of a black muscle car on wet asphalt at night, red taillights and a cool rim light reflected in the mirror-black street, California plate lit.',
+  },
+  {
+    src: `${P}/blue-night/blue-57-chevy-chrome-front-night-f6UnCkEZgeE.jpg`,
+    w: 2400,
+    h: 1600,
+    ratio: 'wide',
+    k: 'Chrome reads the work',
+    t: 'Chrome under one light',
+    d: 'A blue 1957 Chevrolet front three-quarter at night by vintage pumps — deep chrome and cobalt lighting. If the reflection bends across the grille, the metal is not true yet. This is how the shop judges a finish.',
+    alt: 'A custom blue 1957 Chevrolet front three-quarter at night by vintage gas pumps, chrome grille and bumper catching cool light.',
   },
 ];
 
@@ -130,11 +137,19 @@ const process = [
     d: 'Sanded flat and buffed back up so the reflection runs straight down the body line. Then it rolls out.',
   },
 ];
+
+const navLinks = [
+  ['#services', 'Services'],
+  ['#work', 'Work'],
+  ['#process', 'Process'],
+  ['#story', 'Story'],
+  ['#contact', 'Contact'],
+];
 ---
 
 <PrototypeLayout
   title="After Hourz — After Dark"
-  description="After Dark design direction for After Hourz: a cool-dominant Southern California night world where custom-car craft is read by found night light. Design Lab prototype — reference imagery, not client work."
+  description="After Dark design direction for After Hourz: Southern California custom-car culture after dark, in the locked black / chrome / cobalt brand family. Design Lab prototype — reference imagery, not client work."
   bodyClass="ad"
 >
   <!-- Lab chrome — subtle return affordance (suppressed later in client-review mode) -->
@@ -150,19 +165,14 @@ const process = [
   <!-- ================= NAV ================= -->
   <header class="ad-nav" id="top" data-scrolled="false">
     <div class="ad-shell ad-nav__row">
-      <a class="ad-wordmark" href="#top" aria-label="After Hourz — home">
-        AFTER
-        <span class="ad-wordmark__z">
-          HOUR<b>Z</b>
-        </span>
+      <a class="ad-brand ad-brand--nav" href="#top" aria-label="After Hourz — home">
+        <BrandMark variant="wordmark" width={168} loading="eager" fetchpriority="high" />
       </a>
 
       <nav class="ad-nav__links" aria-label="Primary">
-        <a href="#services">Services</a>
-        <a href="#work">Work</a>
-        <a href="#process">Process</a>
-        <a href="#story">Story</a>
-        <a href="#contact">Contact</a>
+        {navLinks.map(([href, label]) => (
+          <a href={href}>{label}</a>
+        ))}
       </nav>
 
       <a class="ad-btn ad-btn--accent ad-nav__cta" href="#contact">
@@ -184,11 +194,9 @@ const process = [
     <!-- Mobile menu (keyboard-operable; JS-enhanced, focus-managed) -->
     <div class="ad-mobile" id="ad-mobile-menu" hidden>
       <nav class="ad-mobile__nav" aria-label="Mobile">
-        <a href="#services">Services</a>
-        <a href="#work">Work</a>
-        <a href="#process">Process</a>
-        <a href="#story">Story</a>
-        <a href="#contact">Contact</a>
+        {navLinks.map(([href, label]) => (
+          <a href={href}>{label}</a>
+        ))}
         <a class="ad-btn ad-btn--accent ad-mobile__cta" href="#contact">
           Request a Quote
         </a>
@@ -198,24 +206,34 @@ const process = [
 
   <main id="main">
     <!-- ================= HERO ================= -->
+    <!-- Composed PHOTOGRAPHY-FIRST around the classic convertible on a cobalt dusk lot:
+         the car sits low-right, the deep-blue sky is the negative space the type is set into. -->
     <section class="ad-hero" aria-labelledby="hero-h">
       <div class="ad-hero__media">
         <img
           class="ad-hero__img"
-          src={`${P}/environment-dusk/vintage-truck-foggy-gas-station-night-o2GgDamhkQA.jpg`}
+          src={`${P}/blue-night/black-sedan-blue-fog-streetlight-SNA3GNCL2XY.jpg`}
           width="2400"
-          height="4267"
-          alt="A vintage pickup truck at a fog-shrouded gas station late at night — cool blue fog fills the frame while the station canopy pools one warm light over the wet, mirror-black asphalt."
+          height="1600"
+          alt="A black classic sedan low on a Southern California street in deep-blue night fog, a single streetlight glowing overhead and one wheel highlight lit — cool cobalt darkness filling the wide sky above."
           loading="eager"
           fetchpriority="high"
           decoding="async"
         />
         <div class="ad-hero__grade" aria-hidden="true"></div>
+        <div class="ad-hero__sweep" aria-hidden="true"></div>
         <span class="ad-refbadge ad-hero__ref">Reference imagery</span>
       </div>
 
       <div class="ad-shell ad-hero__inner">
         <div class="ad-hero__panel" data-reveal>
+          <BrandMark
+            variant="lockup"
+            width={300}
+            class="ad-brand ad-brand--hero"
+            loading="eager"
+            fetchpriority="high"
+          />
           <p class="ad-eyebrow">Southern California · after dark</p>
           <h1 class="ad-hero__h1" id="hero-h">
             The work
@@ -257,13 +275,13 @@ const process = [
             Four lanes, one night
           </h2>
           <p class="ad-seclead">
-            Roll the strip. Each frame is a craft lane lit by a single found light — the same honest
-            arc every build runs: metal true first, color last.
+            Roll the strip. Each frame is a craft lane read by a single found light — the same
+            honest arc every build runs: metal true first, color last.
           </p>
         </div>
       </div>
 
-      <!-- Horizontal, image-led filmstrip. Shares NO silhouette with a numbered ledger. -->
+      <!-- Horizontal, image-led filmstrip (MOMENTUM). Shares NO silhouette with a ledger. -->
       <div
         class="ad-strip"
         id="ad-strip"
@@ -320,11 +338,11 @@ const process = [
             </h2>
           </div>
           <p class="ad-seclead">
-            One frame at a time, read by found night light.
+            Southern California custom-car culture, one frame at a time, read by found night light.
             <span class="ad-provclause">
               {' '}
               The images below are
-              <strong>prototype reference</strong> — the direction, not After Hourz builds. Real
+              <strong> prototype reference</strong> — the direction, not After Hourz builds. Real
               work and process shots: <span class="ad-cir">Client input required</span>.
             </span>
           </p>
@@ -417,17 +435,17 @@ const process = [
         <figure class="ad-story__fig" data-reveal="side">
           <div class="ad-story__media">
             <img
-              src={`${P}/culture-vehicles/craftsman-polisher-dark-portrait-M5lsL2E4ot0.jpg`}
+              src={`${P}/blue-night/garage-classic-taillights-worker-night-7qLT-Msda1k.jpg`}
               width="2400"
-              height="3200"
-              alt="A craftsman leans into a black panel with a dual-action polisher in a dark studio, one hard light raking the wet-look finish."
+              height="1398"
+              alt="A low-angle night shop interior: a classic car with its door open, red taillights lit, a work light and a craftsperson working on the build."
               loading="lazy"
               decoding="async"
             />
             <div class="ad-refl__pool" aria-hidden="true"></div>
           </div>
           <figcaption class="ad-story__figcap">
-            Prototype reference · stock — not Anthony. Real portraits:
+            Prototype reference · stock — not Anthony&rsquo;s shop. Real portraits:
             <span class="ad-cir">Client input required</span>.
           </figcaption>
         </figure>
@@ -542,21 +560,14 @@ const process = [
   <footer class="ad-footer">
     <div class="ad-shell ad-footer__grid">
       <div class="ad-footer__brand">
-        <span class="ad-wordmark ad-wordmark--foot">
-          AFTER
-          <span class="ad-wordmark__z">
-            HOUR<b>Z</b>
-          </span>
-        </span>
+        <BrandMark variant="wordmark" width={220} class="ad-brand ad-brand--foot" loading="lazy" />
         <p class="ad-footer__tag">Custom paint · body work · restoration — Southern California.</p>
       </div>
 
       <nav class="ad-footer__nav" aria-label="Footer">
-        <a href="#services">Services</a>
-        <a href="#work">Work</a>
-        <a href="#process">Process</a>
-        <a href="#story">Story</a>
-        <a href="#contact">Contact</a>
+        {navLinks.map(([href, label]) => (
+          <a href={href}>{label}</a>
+        ))}
       </nav>
 
       <div class="ad-footer__meta">

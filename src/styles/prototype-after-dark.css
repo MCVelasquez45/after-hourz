@@ -2,28 +2,36 @@
   AFTER HOURZ — AFTER DARK · production-level prototype styles.
   Scoped entirely to the `.ad` body class. Does NOT edit shared CSS.
 
-  RE-CONCEPT (post-gate). This is NOT "Chrome Heritage at night."
+  ONE BRAND, THREE EDITIONS. After Dark is the ENVIRONMENTAL / CULTURAL / CINEMATIC
+  edition of the LOCKED After Hourz identity: Southern California custom-car culture
+  after dark — shop life, evening, movement.
 
-  WORLD: cool-dominant night. Deep teal/blue wet-asphalt ambient is the field.
-  Warm sodium survives ONLY as small, CONTAINED practical pools (a single lamp,
-  a taillight) — never as UI, never as the CTA. This is the deliberate INVERSE of
-  Chrome Heritage's warm-dominant world with warm CTAs.
+  BRAND-ANCHORED PALETTE (locked family, no drift):
+  Black + chrome + cobalt / electric blue, pulled straight from the --ah-* tokens
+  (tokens.css). The previous teal accent is GONE — the interface accent is cobalt
+  electric blue (--accent = --ah-blue-hot family). Warm practical light exists ONLY
+  inside the photography (dusk sky, sodium canopy, taillights), NEVER as UI, an edge,
+  a button, or a text color.
 
-  ACCENT: COOL. Electric night-blue (--accent) drives every CTA, link, focus ring,
-  active state, and the system flow-line. Sodium is quarantined to `--practical`
-  and only ever appears as a soft radial pool over photography, never as an edge,
-  a button, or a text color on chrome.
+  DISTINCT FROM THE OTHER TWO:
+  - Chrome Heritage = heritage build-sheet, warm candy accent, static reflection.
+  - Booth Light = clinical inspection light, high-key reveal.
+  - After Dark = the STREET after dark. A wide cinematic night plate, a horizontal
+    night-drive filmstrip (momentum), a single-column reflection scroll, a night-drive
+    route. Motion = MOMENTUM: passing light, horizontal drift, image push. Frozen under
+    reduced motion; content fails OPEN (never trapped at opacity 0).
 
   SYSTEM MATERIAL MOTIF (swap test — reads automotive with photos removed):
-  - Display type carries a cool specular RAKE (a moving highlight across the letters).
-  - Dividers/section entrances are a continuous FLOW LINE that drifts.
-  - The process band is a night-drive route with lit nodes — no card grid, no numbered ledger.
+  - Display type carries a cool CHROME rake (a passing specular highlight — headlights
+    sweeping the lettering).
+  - Section entrances / dividers are a continuous cobalt FLOW LINE (a passing light).
+  - The process band is a night-drive route with lit cobalt nodes.
 
   Legibility gates:
-  - Scrim/gradient behind EVERY headline/caption over a photo.
-  - All text/bg pairs verified AA (>=4.5 body / >=3 large) on the night ground.
-  - Cool accent chosen light enough to pass AA-large on night; CTA text is near-black on accent.
-  - Reduced-motion freezes all drift, rake, and reveals.
+  - Scrim/gradient behind EVERY headline/caption over a photo (hero + mobile solid panel).
+  - All text/bg pairs verified AA (>=4.5 body / >=3 large) on the near-black night ground.
+  - CTA text is near-black on the electric-blue fill (high contrast).
+  - Reduced-motion freezes all drift, rake, reveals; content stays visible.
 */
 
 /* ---- Self-hosted faces (real files, not CDN) · served from /fonts/after-dark ---- */
@@ -45,33 +53,33 @@
 }
 
 /* ============================================================
-   BODY-SCOPED TOKENS + BASE
+   BODY-SCOPED TOKENS + BASE  (mapped to the locked --ah-* brand family)
    ============================================================ */
 .ad {
-  /* --- cool-dominant night field --- */
-  --night: #070d12; /* deep cool base — teal-black */
-  --night-2: #0a141c; /* raised night */
-  --panel: #0c161f; /* card ground (lifted from crushed black) */
-  --panel-2: #10202c; /* raised card ground */
-  --hair: #1d2c38; /* cool hairline */
-  --hair-hi: #2b4152; /* lit cool hairline (flow line dim) */
-  --asphalt: #060b10; /* wet-asphalt inset */
+  /* --- near-black night field (brand ground) --- */
+  --night: var(--ah-black); /* #08090c brand ground */
+  --night-2: #0b1119; /* raised night with a cobalt cast */
+  --panel: #0c1420; /* card ground */
+  --panel-2: #111c2c; /* raised card ground */
+  --hair: #1a2536; /* cool hairline */
+  --hair-hi: #2a3d59; /* lit hairline (flow-line dim) */
+  --asphalt: #05070b; /* wet-asphalt inset (deepest) */
 
-  /* --- COOL ACCENT (the whole interface) --- */
-  --accent: #37c6e0; /* electric night-blue/teal — CTA, links, focus */
-  --accent-hot: #6fe0f2; /* hover / brighter specular */
-  --accent-deep: #1c7f97; /* pressed / structural */
-  --accent-ink: #041016; /* text ON the accent (11:1 on accent) */
+  /* --- COOL ACCENT = COBALT / ELECTRIC BLUE (the whole interface) --- */
+  --accent: var(--ah-blue-hot); /* #4a8fe0 — CTA, links, focus, nodes */
+  --accent-hot: var(--ah-ice); /* #7fc0ee — hover / brighter specular */
+  --accent-deep: var(--ah-cobalt); /* #1c3a78 — pressed / structural */
+  --accent-ink: #04070d; /* text ON the accent (>=8:1 on #4a8fe0) */
 
   /* --- CONTAINED WARM PRACTICAL (photo pools only, never UI) --- */
-  --practical: rgba(255, 150, 74, 0.55); /* the single lamp / taillight */
-  --practical-soft: rgba(255, 150, 74, 0.16);
+  --practical: rgba(255, 150, 74, 0.5); /* the single lamp / taillight */
+  --practical-soft: rgba(255, 150, 74, 0.14);
 
-  /* text ladder — verified AA on the cool night ground (#070d12) */
-  --tx-hi: #eaf2f6; /* near-white headline (16.8:1) */
-  --tx: #cdd8df; /* body (12.9:1) */
-  --tx-mut: #9aa9b3; /* muted (7.6:1) */
-  --tx-cool: #a9d8e6; /* cool caption (10.2:1) — reads AA-normal */
+  /* text ladder — verified AA on the near-black night ground (#08090c) */
+  --tx-hi: #eef2f7; /* near-white headline (16.6:1) */
+  --tx: #cfd7e0; /* body (12.7:1) */
+  --tx-mut: #98a3b1; /* muted (7.0:1) */
+  --tx-cool: #a9cef0; /* cool caption (9.4:1) — reads AA-normal */
 
   --edge: 1px solid var(--hair);
   --shell-max: 84rem;
@@ -84,7 +92,7 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* display face on headings + wordmark; no mid-word breaks on display type */
+/* display face on headings; no mid-word breaks on display type */
 .ad h1,
 .ad h2,
 .ad h3 {
@@ -166,8 +174,35 @@
 }
 
 /* ============================================================
-   SYSTEM MATERIAL MOTIF — cool specular rake on display type.
-   A slow cool highlight travels across headlines: "light reading the metal".
+   BRANDMARK (the LOCKED real chrome lettering)
+   The derivative is chrome-on-near-black + mix-blend screen (BrandMark.astro).
+   ============================================================ */
+.ad-brand {
+  display: inline-flex;
+  text-decoration: none;
+  line-height: 0;
+}
+.ad-brand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+/* nav wordmark size */
+.ad-brand--nav {
+  align-items: center;
+}
+/* hero lockup sits on the deep cool scrim */
+.ad-brand--hero {
+  margin-bottom: var(--spacing-sm);
+}
+/* footer wordmark */
+.ad-brand--foot {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ============================================================
+   SYSTEM MATERIAL MOTIF — a passing CHROME/COBALT rake on display type.
+   A slow cool highlight travels the headlines: headlights sweeping the lettering.
    Persists with photos removed (the swap test). Frozen under reduced motion.
    ============================================================ */
 .ad-secttl,
@@ -177,7 +212,7 @@
     100deg,
     var(--tx-hi) 0%,
     var(--tx-hi) 38%,
-    #ffffff 48%,
+    var(--ah-specular) 48%,
     var(--accent-hot) 50%,
     var(--tx-hi) 62%,
     var(--tx-hi) 100%
@@ -214,14 +249,14 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--tx-cool);
-  background: rgba(55, 198, 224, 0.12);
+  background: rgba(74, 143, 224, 0.14);
   border: 1px solid var(--accent-deep);
   border-radius: 999px;
   padding: 0.12em 0.7em;
   white-space: nowrap;
 }
 
-/* Reference provenance badge — used sparingly (hero only) */
+/* Reference provenance badge — used sparingly (hero + section media) */
 .ad-refbadge {
   position: absolute;
   top: var(--spacing-sm);
@@ -233,7 +268,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--tx-hi);
-  background: rgba(7, 13, 18, 0.85);
+  background: rgba(8, 9, 12, 0.85);
   border: 1px solid var(--hair-hi);
   border-radius: 999px;
   padding: 0.3rem 0.7rem;
@@ -249,7 +284,7 @@
 }
 
 /* ============================================================
-   BUTTONS — COOL accent primary (never warm)
+   BUTTONS — COBALT / electric-blue accent primary (never warm)
    ============================================================ */
 .ad-btn {
   --_bg: transparent;
@@ -288,17 +323,17 @@
 .ad-btn--block {
   width: 100%;
 }
-/* FILLED, high-contrast cool accent — the persistent conversion color */
+/* FILLED, high-contrast cobalt accent — the persistent conversion color */
 .ad-btn--accent {
   --_bg: linear-gradient(180deg, var(--accent-hot), var(--accent));
   --_bd: var(--accent-hot);
-  --_fg: var(--accent-ink); /* ~11:1 on accent */
+  --_fg: var(--accent-ink);
 }
 .ad-btn--accent:hover {
-  box-shadow: 0 6px 26px rgba(55, 198, 224, 0.34);
+  box-shadow: 0 6px 26px rgba(74, 143, 224, 0.36);
 }
 .ad-btn--ghost {
-  --_bd: #2f4756;
+  --_bd: #2d425e;
   --_fg: var(--tx-hi);
 }
 .ad-btn--ghost:hover {
@@ -322,8 +357,8 @@
    LAB CHROME (subtle return affordance)
    ============================================================ */
 .ad-lab {
-  background: #04080c;
-  border-bottom: 1px solid #0f1a22;
+  background: #04070b;
+  border-bottom: 1px solid #0e1722;
   font-size: 0.7rem;
 }
 .ad-lab__row {
@@ -366,7 +401,7 @@
     backdrop-filter var(--duration-ui) var(--ease-mech);
 }
 .ad-nav[data-scrolled='true'] {
-  background: rgba(6, 11, 16, 0.9);
+  background: rgba(6, 8, 12, 0.9);
   border-bottom-color: var(--hair);
   backdrop-filter: blur(10px);
 }
@@ -375,26 +410,6 @@
   align-items: center;
   gap: var(--spacing-md);
   padding-block: var(--spacing-sm);
-}
-.ad-wordmark {
-  font-family: var(--ad-font-display);
-  font-size: 1.6rem;
-  letter-spacing: 0.08em;
-  color: var(--tx-hi);
-  text-decoration: none;
-  line-height: 1;
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.35em;
-}
-/* wordmark stays near-white for AA; the identity flourish is the final Z in cool accent */
-.ad-wordmark__z {
-  color: var(--tx-hi);
-}
-.ad-wordmark__z b {
-  color: var(--accent);
-  font-weight: inherit;
 }
 .ad-nav__links {
   display: none;
@@ -425,7 +440,7 @@
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
-/* CTA is ALWAYS the filled accent button, visible on scroll on every viewport */
+/* CTA is ALWAYS the filled accent button; visible on desktop, dock covers mobile */
 .ad-nav__cta {
   display: none;
 }
@@ -437,7 +452,7 @@
   height: 46px;
   display: inline-grid;
   place-items: center;
-  background: rgba(7, 13, 18, 0.6);
+  background: rgba(8, 9, 12, 0.6);
   border: var(--edge);
   border-radius: var(--radius-sm);
   cursor: pointer;
@@ -482,7 +497,7 @@
 /* Mobile menu panel */
 .ad-mobile {
   border-top: var(--edge);
-  background: rgba(6, 11, 16, 0.98);
+  background: rgba(6, 8, 12, 0.98);
   backdrop-filter: blur(10px);
 }
 .ad-mobile__nav {
@@ -533,12 +548,15 @@
 }
 
 /* ============================================================
-   HERO — one cool-night plate; one warm practical pool contained
+   HERO — ONE wide cinematic night plate, composed PHOTOGRAPHY-FIRST.
+   The classic convertible sits low-right; the deep-blue dusk sky is the
+   negative space the headline is set INTO (left). One warm practical stays
+   inside the photo only.
    ============================================================ */
 .ad-hero {
   position: relative;
   isolation: isolate;
-  min-height: min(92svh, 52rem);
+  min-height: min(94svh, 54rem);
   display: grid;
   align-items: end;
   overflow: hidden;
@@ -552,9 +570,20 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 62%;
-  /* push cool, lift shadows so the wet asphalt reads without going warm */
-  filter: brightness(1.08) contrast(1.05) saturate(1.06) hue-rotate(-4deg);
+  object-position: 62% 60%; /* car right, cool foggy negative space top-left for type */
+  /* push cool, hold the deep cobalt dusk; keep warm practicals contained */
+  filter: brightness(1.04) contrast(1.06) saturate(1.05);
+  transform: scale(1.03);
+  animation: ad-hero-drift 26s var(--ease-soft) infinite alternate;
+}
+/* slow cinematic push — MOMENTUM. Frozen under reduced motion. */
+@keyframes ad-hero-drift {
+  from {
+    transform: scale(1.03) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.08) translate3d(-1.6%, -1%, 0);
+  }
 }
 /* Grade wash: cool fall, deep at bottom + left so type has a stage */
 .ad-hero__grade {
@@ -564,13 +593,42 @@
   background:
     linear-gradient(
       92deg,
-      rgba(6, 11, 16, 0.94) 0%,
-      rgba(6, 11, 16, 0.62) 34%,
-      rgba(6, 11, 16, 0.05) 66%
+      rgba(6, 8, 12, 0.94) 0%,
+      rgba(6, 8, 12, 0.6) 36%,
+      rgba(6, 8, 12, 0.04) 68%
     ),
-    linear-gradient(0deg, rgba(6, 11, 16, 0.97) 2%, rgba(6, 11, 16, 0.22) 42%, transparent 64%),
-    /* faint cool ambient top-right */
-    radial-gradient(50% 40% at 82% 8%, rgba(55, 198, 224, 0.1), transparent 70%);
+    linear-gradient(0deg, rgba(6, 8, 12, 0.97) 2%, rgba(6, 8, 12, 0.2) 42%, transparent 66%),
+    /* faint cobalt ambient top-right — a passing streetlight, not teal */
+    radial-gradient(50% 40% at 84% 10%, rgba(74, 143, 224, 0.12), transparent 70%);
+}
+/* a single passing light that sweeps the hero (MOMENTUM) — behind type */
+.ad-hero__sweep {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 34%,
+    rgba(127, 192, 238, 0.06) 48%,
+    rgba(127, 192, 238, 0.14) 50%,
+    rgba(127, 192, 238, 0.06) 52%,
+    transparent 66%
+  );
+  background-size: 240% 100%;
+  background-position: 180% 0;
+  animation: ad-sweep 11s var(--ease-soft) infinite;
+  mix-blend-mode: screen;
+}
+@keyframes ad-sweep {
+  0%,
+  55% {
+    background-position: 180% 0;
+  }
+  80%,
+  100% {
+    background-position: -60% 0;
+  }
 }
 .ad-hero__ref {
   top: auto;
@@ -582,7 +640,7 @@
   padding-block: clamp(2.5rem, 2rem + 6vw, 6rem);
 }
 .ad-hero__panel {
-  max-width: 42rem;
+  max-width: 44rem;
   display: grid;
   gap: var(--spacing-sm);
 }
@@ -592,9 +650,9 @@
   line-height: 0.86;
   letter-spacing: 0.01em;
   margin: 0;
-  text-shadow: 0 2px 30px rgba(6, 11, 16, 0.6);
+  text-shadow: 0 2px 30px rgba(6, 8, 12, 0.6);
 }
-/* the middle line rides the cool accent — the "flow" word */
+/* the middle line rides the cobalt accent — the "flow" word */
 .ad-hero__flow {
   display: block;
   background-image: none;
@@ -631,7 +689,7 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--tx-mut);
-  background: rgba(6, 11, 16, 0.74);
+  background: rgba(6, 8, 12, 0.74);
   border: var(--edge);
   border-radius: var(--radius-sm);
   padding: 0.35rem 0.6rem;
@@ -641,25 +699,32 @@
   margin: 0;
 }
 
-/* Mobile hero: copy on a SOLID scrim panel, never raw text-over-photo */
+/* Mobile hero: copy on a SOLID scrim panel, never raw text-over-photo.
+   Dock does NOT occlude the hero CTA — panel sits above the dock with room. */
 @media (max-width: 719px) {
   .ad-hero {
     align-items: stretch;
+    min-height: auto;
+  }
+  .ad-hero__img {
+    object-position: 60% 40%;
   }
   .ad-hero__grade {
     background: linear-gradient(
       0deg,
-      rgba(6, 11, 16, 0.99) 32%,
-      rgba(6, 11, 16, 0.58) 64%,
-      rgba(6, 11, 16, 0.16) 100%
+      rgba(6, 8, 12, 0.99) 34%,
+      rgba(6, 8, 12, 0.58) 66%,
+      rgba(6, 8, 12, 0.14) 100%
     );
   }
   .ad-hero__inner {
     display: flex;
     align-items: flex-end;
+    padding-top: 40svh; /* let the photo breathe above the copy panel */
+    padding-bottom: calc(var(--spacing-xl) + 4.5rem); /* clear the sticky dock */
   }
   .ad-hero__panel {
-    background: linear-gradient(180deg, rgba(8, 15, 21, 0.74), rgba(8, 15, 21, 0.95));
+    background: linear-gradient(180deg, rgba(9, 12, 18, 0.78), rgba(9, 12, 18, 0.96));
     border: var(--edge);
     border-radius: var(--radius-md);
     padding: var(--spacing-md);
@@ -683,7 +748,7 @@
 }
 
 /* ============================================================
-   SERVICES — the NIGHT-DRIVE FILMSTRIP (image-led, horizontal motion)
+   SERVICES — the NIGHT-DRIVE FILMSTRIP (image-led, horizontal MOMENTUM)
    Shares NO silhouette with a vertical numbered ledger.
    ============================================================ */
 .ad-services {
@@ -691,7 +756,7 @@
   border-top: var(--edge);
   position: relative;
 }
-/* system flow line entering the section */
+/* system flow line entering the section — a passing cobalt light */
 .ad-services::before {
   content: '';
   position: absolute;
@@ -706,8 +771,9 @@
     var(--accent) 80%,
     transparent
   );
-  opacity: 0.55;
-  transform-origin: left;
+  opacity: 0.6;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
   animation: ad-flow 5.5s var(--ease-soft) infinite;
 }
 @keyframes ad-flow {
@@ -719,10 +785,6 @@
     mask-position: 130% 0;
     -webkit-mask-position: 130% 0;
   }
-}
-.ad-services::before {
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
 .ad-strip {
@@ -769,8 +831,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* cool-key grade applied to EVERY tile so nothing reads daytime-warm */
-  filter: brightness(1.03) contrast(1.07) saturate(0.96) hue-rotate(-10deg);
+  /* cool cobalt-key grade on EVERY tile so nothing reads daytime-warm */
+  filter: brightness(1.02) contrast(1.06) saturate(0.98);
   transition: transform 700ms var(--ease-mech);
 }
 .ad-frame:hover .ad-frame__media img {
@@ -782,13 +844,13 @@
   inset: 0;
   background: linear-gradient(
     0deg,
-    rgba(6, 11, 16, 0.94) 0%,
-    rgba(6, 11, 16, 0.5) 26%,
+    rgba(6, 8, 12, 0.95) 0%,
+    rgba(6, 8, 12, 0.5) 26%,
     transparent 52%
   );
   pointer-events: none;
 }
-/* the single contained WARM practical pool — this is the ONLY warmth per frame */
+/* the single contained WARM practical pool — the ONLY warmth per frame */
 .ad-frame__practical {
   position: absolute;
   inset: 0;
@@ -852,7 +914,7 @@
   padding-block: clamp(4rem, 2.5rem + 7vw, 8rem);
   border-top: var(--edge);
   background:
-    radial-gradient(70% 50% at 90% 0%, rgba(55, 198, 224, 0.06), transparent 60%), var(--night);
+    radial-gradient(70% 50% at 90% 0%, rgba(74, 143, 224, 0.07), transparent 60%), var(--night);
 }
 .ad-reflect {
   display: grid;
@@ -887,8 +949,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* one cool-key formula on every frame */
-  filter: brightness(1.06) contrast(1.06) saturate(1.03) hue-rotate(-6deg);
+  /* one cool cobalt-key formula on every frame */
+  filter: brightness(1.04) contrast(1.05) saturate(1.02);
 }
 /* contained warm pool — reflection lit by a single found light */
 .ad-refl__pool {
@@ -952,13 +1014,13 @@
 }
 
 /* ============================================================
-   PROCESS — the NIGHT DRIVE (continuous flow line + lit nodes).
+   PROCESS — the NIGHT DRIVE (continuous flow line + lit cobalt nodes).
    Distinct silhouette: a route, not cards, not a numbered rail.
    ============================================================ */
 .ad-process {
   padding-block: clamp(4rem, 2.5rem + 7vw, 8rem);
   border-top: var(--edge);
-  background: linear-gradient(180deg, #05131a -10%, var(--night) 34%);
+  background: linear-gradient(180deg, #0a1526 -10%, var(--night) 34%);
   position: relative;
 }
 .ad-drive {
@@ -981,7 +1043,7 @@
   bottom: 8px;
   width: 2px;
   background: linear-gradient(180deg, var(--accent), var(--accent-deep) 60%, transparent);
-  opacity: 0.5;
+  opacity: 0.55;
 }
 .ad-leg {
   position: relative;
@@ -998,7 +1060,7 @@
   border-radius: 999px;
   border: 2px solid var(--accent);
   background: var(--night);
-  box-shadow: 0 0 0 4px rgba(55, 198, 224, 0.12);
+  box-shadow: 0 0 0 4px rgba(74, 143, 224, 0.14);
 }
 .ad-leg__node::after {
   content: '';
@@ -1071,8 +1133,8 @@
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(52% 60% at 90% 84%, rgba(255, 150, 74, 0.06), transparent 62%),
-    radial-gradient(60% 70% at 6% 12%, rgba(55, 198, 224, 0.09), transparent 60%);
+    radial-gradient(52% 60% at 90% 84%, rgba(255, 150, 74, 0.05), transparent 62%),
+    radial-gradient(60% 70% at 6% 12%, rgba(74, 143, 224, 0.1), transparent 60%);
 }
 .ad-story__grid {
   display: grid;
@@ -1120,8 +1182,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 40%;
-  filter: brightness(1.06) contrast(1.06) saturate(1.02) hue-rotate(-6deg);
+  object-position: 50% 42%;
+  filter: brightness(1.04) contrast(1.05) saturate(1.01);
 }
 .ad-story__figcap {
   font-family: var(--font-mono);
@@ -1146,7 +1208,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: radial-gradient(60% 50% at 50% 118%, rgba(55, 198, 224, 0.14), transparent 66%);
+  background: radial-gradient(60% 50% at 50% 118%, rgba(74, 143, 224, 0.16), transparent 66%);
 }
 .ad-contact__grid {
   display: grid;
@@ -1251,14 +1313,14 @@
 }
 .ad-field input::placeholder,
 .ad-field textarea::placeholder {
-  color: #7f8b95;
+  color: #808c9a;
 }
 .ad-field input:focus-visible,
 .ad-field textarea:focus-visible,
 .ad-select select:focus-visible {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(55, 198, 224, 0.26);
+  box-shadow: 0 0 0 3px rgba(74, 143, 224, 0.28);
 }
 .ad-select {
   position: relative;
@@ -1278,7 +1340,7 @@
   font-size: 0.9rem;
 }
 .ad-form__ack {
-  background: rgba(55, 198, 224, 0.1);
+  background: rgba(74, 143, 224, 0.12);
   border: 1px solid var(--accent-deep);
   border-radius: var(--radius-sm);
   padding: var(--spacing-sm) var(--spacing-md);
@@ -1302,7 +1364,7 @@
 .ad-footer {
   border-top: var(--edge);
   padding-block: var(--spacing-2xl) var(--spacing-3xl);
-  background: #04080c;
+  background: #04070b;
 }
 .ad-footer__grid {
   display: grid;
@@ -1313,9 +1375,6 @@
     grid-template-columns: 1.2fr 1fr 1.4fr;
     align-items: start;
   }
-}
-.ad-wordmark--foot {
-  font-size: 1.8rem;
 }
 .ad-footer__tag {
   color: var(--tx-mut);
@@ -1373,7 +1432,7 @@
   display: flex;
   gap: var(--spacing-sm);
   padding: 0.6rem var(--gutter) calc(0.6rem + env(safe-area-inset-bottom, 0px));
-  background: rgba(4, 8, 12, 0.96);
+  background: rgba(4, 7, 11, 0.96);
   border-top: 1px solid var(--hair-hi);
   backdrop-filter: blur(10px);
 }
@@ -1387,7 +1446,7 @@
   padding: 0.4rem 0.75rem;
   border: 1px solid var(--hair-hi);
   border-radius: var(--radius-sm);
-  background: rgba(10, 20, 28, 0.85);
+  background: rgba(11, 18, 28, 0.85);
   color: var(--tx-hi);
   text-decoration: none;
   font-family: var(--ad-font-body);
@@ -1430,8 +1489,9 @@
 }
 
 /* ============================================================
-   REVEAL (shared [data-reveal] pattern) — DIRECTIONAL DRIFT.
-   Content drifts sideways into frame (the flow motif), settles.
+   REVEAL (shared [data-reveal] pattern) — DIRECTIONAL DRIFT (MOMENTUM).
+   Content drifts sideways into frame, settles. FAILS OPEN (see layout JS +
+   reduced-motion block): never trapped at opacity 0.
    ============================================================ */
 [data-reveal] {
   opacity: 0;
@@ -1463,6 +1523,14 @@
   }
   .ad-frame:hover .ad-frame__media img {
     transform: none;
+  }
+  .ad-hero__img {
+    animation: none !important;
+    transform: scale(1.03) !important;
+  }
+  .ad-hero__sweep {
+    animation: none !important;
+    opacity: 0 !important;
   }
   .ad-strip {
     scroll-behavior: auto;

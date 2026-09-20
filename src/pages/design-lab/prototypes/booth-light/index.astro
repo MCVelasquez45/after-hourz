@@ -1,24 +1,35 @@
 ---
 /*
-  PROTOTYPE — BOOTH LIGHT  (production-level direction study)
-  Route: /design-lab/prototypes/booth-light   (design-lab only; NOT production)
+  PROTOTYPE — BOOTH LIGHT  (production-level direction study · REBUILT on the LOCKED brand)
+  Route: /design-lab/prototypes/booth-light   ·   Body class: .bl-proto
+  (design-lab only; NOT production)
 
-  This REPLACES the rejected baseline (which read as a light-mode SaaS docs site
-  and failed the gate swap test). Rebuilt to the art-direction board at
-  /design-lab/directions/booth-light and surpassing it as a full website.
+  ONE brand, three editions. This edition is the STUDIO / MACRO / SURFACE / PRECISION
+  reading of After Hourz: craft revealed through CONTROLLED INSPECTION LIGHT on paint
+  and surface. It shares the LOCKED family with Chrome Heritage + After Dark — black
+  ground, chrome edges, cobalt/electric-blue accent, the real client chrome wordmark
+  (BrandMark) — but composes them differently: a near-black inspection studio where a
+  single raking light reveals high-gloss cobalt clearcoat and chrome trim.
 
-  Provenance discipline (P8): every photograph is EXTERNAL PROTOTYPE reference,
-  badged "Reference", never presented as Anthony's completed work. Business facts
-  (phone / address / social / hours) are OMITTED or marked CLIENT INPUT REQUIRED
-  — never fabricated. Anthony is Southern California raised: no NorCal text/maps/
-  badges, no "QUINCY" mural, no Northern-California geography.
+  This REPLACES the prior HIGH-KEY WHITE version, which read as a light-mode SaaS site
+  and drifted off the black/chrome/cobalt brand.
+
+  NON-NEGOTIABLE guardrails honored:
+   - Southern California framing only. NO NorCal marks / maps / QUINCY / NorCal badge.
+   - Every external photo is PROTOTYPE / REFERENCE material — affordance shown, never
+     presented as Anthony's completed work. Hero included.
+   - Unknown business facts (phone / address / social / hours / pricing) are OMITTED or
+     marked CLIENT INPUT REQUIRED — never fabricated.
+   - All routes under /design-lab/*. No production routes.
 */
 import PrototypeLayout from '../../../../layouts/PrototypeLayout.astro';
+import BrandMark from '../../../../components/brand/BrandMark.astro';
 import '../../../../styles/prototype-booth-light.css';
 
 const P = '/assets/prototype';
+const BB = `${P}/blue-booth`;
 
-// --- Primary nav ---
+// --- Primary nav (anchors must resolve to real section ids) ---
 const nav = [
   ['Work', '#work'],
   ['Process', '#process'],
@@ -27,17 +38,12 @@ const nav = [
   ['Contact', '#contact'],
 ];
 
-// --- Services: one lead lane + a stacked precise list (not 3 equal cards) ---
+// --- SERVICES: one lead lane + a stacked precise list (NOT 3 equal cards) ---
 const serviceList = [
   [
-    '01',
+    '02',
     'Body work',
     'Collision, rust and panel fabrication — the true structure a finish is only as good as.',
-  ],
-  [
-    '02',
-    'Custom paint',
-    'Colour changes, factory-correct refinishing and custom work, built in patient coats.',
   ],
   [
     '03',
@@ -51,74 +57,81 @@ const serviceList = [
   ],
 ];
 
-// --- WORK gallery: dominant lead + supporting rhythm. Each is REFERENCE. ---
+// --- WORK gallery: one dominant frame + a supporting rhythm. Each is REFERENCE. ---
 const work = [
   {
     cls: 'bl-fig--lead',
-    src: `${P}/booth-process/painter-respirator-blue-bumper-booth-uGeatFJ81xw.jpg`,
+    src: `${BB}/bluepaint-6_Rv_qzog90.jpg`,
     w: 2400,
-    h: 3000,
-    alt: 'Painter in a respirator laying blue basecoat across a bumper inside a brightly lit spray booth.',
-    title: 'In the booth',
-    note: 'Basecoat under a controlled cool key — the application half of the arc.',
+    h: 4265,
+    pos: '52% 42%',
+    alt: 'Curved high-gloss cobalt body panel meeting a run of bright chrome window trim, both catching a single directional light against near-black reflections.',
+    title: 'Panel & chrome',
+    note: 'Where finish depth meets a chrome edge — the surface reading true.',
   },
   {
-    cls: 'bl-fig--tall bl-fig--cool',
-    src: `${P}/materials-detail/copper-gloss-body-panel-chrome-trim-cPN7dnQRyiY.jpg`,
+    cls: 'bl-fig--tall',
+    src: `${BB}/metallic-BY59EiUXxuw.jpg`,
+    w: 2400,
+    h: 3600,
+    pos: '50% 46%',
+    alt: 'Cobalt metallic hood and headlight under a soft top highlight, cool gloss resolving into dark accents.',
+    title: 'Cobalt gloss',
+    note: 'Metallic depth under a controlled key.',
+  },
+  {
+    cls: 'bl-fig--half',
+    src: `${BB}/clearcoat-dSBsnAKTAi8.jpg`,
+    w: 2400,
+    h: 2400,
+    pos: '50% 50%',
+    alt: 'Macro of a headlight and cobalt clearcoat beaded with water under cool, controlled inspection light.',
+    title: 'Clearcoat, beaded',
+    note: 'Precise reflection on a fresh clear.',
+  },
+  {
+    cls: 'bl-fig--half',
+    src: `${BB}/polish-B7hVEFTFUWs.jpg`,
     w: 2400,
     h: 1600,
-    alt: 'Deep copper-gloss body panel meeting a run of polished chrome trim, both catching directional light.',
-    title: 'Gloss & trim',
-    note: 'Where finish depth meets chrome — the surface reading true.',
-  },
-  {
-    cls: 'bl-fig--half',
-    src: `${P}/booth-process/spray-gun-clearcoat-glossy-panel-macro-hXhbEFS48oM.jpg`,
-    w: 2400,
-    h: 1965,
-    alt: 'Close macro of a spray gun laying wet clearcoat across a glossy panel.',
-    title: 'Clearcoat, wet',
-    note: 'The moment finish depth is built.',
-  },
-  {
-    cls: 'bl-fig--half',
-    src: `${P}/booth-process/dual-action-polisher-blue-fender-Gu17tebrrV8.jpg`,
-    w: 2400,
-    h: 1349,
-    alt: 'Dual-action polisher working a blue fender to a flat, even reflection.',
+    pos: '50% 42%',
+    alt: 'Dual-action buffer polishing a dark car near a lit headlight strip inside a detailing bay on a near-black ground.',
     title: 'Cut & buff',
     note: 'The reflection run flat — precision made visible.',
   },
   {
     cls: 'bl-fig--third',
-    src: `${P}/booth-process/bare-metal-classic-body-restoration-cD7nA_pqj6E.jpg`,
-    w: 2400,
-    h: 1603,
-    alt: 'Bare-metal classic body panel mid-restoration under even workshop light.',
-    title: 'Bare metal',
-    note: 'Honest metal before anything is hidden.',
-  },
-  {
-    cls: 'bl-fig--third',
-    src: `${P}/materials-detail/blue-metalflake-clearcoat-waterbead-IqPGeGbBROY.jpg`,
+    src: `${BB}/bluepaint-IqPGeGbBROY.jpg`,
     w: 2400,
     h: 1200,
-    alt: 'Water beading on blue metalflake clearcoat, flake catching a single directional light.',
+    pos: '50% 50%',
+    alt: 'Macro of deep blue metallic clearcoat with a single water bead and a raking specular streak against near-black shadow.',
     title: 'Metalflake',
-    note: 'Beadwork and flake — proof of a real finish.',
+    note: 'A single raking streak proves the flake.',
   },
   {
     cls: 'bl-fig--third',
-    src: `${P}/booth-process/spray-gun-blue-basecoat-masking-macro-vfQqwENtjDU.jpg`,
+    src: `${BB}/clearcoat-dveDkZQJVjQ.jpg`,
     w: 2400,
-    h: 1600,
-    alt: 'Spray gun applying blue basecoat along a crisply masked edge with green masking tape.',
-    title: 'The masked line',
-    note: 'A crisp taped edge — control at the boundary.',
+    h: 3600,
+    pos: '50% 40%',
+    alt: 'Moody cobalt rear panel and taillight emerging from a dark surround, cinematic and cool in tone.',
+    title: 'Rear panel',
+    note: 'Gloss emerging from darkness.',
+  },
+  {
+    cls: 'bl-fig--third',
+    src: `${BB}/chrome-v8H6bnjmths.jpg`,
+    w: 2400,
+    h: 3600,
+    pos: '50% 50%',
+    alt: 'Dark side mirror and glossy body panel emerging from shadow with cool blue-black reflections and a chrome edge catching light.',
+    title: 'Chrome edge',
+    note: 'One lit edge out of shadow.',
   },
 ];
 
-// --- Process: the application -> inspection arc ---
+// --- PROCESS: the application -> inspection arc ---
 const process = [
   ['01', 'Strip & assess', 'An honest read on the metal before anything else is decided.', 'Read'],
   [
@@ -144,10 +157,10 @@ const process = [
 
 <PrototypeLayout
   title="After Hourz — Booth Light"
-  description="Booth Light design direction for After Hourz: craft revealed through controlled inspection light. Concept prototype — reference imagery, not client work."
+  description="Booth Light design direction for After Hourz: craft revealed through controlled inspection light on high-gloss cobalt and chrome. Concept prototype — reference imagery, not client work."
   bodyClass="bl-proto"
 >
-  <!-- LAB CHROME · subtle Design-Lab return (suppressible in client-review mode) -->
+  <!-- LAB CHROME · subtle Design-Lab return (suppressed in client-review mode) -->
   <div class="bl-labstrip">
     <div class="bl-wrap bl-labstrip__row">
       <span>
@@ -159,11 +172,11 @@ const process = [
     </div>
   </div>
 
-  <!-- NAV -->
+  <!-- NAV — real chrome wordmark + links + filled cobalt Quote + mobile menu -->
   <header class="bl-nav" data-scrolled="false" data-menu="closed" id="top">
     <div class="bl-wrap bl-nav__row">
       <a class="bl-logo" href="#top" aria-label="After Hourz — home">
-        AFTER&nbsp;HOUR<span>Z</span>
+        <BrandMark variant="wordmark" width={168} small={true} loading="eager" alt="After Hourz" />
       </a>
       <nav class="bl-nav__links" aria-label="Primary">
         {nav.map(([label, href]) => (
@@ -207,59 +220,207 @@ const process = [
   </div>
 
   <main id="main">
-    <!-- ================= HERO ================= -->
+    <!-- ================= HERO — photography-first ================= -->
+    <!-- The cobalt supercar body sits low-right in near-black; type lives in the
+         large dark negative space top-left, as the frame was composed for. -->
     <section class="bl-hero" aria-labelledby="hero-h">
-      <div class="bl-hero__grid">
-        <div class="bl-hero__media" data-ground="dark">
-          <img
-            src={`${P}/booth-process/painter-purple-panel-spray-booth-2ssdrtw07dw.jpg`}
-            width="2400"
-            height="3600"
-            alt="Technician in a bright spray booth laying finish across a glossy panel under a controlled cool key light."
+      <img
+        class="bl-hero__img"
+        src={`${BB}/clearcoat-_0eOyLYXIto.jpg`}
+        width="2400"
+        height="1600"
+        alt="A cobalt-blue supercar body emerging from a near-black studio, a single raking rim-light tracing the panel edges."
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div class="bl-hero__grade" aria-hidden="true"></div>
+      <span class="bl-hero__rake" aria-hidden="true"></span>
+      <span class="bl-stamp bl-stamp--hero">Reference imagery</span>
+
+      <div class="bl-wrap bl-hero__inner">
+        <div class="bl-hero__content">
+          <BrandMark
+            variant="lockup"
+            width={360}
+            class="bl-hero__lockup"
+            alt="After Hourz — by Anthony Montoya"
             loading="eager"
             fetchpriority="high"
-            decoding="async"
           />
-          <span class="bl-hero__rake" aria-hidden="true"></span>
-          <span class="bl-hero__grade" aria-hidden="true"></span>
-          <span class="bl-stamp">Reference imagery</span>
-        </div>
-        <div class="bl-hero__panel" data-ground="dark">
-          <p class="bl-hero__kicker">Southern California · body &amp; paint</p>
+          <p class="bl-hero__kicker">
+            Custom paint · body work · restoration · Southern California
+          </p>
           <h1 id="hero-h" class="bl-hero__h1">
             The finish only shows
             <br />
             what&rsquo;s <em>underneath.</em>
           </h1>
-          <p class="bl-hero__literal">
-            <b>Custom paint · body work · restoration</b> — Southern California.
-          </p>
           <p class="bl-hero__sub">
-            Built patiently in the booth, then read under a single controlled inspection light until
-            the reflection runs flawless.
+            Built patiently in the booth, then read under a single controlled inspection light —
+            high-gloss cobalt, a clean chrome edge, a reflection that runs flat.
           </p>
           <div class="bl-hero__actions">
-            <a class="bl-btn bl-btn--primary" href="#contact">
+            <a class="bl-btn bl-btn--primary bl-btn--lg" href="#contact">
               Request a Quote
               <span class="bl-btn__arrow" aria-hidden="true">
                 &rarr;
               </span>
             </a>
-            <a class="bl-btn bl-btn--onink" href="#work">
+            <a class="bl-btn bl-btn--onink bl-btn--lg" href="#work">
               See the work
             </a>
           </div>
-          <ul class="bl-hero__readout" aria-label="Shop signature">
-            <li>
-              <b>Custom paint</b>colour &amp; refinish
-            </li>
-            <li>
-              <b>Body work</b>metal &amp; panel
-            </li>
-            <li>
-              <b>Restoration</b>classic &amp; custom
-            </li>
-          </ul>
+        </div>
+      </div>
+
+      <!-- Scope readout: a mono spec plate that reads as an inspection ticket. -->
+      <div class="bl-hero__readout" aria-label="Shop scope">
+        <div class="bl-wrap bl-hero__readout-row">
+          <span>
+            <b>Custom paint</b>colour &amp; refinish
+          </span>
+          <span>
+            <b>Body work</b>metal &amp; panel
+          </span>
+          <span>
+            <b>Restoration</b>classic &amp; custom
+          </span>
+          <span class="bl-hero__readout-region">
+            <b>SoCal</b>service area
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= WORK / BUILDS ================= -->
+    <section class="bl-section" id="work" aria-labelledby="work-h">
+      <div class="bl-wrap">
+        <div class="bl-shead" data-bl-reveal>
+          <span class="bl-shead__no">Work</span>
+          <h2 id="work-h" class="bl-shead__title">
+            Read the surface
+          </h2>
+          <p class="bl-shead__lead">
+            A visual study of the craft — high-gloss cobalt, chrome edges and the macro details that
+            decide whether a finish is real. Every frame below is external reference for this
+            direction, not After Hourz&rsquo;s completed work.
+          </p>
+        </div>
+
+        <!-- ONE provenance caption for the whole block (not a badge per tile). -->
+        <p class="bl-provline" data-bl-reveal>
+          <span class="bl-provline__dot" aria-hidden="true"></span>
+          Reference imagery — external, chosen to argue this direction. Not After Hourz&rsquo;s
+          completed work.
+        </p>
+
+        <div class="bl-work" data-bl-reveal>
+          {work.map((f) => (
+            <figure class={`bl-fig ${f.cls}`}>
+              <div class="bl-fig__frame">
+                <img
+                  src={f.src}
+                  width={f.w}
+                  height={f.h}
+                  alt={f.alt}
+                  loading="lazy"
+                  decoding="async"
+                  style={`object-position:${f.pos};`}
+                />
+              </div>
+              <figcaption>
+                <span class="bl-fig__cap-title">{f.title}</span>
+                <span class="bl-fig__cap-note">{f.note}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= INSPECTION REVEAL · the dramatic beat ================= -->
+    <!-- The whole page lives in one dark studio; this is where the single
+         inspection light is turned up and the reveal becomes the payoff. -->
+    <section class="bl-reveal" aria-labelledby="reveal-h" data-bl-reveal data-bl-expose>
+      <div class="bl-reveal__grid">
+        <div class="bl-reveal__copy">
+          <p class="bl-reveal__kicker">The inspection reveal</p>
+          <h2 id="reveal-h" class="bl-reveal__h2">
+            One light.
+            <br />
+            The whole <em>truth.</em>
+          </h2>
+          <p class="bl-reveal__p">
+            A single raking light runs the body line, and every wave, every high spot, every honest
+            coat shows itself. If it survives this, it survives daylight.
+          </p>
+          <div class="bl-reveal__spec">
+            <span>
+              <b>1</b>raking light
+            </span>
+            <span>
+              <b>0</b>places to hide
+            </span>
+            <span>
+              <b>Flat</b>reflection or it goes back
+            </span>
+          </div>
+        </div>
+        <div class="bl-reveal__media">
+          <img
+            src={`${P}/materials-detail/near-black-body-line-study-fBjCurUh-9w.jpg`}
+            width="2400"
+            height="4266"
+            alt="A single specular highlight traces the body line of a near-black painted panel in near-total darkness."
+            loading="lazy"
+            decoding="async"
+          />
+          <span class="bl-reveal__light" aria-hidden="true"></span>
+          <span class="bl-reveal__seam" aria-hidden="true"></span>
+          <BrandMark
+            variant="wordmark-mono"
+            width={200}
+            class="bl-reveal__mark"
+            alt="After Hourz"
+            loading="lazy"
+          />
+          <span class="bl-stamp">Reference imagery</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROCESS ================= -->
+    <section class="bl-section bl-section--process" id="process" aria-labelledby="process-h">
+      <div class="bl-wrap">
+        <div class="bl-shead" data-bl-reveal>
+          <span class="bl-shead__no">Process</span>
+          <h2 id="process-h" class="bl-shead__title">
+            Application, then inspection
+          </h2>
+          <p class="bl-shead__lead">
+            The arc runs one way: from a controlled booth key to a single-light inspection. Nothing
+            ships until the last light reads clean.
+          </p>
+        </div>
+
+        <div class="bl-process-rail" data-bl-reveal>
+          {process.map(([no, title, body, meta]) => (
+            <article class="bl-pstep">
+              <span class="bl-pstep__no">STATION {no}</span>
+              <h3 class="bl-pstep__title">{title}</h3>
+              <p class="bl-pstep__body">{body}</p>
+              <span class="bl-pstep__meta">{meta}</span>
+            </article>
+          ))}
+        </div>
+
+        <div data-bl-reveal>
+          <div class="bl-arcbar" aria-hidden="true"></div>
+          <div class="bl-arclabels">
+            <span>Controlled booth key</span>
+            <span>Single-light inspection</span>
+          </div>
         </div>
       </div>
     </section>
@@ -283,16 +444,17 @@ const process = [
           <article class="bl-service-lead">
             <div class="bl-service-lead__media">
               <img
-                src={`${P}/materials-detail/blue-metalflake-clearcoat-waterbead-IqPGeGbBROY.jpg`}
+                src={`${BB}/clearcoat-G6sI_6B_FFY.jpg`}
                 width="2400"
-                height="1200"
-                alt="Blue metalflake clearcoat with water beading, flake catching a single directional light."
+                height="1600"
+                alt="Gloved hands peeling protective blue film off a freshly finished cobalt panel under cool workshop light."
                 loading="lazy"
                 decoding="async"
               />
               <span class="bl-stamp">Reference imagery</span>
             </div>
             <div class="bl-service-lead__body">
+              <span class="bl-service-lead__no">01</span>
               <h3>Custom paint</h3>
               <p>
                 Colour changes, factory-correct refinishing and custom finishes — flake, candy and
@@ -320,137 +482,8 @@ const process = [
       </div>
     </section>
 
-    <!-- Light-sweep divider: the inspection light passing across the seam. -->
-    <div class="bl-sweepdiv" aria-hidden="true"></div>
-
-    <!-- ================= WORK / BUILDS ================= -->
-    <section class="bl-section" id="work" aria-labelledby="work-h">
-      <div class="bl-wrap">
-        <div class="bl-shead" data-bl-reveal>
-          <span class="bl-shead__no">Work</span>
-          <h2 id="work-h" class="bl-shead__title">
-            Read the surface
-          </h2>
-          <p class="bl-shead__lead">
-            A visual study of the craft — application, material and the details that decide whether
-            a finish is real. Every frame below is external reference for this direction, not After
-            Hourz&rsquo;s completed work.
-          </p>
-        </div>
-
-        <!-- ONE provenance caption for the whole block (not a badge per tile). -->
-        <p class="bl-provline" data-bl-reveal>
-          <span class="bl-provline__dot" aria-hidden="true"></span>
-          Reference imagery — external, chosen to argue this direction. Not After Hourz&rsquo;s
-          completed work.
-        </p>
-
-        <div class="bl-work" data-bl-reveal>
-          {work.map((f) => (
-            <figure class={`bl-fig ${f.cls}`}>
-              <div class="bl-fig__frame">
-                <img
-                  src={f.src}
-                  width={f.w}
-                  height={f.h}
-                  alt={f.alt}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <figcaption>
-                <span class="bl-fig__cap-title">{f.title}</span>
-                <span class="bl-fig__cap-note">{f.note}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- Light-sweep divider: the inspection light passing across the seam. -->
-    <div class="bl-sweepdiv" aria-hidden="true"></div>
-
-    <!-- ================= PROCESS ================= -->
-    <section class="bl-section" id="process" aria-labelledby="process-h">
-      <div class="bl-wrap">
-        <div class="bl-shead" data-bl-reveal>
-          <span class="bl-shead__no">Process</span>
-          <h2 id="process-h" class="bl-shead__title">
-            Application, then inspection
-          </h2>
-          <p class="bl-shead__lead">
-            The arc runs one way: from a bright, clinical booth to a single-light inspection.
-            Nothing ships until the last light reads clean.
-          </p>
-        </div>
-
-        <div class="bl-process-rail" data-bl-reveal>
-          {process.map(([no, title, body, meta]) => (
-            <article class="bl-pstep">
-              <span class="bl-pstep__no">STATION {no}</span>
-              <h3 class="bl-pstep__title">{title}</h3>
-              <p class="bl-pstep__body">{body}</p>
-              <span class="bl-pstep__meta">{meta}</span>
-            </article>
-          ))}
-        </div>
-
-        <div data-bl-reveal>
-          <div class="bl-arcbar" aria-hidden="true"></div>
-          <div class="bl-arclabels">
-            <span>Bright booth</span>
-            <span>Inspection reveal</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= INSPECTION REVEAL · the dramatic beat ================= -->
-    <section class="bl-reveal" aria-labelledby="reveal-h" data-bl-reveal data-bl-expose>
-      <div class="bl-reveal__grid">
-        <div class="bl-reveal__copy" data-ground="dark">
-          <p class="bl-reveal__kicker">The inspection reveal</p>
-          <h2 id="reveal-h" class="bl-reveal__h2">
-            One light.
-            <br />
-            The whole <em>truth.</em>
-          </h2>
-          <p class="bl-reveal__p">
-            The bright booth resolves here — into near-black. A single raking light runs the body
-            line, and every wave, every high spot, every honest coat shows itself. If it survives
-            this, it survives daylight.
-          </p>
-          <div class="bl-reveal__spec">
-            <span>
-              <b>1</b>raking light
-            </span>
-            <span>
-              <b>0</b>places to hide
-            </span>
-            <span>
-              <b>Flat</b>reflection or it goes back
-            </span>
-          </div>
-        </div>
-        <div class="bl-reveal__media">
-          <img
-            src={`${P}/materials-detail/near-black-body-line-study-fBjCurUh-9w.jpg`}
-            width="2400"
-            height="4266"
-            alt="A single specular highlight traces the body line of a near-black painted panel in near-total darkness."
-            loading="lazy"
-            decoding="async"
-          />
-          <span class="bl-reveal__light" aria-hidden="true"></span>
-          <span class="bl-reveal__seam" aria-hidden="true"></span>
-          <span class="bl-stamp">Reference imagery</span>
-        </div>
-      </div>
-    </section>
-
     <!-- ================= STORY ================= -->
-    <section class="bl-section" id="story" aria-labelledby="story-h">
+    <section class="bl-section bl-section--story" id="story" aria-labelledby="story-h">
       <div class="bl-wrap">
         <div class="bl-story" data-bl-reveal>
           <div class="bl-story__media">
@@ -525,7 +558,7 @@ const process = [
 
           <!-- Prototype form: preventDefault + tasteful acknowledgement. No backend. -->
           <form class="bl-form" data-bl-reveal aria-labelledby="form-h" data-quote-form novalidate>
-            <h3 id="form-h" class="bl-spec" style="color:var(--bl-slate);">
+            <h3 id="form-h" class="bl-spec bl-form__title">
               Quote request — prototype
             </h3>
             <div class="bl-form__grid">
@@ -603,10 +636,14 @@ const process = [
   <footer class="bl-footer">
     <div class="bl-wrap">
       <div class="bl-footer__top">
-        <div>
-          <p class="bl-footer__mark">
-            AFTER HOUR<span>Z</span>
-          </p>
+        <div class="bl-footer__brandcol">
+          <BrandMark
+            variant="wordmark"
+            width={220}
+            class="bl-footer__mark"
+            alt="After Hourz"
+            loading="lazy"
+          />
           <p class="bl-footer__tag">
             Custom paint, body work and restoration — Southern California. Craft revealed through
             controlled inspection light.
@@ -690,7 +727,6 @@ const process = [
       revealAll();
     } else {
       const reveal = (el: Element) => el.classList.add('is-revealed');
-      // Reveal what's already visible on load (top of page / large sections).
       const vh = window.innerHeight;
       revEls.forEach((el) => {
         if (el.getBoundingClientRect().top < vh * 0.92) reveal(el);
@@ -709,7 +745,6 @@ const process = [
       revEls.forEach((el) => {
         if (!el.classList.contains('is-revealed')) io.observe(el);
       });
-      // Fail-open: never let the exposure motion keep content hidden.
       window.setTimeout(revealAll, 2600);
     }
 

@@ -1,39 +1,35 @@
 /*
   ===========================================================================
-  PROTOTYPE — BOOTH LIGHT  (production-level direction study)
+  PROTOTYPE — BOOTH LIGHT  (production-level direction study · REBUILT on brand)
   Route: /design-lab/prototypes/booth-light   (design-lab only; NOT production)
   ---------------------------------------------------------------------------
   Every rule is scoped under `.bl-proto` (the PrototypeLayout bodyClass).
   This file NEVER edits shared CSS.
 
-  THESIS: craft revealed through controlled inspection light. A bright,
-  clinical spray-booth application arc that RESOLVES into a dramatic near-black
-  inspection reveal. Motion keyword: REVEAL / EXPOSURE.
+  ONE BRAND, THREE EDITIONS. Booth Light is the STUDIO / MACRO / SURFACE /
+  PRECISION reading of the LOCKED After Hourz identity. It shares the brand
+  family with Chrome Heritage + After Dark — near-black ground (--ah-black),
+  chrome edges (--ah-chrome*), cobalt / electric-blue accent (--ah-cobalt /
+  --ah-blue), and the real client chrome wordmark (BrandMark) — but composes
+  them into a near-black INSPECTION STUDIO where a single raking light reveals
+  high-gloss cobalt clearcoat and chrome trim.
 
-  GATE FIXES applied here (the previous baseline read as a light-mode SaaS
-  docs site and FAILED the swap test):
-   1. LIGHT IS A CHARACTER. The ground is not flat page-white: it carries a
-      specific COOL BLUE-WHITE key with soft falloff gradients (--bl-keylight-*)
-      and a raking specular reflection line across paint surfaces. Built as CSS
-      gradient primitives, reused across sections.
-   2. ONE ACCENT ONLY — inspection blue (--bl-signal). No multi-accent chip row.
-      Masking-tape green is PHOTOGRAPHIC ONLY, never a UI token here.
-   3. A DRAMATIC BEAT — a full-bleed near-black INSPECTION REVEAL section where
-      the bright booth resolves into a single-light body-line study. The
-      bright->dark contrast IS the concept.
-   4. CONTRAST verified AA. Near-black body-ink on the light ground; light
-      chrome on the dark ground. Scrims sit behind every caption over a photo.
+  This REPLACES the prior HIGH-KEY WHITE version (which read as a light-mode
+  SaaS site and drifted off the black/chrome/cobalt brand).
 
-  Why it reads apart from the other two directions: this is the HIGH-KEY one.
-  Booth blue-white ground, graphite ink, a single controlled inspection blue,
-  technical mono spec plates, hard right angles, hairline rules — an
-  "inspection bay / clean room" register. Chrome Heritage is dark/ornate/serif;
-  After Dark is nocturnal/warm/condensed.
+  WHY IT READS APART FROM THE OTHER TWO:
+   - Chrome Heritage = heritage / warm candy / serif / ornamental reflection.
+   - After Dark = environmental night / street / sodium warmth / condensed.
+   - Booth Light = clinical STUDIO. One controlled inspection light, macro
+     surface + clearcoat, chrome edge, precise mono spec plates, hairline
+     geometry. Cool and surgical, not warm and cinematic.
+
+  Motion keyword: REVEAL THROUGH LIGHT (raking specular sweep). Reduced-motion
+  safe + fail-open: content is ALWAYS visible without JS or motion.
   =========================================================================== */
 
 /* ---------------------------------------------------------------------------
    0. Self-hosted faces (reuse the same subsetted woff2 the board bundles).
-   Space Grotesk + Inter variable; IBM Plex Mono 400/500 static.
 --------------------------------------------------------------------------- */
 @font-face {
   font-family: 'Space Grotesk';
@@ -77,90 +73,70 @@
 }
 
 /* ===========================================================================
-   1. SHELL + LIGHT-AS-CHARACTER PRIMITIVES
+   1. SHELL + LIGHT-AS-CHARACTER PRIMITIVES (near-black inspection studio)
    =========================================================================== */
 .bl-proto {
-  /* --- Light primitives: reused everywhere so "light" is a material, not paint. --- */
-  /* Cool blue-white booth KEY with soft falloff — the ground is never flat white. */
-  --bl-keylight: radial-gradient(
-    145% 120% at 22% -8%,
-    #ffffff 0%,
-    #f2f6fb 26%,
-    #e6edf5 52%,
-    #d7e2ee 78%,
-    #cbd8e7 100%
+  /* --- Brand-anchored ground: the near-black studio (--ah-black family) --- */
+  --bl-ground: var(--ah-black); /* #08090c */
+  --bl-ground-raise: var(--ah-graphite); /* #161c26 raised dark surface */
+  --bl-panel: var(--ah-gunmetal); /* #1f2a38 cards on black */
+  --bl-hairline: color-mix(in srgb, var(--ah-chrome) 22%, transparent);
+  --bl-hairline-hi: color-mix(in srgb, var(--ah-chrome-hi) 30%, transparent);
+
+  /* Accent: ONE controlled electric blue drawn from the locked palette. */
+  --bl-accent: var(--ah-blue); /* #2e6bb5 */
+  --bl-accent-hot: var(--ah-blue-hot); /* #4a8fe0 */
+  --bl-accent-ice: var(--ah-ice); /* #7fc0ee rim / highlight */
+  --bl-cobalt: var(--ah-cobalt); /* #1c3a78 deep body */
+
+  /* Text ladder on the dark ground (verified AA on --ah-black): */
+  --bl-text: #e7ecf2; /* primary body — ~14:1 on ground */
+  --bl-text-dim: #aeb8c4; /* secondary — ~7:1 on ground */
+  --bl-text-mute: #8b95a2; /* muted labels — ~4.7:1 on ground (AA) */
+
+  /* --- INSPECTION LIGHT primitives (structural; survive the swap test) --- */
+  /* The studio itself: near-black with a single cool key from top-left. */
+  --bl-studio: radial-gradient(
+    130% 100% at 16% -6%,
+    color-mix(in srgb, var(--ah-steel) 60%, var(--ah-black)) 0%,
+    color-mix(in srgb, var(--ah-graphite) 70%, var(--ah-black)) 34%,
+    var(--ah-black) 72%
   );
-  /* Cooler, deeper version for larger fields. */
-  --bl-keylight-deep: radial-gradient(
-    130% 115% at 78% -12%,
-    #f4f8fc 0%,
-    #e4ecf5 40%,
-    #d2dfee 74%,
-    #c0d0e2 100%
-  );
-  /* A single raking specular line — the reflection running across wet paint. */
+  /* A raking specular line — the inspection light crossing a wet surface. */
   --bl-rake: linear-gradient(
     104deg,
     transparent 0%,
-    transparent 40%,
-    color-mix(in srgb, #dbe9ff 42%, transparent) 49%,
-    color-mix(in srgb, #ffffff 60%, transparent) 50.5%,
-    color-mix(in srgb, #dbe9ff 42%, transparent) 52%,
-    transparent 61%,
+    transparent 42%,
+    color-mix(in srgb, var(--bl-accent-ice) 32%, transparent) 48.5%,
+    color-mix(in srgb, #ffffff 62%, transparent) 50.5%,
+    color-mix(in srgb, var(--bl-accent-ice) 32%, transparent) 52.5%,
+    transparent 60%,
     transparent 100%
   );
-  /* Near-black inspection ground with one implied cool key from top-right.
-     Deliberately the SAME dark room as the reveal beat — one lighting system, not
-     two themes. Every dark band is this room with the inspection light on it. */
-  --bl-inkfield: radial-gradient(120% 90% at 82% -10%, #1a2733 0%, #0e141b 46%, #0a0d12 100%);
-
-  /* --- STRUCTURAL INSPECTION LIGHT (swap-test primitives) ---
-     These make "clinical booth light on paint" read even with photos removed. */
-  /* Raking key that grazes a light section from the top-left, with a soft
-     falloff vignette on the lower-right so a plain surface still reads "lit". */
-  --bl-rake-section:
-    radial-gradient(150% 120% at 8% -30%, rgba(255, 255, 255, 0.85) 0%, rgba(226, 236, 247, 0) 42%),
-    radial-gradient(
-      120% 140% at 108% 128%,
-      rgba(120, 138, 160, 0.16) 0%,
-      rgba(120, 138, 160, 0) 46%
-    );
-  /* A single specular light-sweep for the divider between sections — the same
-     controlled inspection light passing across the seam. */
+  /* A single specular sweep for section headings — the light on the seam. */
   --bl-sweep: linear-gradient(
     90deg,
-    transparent 0%,
-    color-mix(in srgb, var(--bl-signal) 22%, transparent) 20%,
-    color-mix(in srgb, #ffffff 78%, transparent) 50%,
-    color-mix(in srgb, var(--bl-signal) 22%, transparent) 80%,
-    transparent 100%
+    var(--bl-accent) 0%,
+    color-mix(in srgb, #ffffff 82%, var(--bl-accent)) 40%,
+    color-mix(in srgb, var(--ah-chrome) 50%, transparent) 100%
   );
-  /* Physical booth material: a faint overspray dust / plastic-sheeting haze so
-     the clean surfaces read body-shop, not SaaS. Layered CSS only, no raster. */
-  --bl-overspray:
-    radial-gradient(0.9px 0.9px at 12% 22%, rgba(72, 83, 95, 0.16) 50%, transparent 51%),
-    radial-gradient(0.9px 0.9px at 68% 14%, rgba(72, 83, 95, 0.12) 50%, transparent 51%),
-    radial-gradient(0.8px 0.8px at 84% 62%, rgba(72, 83, 95, 0.14) 50%, transparent 51%),
-    radial-gradient(0.8px 0.8px at 33% 78%, rgba(72, 83, 95, 0.1) 50%, transparent 51%),
-    radial-gradient(0.7px 0.7px at 52% 44%, rgba(72, 83, 95, 0.1) 50%, transparent 51%);
-  /* Masking-tape edge: a physical booth material tone (kraft-tape / low-tack),
-     NOT the signal blue and NOT a UI accent — it reads as tape on a panel. */
-  --bl-tape-edge: color-mix(in srgb, #d8c48f 70%, var(--bl-mist));
+  /* Chrome edge (the locked material) as a lit ladder, not a gray fill. */
+  --bl-chrome-edge: linear-gradient(
+    180deg,
+    var(--ah-specular) 0%,
+    var(--ah-chrome-hi) 16%,
+    var(--ah-chrome) 46%,
+    var(--ah-chrome-shadow) 74%,
+    var(--ah-graphite) 100%
+  );
 
-  --bl-hair: 1px solid var(--bl-line);
-  --bl-hair-dim: 1px solid color-mix(in srgb, var(--bl-line) 58%, transparent);
-  /* True near-black body copy for cards/surfaces (CONTRAST: reads as ink on
-     paper, ~13:1 on --bl-paper — well past AA). Slate is reserved for section
-     leads / secondary labels only. */
-  --bl-body-ink: #1a2029;
-  --bl-focus: 0 0 0 2px var(--bl-paper), 0 0 0 4px var(--bl-signal);
-  --bl-focus-dark: 0 0 0 2px var(--bl-ink), 0 0 0 4px #6aa6ff;
-  --bl-wrap-max: 78rem;
+  --bl-focus: 0 0 0 2px var(--ah-black), 0 0 0 4px var(--bl-accent-hot);
+  --bl-wrap-max: 80rem;
 
-  background: var(--bl-booth-white);
-  background-image: var(--bl-keylight);
+  background-color: var(--ah-black);
+  background-image: var(--bl-studio);
   background-attachment: fixed;
-  color: var(--bl-slate);
+  color: var(--bl-text-dim);
   font-family: var(--bl-font-body);
   font-size: var(--text-body);
   line-height: 1.6;
@@ -168,14 +144,13 @@
   overflow-x: clip;
 }
 
-/* No mid-word breaks on display type; wide items scroll in their own box. */
+/* Display type — precise contemporary grotesk, chrome-bright on the dark. */
 .bl-proto h1,
 .bl-proto h2,
 .bl-proto h3,
-.bl-proto h4,
-.bl-proto .bl-h {
+.bl-proto h4 {
   font-family: var(--bl-font-display);
-  color: var(--bl-ink);
+  color: var(--ah-chrome-hi);
   line-height: 1.02;
   letter-spacing: -0.02em;
   font-weight: 600;
@@ -184,28 +159,23 @@
   overflow-wrap: normal;
   word-break: keep-all;
 }
-/* Headings that sit on the near-black grounds MUST paint light. These win over
-   the base near-black heading colour above (element+class beats class alone). */
-.bl-proto h1.bl-hero__h1,
-.bl-proto h2.bl-reveal__h2 {
-  color: #ffffff;
-}
 .bl-proto p {
   max-width: 64ch;
   text-wrap: pretty;
 }
 
-/* One accent for links; near-black body ink for text. */
-.bl-proto a:not(.skip-link):not(.bl-btn):not(.bl-cta-bar__link) {
-  color: var(--bl-signal);
+/* One accent for inline links. */
+.bl-proto
+  a:not(.skip-link):not(.bl-btn):not(.bl-cta-bar__link):not(.bl-logo):not(.bl-footer__nav a) {
+  color: var(--bl-accent-hot);
   text-underline-offset: 0.18em;
   text-decoration-thickness: 1px;
 }
-.bl-proto a:not(.skip-link):not(.bl-btn):not(.bl-cta-bar__link):hover {
-  color: var(--bl-signal-deep);
+.bl-proto a:not(.skip-link):not(.bl-btn):not(.bl-cta-bar__link):not(.bl-logo):hover {
+  color: var(--bl-accent-ice);
 }
 
-/* Visible, high-contrast focus for keyboard users. */
+/* Visible, high-contrast focus for keyboard users (ring against ink). */
 .bl-proto a:focus-visible,
 .bl-proto button:focus-visible,
 .bl-proto input:focus-visible,
@@ -217,11 +187,6 @@
   box-shadow: var(--bl-focus);
   border-radius: var(--radius-xs);
 }
-/* On dark grounds, ring against ink. */
-.bl-proto [data-ground='dark'] a:focus-visible,
-.bl-proto [data-ground='dark'] button:focus-visible {
-  box-shadow: var(--bl-focus-dark);
-}
 
 .bl-wrap {
   width: 100%;
@@ -230,26 +195,30 @@
   padding-inline: var(--gutter);
 }
 
-/* Shared mono spec-plate label. */
+/* Shared mono spec-plate label — the "inspection ticket" voice. */
 .bl-spec {
   font-family: var(--bl-font-mono);
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--bl-signal-deep);
-  font-variant-numeric: tabular-nums;
-}
-.bl-tnum {
+  color: var(--bl-accent-ice);
   font-variant-numeric: tabular-nums;
 }
 
+/* Real client chrome wordmark: the derivatives are chrome-on-near-black and
+   the component already applies mix-blend-mode:screen, so they drop straight
+   onto every dark brand surface here. */
+.bl-proto .brandmark {
+  display: block;
+}
+
 /* ===========================================================================
-   2. LAB CHROME — subtle Design-Lab return strip (suppressible later)
+   2. LAB CHROME — subtle Design-Lab return strip (suppressible in review)
    =========================================================================== */
 .bl-labstrip {
-  border-bottom: var(--bl-hair);
-  background: color-mix(in srgb, var(--bl-paper) 90%, transparent);
+  border-bottom: 1px solid var(--bl-hairline);
+  background: color-mix(in srgb, var(--ah-black) 82%, transparent);
   backdrop-filter: blur(4px);
 }
 .bl-labstrip__row {
@@ -262,69 +231,53 @@
   font-size: 0.64rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--bl-slate);
+  color: var(--bl-text-mute);
   flex-wrap: wrap;
 }
 .bl-labstrip__row b {
-  color: var(--bl-signal-deep);
+  color: var(--bl-accent-ice);
   font-weight: 500;
 }
 
 /* ===========================================================================
-   3. NAV — sticky, wordmark + links + filled Quote button + mobile menu
+   3. NAV — sticky, real chrome wordmark + links + filled cobalt Quote + menu
    =========================================================================== */
 .bl-nav {
   position: sticky;
   top: 0;
   z-index: 50;
-  border-bottom: var(--bl-hair);
-  background: color-mix(in srgb, var(--bl-booth-white) 84%, transparent);
-  backdrop-filter: blur(10px) saturate(1.1);
-  transition: box-shadow var(--duration-ui) var(--ease-mech);
+  border-bottom: 1px solid var(--bl-hairline);
+  background: color-mix(in srgb, var(--ah-black) 78%, transparent);
+  backdrop-filter: blur(12px) saturate(1.1);
+  transition:
+    box-shadow var(--duration-ui) var(--ease-mech),
+    background var(--duration-ui) var(--ease-mech);
 }
 .bl-nav[data-scrolled='true'] {
+  background: color-mix(in srgb, var(--ah-black) 92%, transparent);
   box-shadow:
-    0 1px 0 var(--bl-line),
-    0 10px 30px -22px rgba(12, 16, 20, 0.5);
+    0 1px 0 var(--bl-hairline),
+    0 14px 34px -24px rgba(0, 0, 0, 0.9);
 }
 .bl-nav__row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-sm);
-  min-height: 4rem;
+  min-height: 4.25rem;
 }
 .bl-logo {
-  font-family: var(--bl-font-display);
-  font-weight: 600;
-  font-size: 1.15rem;
-  letter-spacing: -0.01em;
-  color: var(--bl-ink) !important;
-  text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.1em;
-  white-space: nowrap;
+  text-decoration: none;
 }
-.bl-logo span {
-  color: var(--bl-signal);
+.bl-logo .brandmark img {
+  /* real chrome lettering; nudge size on tight screens below */
 }
-.bl-logo::after {
-  content: '';
-  display: inline-block;
-  width: 1.6em;
-  height: 2px;
-  margin-left: 0.5em;
-  background: linear-gradient(90deg, var(--bl-signal), transparent);
-}
-/* On the tightest screens, drop the logo rule and tighten the CTA so the nav
-   row (logo + Quote + burger) never forces horizontal scroll at 320px. */
+/* On the tightest screens, tighten the CTA so the nav row never overflows 320px. */
 @media (max-width: 400px) {
-  .bl-logo::after {
-    display: none;
-  }
-  .bl-logo {
-    font-size: 1rem;
+  .bl-logo .brandmark img {
+    width: 132px !important;
   }
   .bl-nav__end .bl-btn {
     padding-inline: 0.85em;
@@ -345,15 +298,17 @@
   font-family: var(--bl-font-body);
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--bl-slate) !important;
+  color: var(--bl-text-dim) !important;
   text-decoration: none !important;
   padding: 0.4em 0;
   border-bottom: 2px solid transparent;
-  transition: color var(--duration-micro) var(--ease-mech);
+  transition:
+    color var(--duration-micro) var(--ease-mech),
+    border-color var(--duration-micro) var(--ease-mech);
 }
 .bl-nav__link:hover {
-  color: var(--bl-ink) !important;
-  border-bottom-color: var(--bl-signal);
+  color: var(--ah-chrome-hi) !important;
+  border-bottom-color: var(--bl-accent);
 }
 .bl-nav__end {
   display: flex;
@@ -369,9 +324,9 @@
   width: 44px;
   height: 44px;
   padding: 0 10px;
-  border: var(--bl-hair);
+  border: 1px solid var(--bl-hairline-hi);
   border-radius: var(--radius-sm);
-  background: var(--bl-paper);
+  background: color-mix(in srgb, var(--ah-graphite) 70%, transparent);
   cursor: pointer;
 }
 @media (min-width: 900px) {
@@ -382,7 +337,7 @@
 .bl-burger__bar {
   height: 2px;
   width: 100%;
-  background: var(--bl-ink);
+  background: var(--ah-chrome-hi);
   transition:
     transform var(--duration-ui) var(--ease-mech),
     opacity var(--duration-ui) var(--ease-mech);
@@ -399,9 +354,9 @@
 /* Mobile menu panel */
 .bl-mobilemenu {
   display: none;
-  border-bottom: var(--bl-hair);
-  background: var(--bl-booth-white);
-  background-image: var(--bl-keylight-deep);
+  border-bottom: 1px solid var(--bl-hairline);
+  background: var(--ah-black);
+  background-image: var(--bl-studio);
 }
 .bl-nav[data-menu='open'] + .bl-mobilemenu {
   display: block;
@@ -421,10 +376,10 @@
   font-family: var(--bl-font-display);
   font-weight: 600;
   font-size: 1.25rem;
-  color: var(--bl-ink) !important;
+  color: var(--ah-chrome-hi) !important;
   text-decoration: none !important;
   padding: 0.7rem 0.25rem;
-  border-bottom: var(--bl-hair-dim);
+  border-bottom: 1px solid var(--bl-hairline);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -434,7 +389,7 @@
   font-family: var(--bl-font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.14em;
-  color: var(--bl-signal-deep);
+  color: var(--bl-accent-ice);
 }
 .bl-mobilemenu .bl-btn {
   margin-top: var(--spacing-sm);
@@ -455,8 +410,8 @@
   padding: 0.8em 1.3em;
   min-height: 44px;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--bl-signal);
-  color: var(--bl-signal);
+  border: 1px solid var(--bl-accent);
+  color: var(--bl-accent-ice);
   text-decoration: none;
   background: transparent;
   cursor: pointer;
@@ -466,38 +421,35 @@
     border-color var(--duration-micro) var(--ease-mech),
     transform var(--duration-micro) var(--ease-mech);
 }
+.bl-proto .bl-btn--lg {
+  font-size: 1rem;
+  padding: 0.95em 1.6em;
+  min-height: 50px;
+}
 .bl-proto .bl-btn:hover {
-  background: color-mix(in srgb, var(--bl-signal) 10%, transparent);
-  color: var(--bl-signal-deep);
+  background: color-mix(in srgb, var(--bl-accent) 14%, transparent);
+  color: #ffffff;
 }
 .bl-proto .bl-btn--primary {
-  background: var(--bl-signal);
+  background: var(--bl-accent);
   color: #ffffff;
-  border-color: var(--bl-signal);
-  box-shadow: 0 1px 0 color-mix(in srgb, var(--bl-signal-deep) 40%, transparent);
+  border-color: var(--bl-accent);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--ah-cobalt) 60%, transparent);
 }
 .bl-proto .bl-btn--primary:hover {
-  background: var(--bl-signal-deep);
-  border-color: var(--bl-signal-deep);
+  background: var(--bl-accent-hot);
+  border-color: var(--bl-accent-hot);
   color: #ffffff;
 }
 .bl-proto .bl-btn--onink {
-  color: #ffffff;
-  border-color: color-mix(in srgb, #ffffff 55%, transparent);
+  color: var(--ah-chrome-hi);
+  border-color: var(--bl-hairline-hi);
   background: transparent;
 }
 .bl-proto .bl-btn--onink:hover {
-  background: color-mix(in srgb, #ffffff 12%, transparent);
+  background: color-mix(in srgb, #ffffff 10%, transparent);
   color: #ffffff;
-}
-.bl-proto .bl-btn--ghost {
-  border-color: var(--bl-line);
-  color: var(--bl-slate);
-}
-.bl-proto .bl-btn--ghost:hover {
-  border-color: var(--bl-signal);
-  color: var(--bl-signal);
-  background: transparent;
+  border-color: var(--ah-chrome);
 }
 .bl-btn__arrow {
   transition: transform var(--duration-micro) var(--ease-mech);
@@ -513,60 +465,43 @@
   font-size: 0.78rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--bl-signal);
+  color: var(--bl-accent-ice);
   text-decoration: none;
   border-bottom: 1px solid currentColor;
   padding-bottom: 0.15em;
+  width: fit-content;
 }
 
 /* ===========================================================================
-   5. SHARED SECTION SCAFFOLD + station label
+   5. SHARED SECTION SCAFFOLD + section head
    =========================================================================== */
 .bl-section {
-  padding-block: clamp(3.5rem, 2rem + 6vw, 6.5rem);
+  padding-block: clamp(3.75rem, 2rem + 6vw, 7rem);
   position: relative;
   isolation: isolate;
 }
-/* STRUCTURAL INSPECTION LIGHT: a raking key grazes each light section from the
-   top-left with a soft falloff vignette lower-right, so the section reads "lit
-   by one controlled light" even with every photo removed (swap test). */
+/* STRUCTURAL INSPECTION LIGHT: a raking key grazes each section from top-left so
+   it reads "lit by one controlled light" even with photos removed (swap test). */
 .bl-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-  background: var(--bl-rake-section);
-}
-/* PHYSICAL BOOTH MATERIAL: a faint overspray-dust haze on the clean surfaces so
-   "clinical" reads body-shop, not software. */
-.bl-section::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.55;
-  background-image: var(--bl-overspray);
-  background-size: 200px 200px;
+  background: radial-gradient(
+    130% 110% at 6% -20%,
+    color-mix(in srgb, var(--ah-steel) 34%, transparent) 0%,
+    transparent 46%
+  );
 }
-/* LIGHT-SWEEP DIVIDER: the inspection light passing across the seam between
-   sections — a structural element, not a plain 1px rule. The hairline stays for
-   crispness; a 2px specular sweep sits on top of it. */
 .bl-section + .bl-section {
-  border-top: var(--bl-hair);
-}
-.bl-sweepdiv {
-  height: 2px;
-  width: 100%;
-  background: var(--bl-sweep);
-  opacity: 0.9;
+  border-top: 1px solid var(--bl-hairline);
 }
 .bl-shead {
   display: grid;
   gap: var(--spacing-xs);
   margin-bottom: var(--spacing-xl);
-  max-width: 46rem;
+  max-width: 48rem;
 }
 .bl-shead__no {
   font-family: var(--bl-font-mono);
@@ -574,7 +509,7 @@
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--bl-signal-deep);
+  color: var(--bl-accent-ice);
   display: inline-flex;
   align-items: center;
   gap: 0.7em;
@@ -583,142 +518,135 @@
   content: '';
   width: 2.2em;
   height: 1px;
-  background: var(--bl-signal);
+  background: var(--bl-accent);
 }
 .bl-shead__title {
   font-family: var(--bl-font-display);
   font-weight: 600;
-  font-size: clamp(1.75rem, 1.2rem + 2.6vw, 2.75rem);
-  color: var(--bl-ink);
+  font-size: clamp(1.85rem, 1.2rem + 2.8vw, 3rem);
+  color: var(--ah-chrome-hi);
   letter-spacing: -0.025em;
   line-height: 1.02;
   position: relative;
   width: fit-content;
   max-width: 100%;
 }
-/* SYSTEM MATERIAL MOTIF (swap test): a lit specular edge under every section
-   title — the same controlled inspection light, baked into the type system so
-   the direction reads automotive/craft even with photos removed. */
+/* SYSTEM MATERIAL MOTIF: a lit specular edge under every section title — the
+   controlled inspection light baked into the type system (swap test). */
 .bl-shead__title::after {
   content: '';
   display: block;
   height: 2px;
-  margin-top: 0.35em;
+  margin-top: 0.4em;
   width: min(6.5rem, 100%);
-  background: linear-gradient(
-    90deg,
-    var(--bl-signal) 0%,
-    color-mix(in srgb, #ffffff 85%, var(--bl-signal)) 42%,
-    var(--bl-line) 100%
-  );
+  background: var(--bl-sweep);
 }
 .bl-shead__lead {
   font-size: var(--text-lead);
-  color: var(--bl-slate);
-  max-width: 52ch;
+  color: var(--bl-text-dim);
+  max-width: 54ch;
 }
 
 /* ===========================================================================
-   6. HERO — dominant graded image, poetic H1, literal kicker, quote CTA.
-   Composition: image bleeds full, a solid ink panel holds copy on the right
-   at desktop; on mobile copy sits on its OWN scrim panel below/over image.
+   6. HERO — photography-first. Dominant graded cobalt-on-black frame; type
+   lives in the real dark negative space top-left. BrandMark lockup confident.
    =========================================================================== */
 .bl-hero {
   position: relative;
-  background: var(--bl-ink);
+  background: var(--ah-black);
   isolation: isolate;
   overflow: hidden;
-}
-.bl-hero__grid {
   display: grid;
-  grid-template-columns: 1fr;
 }
-@media (min-width: 940px) {
-  .bl-hero__grid {
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-    min-height: min(90vh, 780px);
-  }
-}
-.bl-hero__media {
-  position: relative;
-  overflow: hidden;
-  min-height: 52vh;
-}
-@media (min-width: 940px) {
-  .bl-hero__media {
-    min-height: 100%;
-  }
-}
-.bl-hero__media img {
+.bl-hero__img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 46% 40%;
-  display: block;
+  object-position: 62% 62%;
+  z-index: -3;
 }
-/* The raking reflection line — light as a character, running across the paint. */
-.bl-hero__rake {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: var(--bl-rake);
-  mix-blend-mode: screen;
-  opacity: 0.6;
-  transform: translateX(-8%);
-}
-/* Booth key falloff — cools + brightens the upper-left, grades toward the panel. */
+/* GRADE: darken toward the top-left so type sits on the photo's own negative
+   space with full AA contrast; keep the cobalt body reading on the lower-right. */
 .bl-hero__grade {
   position: absolute;
   inset: 0;
+  z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(
-      120% 90% at 18% 6%,
-      color-mix(in srgb, #cfe2ff 22%, transparent) 0%,
-      transparent 46%
-    ),
     linear-gradient(
-      90deg,
-      transparent 0%,
-      transparent 52%,
-      color-mix(in srgb, var(--bl-ink) 62%, transparent) 100%
+      104deg,
+      var(--ah-black) 0%,
+      color-mix(in srgb, var(--ah-black) 88%, transparent) 30%,
+      color-mix(in srgb, var(--ah-black) 40%, transparent) 56%,
+      transparent 78%
+    ),
+    linear-gradient(0deg, color-mix(in srgb, var(--ah-black) 82%, transparent) 0%, transparent 34%),
+    radial-gradient(
+      120% 90% at 14% 8%,
+      color-mix(in srgb, var(--ah-steel) 38%, transparent) 0%,
+      transparent 44%
     );
 }
-@media (min-width: 940px) {
-  .bl-hero__grade {
-    background:
-      radial-gradient(
-        110% 90% at 14% 4%,
-        color-mix(in srgb, #cfe2ff 24%, transparent) 0%,
-        transparent 42%
-      ),
-      linear-gradient(90deg, transparent 0%, transparent 62%, var(--bl-ink) 98%);
+/* The raking reflection line — light as a character across the paint. */
+.bl-hero__rake {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--bl-rake);
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  transform: translateX(4%);
+}
+.bl-hero__inner {
+  display: flex;
+  align-items: center;
+  /* Mobile: keep the hero to a single screen and start content high so the CTA
+     row lands clear of the 53px sticky Call/Quote bar (never occluded @ 390px). */
+  min-height: auto;
+  padding-block: var(--spacing-lg) calc(var(--spacing-lg) + 64px);
+}
+@media (min-width: 720px) {
+  .bl-hero__inner {
+    /* On >=720 the readout strip is shown; reserve room for it + fill the frame. */
+    min-height: 78vh;
+    padding-block: clamp(5rem, 3rem + 6vw, 8rem) calc(clamp(3rem, 2rem + 4vw, 5rem) + 72px);
   }
 }
-.bl-hero__panel {
-  position: relative;
-  z-index: 2;
+@media (min-width: 940px) {
+  .bl-hero__inner {
+    min-height: min(90vh, 820px);
+  }
+}
+.bl-hero__content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  padding: clamp(1.75rem, 1rem + 5vw, 3.75rem);
-  /* On mobile the copy sits on a SOLID ink panel — never raw text over photo. */
-  background: var(--bl-ink);
+  gap: var(--spacing-xs);
+  max-width: 40rem;
 }
-@media (min-width: 940px) {
-  .bl-hero__panel {
-    background: transparent;
-    padding-block: var(--spacing-2xl);
+@media (min-width: 720px) {
+  .bl-hero__content {
+    gap: var(--spacing-sm);
+  }
+}
+.bl-hero__lockup {
+  width: clamp(190px, 42vw, 380px);
+  margin-bottom: var(--spacing-2xs);
+}
+@media (min-width: 720px) {
+  .bl-hero__lockup {
+    margin-bottom: var(--spacing-sm);
   }
 }
 .bl-hero__kicker {
   font-family: var(--bl-font-mono);
-  font-size: 0.72rem;
+  font-size: clamp(0.66rem, 0.6rem + 0.3vw, 0.76rem);
   font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #8fbcff;
+  color: var(--bl-accent-ice);
   display: flex;
   align-items: center;
   gap: 0.7em;
@@ -728,41 +656,29 @@
   content: '';
   width: 2em;
   height: 1px;
-  background: var(--bl-signal);
+  background: var(--bl-accent);
+  flex: none;
 }
 .bl-hero__h1 {
   font-family: var(--bl-font-display);
   font-weight: 600;
-  /* Pushed ~+16%. Mid-band coefficient kept measured so the display never
-     outgrows the panel column in the 940-1200px band (panel is ~0.4 vw there). */
-  font-size: clamp(2.75rem, 2.05rem + 2.6vw, 4.6rem);
-  line-height: 0.96;
+  font-size: clamp(2.6rem, 1.7rem + 4vw, 4.75rem);
+  line-height: 0.98;
   letter-spacing: -0.04em;
-  color: #ffffff;
+  color: var(--ah-specular);
   margin-block: 0.1em 0.05em;
+  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.6);
 }
 .bl-hero__h1 em {
   font-style: normal;
-  color: #8fbcff;
-  /* inline-block so a wrapped em reports a tight rect (no phantom union width). */
+  color: var(--bl-accent-ice);
   display: inline-block;
 }
-/* The literal service kicker — comprehension in the first viewport. */
-.bl-hero__literal {
-  font-family: var(--bl-font-body);
-  font-weight: 500;
-  font-size: clamp(0.95rem, 0.85rem + 0.4vw, 1.1rem);
-  color: #d9e2ec;
-  letter-spacing: 0.01em;
-}
-.bl-hero__literal b {
-  color: #ffffff;
-  font-weight: 600;
-}
 .bl-hero__sub {
-  color: color-mix(in srgb, #ffffff 80%, transparent);
-  max-width: 44ch;
+  color: color-mix(in srgb, var(--bl-text) 90%, transparent);
+  max-width: 46ch;
   font-size: var(--text-lead);
+  text-shadow: 0 1px 20px rgba(0, 0, 0, 0.6);
 }
 .bl-hero__actions {
   display: flex;
@@ -771,42 +687,74 @@
   align-items: center;
   margin-top: var(--spacing-xs);
 }
-/* Hero spec readout — the tri-service scope, tightened into one considered
-   block directly under the CTA row and raised in contrast so scope registers. */
+/* Scope readout — an inspection ticket pinned to the bottom of the hero.
+   Desktop/tablet flourish only: on the smallest screens it would sit below the
+   fold and crowd the sticky Call/Quote bar, so it is hidden < 720px (the four
+   scope facts are already carried by the kicker + the services/contact copy). */
 .bl-hero__readout {
-  margin-top: var(--spacing-sm);
-  padding-top: var(--spacing-sm);
-  list-style: none;
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  border-top: 1px solid var(--bl-hairline-hi);
+  background: color-mix(in srgb, var(--ah-black) 74%, transparent);
+  backdrop-filter: blur(6px);
+}
+@media (min-width: 720px) {
+  .bl-hero__readout {
+    display: block;
+  }
+}
+.bl-hero__readout-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0;
-  border-top: 1px solid color-mix(in srgb, #ffffff 26%, transparent);
   font-family: var(--bl-font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.06em;
-  color: color-mix(in srgb, #ffffff 92%, transparent);
+  font-size: 0.64rem;
+  letter-spacing: 0.05em;
+  color: var(--bl-text-dim);
   font-variant-numeric: tabular-nums;
+  padding-block: 0.4rem;
 }
-.bl-hero__readout li {
-  padding: 0.65rem 0.9rem 0.1rem 0;
-  border-right: 1px solid color-mix(in srgb, #ffffff 16%, transparent);
+@media (min-width: 720px) {
+  .bl-hero__readout-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
-.bl-hero__readout li:last-child {
+.bl-hero__readout-row span {
+  padding: 0.55rem 0.9rem 0.55rem 0;
+  border-right: 1px solid var(--bl-hairline);
+}
+.bl-hero__readout-row span:nth-child(2n) {
   border-right: 0;
 }
-.bl-hero__readout li + li {
+@media (min-width: 720px) {
+  .bl-hero__readout-row span:nth-child(2n) {
+    border-right: 1px solid var(--bl-hairline);
+  }
+  .bl-hero__readout-row span:last-child {
+    border-right: 0;
+  }
+}
+.bl-hero__readout-row span + span {
   padding-left: 0.9rem;
 }
-.bl-hero__readout b {
-  color: #ffffff;
+.bl-hero__readout-row b {
+  color: var(--ah-chrome-hi);
   font-weight: 600;
   display: block;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   letter-spacing: -0.01em;
-  margin-bottom: 0.2em;
+  margin-bottom: 0.15em;
   font-family: var(--bl-font-display);
 }
-/* Provenance stamp on hero image. */
+.bl-hero__readout-region b {
+  color: var(--bl-accent-ice);
+}
+
+/* Provenance stamp on any photo (chip). */
 .bl-stamp {
   position: absolute;
   top: var(--spacing-2xs);
@@ -817,123 +765,28 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #eef2f6;
-  background: color-mix(in srgb, #0c1014 72%, transparent);
+  background: color-mix(in srgb, var(--ah-ink) 72%, transparent);
   backdrop-filter: blur(2px);
   padding: 0.3em 0.55em;
   border-radius: var(--radius-xs);
-  border: 1px solid color-mix(in srgb, #ffffff 24%, transparent);
+  border: 1px solid var(--bl-hairline-hi);
 }
-
-/* ===========================================================================
-   7. SERVICES — asymmetric: one lead lane + a stacked list. NOT 3 equal cards.
-   =========================================================================== */
-.bl-services {
-  display: grid;
-  gap: var(--spacing-lg);
-  grid-template-columns: 1fr;
+.bl-stamp--hero {
+  top: auto;
+  bottom: calc(var(--spacing-2xs) + 3rem);
+  left: auto;
+  right: var(--spacing-2xs);
 }
-@media (min-width: 900px) {
-  .bl-services {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    align-items: start;
+@media (min-width: 720px) {
+  .bl-stamp--hero {
+    bottom: calc(var(--spacing-2xs) + 3.2rem);
   }
 }
-.bl-service-lead {
-  border: var(--bl-hair);
-  border-radius: var(--radius-md);
-  background: var(--bl-paper);
-  background-image: var(--bl-keylight);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-.bl-service-lead__media {
-  position: relative;
-  aspect-ratio: 16 / 11;
-  overflow: hidden;
-  background: var(--bl-ink);
-}
-/* PHYSICAL BOOTH MATERIAL: a masking-tape edge along the bottom of the lead
-   media — the taped boundary you'd see protecting trim before a spray. Reads as
-   shop material, not UI chrome (kraft-tape tone, never the signal blue). */
-.bl-service-lead__media::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 10px;
-  z-index: 2;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    -63deg,
-    color-mix(in srgb, var(--bl-tape-edge) 92%, #000) 0 6px,
-    var(--bl-tape-edge) 6px 12px
-  );
-  box-shadow: 0 -1px 2px rgba(12, 16, 20, 0.28);
-  opacity: 0.92;
-}
-.bl-service-lead__media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.bl-service-lead__media .bl-stamp {
-  top: auto;
-  bottom: var(--spacing-2xs);
-}
-.bl-service-lead__body {
-  padding: var(--spacing-md);
-  display: grid;
-  gap: var(--spacing-xs);
-}
-.bl-service-lead__body h3 {
-  font-size: 1.6rem;
-  color: var(--bl-ink);
-}
-.bl-service-lead__body p {
-  color: var(--bl-body-ink);
-}
-.bl-service-list {
-  display: grid;
-  gap: 0;
-  border-top: var(--bl-hair);
-}
-.bl-service-item {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: var(--spacing-sm) var(--spacing-md);
-  align-items: baseline;
-  padding-block: var(--spacing-md);
-  border-bottom: var(--bl-hair);
-}
-.bl-service-item__no {
-  font-family: var(--bl-font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  color: #ffffff;
-  background: var(--bl-signal);
-  padding: 0.35em 0.6em;
-  border-radius: var(--radius-xs);
-  font-variant-numeric: tabular-nums;
-  align-self: start;
-}
-.bl-service-item__body h3 {
-  font-size: 1.25rem;
-  color: var(--bl-ink);
-  margin-bottom: 0.25em;
-}
-.bl-service-item__body p {
-  color: var(--bl-body-ink);
-  font-size: 0.95rem;
-}
 
 /* ===========================================================================
-   8. WORK / BUILDS — editorial asymmetric gallery, each REFERENCE-badged.
+   7. WORK / BUILDS — editorial asymmetric gallery on the dark ground.
    Dominant lead frame + supporting rhythm; purposeful negative space.
    =========================================================================== */
-/* ONE provenance caption per gallery block (replaces per-tile badge noise). */
 .bl-provline {
   display: flex;
   align-items: center;
@@ -943,7 +796,7 @@
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--bl-slate);
+  color: var(--bl-text-mute);
   max-width: none;
 }
 .bl-provline__dot {
@@ -951,7 +804,7 @@
   width: 0.5em;
   height: 0.5em;
   border-radius: 50%;
-  background: var(--bl-warn);
+  background: var(--bl-accent);
 }
 .bl-work {
   display: grid;
@@ -964,15 +817,12 @@
     grid-auto-flow: dense;
   }
   .bl-fig--lead {
-    grid-column: span 4;
+    grid-column: span 3;
     grid-row: span 2;
   }
   .bl-fig--tall {
-    grid-column: span 2;
+    grid-column: span 3;
     grid-row: span 2;
-  }
-  .bl-fig--wide {
-    grid-column: span 4;
   }
   .bl-fig--half {
     grid-column: span 3;
@@ -984,10 +834,10 @@
 .bl-fig {
   position: relative;
   margin: 0;
-  border: var(--bl-hair);
+  border: 1px solid var(--bl-hairline);
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--bl-ink);
+  background: var(--ah-ink);
   display: flex;
   flex-direction: column;
 }
@@ -1000,7 +850,7 @@
 .bl-fig--lead .bl-fig__frame,
 .bl-fig--tall .bl-fig__frame {
   aspect-ratio: auto;
-  min-height: 240px;
+  min-height: 260px;
 }
 .bl-fig img {
   width: 100%;
@@ -1009,38 +859,33 @@
   display: block;
   transition: transform var(--duration-cinematic) var(--ease-mech);
 }
-/* GRADE: pull warm outliers toward the cool inspection family so the gallery
-   reads as one graded set (not a mixed stock sheet). Cools hue + trims warmth. */
-.bl-fig--cool img {
-  filter: saturate(0.82) hue-rotate(-8deg) brightness(1.02) contrast(1.02);
-}
 .bl-fig:hover img {
   transform: scale(1.03);
 }
-/* Caption sits on a scrim so text over photo always passes AA. */
+/* Caption on a scrim so text over photo always passes AA. */
 .bl-fig figcaption {
   position: absolute;
   inset: auto 0 0 0;
   padding: var(--spacing-md) var(--spacing-sm) var(--spacing-sm);
   background: linear-gradient(
     0deg,
-    rgba(8, 11, 15, 0.9) 0%,
-    rgba(8, 11, 15, 0.6) 60%,
+    color-mix(in srgb, var(--ah-ink) 94%, transparent) 0%,
+    color-mix(in srgb, var(--ah-ink) 58%, transparent) 60%,
     transparent 100%
   );
-  color: #eef2f6;
+  color: var(--bl-text);
 }
 .bl-fig__cap-title {
   font-family: var(--bl-font-display);
   font-weight: 600;
   font-size: 1.02rem;
-  color: #ffffff;
+  color: var(--ah-chrome-hi);
   display: block;
   letter-spacing: -0.01em;
 }
 .bl-fig__cap-note {
   font-size: 0.8rem;
-  color: color-mix(in srgb, #ffffff 82%, transparent);
+  color: color-mix(in srgb, var(--bl-text) 82%, transparent);
   line-height: 1.4;
   display: block;
   margin-top: 0.15em;
@@ -1050,8 +895,169 @@
 }
 
 /* ===========================================================================
+   8. INSPECTION REVEAL — the DRAMATIC BEAT. Full-bleed near-black studio,
+   single-light body-line study. The single-light reveal is the payoff.
+   =========================================================================== */
+.bl-reveal {
+  position: relative;
+  background: var(--ah-ink);
+  background-image: radial-gradient(
+    120% 90% at 84% -10%,
+    color-mix(in srgb, var(--ah-steel) 46%, var(--ah-ink)) 0%,
+    var(--ah-ink) 52%
+  );
+  color: var(--bl-text);
+  isolation: isolate;
+  overflow: hidden;
+  border-top: 1px solid var(--bl-hairline);
+}
+.bl-reveal__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: stretch;
+}
+@media (min-width: 940px) {
+  .bl-reveal__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.28fr);
+    min-height: min(94vh, 880px);
+  }
+}
+.bl-reveal__copy {
+  padding: clamp(2.25rem, 1rem + 5vw, 4.75rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  order: 2;
+  position: relative;
+  z-index: 2;
+}
+@media (min-width: 940px) {
+  .bl-reveal__copy {
+    order: 1;
+  }
+}
+.bl-reveal__kicker {
+  font-family: var(--bl-font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--bl-accent-ice);
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+}
+.bl-reveal__kicker::before {
+  content: '';
+  width: 2em;
+  height: 1px;
+  background: var(--bl-accent-ice);
+}
+.bl-reveal__h2 {
+  font-family: var(--bl-font-display);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 1.4rem + 4.8vw, 4.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  color: var(--ah-specular);
+}
+.bl-reveal__h2 em {
+  font-style: normal;
+  color: var(--bl-accent-ice);
+  display: inline-block;
+}
+.bl-reveal__p {
+  color: color-mix(in srgb, var(--bl-text) 88%, transparent);
+  max-width: 46ch;
+  font-size: var(--text-lead);
+}
+.bl-reveal__spec {
+  margin-top: var(--spacing-sm);
+  display: flex;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+  font-family: var(--bl-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--bl-text-dim);
+  font-variant-numeric: tabular-nums;
+}
+.bl-reveal__spec b {
+  display: block;
+  color: var(--ah-chrome-hi);
+  font-size: 1.4rem;
+  font-family: var(--bl-font-display);
+  margin-bottom: 0.15em;
+}
+.bl-reveal__media {
+  position: relative;
+  overflow: hidden;
+  min-height: 58vh;
+  order: 1;
+  background: #05070a;
+}
+@media (min-width: 940px) {
+  .bl-reveal__media {
+    order: 2;
+    min-height: 100%;
+  }
+}
+.bl-reveal__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  display: block;
+}
+/* Single controlled inspection light raking across the near-black body. */
+.bl-reveal__light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    108deg,
+    transparent 36%,
+    color-mix(in srgb, var(--bl-accent-ice) 30%, transparent) 48.5%,
+    color-mix(in srgb, #ffffff 55%, transparent) 50.5%,
+    color-mix(in srgb, var(--bl-accent-ice) 30%, transparent) 53%,
+    transparent 64%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.75;
+  z-index: 2;
+}
+/* Deep room vignette pulls the eye to the single lit body line. */
+.bl-reveal__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(120% 100% at 60% 44%, transparent 32%, rgba(3, 5, 8, 0.78) 100%);
+}
+.bl-reveal__seam {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+@media (min-width: 940px) {
+  .bl-reveal__seam {
+    background: linear-gradient(90deg, var(--ah-ink) 0%, transparent 22%);
+  }
+}
+/* Mono wordmark, ghosted over the busy dark photo (brand present, not shouting). */
+.bl-reveal__mark {
+  position: absolute;
+  right: var(--spacing-md);
+  bottom: var(--spacing-md);
+  z-index: 3;
+  width: clamp(140px, 22vw, 200px);
+  opacity: 0.62;
+}
+
+/* ===========================================================================
    9. PROCESS — the application->inspection arc as numbered stations.
-   Horizontal rail that scrolls in its own overflow box on small screens.
    =========================================================================== */
 .bl-process-rail {
   display: grid;
@@ -1070,17 +1076,16 @@
 }
 .bl-pstep {
   position: relative;
-  border: var(--bl-hair);
+  border: 1px solid var(--bl-hairline);
   border-radius: var(--radius-md);
-  background: var(--bl-paper);
-  background-image: var(--bl-keylight);
+  background: color-mix(in srgb, var(--ah-graphite) 88%, transparent);
   padding: var(--spacing-md);
   display: grid;
   gap: var(--spacing-xs);
   align-content: start;
   overflow: hidden;
 }
-/* A faint booth key wash top-left of each card so the card face carries light. */
+/* A faint booth key wash top-left of each card so the face carries light. */
 .bl-pstep::before {
   content: '';
   position: absolute;
@@ -1088,7 +1093,7 @@
   pointer-events: none;
   background: radial-gradient(
     90% 70% at 12% -20%,
-    color-mix(in srgb, #cfe2ff 40%, transparent) 0%,
+    color-mix(in srgb, var(--ah-steel) 60%, transparent) 0%,
     transparent 55%
   );
 }
@@ -1097,21 +1102,21 @@
 }
 .bl-pstep__no {
   font-family: var(--bl-font-mono);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.14em;
-  color: var(--bl-signal-deep);
+  color: var(--bl-accent-ice);
   font-variant-numeric: tabular-nums;
 }
 .bl-pstep__title {
   font-family: var(--bl-font-display);
   font-weight: 600;
   font-size: 1.2rem;
-  color: var(--bl-ink);
+  color: var(--ah-chrome-hi);
 }
 .bl-pstep__body {
   font-size: 0.92rem;
-  color: var(--bl-body-ink);
+  color: var(--bl-text-dim);
 }
 .bl-pstep__meta {
   margin-top: var(--spacing-2xs);
@@ -1119,25 +1124,25 @@
   font-size: 0.66rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--bl-signal-deep);
-  border-top: var(--bl-hair-dim);
+  color: var(--bl-accent);
+  border-top: 1px solid var(--bl-hairline);
   padding-top: var(--spacing-xs);
   font-variant-numeric: tabular-nums;
 }
-/* The arc bar: bright -> dark, a literal representation of the concept. */
+/* The arc bar: booth key -> single light. */
 .bl-arcbar {
   margin-top: var(--spacing-lg);
   height: 6px;
   border-radius: 3px;
   background: linear-gradient(
     90deg,
-    #eef4fb 0%,
-    #cfe0f2 30%,
-    #4d6b8f 62%,
-    #16202b 84%,
-    #0a0d12 100%
+    var(--ah-chrome-hi) 0%,
+    var(--ah-chrome) 24%,
+    var(--ah-blue) 54%,
+    var(--ah-cobalt) 78%,
+    var(--ah-ink) 100%
   );
-  border: 1px solid var(--bl-line);
+  border: 1px solid var(--bl-hairline);
 }
 .bl-arclabels {
   display: flex;
@@ -1145,162 +1150,107 @@
   margin-top: var(--spacing-2xs);
   font-family: var(--bl-font-mono);
   font-size: 0.64rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--bl-slate);
+  color: var(--bl-text-mute);
 }
 
 /* ===========================================================================
-   10. INSPECTION REVEAL — the DRAMATIC BEAT. Full-bleed near-black.
-   The bright booth resolves into a single-light body-line study.
+   10. SERVICES — asymmetric: one lead lane + a stacked list. NOT 3 equal cards.
    =========================================================================== */
-.bl-reveal {
-  position: relative;
-  background: var(--bl-ink);
-  background-image: var(--bl-inkfield);
-  color: #eef2f6;
-  isolation: isolate;
-  overflow: hidden;
-}
-.bl-reveal__grid {
+.bl-services {
   display: grid;
+  gap: var(--spacing-lg);
   grid-template-columns: 1fr;
-  align-items: stretch;
 }
-@media (min-width: 940px) {
-  .bl-reveal__grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.28fr);
-    /* The single-light reveal is the strongest frame across all three directions
-       — push it larger so it dominates the value rhythm as the payoff beat. */
-    min-height: min(94vh, 860px);
+@media (min-width: 900px) {
+  .bl-services {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: start;
   }
 }
-.bl-reveal__copy {
-  padding: clamp(2rem, 1rem + 5vw, 4.5rem);
+.bl-service-lead {
+  border: 1px solid var(--bl-hairline);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--ah-graphite) 88%, transparent);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  order: 2;
 }
-@media (min-width: 940px) {
-  .bl-reveal__copy {
-    order: 1;
-  }
-}
-.bl-reveal__kicker {
-  font-family: var(--bl-font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #8fbcff;
-  display: flex;
-  align-items: center;
-  gap: 0.7em;
-}
-.bl-reveal__kicker::before {
-  content: '';
-  width: 2em;
-  height: 1px;
-  background: #8fbcff;
-}
-.bl-reveal__h2 {
-  font-family: var(--bl-font-display);
-  font-weight: 600;
-  /* Pushed larger (~+16%): this is the payoff frame, it should read biggest. */
-  font-size: clamp(2.4rem, 1.4rem + 4.6vw, 4.1rem);
-  line-height: 0.98;
-  letter-spacing: -0.035em;
-  color: #ffffff;
-}
-.bl-reveal__h2 em {
-  font-style: normal;
-  color: #8fbcff;
-  display: inline-block;
-}
-.bl-reveal__p {
-  color: color-mix(in srgb, #ffffff 82%, transparent);
-  max-width: 46ch;
-  font-size: var(--text-lead);
-}
-.bl-reveal__spec {
-  margin-top: var(--spacing-sm);
-  display: flex;
-  gap: var(--spacing-lg);
-  flex-wrap: wrap;
-  font-family: var(--bl-font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  color: color-mix(in srgb, #ffffff 78%, transparent);
-  font-variant-numeric: tabular-nums;
-}
-.bl-reveal__spec b {
-  display: block;
-  color: #ffffff;
-  font-size: 0.9rem;
-}
-.bl-reveal__media {
+.bl-service-lead__media {
   position: relative;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
-  min-height: 56vh;
-  order: 1;
-  background: #06080b;
+  background: var(--ah-ink);
 }
-@media (min-width: 940px) {
-  .bl-reveal__media {
-    order: 2;
-    min-height: 100%;
-  }
-}
-.bl-reveal__media img {
+.bl-service-lead__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 50%;
-  display: block;
+  object-position: 50% 55%;
 }
-/* Single controlled inspection light raking across the near-black body, plus a
-   room vignette so the whole frame reads as ONE dark room lit by ONE light. */
-.bl-reveal__light {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    108deg,
-    transparent 36%,
-    color-mix(in srgb, #dbeaff 32%, transparent) 48.5%,
-    color-mix(in srgb, #ffffff 50%, transparent) 50.5%,
-    color-mix(in srgb, #dbeaff 32%, transparent) 53%,
-    transparent 64%
-  );
-  mix-blend-mode: screen;
-  opacity: 0.82;
-  z-index: 2;
+.bl-service-lead__media .bl-stamp {
+  top: auto;
+  bottom: var(--spacing-2xs);
 }
-/* Deep room vignette: darkens every edge so the eye is pulled to the single lit
-   body line. Sits above the photo, below the light sweep and copy seam. */
-.bl-reveal__media::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(120% 100% at 62% 44%, transparent 34%, rgba(6, 8, 11, 0.72) 100%);
+.bl-service-lead__body {
+  padding: var(--spacing-md);
+  display: grid;
+  gap: var(--spacing-xs);
+  position: relative;
 }
-/* Left edge blend so the media meets the copy field without a hard seam. */
-.bl-reveal__seam {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+.bl-service-lead__no {
+  font-family: var(--bl-font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--bl-accent-ice);
+  font-variant-numeric: tabular-nums;
 }
-@media (min-width: 940px) {
-  .bl-reveal__seam {
-    background: linear-gradient(90deg, var(--bl-ink) 0%, transparent 22%);
-  }
+.bl-service-lead__body h3 {
+  font-size: 1.6rem;
+  color: var(--ah-chrome-hi);
+}
+.bl-service-lead__body p {
+  color: var(--bl-text-dim);
+}
+.bl-service-list {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--bl-hairline);
+}
+.bl-service-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-sm) var(--spacing-md);
+  align-items: baseline;
+  padding-block: var(--spacing-md);
+  border-bottom: 1px solid var(--bl-hairline);
+}
+.bl-service-item__no {
+  font-family: var(--bl-font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  background: var(--bl-accent);
+  padding: 0.35em 0.6em;
+  border-radius: var(--radius-xs);
+  font-variant-numeric: tabular-nums;
+  align-self: start;
+}
+.bl-service-item__body h3 {
+  font-size: 1.25rem;
+  color: var(--ah-chrome-hi);
+  margin-bottom: 0.25em;
+}
+.bl-service-item__body p {
+  color: var(--bl-text-dim);
+  font-size: 0.95rem;
 }
 
 /* ===========================================================================
-   11. STORY — Anthony's voice. Wide inset panel with a portrait, no bio facts.
+   11. STORY — Anthony's voice. Portrait + quote, no bio facts.
    =========================================================================== */
 .bl-story {
   display: grid;
@@ -1315,10 +1265,10 @@
 }
 .bl-story__media {
   position: relative;
-  border: var(--bl-hair);
+  border: 1px solid var(--bl-hairline);
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--bl-ink);
+  background: var(--ah-ink);
   aspect-ratio: 4 / 5;
   max-height: 560px;
 }
@@ -1337,14 +1287,15 @@
   font-size: clamp(1.6rem, 1.1rem + 2.4vw, 2.6rem);
   line-height: 1.05;
   letter-spacing: -0.025em;
-  color: var(--bl-ink);
+  color: var(--ah-chrome-hi);
+  margin: 0;
 }
 .bl-story__quote em {
   font-style: normal;
-  color: var(--bl-signal);
+  color: var(--bl-accent-ice);
 }
 .bl-story__p {
-  color: var(--bl-body-ink);
+  color: var(--bl-text-dim);
 }
 .bl-story__region {
   display: inline-flex;
@@ -1354,9 +1305,9 @@
   font-size: 0.7rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--bl-signal-deep);
-  border: var(--bl-hair);
-  background: var(--bl-paper);
+  color: var(--bl-accent-ice);
+  border: 1px solid var(--bl-hairline-hi);
+  background: color-mix(in srgb, var(--ah-cobalt) 24%, transparent);
   padding: 0.45em 0.8em;
   border-radius: var(--radius-xs);
   width: fit-content;
@@ -1366,16 +1317,20 @@
   width: 0.5em;
   height: 0.5em;
   border-radius: 50%;
-  background: var(--bl-signal);
+  background: var(--bl-accent);
 }
 
 /* ===========================================================================
    12. CONTACT — the prototype quote form. Two-up: reassurance + form.
    =========================================================================== */
 .bl-contact {
-  background: var(--bl-paper);
-  background-image: var(--bl-keylight-deep);
-  border-top: var(--bl-hair);
+  background: var(--ah-ink);
+  background-image: radial-gradient(
+    120% 90% at 18% -10%,
+    color-mix(in srgb, var(--ah-steel) 40%, var(--ah-ink)) 0%,
+    var(--ah-ink) 54%
+  );
+  border-top: 1px solid var(--bl-hairline);
 }
 .bl-contact__grid {
   display: grid;
@@ -1396,20 +1351,19 @@
 .bl-contact__title {
   font-family: var(--bl-font-display);
   font-weight: 600;
-  font-size: clamp(1.8rem, 1.2rem + 2.6vw, 2.75rem);
-  color: var(--bl-ink);
+  font-size: clamp(1.9rem, 1.2rem + 2.8vw, 3rem);
+  color: var(--ah-chrome-hi);
   letter-spacing: -0.03em;
   line-height: 1.02;
 }
 .bl-contact__p {
-  color: var(--bl-body-ink);
+  color: var(--bl-text-dim);
   max-width: 42ch;
 }
-/* Honest contact facts — CLIENT INPUT REQUIRED, never fabricated. */
 .bl-contact__facts {
   display: grid;
   gap: 0;
-  border-top: var(--bl-hair);
+  border-top: 1px solid var(--bl-hairline);
   margin-top: var(--spacing-2xs);
 }
 .bl-contact__fact {
@@ -1418,44 +1372,47 @@
   gap: var(--spacing-sm);
   align-items: baseline;
   padding-block: var(--spacing-sm);
-  border-bottom: var(--bl-hair);
+  border-bottom: 1px solid var(--bl-hairline);
 }
 .bl-contact__fact dt {
   font-family: var(--bl-font-mono);
   font-size: 0.7rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--bl-slate);
+  color: var(--bl-text-mute);
 }
 .bl-contact__fact dd {
   text-align: right;
+  margin: 0;
 }
 .bl-contact__req {
   font-family: var(--bl-font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--bl-signal-deep);
-  border: 1px dashed color-mix(in srgb, var(--bl-signal) 45%, var(--bl-line));
+  color: var(--bl-accent-ice);
+  border: 1px dashed color-mix(in srgb, var(--bl-accent) 55%, var(--bl-hairline-hi));
   border-radius: var(--radius-xs);
   padding: 0.25em 0.55em;
-  background: color-mix(in srgb, var(--bl-signal) 6%, transparent);
+  background: color-mix(in srgb, var(--bl-accent) 10%, transparent);
 }
 .bl-contact__region-fact {
   font-weight: 600;
-  color: var(--bl-ink);
+  color: var(--ah-chrome-hi);
 }
 
-/* Form — GRADE: a warm off-white (not pure #fff, not the cool booth white) so
-   the form panel bridges the value jump against the cool inspection grade. */
+/* Form on a raised gunmetal panel. */
 .bl-form {
-  border: var(--bl-hair);
+  border: 1px solid var(--bl-hairline-hi);
   border-radius: var(--radius-md);
-  background: #f7f4ee;
+  background: color-mix(in srgb, var(--ah-gunmetal) 92%, black);
   padding: clamp(1.25rem, 0.8rem + 2vw, 2rem);
   display: grid;
   gap: var(--spacing-md);
   position: relative;
+}
+.bl-form__title {
+  color: var(--bl-accent-ice);
 }
 .bl-form__grid {
   display: grid;
@@ -1479,10 +1436,10 @@
   font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--bl-slate);
+  color: var(--bl-text-dim);
 }
 .bl-field label .bl-req {
-  color: var(--bl-signal-deep);
+  color: var(--bl-accent-ice);
   margin-left: 0.3em;
 }
 .bl-field input,
@@ -1490,9 +1447,9 @@
 .bl-field textarea {
   font-family: var(--bl-font-body);
   font-size: 0.98rem;
-  color: var(--bl-ink);
-  background: var(--bl-paper);
-  border: 1px solid var(--bl-line);
+  color: var(--ah-chrome-hi);
+  background: color-mix(in srgb, var(--ah-ink) 60%, var(--ah-graphite));
+  border: 1px solid var(--bl-hairline-hi);
   border-radius: var(--radius-sm);
   padding: 0.75em 0.85em;
   min-height: 44px;
@@ -1504,12 +1461,16 @@
 }
 .bl-field input::placeholder,
 .bl-field textarea::placeholder {
-  color: color-mix(in srgb, var(--bl-slate) 58%, transparent);
+  color: var(--bl-text-mute);
+}
+.bl-field select option {
+  color: var(--ah-chrome-hi);
+  background: var(--ah-graphite);
 }
 .bl-field input:focus-visible,
 .bl-field select:focus-visible,
 .bl-field textarea:focus-visible {
-  border-color: var(--bl-signal);
+  border-color: var(--bl-accent);
 }
 .bl-form__foot {
   display: flex;
@@ -1522,7 +1483,7 @@
   font-family: var(--bl-font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.06em;
-  color: var(--bl-slate);
+  color: var(--bl-text-mute);
   max-width: 30ch;
 }
 /* Prototype acknowledgement (revealed on submit; not a dark pattern). */
@@ -1530,11 +1491,11 @@
   display: none;
   align-items: flex-start;
   gap: 0.7em;
-  border: 1px solid color-mix(in srgb, var(--bl-signal) 45%, var(--bl-line));
-  background: color-mix(in srgb, var(--bl-signal) 8%, var(--bl-paper));
+  border: 1px solid color-mix(in srgb, var(--bl-accent) 55%, var(--bl-hairline-hi));
+  background: color-mix(in srgb, var(--bl-accent) 14%, var(--ah-ink));
   border-radius: var(--radius-sm);
   padding: var(--spacing-sm);
-  color: var(--bl-ink);
+  color: var(--bl-text);
   font-size: 0.92rem;
 }
 .bl-form__ack[data-shown='true'] {
@@ -1547,26 +1508,25 @@
   height: 0.7em;
   margin-top: 0.4em;
   border-radius: 50%;
-  background: var(--bl-signal);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--bl-signal) 20%, transparent);
+  background: var(--bl-accent-ice);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--bl-accent) 24%, transparent);
 }
 
 /* ===========================================================================
    13. FOOTER
    =========================================================================== */
 .bl-footer {
-  background: var(--bl-ink);
-  background-image: var(--bl-inkfield);
-  color: color-mix(in srgb, #ffffff 78%, transparent);
+  background: var(--ah-ink);
+  color: var(--bl-text-dim);
   padding-block: var(--spacing-xl) var(--spacing-lg);
-  border-top: var(--bl-hair);
+  border-top: 1px solid var(--bl-hairline);
 }
 .bl-footer__top {
   display: grid;
   gap: var(--spacing-lg);
   grid-template-columns: 1fr;
   padding-bottom: var(--spacing-lg);
-  border-bottom: 1px solid color-mix(in srgb, #ffffff 14%, transparent);
+  border-bottom: 1px solid var(--bl-hairline);
 }
 @media (min-width: 760px) {
   .bl-footer__top {
@@ -1575,32 +1535,26 @@
   }
 }
 .bl-footer__mark {
-  font-family: var(--bl-font-display);
-  font-weight: 600;
-  font-size: 1.6rem;
-  color: #ffffff;
-  letter-spacing: -0.01em;
-}
-.bl-footer__mark span {
-  color: #8fbcff;
+  width: clamp(180px, 40vw, 230px);
 }
 .bl-footer__tag {
-  margin-top: var(--spacing-xs);
-  max-width: 40ch;
-  color: color-mix(in srgb, #ffffff 74%, transparent);
+  margin-top: var(--spacing-sm);
+  max-width: 42ch;
+  color: var(--bl-text-mute);
 }
 .bl-footer__nav {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-sm) var(--spacing-lg);
+  align-content: start;
 }
 .bl-footer__nav a {
-  color: color-mix(in srgb, #ffffff 82%, transparent) !important;
+  color: var(--bl-text-dim) !important;
   text-decoration: none !important;
   font-size: 0.92rem;
 }
 .bl-footer__nav a:hover {
-  color: #ffffff !important;
+  color: var(--ah-chrome-hi) !important;
 }
 .bl-footer__bottom {
   display: flex;
@@ -1611,7 +1565,7 @@
   font-family: var(--bl-font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.08em;
-  color: color-mix(in srgb, #ffffff 66%, transparent);
+  color: var(--bl-text-mute);
 }
 .bl-footer__prov {
   display: inline-flex;
@@ -1623,12 +1577,11 @@
   width: 0.5em;
   height: 0.5em;
   border-radius: 50%;
-  background: var(--bl-warn);
+  background: var(--bl-accent);
 }
 
 /* ===========================================================================
    14. STICKY MOBILE CONTACT BAR — thumb zone, >=44px targets.
-   Call + Request Quote. Phone unknown -> "Request a callback" (no fake number).
    =========================================================================== */
 .bl-cta-bar {
   position: fixed;
@@ -1639,9 +1592,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1px;
-  background: var(--bl-line);
-  border-top: 1px solid var(--bl-line);
-  box-shadow: 0 -8px 24px -18px rgba(12, 16, 20, 0.7);
+  background: var(--bl-hairline-hi);
+  border-top: 1px solid var(--bl-hairline-hi);
+  box-shadow: 0 -8px 24px -18px rgba(0, 0, 0, 0.9);
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
 @media (min-width: 900px) {
@@ -1661,11 +1614,11 @@
   text-decoration: none;
 }
 .bl-cta-bar__link--call {
-  background: var(--bl-booth-white);
-  color: var(--bl-ink);
+  background: var(--ah-graphite);
+  color: var(--ah-chrome-hi);
 }
 .bl-cta-bar__link--quote {
-  background: var(--bl-signal);
+  background: var(--bl-accent);
   color: #ffffff;
 }
 .bl-cta-bar__ico {
@@ -1679,15 +1632,10 @@
 }
 
 /* ===========================================================================
-   15. MOTION — REVEAL / EXPOSURE via clip, not fade-up. Reduced-motion safe.
-   Scoped to .bl-proto; uses its own [data-bl-reveal] hook (not shared).
+   15. MOTION — REVEAL / EXPOSURE. Additive + fail-open. Reduced-motion safe.
+   Content is ALWAYS rendered and legible; the reveal only nudges revealed items.
    =========================================================================== */
 @media (prefers-reduced-motion: no-preference) {
-  /* EXPOSURE reveal — additive only. Content is ALWAYS rendered and legible;
-     the reveal is a gentle rise + a left-anchored "expose" wipe via mask, which
-     degrades to fully-visible if the observer never fires (no content is ever
-     hidden by JS state). This is the robustness lesson from the clip-path attempt:
-     never gate primary content visibility on an observer. */
   .js .bl-proto [data-bl-reveal] {
     opacity: 0.001;
     transform: translateY(14px);
@@ -1701,24 +1649,24 @@
   }
   /* One-shot rake sweep across the hero paint on load. */
   .js .bl-proto .bl-hero__rake {
-    animation: bl-hero-rake 1500ms var(--ease-mech-inout) 240ms both;
+    animation: bl-hero-rake 1600ms var(--ease-mech-inout) 240ms both;
   }
   @keyframes bl-hero-rake {
     0% {
-      transform: translateX(-46%);
+      transform: translateX(-40%);
       opacity: 0;
     }
-    26% {
-      opacity: 0.6;
+    28% {
+      opacity: 0.55;
     }
     100% {
-      transform: translateX(34%);
-      opacity: 0.28;
+      transform: translateX(36%);
+      opacity: 0.3;
     }
   }
   /* The inspection light on the dark beat drifts across when exposed. */
   .js .bl-proto [data-bl-expose] .bl-reveal__light {
-    transform: translateX(-60%);
+    transform: translateX(-58%);
     opacity: 0;
     transition:
       transform var(--duration-cinematic) var(--ease-mech),
@@ -1738,7 +1686,7 @@
   }
   .bl-proto .bl-hero__rake {
     transform: none;
-    opacity: 0.45;
+    opacity: 0.4;
   }
 }
 
@@ -1747,8 +1695,9 @@
    Hides ALL internal chrome so the client sees only the site: the Design-Lab
    labstrip + direction-study tag, every "Reference imagery" stamp + provenance
    line, and the CLIENT INPUT REQUIRED contact facts / notes. Real content, nav,
-   hero, services, work, process, story, the quote FORM and footer all remain.
+   hero, work, process, services, story, the quote FORM and footer all remain.
    The Service-area fact (a real fact) is kept; only unknown-fact rows are hidden.
+   Hook class names are unchanged so tests/e2e/review-mode.spec.ts still passes.
 ========================================================================== */
 html[data-review="1"] body.bl-proto .bl-labstrip,        /* Design-Lab strip + study tag */
 html[data-review="1"] body.bl-proto .bl-stamp,           /* "Reference imagery" badges */

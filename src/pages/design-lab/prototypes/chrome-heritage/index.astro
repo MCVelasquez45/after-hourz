@@ -1,5 +1,6 @@
 ---
 import PrototypeLayout from '../../../../layouts/PrototypeLayout.astro';
+import BrandMark from '../../../../components/brand/BrandMark.astro';
 import '../../../../styles/prototype-chrome-heritage.css';
 
 /*
@@ -209,9 +210,7 @@ const navLinks = [
   <header class="chp-nav" data-scrolled="false" data-open="false">
     <div class="chp-wrap chp-nav__row">
       <a class="chp-brand" href="#top" aria-label="After Hourz — home">
-        <span class="chp-chrome-text">
-          After&nbsp;Hour<span class="chp-brand__z">z</span>
-        </span>
+        <BrandMark variant="wordmark" small={true} width={168} loading="eager" alt="After Hourz" />
       </a>
 
       <button
@@ -256,7 +255,13 @@ const navLinks = [
 
       <div class="chp-wrap">
         <div class="chp-hero__content">
-          <p class="chp-hero__eyebrow">After Hourz · Anthony Montoya</p>
+          <BrandMark
+            variant="lockup"
+            width={300}
+            loading="eager"
+            fetchpriority="high"
+            class="chp-hero__brand"
+          />
           <h1 class="chp-hero__title" id="hero-h">
             <span class="chp-hero__l1">Built after hours,</span>
             <em class="chp-hero__l2">finished by hand.</em>

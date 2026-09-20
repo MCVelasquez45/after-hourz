@@ -28,8 +28,16 @@ const {
 
 const B = '/assets/derived/brand';
 const map = {
-  lockup: { file: small ? 'after-hourz-lockup-sm' : 'after-hourz-lockup', w: small ? 640 : 982, h: small ? 160 : 246 },
-  wordmark: { file: small ? 'after-hourz-wordmark-sm' : 'after-hourz-wordmark', w: small ? 420 : 900, h: small ? 82 : 176 },
+  lockup: {
+    file: small ? 'after-hourz-lockup-sm' : 'after-hourz-lockup',
+    w: small ? 640 : 982,
+    h: small ? 160 : 246,
+  },
+  wordmark: {
+    file: small ? 'after-hourz-wordmark-sm' : 'after-hourz-wordmark',
+    w: small ? 420 : 900,
+    h: small ? 82 : 176,
+  },
   'wordmark-mono': { file: 'after-hourz-wordmark-mono', w: 900, h: 176 },
 } as const;
 const a = map[variant];

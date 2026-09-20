@@ -47,11 +47,7 @@ const toHex = ({ r, g, b }) =>
   '#' + [r, g, b].map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
 
 async function sampleRegion(label, region) {
-  const [r, g, b] = await sharp(SRC)
-    .extract(region)
-    .resize(1, 1, { fit: 'fill' })
-    .raw()
-    .toBuffer();
+  const [r, g, b] = await sharp(SRC).extract(region).resize(1, 1, { fit: 'fill' }).raw().toBuffer();
   console.log(`  ${label.padEnd(22)} ${toHex({ r, g, b })}  rgb(${r},${g},${b})`);
 }
 
