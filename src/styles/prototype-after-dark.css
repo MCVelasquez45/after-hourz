@@ -571,8 +571,9 @@
   height: 100%;
   object-fit: cover;
   object-position: 62% 60%; /* car right, cool foggy negative space top-left for type */
-  /* push cool, hold the deep cobalt dusk; keep warm practicals contained */
-  filter: brightness(1.04) contrast(1.06) saturate(1.05);
+  /* DEEPEN, don't lift: crush the shadows to a true-black floor and saturate the
+     cobalt so the plate reads rich (Booth Light richness), never milky/gray. */
+  filter: brightness(0.9) contrast(1.2) saturate(1.34);
   transform: scale(1.03);
   animation: ad-hero-drift 26s var(--ease-soft) infinite alternate;
 }
@@ -585,21 +586,34 @@
     transform: scale(1.08) translate3d(-1.6%, -1%, 0);
   }
 }
-/* Grade wash: cool fall, deep at bottom + left so type has a stage */
+/* Grade wash: TRUE-BLACK floor + saturated cobalt — matches Booth Light richness.
+   1) multiply pass crushes shadows to true black (no gray/milky lift) and pushes
+      a deep cobalt into the darks so the night reads saturated, not desaturated;
+   2) black stage falls left + bottom so the type has its own dark column;
+   3) one cobalt streetlight ambient top-right. Car (right) stays readable. */
 .ad-hero__grade {
   position: absolute;
   inset: 0;
   z-index: -2;
   background:
-    linear-gradient(
-      92deg,
-      rgba(6, 8, 12, 0.94) 0%,
-      rgba(6, 8, 12, 0.6) 36%,
-      rgba(6, 8, 12, 0.04) 68%
-    ),
-    linear-gradient(0deg, rgba(6, 8, 12, 0.97) 2%, rgba(6, 8, 12, 0.2) 42%, transparent 66%),
-    /* faint cobalt ambient top-right — a passing streetlight, not teal */
-    radial-gradient(50% 40% at 84% 10%, rgba(74, 143, 224, 0.12), transparent 70%);
+    /* left/bottom black stage for the type — deepest at the copy column */
+    linear-gradient(92deg, rgba(3, 5, 9, 0.95) 0%, rgba(3, 5, 9, 0.62) 34%, rgba(3, 5, 9, 0) 64%),
+    linear-gradient(0deg, rgba(3, 5, 9, 0.98) 0%, rgba(3, 5, 9, 0.24) 40%, transparent 64%),
+    /* cobalt streetlight ambient top-right — a passing light, not teal */
+    radial-gradient(52% 42% at 84% 10%, rgba(74, 143, 224, 0.16), transparent 70%);
+}
+/* Multiply pass: true-black floor + cobalt cast into the shadows (saturate, not milk).
+   Separate layer so it can use mix-blend without dimming the type-stage gradients. */
+.ad-hero__grade::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 120% at 70% 40%,
+    rgba(16, 42, 92, 0.55),
+    rgba(2, 4, 8, 0.92) 82%
+  );
+  mix-blend-mode: multiply;
 }
 /* a single passing light that sweeps the hero (MOMENTUM) — behind type */
 .ad-hero__sweep {
@@ -639,22 +653,38 @@
   width: 100%;
   padding-block: clamp(2.5rem, 2rem + 6vw, 6rem);
 }
+/* Copy is constrained to its own dark column with a controlled measure so the
+   whole hero reads as ONE resolved type composition — never colliding with the
+   photo band on the right. */
 .ad-hero__panel {
-  max-width: 44rem;
+  max-width: 40rem;
   display: grid;
   gap: var(--spacing-sm);
 }
 .ad-hero__h1 {
   font-family: var(--ad-font-display);
-  font-size: clamp(3.2rem, 1.6rem + 10vw, 8rem);
-  line-height: 0.86;
+  /* ceiling tuned so each display line fits its own row in the column (no re-wrap) */
+  font-size: clamp(2.9rem, 2rem + 4.4vw, 5.2rem);
+  line-height: 0.9;
   letter-spacing: 0.01em;
   margin: 0;
-  text-shadow: 0 2px 30px rgba(6, 8, 12, 0.6);
+  text-shadow: 0 2px 30px rgba(3, 5, 9, 0.7);
 }
-/* the middle line rides the cobalt accent — the "flow" word */
+/* two deliberate display lines — each on its own row, no awkward mid-phrase break */
+.ad-hero__l1,
 .ad-hero__flow {
   display: block;
+  text-wrap: balance;
+}
+/* keep each phrase on a single line once the column is wide enough to hold it */
+@media (min-width: 500px) {
+  .ad-hero__l1,
+  .ad-hero__flow {
+    white-space: nowrap;
+  }
+}
+/* the second line rides the cobalt accent — the "flow" line */
+.ad-hero__flow {
   background-image: none;
   -webkit-text-fill-color: currentColor;
   color: var(--accent);
@@ -665,13 +695,13 @@
   font-size: var(--text-lead);
   color: var(--tx-hi);
   letter-spacing: 0.01em;
-  margin: 0.25rem 0 0;
-  max-width: none;
+  margin: var(--spacing-xs) 0 0;
+  max-width: 38ch;
 }
 .ad-hero__sub {
   font-size: var(--text-lead);
   color: var(--tx);
-  max-width: 42ch;
+  max-width: 40ch;
 }
 .ad-hero__actions {
   display: flex;

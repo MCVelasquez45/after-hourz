@@ -68,9 +68,12 @@
   --candy-maroon: #7a1e12; /* deep pooled candy maroon — pressed / shadowed accent */
   --candy-maroon-deep: #4a0f0a; /* darkest candy shadow */
 
-  /* COOL SECONDARY — demoted cobalt. Rules / minor focus assist only, never the CTA. */
-  --cool-cobalt: #2e6bd8;
-  --cool-ice: #9fc0ef;
+  /* COOL SECONDARY — brand cobalt / electric-blue. The SECONDARY accent so the
+     system visibly belongs to the cobalt family (focus rings, hairlines, the
+     ghost/secondary CTA, text links) — never the PRIMARY CTA, which stays candy. */
+  --cool-cobalt: #2e6bd8; /* non-text / large-UI use (>=3:1 on panel) */
+  --cool-cobalt-hot: #4d86ea; /* hover / lift */
+  --cool-ice: #9fc0ef; /* small text on dark — AA 4.5:1 (link text) */
 
   /* Chrome ladder (text on dark) */
   --chrome-hi: #f7f9fb; /* headline peak / specular */
@@ -143,7 +146,8 @@
 .chp textarea:focus-visible,
 .chp [tabindex]:focus-visible,
 .chp summary:focus-visible {
-  outline: 3px solid var(--candy-ember);
+  /* SECONDARY cobalt focus ring — a consistent cool UI signal system-wide */
+  outline: 3px solid var(--cool-cobalt);
   outline-offset: 2px;
   border-radius: var(--radius-xs);
 }
@@ -183,7 +187,8 @@
 .chp-eyebrow__rule {
   flex: 1;
   height: 2px; /* hairline floor 2px on dark */
-  background: linear-gradient(90deg, rgba(192, 90, 43, 0.55), rgba(28, 34, 48, 0));
+  /* SECONDARY cobalt hairline — the cool rule that ties every section to the blue family */
+  background: linear-gradient(90deg, rgba(46, 107, 216, 0.6), rgba(28, 34, 48, 0));
 }
 
 /* Section title — Oswald condensed heritage gothic (NOT Fraunces) */
@@ -313,20 +318,27 @@
     0 12px 34px rgba(192, 90, 43, 0.5);
 }
 
-/* GHOST text link */
+/* GHOST text link — the SECONDARY action, voiced in cool cobalt/ice (not candy)
+   so the secondary CTA visibly belongs to the blue family. AA: ice text is 10:1. */
 .chp-btn--ghost {
   min-height: auto;
   padding-inline: 0;
   border: 0;
   border-radius: 0;
-  color: var(--candy-ember);
+  color: var(--cool-ice);
   gap: 0.4em;
 }
 .chp-btn--ghost .chp-arw {
-  transition: transform var(--duration-micro) var(--ease-mech);
+  transition:
+    transform var(--duration-micro) var(--ease-mech),
+    color var(--duration-micro) var(--ease-mech);
+  color: var(--cool-cobalt);
 }
 .chp-btn--ghost:hover {
-  color: var(--candy-copper-hot);
+  color: #cfe0f8;
+}
+.chp-btn--ghost:hover .chp-arw {
+  color: var(--cool-cobalt-hot);
 }
 .chp-btn--ghost:hover .chp-arw {
   transform: translateX(4px);
@@ -357,7 +369,7 @@
   text-decoration: none;
 }
 .chp-topline__row a:hover {
-  color: var(--candy-ember);
+  color: var(--cool-cobalt-hot);
 }
 
 /* ==========================================================================
@@ -1392,9 +1404,10 @@
 .chp-field input:focus,
 .chp-field select:focus,
 .chp-field textarea:focus {
+  /* SECONDARY cobalt focus — matches the cool focus ring across the whole UI */
   outline: none;
-  border-color: var(--candy-copper);
-  box-shadow: 0 0 0 3px rgba(192, 90, 43, 0.22);
+  border-color: var(--cool-cobalt);
+  box-shadow: 0 0 0 3px rgba(46, 107, 216, 0.28);
 }
 .chp-form__actions {
   margin-top: var(--spacing-lg);

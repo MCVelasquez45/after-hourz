@@ -83,9 +83,12 @@
   --bl-hairline: color-mix(in srgb, var(--ah-chrome) 22%, transparent);
   --bl-hairline-hi: color-mix(in srgb, var(--ah-chrome-hi) 30%, transparent);
 
-  /* Accent: ONE controlled electric blue drawn from the locked palette. */
-  --bl-accent: var(--ah-blue); /* #2e6bb5 */
-  --bl-accent-hot: var(--ah-blue-hot); /* #4a8fe0 */
+  /* Accent: ONE controlled CANDY-COBALT drawn from the locked palette. Pushed
+     off flat "SaaS link-blue" toward the poster-sampled candy paint — deeper,
+     more saturated, with cobalt in its blood — so it reads as automotive
+     clearcoat, not a UI hyperlink. Ice + hot stay for rim / interactive lift. */
+  --bl-accent: color-mix(in srgb, var(--ah-blue) 72%, var(--ah-cobalt)); /* candy cobalt */
+  --bl-accent-hot: var(--ah-blue-hot); /* #4a8fe0 interactive lift */
   --bl-accent-ice: var(--ah-ice); /* #7fc0ee rim / highlight */
   --bl-cobalt: var(--ah-cobalt); /* #1c3a78 deep body */
 
@@ -575,19 +578,55 @@
   z-index: -2;
   pointer-events: none;
   background:
+    /* Type-side wash: darken the top-left so the headline holds AA, but release
+       earlier (68%) so the cobalt subject lower-right is not crushed to black. */
     linear-gradient(
       104deg,
       var(--ah-black) 0%,
-      color-mix(in srgb, var(--ah-black) 88%, transparent) 30%,
-      color-mix(in srgb, var(--ah-black) 40%, transparent) 56%,
-      transparent 78%
+      color-mix(in srgb, var(--ah-black) 84%, transparent) 28%,
+      color-mix(in srgb, var(--ah-black) 30%, transparent) 52%,
+      transparent 68%
     ),
-    linear-gradient(0deg, color-mix(in srgb, var(--ah-black) 82%, transparent) 0%, transparent 34%),
+    /* Foot scrim only — keep the readout legible without flooding the car body. */
+    linear-gradient(0deg, color-mix(in srgb, var(--ah-black) 72%, transparent) 0%, transparent 26%),
+    /* Cool booth key top-left (unchanged intent). */
     radial-gradient(
-      120% 90% at 14% 8%,
-      color-mix(in srgb, var(--ah-steel) 38%, transparent) 0%,
-      transparent 44%
+        120% 90% at 14% 8%,
+        color-mix(in srgb, var(--ah-steel) 38%, transparent) 0%,
+        transparent 44%
+      ),
+    /* Cobalt candy floor over the lower-right where the panel lives, so the
+       body reads as saturated candy paint rather than crushed black. */
+    radial-gradient(
+        70% 66% at 74% 78%,
+        color-mix(in srgb, var(--ah-cobalt) 22%, transparent) 0%,
+        color-mix(in srgb, var(--ah-cobalt-deep) 14%, transparent) 36%,
+        transparent 62%
+      );
+}
+/* KEY / RIM LIGHT on the subject — a screen-blended candy-cobalt glow that
+   truly LIFTS the car's lower-right edge out of near-black so the hero is a
+   resolved image-plus-type composition, not a dissolved silhouette. Sits above
+   the grade wash, below the type layer. */
+.bl-hero__grade::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(
+      58% 54% at 76% 74%,
+      color-mix(in srgb, var(--ah-blue-hot) 46%, transparent) 0%,
+      color-mix(in srgb, var(--ah-blue) 26%, transparent) 32%,
+      transparent 60%
+    ),
+    radial-gradient(
+      40% 30% at 60% 60%,
+      color-mix(in srgb, var(--ah-ice) 30%, transparent) 0%,
+      transparent 58%
     );
+  opacity: 0.9;
 }
 /* The raking reflection line — light as a character across the paint. */
 .bl-hero__rake {

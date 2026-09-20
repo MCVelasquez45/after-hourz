@@ -41,7 +41,6 @@ const map = {
   'wordmark-mono': { file: 'after-hourz-wordmark-mono', w: 900, h: 176 },
 } as const;
 const a = map[variant];
-const height = Math.round((width * a.h) / a.w);
 const defaultAlt = variant === 'lockup' ? 'After Hourz — by Anthony Montoya' : 'After Hourz';
 ---
 
