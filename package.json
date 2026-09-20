@@ -25,6 +25,11 @@
     "test:performance": "astro build && lhci autorun || true",
     "contact-sheet": "node scripts/contact-sheet.mjs",
     "verify:assets": "node scripts/verify-originals.mjs",
+    "review:list": "node scripts/review/list.mjs",
+    "review:pull": "node scripts/review/pull.mjs",
+    "review:context": "node scripts/review/context.mjs",
+    "review:brief": "node scripts/review/brief.mjs",
+    "review:backup": "node scripts/review/backup.mjs",
     "qa": "pnpm typecheck && pnpm lint && pnpm test && pnpm build && pnpm test:e2e:fast",
     "qa:full": "pnpm typecheck && pnpm format:check && pnpm lint && pnpm test && pnpm build && pnpm exec playwright test --grep-invert @full && pnpm test:a11y && (pnpm test:visual || echo '::visual regression is a non-blocking reviewed artifact (full-page photographic flake); see tests/e2e/visual.spec.ts-snapshots::') && pnpm test:performance"
   },
@@ -35,7 +40,8 @@
     "astro": "^7.3.3",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",

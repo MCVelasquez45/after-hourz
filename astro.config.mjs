@@ -15,9 +15,10 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'http://localhost:4321',
   output: 'server',
-  adapter: cloudflare({
-    platformProxy: { enabled: true }, // local D1/bindings via `astro dev` + wrangler proxy
-  }),
+  // Adapter v14 (@cloudflare/vite-plugin) auto-loads local D1/vars/secrets from
+  // wrangler.jsonc + .dev.vars during `astro dev` — the old `platformProxy` option
+  // was removed upstream, so no adapter options are needed here.
+  adapter: cloudflare(),
   // No production homepage yet. Root redirect is a PRERENDERED page (src/pages/index.astro)
   // so it is static-serveable and works identically on the Worker (server-mode config
   // redirects would be runtime-only and invisible to the static QA harness).

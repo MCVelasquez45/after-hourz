@@ -1,0 +1,85 @@
+---
+/*
+  After Hourz — CLIENT REVIEW APP shell (route /review/after-hourz).
+  PRERENDERED static shell (no dynamic surface here; the ONLY dynamic surface is
+  /api/review/submit). The interactive multi-step questionnaire is a React island
+  (src/components/review/ReviewApp.tsx) mounted client-side. Temporary internal tool:
+  noindex/nofollow, SoCal-lowrider brand consistent (tokens.css + lowrider.css).
+
+  Turnstile site key: this is a static shell, so runtime bindings aren't available at
+  build time. We bake the PUBLIC build-time key, defaulting to Cloudflare's ALWAYS-PASS
+  test key (1x00000000000000000000AA). Server-side verification against the real secret
+  happens in /api/review/submit (the trust boundary).
+*/
+export const prerender = true;
+
+import '../../../styles/global.css';
+import '../../../styles/lowrider.css';
+import '../../../styles/review.css';
+import BrandMark from '../../../components/brand/BrandMark.astro';
+import ReviewApp from '../../../components/review/ReviewApp.tsx';
+
+const TURNSTILE_TEST_SITE_KEY = '1x00000000000000000000AA';
+const siteKey =
+  import.meta.env.PUBLIC_TURNSTILE_SITE_KEY?.toString().trim() || TURNSTILE_TEST_SITE_KEY;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta
+      name="description"
+      content="After Hourz — private client design review. Not a public page."
+    />
+    <title>After Hourz — Client Design Review</title>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#review">
+      Skip to review
+    </a>
+    <main class="rv-page">
+      <div class="rv-shell">
+        <header class="rv-masthead">
+          <BrandMark variant="lockup" width={300} loading="eager" fetchpriority="high" />
+          <p class="rv-eyebrow">Client Review</p>
+          <p class="rv-kicker">Private &middot; For Anthony Montoya</p>
+        </header>
+
+        <hr class="ah-pinstripe" />
+
+        <section id="review" aria-label="Design review questionnaire">
+          <!--
+            HTML-first: the React island hydrates over this fallback. If JS never runs
+            (or fails), the client still sees a clear message + a way to reach us.
+          -->
+          <noscript>
+            <div class="ah-plaque rv-card">
+              <h2 style="margin-bottom:0.5rem;">This review needs JavaScript</h2>
+              <p class="rv-lede">
+                The questionnaire runs in your browser. Please enable JavaScript and reload, or let
+                us know and we&apos;ll walk through it with you directly.
+              </p>
+            </div>
+          </noscript>
+          <div class="rv-nojs" data-review-fallback>
+            <p>Loading the review&hellip;</p>
+          </div>
+          <ReviewApp client:load siteKey={siteKey} />
+        </section>
+      </div>
+    </main>
+
+    <script>
+      // Remove the pre-hydration fallback once the island has mounted (progressive enhancement).
+      // The island replaces the region; this just hides the initial "Loading…" line if present.
+      const fb = document.querySelector('[data-review-fallback]');
+      if (fb) fb.remove();
+    </script>
+  </body>
+</html>

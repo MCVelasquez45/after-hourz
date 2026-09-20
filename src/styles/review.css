@@ -1,0 +1,463 @@
+/*
+  After Hourz — CLIENT REVIEW APP styling (route /review/after-hourz).
+  Temporary internal questionnaire. SoCal-lowrider brand consistent: black ground,
+  chrome + gold-leaf accents, candy cobalt, plaque framing. Reuses --ah-* / --lr-*
+  tokens (tokens.css) and the .ah-btn plaque buttons (lowrider.css). Mobile-first.
+*/
+
+.rv-page {
+  min-height: 100vh;
+  background:
+    var(--booth-wash, transparent),
+    radial-gradient(120% 80% at 50% -10%, rgba(28, 72, 180, 0.14), transparent 60%),
+    var(--ah-black, #08090c);
+  color: var(--color-silver, #c4cbd4);
+  font-family: var(--font-body, system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+.rv-shell {
+  width: 100%;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: clamp(1.125rem, 0.5rem + 3vw, 2.531rem);
+  padding-bottom: 4rem;
+}
+
+/* ---- Masthead ---- */
+.rv-masthead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+  padding-top: clamp(1.5rem, 4vw, 3rem);
+  padding-bottom: 1.5rem;
+}
+.rv-masthead .brandmark {
+  margin: 0 auto;
+}
+.rv-eyebrow {
+  font-family: 'Yellowtail', cursive;
+  color: var(--lr-gold-hi, #f3d488);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.rv-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ah-chrome, #8a929c);
+}
+
+/* ---- Progress indicator ---- */
+.rv-progress {
+  margin: 1.5rem 0 2rem;
+}
+.rv-progress-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ah-chrome, #8a929c);
+  margin-bottom: 0.5rem;
+}
+.rv-progress-step {
+  color: var(--lr-gold-hi, #f3d488);
+  font-weight: 700;
+}
+.rv-progress-track {
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--lr-chrome-lo, #3b434d);
+  overflow: hidden;
+}
+.rv-progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--lr-gold-deep, #8a5f1c),
+    var(--lr-gold-hi, #f3d488),
+    var(--lr-gold, #d9a441)
+  );
+  transition: width 320ms var(--ease-soft, ease);
+}
+.rv-progress-title {
+  margin-top: 0.75rem;
+  font-family: var(--font-display, sans-serif);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--color-chrome, #e6eaef);
+}
+
+/* ---- Step card (plaque) ---- */
+.rv-card {
+  padding: clamp(1.25rem, 4vw, 2rem);
+  margin-bottom: 1.5rem;
+}
+.rv-card h2 {
+  font-family: var(--font-display, sans-serif);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 1rem + 2.5vw, 2rem);
+  color: var(--color-chrome, #e6eaef);
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+.rv-card h3 {
+  font-family: var(--font-display, sans-serif);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-chrome, #e6eaef);
+  margin: 1.5rem 0 0.5rem;
+}
+.rv-lede {
+  color: var(--color-aluminum, #8b94a1);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+.rv-hint {
+  color: var(--ah-chrome, #8a929c);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-top: 0.35rem;
+}
+
+/* ---- Fields ---- */
+.rv-field {
+  margin-bottom: 1.25rem;
+}
+.rv-label {
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ah-chrome-hi, #c7cdd4);
+  margin-bottom: 0.45rem;
+}
+.rv-input,
+.rv-textarea,
+.rv-select {
+  width: 100%;
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-size: 1rem;
+  color: var(--color-chrome, #e6eaef);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--lr-chrome-lo, #3b434d);
+  border-radius: var(--radius-sm, 4px);
+  padding: 0.7rem 0.85rem;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+.rv-textarea {
+  min-height: 6.5rem;
+  resize: vertical;
+  line-height: 1.55;
+}
+.rv-input:focus,
+.rv-textarea:focus,
+.rv-select:focus {
+  outline: none;
+  border-color: var(--lr-gold, #d9a441);
+  box-shadow: 0 0 0 2px rgba(217, 164, 65, 0.35);
+}
+.rv-input::placeholder,
+.rv-textarea::placeholder {
+  color: var(--color-pewter, #7e8896);
+}
+
+/* ---- Option chips (checkbox / radio groups) ---- */
+.rv-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.rv-chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.9rem;
+  color: var(--color-silver, #c4cbd4);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--lr-chrome-lo, #3b434d);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 140ms ease;
+  user-select: none;
+}
+.rv-chip:hover {
+  border-color: var(--lr-chrome, #9aa2ac);
+}
+.rv-chip input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+.rv-chip.is-on {
+  color: #10151c;
+  background: linear-gradient(180deg, var(--lr-gold-hi, #f3d488), var(--lr-gold, #d9a441));
+  border-color: var(--lr-gold-hi, #f3d488);
+  font-weight: 700;
+}
+.rv-chip input:focus-visible + .rv-chip-label,
+.rv-chip:focus-within {
+  outline: 2px solid var(--lr-gold-hi, #f3d488);
+  outline-offset: 2px;
+}
+
+/* ---- Yes/No/Maybe segmented ---- */
+.rv-seg {
+  display: inline-flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+/* ---- Direction cards (design review) ---- */
+.rv-directions {
+  display: grid;
+  gap: 1rem;
+}
+.rv-direction {
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.rv-direction-name {
+  font-family: var(--font-display, sans-serif);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--color-chrome, #e6eaef);
+}
+.rv-direction-tag {
+  color: var(--color-aluminum, #8b94a1);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.rv-direction-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.35rem;
+}
+
+/* selectable direction (design selection step) */
+.rv-pick {
+  cursor: pointer;
+}
+.rv-pick.is-selected {
+  outline: 2px solid var(--lr-gold-hi, #f3d488);
+  outline-offset: 2px;
+}
+.rv-pick.is-selected::after {
+  content: 'Selected';
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #10151c;
+  background: linear-gradient(180deg, var(--lr-gold-hi, #f3d488), var(--lr-gold, #d9a441));
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+}
+
+/* ---- Nav (prev/next) ---- */
+.rv-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+.rv-nav--end {
+  justify-content: flex-end;
+}
+.rv-btn-full {
+  width: 100%;
+}
+
+/* ---- Acknowledgements ---- */
+.rv-ack {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  padding: 0.9rem;
+  margin-bottom: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--lr-chrome-lo, #3b434d);
+  border-radius: var(--radius-sm, 4px);
+}
+.rv-ack input {
+  margin-top: 0.2rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  accent-color: var(--lr-gold, #d9a441);
+  flex-shrink: 0;
+}
+.rv-ack label {
+  cursor: pointer;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+.rv-phase {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.rv-phase-title {
+  font-weight: 700;
+  color: var(--color-chrome, #e6eaef);
+}
+.rv-phase-fee {
+  color: var(--lr-gold-hi, #f3d488);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 0.2rem 0;
+}
+.rv-phase-blurb {
+  color: var(--color-aluminum, #8b94a1);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* ---- Review summary ---- */
+.rv-summary-group {
+  border: 1px solid var(--lr-chrome-lo, #3b434d);
+  border-radius: var(--radius-sm, 4px);
+  padding: 1rem;
+  margin-bottom: 0.9rem;
+  background: rgba(0, 0, 0, 0.25);
+}
+.rv-summary-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+.rv-summary-head h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+.rv-edit {
+  background: none;
+  border: none;
+  color: var(--ah-blue-hot, #4a8fe0);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.2rem 0.3rem;
+}
+.rv-edit:hover {
+  text-decoration: underline;
+}
+.rv-summary-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.1rem;
+  padding: 0.35rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.92rem;
+}
+.rv-summary-row:first-child {
+  border-top: none;
+}
+.rv-summary-key {
+  color: var(--ah-chrome, #8a929c);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.rv-summary-val {
+  color: var(--color-silver, #c4cbd4);
+  line-height: 1.5;
+  word-break: break-word;
+}
+.rv-summary-val--empty {
+  color: var(--color-pewter, #7e8896);
+  font-style: italic;
+}
+
+/* ---- Alerts ---- */
+.rv-alert {
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-sm, 4px);
+  margin: 1rem 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+.rv-alert--error {
+  background: rgba(180, 40, 40, 0.16);
+  border: 1px solid rgba(220, 90, 90, 0.5);
+  color: #ffd7d7;
+}
+.rv-alert--info {
+  background: rgba(28, 72, 180, 0.14);
+  border: 1px solid var(--lr-chrome-lo, #3b434d);
+  color: var(--color-silver, #c4cbd4);
+}
+.rv-field-error {
+  color: #ff9d9d;
+  font-size: 0.82rem;
+  margin-top: 0.35rem;
+}
+
+/* ---- Turnstile ---- */
+.rv-turnstile {
+  margin: 1.25rem 0;
+  min-height: 65px;
+}
+
+/* ---- Confirmation ---- */
+.rv-confirm {
+  text-align: center;
+  padding: clamp(1.5rem, 5vw, 2.5rem);
+}
+.rv-receipt {
+  font-family: var(--font-mono, monospace);
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+  color: var(--lr-gold-hi, #f3d488);
+  margin: 1rem 0;
+  padding: 0.6rem 1rem;
+  display: inline-block;
+  border: 1px solid var(--lr-gold-deep, #8a5f1c);
+  border-radius: var(--radius-sm, 4px);
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* ---- No-JS fallback ---- */
+.rv-nojs {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--color-aluminum, #8b94a1);
+  line-height: 1.6;
+}
+.js .rv-nojs {
+  display: none;
+}
+
+/* keep prev button visually secondary but reachable */
+.rv-nav .ah-btn:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .rv-summary-row {
+    grid-template-columns: 10rem 1fr;
+    gap: 0.75rem;
+    align-items: baseline;
+  }
+}
