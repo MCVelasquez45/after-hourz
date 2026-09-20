@@ -15,10 +15,13 @@
     {
       "binding": "DB",
       "database_name": "after-hourz-review",
-      "database_id": "PLACEHOLDER_SET_AFTER_D1_CREATE",
+      "database_id": "29acc075-33e2-474c-bce3-00bcc616771e",
       "migrations_dir": "migrations",
     },
   ],
+  // KV for Astro sessions (adapter v14 auto-binds SESSION). Not used by the review flow,
+  // but the binding must resolve for deploy.
+  "kv_namespaces": [{ "binding": "SESSION", "id": "b211da884c9d4ad195b6627151f17cb9" }],
   // Public Turnstile site key (safe to expose). The SECRET is set via `wrangler secret put
   // TURNSTILE_SECRET_KEY` (remote) or .dev.vars (local) — never committed.
   "vars": {
