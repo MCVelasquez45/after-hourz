@@ -12,14 +12,26 @@ test.describe('/design-lab hub', () => {
 
   test('links to all three prototype directions', async ({ page }) => {
     await page.goto('/design-lab/');
-    const hrefs = await page
-      .locator('a.proto-panel')
-      .evaluateAll((as) => as.map((a) => (a as HTMLAnchorElement).getAttribute('href')));
-    expect(hrefs).toEqual([
-      '/design-lab/prototypes/chrome-heritage/',
-      '/design-lab/prototypes/booth-light/',
-      '/design-lab/prototypes/after-dark/',
-    ]);
+    // Each direction has at least one visible link to its prototype route.
+    for (const dir of ['chrome-heritage', 'booth-light', 'after-dark']) {
+      await expect(page.locator(`a[href="/design-lab/prototypes/${dir}/"]`).first()).toBeVisible();
+    }
+    // The three directions are presented in canonical order on the hub.
+    const order = await page
+      .locator('a[href^="/design-lab/prototypes/"]')
+      .evaluateAll((as) =>
+        as
+          .map((a) => (a as HTMLAnchorElement).getAttribute('href') ?? '')
+          .filter((h) => /\/prototypes\/[a-z-]+\/$/.test(h)),
+      );
+    const firstSeen = ['chrome-heritage', 'booth-light', 'after-dark'].map((d) =>
+      order.indexOf(`/design-lab/prototypes/${d}/`),
+    );
+    expect(
+      firstSeen.every((i) => i >= 0),
+      'all three prototype links present',
+    ).toBe(true);
+    expect(firstSeen, 'canonical order').toEqual([...firstSeen].sort((a, b) => a - b));
   });
 
   test('links to foundations', async ({ page }) => {

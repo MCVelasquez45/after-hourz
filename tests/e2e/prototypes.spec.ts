@@ -31,8 +31,23 @@ for (const p of protos) {
       expect(res?.status()).toBe(200);
       await expect(page).toHaveTitle(p.title);
       await expect(page.locator('h1')).toHaveCount(1);
-      await expect(page.getByRole('banner')).toBeVisible();
-      await expect(page.getByRole('navigation', { name: /primary/i })).toBeVisible();
+      const banner = page.getByRole('banner');
+      await expect(banner).toBeVisible();
+      // Primary navigation must be REACHABLE at every viewport — either shown inline or
+      // collapsed behind a labeled menu button. (On small screens the inline nav is
+      // display:none, which correctly removes it from the a11y tree, so we assert
+      // reachability by visibility, not DOM attachment — breakpoint-agnostic.)
+      const navVisible = await page
+        .getByRole('navigation', { name: /primary/i })
+        .isVisible()
+        .catch(() => false);
+      const menuVisible = await banner
+        .getByRole('button', { name: /menu/i })
+        .isVisible()
+        .catch(() => false);
+      expect(navVisible || menuVisible, 'primary nav reachable (inline or via menu button)').toBe(
+        true,
+      );
       await expect(page.locator('main#main')).toBeVisible();
       await expect(page.getByRole('contentinfo')).toBeVisible();
     });

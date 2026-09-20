@@ -17,7 +17,7 @@ test.describe('navigation + link integrity', () => {
 
   test('hub opens the first prototype', async ({ page }) => {
     await page.goto('/design-lab/');
-    await page.locator('a.proto-panel').first().click();
+    await page.locator('a[href="/design-lab/prototypes/chrome-heritage/"]').first().click();
     await expect(page).toHaveURL(/chrome-heritage\/?$/);
     await expect(page.locator('h1')).toBeVisible();
   });
