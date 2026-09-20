@@ -1,0 +1,61 @@
+---
+/*
+  After Hourz brand mark — renders the LOCKED client identity from faithful, non-destructive
+  derivatives of the supplied poster (scripts/brand-derive.mjs). Never a redrawn/fake wordmark.
+  variant: 'lockup'  -> AFTER HOURZ + BY ANTHONY MONTOYA + scrollwork (hero / major moments)
+           'wordmark' -> AFTER HOURZ chrome letters (nav / compact)
+           'wordmark-mono' -> grayscale wordmark (for busy/coloured photographic grounds)
+  The derivatives are chrome-on-near-black; place on dark grounds (the brand ground --ah-black).
+*/
+interface Props {
+  variant?: 'lockup' | 'wordmark' | 'wordmark-mono';
+  width?: number; // rendered CSS width in px
+  small?: boolean; // use the smaller source file (nav / mobile)
+  class?: string;
+  alt?: string;
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+const {
+  variant = 'wordmark',
+  width = 320,
+  small = false,
+  class: className = '',
+  alt,
+  loading = 'lazy',
+  fetchpriority = 'auto',
+} = Astro.props;
+
+const B = '/assets/derived/brand';
+const map = {
+  lockup: { file: small ? 'after-hourz-lockup-sm' : 'after-hourz-lockup', w: small ? 640 : 982, h: small ? 160 : 246 },
+  wordmark: { file: small ? 'after-hourz-wordmark-sm' : 'after-hourz-wordmark', w: small ? 420 : 900, h: small ? 82 : 176 },
+  'wordmark-mono': { file: 'after-hourz-wordmark-mono', w: 900, h: 176 },
+} as const;
+const a = map[variant];
+const height = Math.round((width * a.h) / a.w);
+const defaultAlt = variant === 'lockup' ? 'After Hourz — by Anthony Montoya' : 'After Hourz';
+---
+
+<picture class={`brandmark ${className}`}>
+  <source srcset={`${B}/${a.file}.webp`} type="image/webp" />
+  <img
+    src={`${B}/${a.file}.png`}
+    width={a.w}
+    height={a.h}
+    alt={alt ?? defaultAlt}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    decoding="async"
+    style={`width:${width}px;max-width:100%;height:auto;display:block;`}
+  />
+</picture>
+<style>
+  .brandmark {
+    display: block;
+  }
+  .brandmark img {
+    /* the derivative ground is near-black; blend softly onto any dark brand surface */
+    mix-blend-mode: screen;
+  }
+</style>

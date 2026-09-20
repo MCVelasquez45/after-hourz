@@ -178,3 +178,28 @@
   --ad-font-display: 'Bebas Neue', 'Oswald', 'Anton', ui-sans-serif, sans-serif;
   --ad-font-body: 'Sora', ui-sans-serif, system-ui, sans-serif;
 }
+
+/*
+  SHARED AFTER HOURZ BRAND LAYER (reset directive §3/§9/§12).
+  ONE brand — three editions. Values sampled from the client poster with
+  scripts/brand-derive.mjs, then set by the Art Director. Black · chrome · cobalt blue
+  is the locked family; every direction draws from it (composition may differ, brand may not).
+  Poster samples: border-black #010101 · dominant #080808 · impala cobalt #1c234c ·
+  shop steel #28466a · chrome highlight #95989c · plaque blue #204060.
+*/
+:root {
+  --ah-black: #08090c; /* brand ground */
+  --ah-ink: #010101; /* poster true black */
+  --ah-graphite: #161c26; /* raised dark surface */
+  --ah-gunmetal: #1f2a38; /* panels / cards on black */
+  --ah-steel: #24384f; /* dark steel-blue (sampled shop) */
+  --ah-cobalt-deep: #14224e; /* candy cobalt ground (sampled impala) */
+  --ah-cobalt: #1c3a78; /* brand core cobalt */
+  --ah-blue: #2e6bb5; /* electric blue — links, active, key accent */
+  --ah-blue-hot: #4a8fe0; /* brighter interactive blue */
+  --ah-ice: #7fc0ee; /* ice-blue highlight / rim light */
+  --ah-chrome-shadow: #4a525c; /* chrome low */
+  --ah-chrome: #8a929c; /* chrome mid (sampled) */
+  --ah-chrome-hi: #c7cdd4; /* chrome highlight */
+  --ah-specular: #f5f8fb; /* blown specular white */
+}
