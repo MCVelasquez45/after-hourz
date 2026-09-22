@@ -199,6 +199,19 @@ export function Uploader({
   const shownAssetIds = new Set(items.filter((i) => i.assetId).map((i) => i.assetId));
   const restored = value.filter((a) => !shownAssetIds.has(a.assetId));
 
+  // Uploads are baked on only when the deploy enables them (PUBLIC_UPLOADS_ENABLED=1).
+  // While file storage isn't available, the questionnaire still works — we just invite
+  // Anthony to send photos later instead of showing a picker that can't store anything.
+  const uploadsEnabled = import.meta.env.PUBLIC_UPLOADS_ENABLED === '1';
+  if (!uploadsEnabled) {
+    return (
+      <p className="rv-uploader__later">
+        No need to add anything here — you can text or email us your photos and files anytime
+        after you submit, and we&rsquo;ll add them for you.
+      </p>
+    );
+  }
+
   return (
     <div className="rv-uploader">
       <div

@@ -142,6 +142,13 @@ export async function POST(context: APIContext): Promise<Response> {
     return fail('Method not allowed.', 405);
   }
 
+  // (1b) File storage may be unavailable in this environment (R2 not bound). Degrade
+  // gracefully — the questionnaire still works; Anthony is told he can send files later.
+  if (!env.ASSETS_BUCKET) {
+    safeLog({ result: 'uploads_unavailable', status: 503 });
+    return fail('File uploads are not available right now — you can send them later.', 503);
+  }
+
   // (2) Require multipart/form-data.
   const contentType = request.headers.get('content-type') ?? '';
   if (!contentType.toLowerCase().includes('multipart/form-data')) {

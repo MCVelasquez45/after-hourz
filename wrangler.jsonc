@@ -23,8 +23,13 @@
   // but the binding must resolve for deploy.
   "kv_namespaces": [{ "binding": "SESSION", "id": "b211da884c9d4ad195b6627151f17cb9" }],
   // Private R2 bucket for optional client asset uploads (photos/docs). Worker-mediated only —
-  // never public. Local dev uses Miniflare's local R2; remote requires R2 enabled on the account.
-  "r2_buckets": [{ "binding": "ASSETS_BUCKET", "bucket_name": "after-hourz-review-assets" }],
+  // never public. DISABLED for now: R2 is not enabled on the Cloudflare account (error 10042),
+  // and a bound-but-missing bucket makes `wrangler deploy` fail. The questionnaire deploys and
+  // runs fine without it — the Uploader hides itself (PUBLIC_UPLOADS_ENABLED unset) and the
+  // upload endpoint returns 503. TO RE-ENABLE UPLOADS: enable R2 in the dashboard, create the
+  // bucket (`wrangler r2 bucket create after-hourz-review-assets`), un-comment the binding
+  // below, and rebuild with PUBLIC_UPLOADS_ENABLED=1.
+  // "r2_buckets": [{ "binding": "ASSETS_BUCKET", "bucket_name": "after-hourz-review-assets" }],
   // Public Turnstile site key (safe to expose). The SECRET is set via `wrangler secret put
   // TURNSTILE_SECRET_KEY` (remote) or .dev.vars (local) — never committed.
   "vars": {

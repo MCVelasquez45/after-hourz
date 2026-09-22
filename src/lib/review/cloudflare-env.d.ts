@@ -49,7 +49,8 @@ interface AfterHourzR2Bucket {
 /** The bindings + vars + secrets configured in wrangler.jsonc for this Worker. */
 interface AfterHourzReviewEnv {
   DB: AfterHourzD1Database;
-  ASSETS_BUCKET: AfterHourzR2Bucket;
+  // Optional: only bound when R2 is enabled on the account. The upload endpoint guards on it.
+  ASSETS_BUCKET?: AfterHourzR2Bucket;
   TURNSTILE_SECRET_KEY: string;
   TURNSTILE_SITE_KEY: string;
   REVIEW_CLIENT_SLUG: string;
