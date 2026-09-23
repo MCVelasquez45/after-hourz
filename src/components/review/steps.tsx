@@ -70,7 +70,7 @@ export interface SectionDef {
 }
 
 export const SECTIONS: SectionDef[] = [
-  { id: 'design', label: 'Design' },
+  { id: 'design', label: 'Inspiration' },
   { id: 'about', label: 'About' },
   { id: 'services', label: 'Services' },
   { id: 'work', label: 'Your Work' },
@@ -157,58 +157,17 @@ function assetsFor(d: ReviewDraft, category: string) {
 }
 
 export const QUESTIONS: QuestionDef[] = [
-  /* ------------------------------ DESIGN ------------------------------ */
-  {
-    id: 'design-feedback',
-    section: 'design',
-    counted: true,
-    render: ({ draft, update }) => (
-      <Question
-        title="What did you like, and what would you change?"
-        explanation="Now that you’ve seen the look you picked, tell us what stood out — and anything you’d tweak."
-        example="“Love the colors and the big photos. Maybe less text on the front page.”"
-        why="Your reaction tells us which details to keep front and center and what to adjust before we build."
-      >
-        <ChipGroup
-          legend="What did you like? (pick any)"
-          options={[
-            'The colors',
-            'The lettering & fonts',
-            'The photos & layout',
-            'The overall mood',
-            'The chrome & gold details',
-            'How the services are shown',
-          ]}
-          value={draft.design.likes}
-          onChange={(v) => update('design', { likes: v })}
-          allowOther
-          otherPlaceholder="e.g. the way it loads, the sound of the name…"
-        />
-        <TextArea
-          label="Anything you'd change?"
-          value={draft.design.changes}
-          onChange={(v) => update('design', { changes: v })}
-          placeholder="e.g. make it darker, bigger photos, less text on the front page…"
-        />
-        <TextArea
-          label="Anything to borrow from the other two looks?"
-          value={draft.design.borrowedIdeas}
-          onChange={(v) => update('design', { borrowedIdeas: v })}
-          placeholder="e.g. I liked the header from another one…"
-        />
-      </Question>
-    ),
-  },
+  /* --------------------------- INSPIRATION --------------------------- */
   {
     id: 'design-inspiration',
     section: 'design',
     counted: true,
     render: ({ draft, update }) => (
       <Question
-        title="Any other websites or pages whose vibe you like?"
+        title="Any websites or pages whose vibe you like?"
         explanation="Doesn't have to be another shop — any site, page, or account with a look you're drawn to."
         example="“The gallery on [some shop's] site” or “I like how @someaccount lays out their photos.”"
-        why="Seeing what you like elsewhere helps us fine-tune the details beyond the three looks."
+        why="Seeing what you like elsewhere helps us fine-tune the details of your site."
       >
         <TextArea
           label="Links or descriptions (optional)"

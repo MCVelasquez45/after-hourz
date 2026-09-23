@@ -31,8 +31,6 @@ import {
 import {
   visibleQuestions,
   visibleSections,
-  DIRECTIONS,
-  PROTOTYPE_BASE,
   type StepId,
   type SectionId,
   type Updater,
@@ -51,17 +49,16 @@ const SUBMIT_ENDPOINT = '/api/review/submit';
 
 /**
  * A screen in the guided flow. Questions are `q:<id>`; the rest are fixed screens.
- * `design` is the "three looks" chooser. `summary` + `submit` bookend. `confirmation`
- * (the Thank-You hub) and `designs` (browse all) live after a successful submit.
+ * `summary` + `submit` bookend the interview; `confirmation` (the Thank-You hub) is
+ * shown after a successful submit. (The direction is chosen off-platform, so there is
+ * no design chooser here — the client only fills out the intake form.)
  */
 type Screen =
   | { kind: 'welcome' }
-  | { kind: 'design' }
   | { kind: 'question'; id: StepId }
   | { kind: 'summary' }
   | { kind: 'submit' }
-  | { kind: 'confirmation' }
-  | { kind: 'designs' };
+  | { kind: 'confirmation' };
 
 const srOnly: React.CSSProperties = {
   position: 'absolute',
@@ -150,7 +147,6 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
   const flow = useMemo<Screen[]>(() => {
     return [
       { kind: 'welcome' },
-      { kind: 'design' },
       ...questions.map((q) => ({ kind: 'question', id: q.id }) as Screen),
       { kind: 'summary' },
       { kind: 'submit' },
@@ -170,10 +166,8 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
   }, []);
 
   const goToStepId = useCallback((id: StepId) => {
-    // edit-jumps from the summary map onto a question screen (or the design chooser)
-    if (id === 'design-review') {
-      setScreen({ kind: 'design' });
-    } else if (id === 'summary') {
+    // edit-jumps from the summary map onto a question screen
+    if (id === 'summary') {
       setScreen({ kind: 'summary' });
     } else {
       setScreen({ kind: 'question', id });
@@ -192,7 +186,6 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
   }, [flow, flowIndex, goToScreen]);
 
   // ---- gates ----
-  const canLeaveDesign = draft.design.selection !== '';
   const phasesAcknowledged =
     draft.project.phase1Acknowledged &&
     draft.project.phase2Acknowledged &&
@@ -201,7 +194,6 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
 
   // ---- current section (for the progress rail) ----
   const currentSection: SectionId | null = useMemo(() => {
-    if (screen.kind === 'design') return 'design';
     if (screen.kind === 'summary' || screen.kind === 'submit') return 'review';
     if (screen.kind === 'question') {
       return questions.find((q) => q.id === screen.id)?.section ?? null;
@@ -259,17 +251,13 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
     const label =
       screen.kind === 'question'
         ? `${currentSection ?? ''} section`
-        : screen.kind === 'design'
-          ? 'Choose your design'
-          : screen.kind === 'summary'
-            ? 'Review your answers'
-            : screen.kind === 'submit'
-              ? 'Send your answers'
-              : screen.kind === 'confirmation'
-                ? 'Thank you'
-                : screen.kind === 'designs'
-                  ? 'All three designs'
-                  : 'Welcome';
+        : screen.kind === 'summary'
+          ? 'Review your answers'
+          : screen.kind === 'submit'
+            ? 'Send your answers'
+            : screen.kind === 'confirmation'
+              ? 'Thank you'
+              : 'Welcome';
     liveRef.current.textContent = label;
   }, [screen, currentSection]);
 
@@ -296,46 +284,15 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
         <div ref={bodyRef} tabIndex={-1} className="rv-focus-target">
           <ThankYouHub
             receipt={receipt}
-            onViewAll={() => goToScreen({ kind: 'designs' })}
-            onReview={() => goToScreen({ kind: 'summary' })}
-            onChangeSelection={() => {
-              // explicit amendment: reopen the interview at the design chooser. We do NOT
-              // mutate the prior submission — a fresh submit creates a new/amended record.
+            onReview={() => {
+              // Let the client revisit / edit their answers. A fresh submit creates an
+              // amended record — it never mutates what they already sent.
               setAmending(true);
               setSubmit({ status: 'idle' });
               setTurnstileToken('');
-              goToScreen({ kind: 'design' });
+              goToScreen({ kind: 'summary' });
             }}
           />
-        </div>
-      </>
-    );
-  }
-
-  // ------------------------------------------------------------------ BROWSE ALL DESIGNS
-  if (screen.kind === 'designs') {
-    return (
-      <>
-        <LiveRegion refEl={liveRef} />
-        <div ref={bodyRef} tabIndex={-1} className="ah-plaque rv-card rv-focus-target">
-          <h2>All three designs</h2>
-          <p className="rv-lede">
-            Here are the three looks again — open any of them full-screen to compare.
-          </p>
-          <div className="rv-previews">
-            {DIRECTIONS.map((d) => (
-              <DesignCard key={d.id} d={d} selected={draft.design.selection === d.id} />
-            ))}
-          </div>
-        </div>
-        <div className="rv-nav rv-nav--end">
-          <button
-            type="button"
-            className="ah-btn ah-btn--ghost"
-            onClick={() => goToScreen(receipt ? { kind: 'confirmation' } : { kind: 'design' })}
-          >
-            Back
-          </button>
         </div>
       </>
     );
@@ -355,49 +312,24 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
       <div className="ah-plaque rv-card rv-welcome">
         <h2>Your After Hourz Website</h2>
         <p className="rv-lede">
-          Hey Anthony — welcome. We took your brand, your custom work, and lowrider culture and
-          built <strong>three different looks</strong> for the After Hourz website. They&apos;re all
-          real, working web pages — same shop, three different feels.
+          Hey Anthony — welcome. The look is locked in. Now we just need a few details about the
+          shop so we can build the site around what you actually do.
         </p>
         <p className="rv-lede">
-          Have a look at all three and pick the one that feels the most like After Hourz. After
-          that, we&apos;ll walk through a few easy questions — one at a time — so we can build the
-          site around what you actually need.
+          We&apos;ll walk through some easy questions — one at a time. Most take a few seconds, and
+          you can skip anything you&apos;re not sure about.
         </p>
         <p className="rv-hint">
-          There are no wrong answers, and you don&apos;t have to know everything. Skip anything
-          you&apos;re unsure about. Your place saves automatically on this device, so you can stop
+          There are no wrong answers. Your place saves automatically on this device, so you can stop
           and come back anytime.
         </p>
         <button
           type="button"
           className="ah-btn ah-btn--candy rv-btn-full rv-welcome-cta"
-          onClick={() => goToScreen({ kind: 'design' })}
+          onClick={goNext}
         >
-          View the Designs
+          Get Started
         </button>
-      </div>
-    );
-  } else if (screen.kind === 'design') {
-    nextDisabled = !canLeaveDesign;
-    body = (
-      <div className="ah-plaque rv-card">
-        <h2>Three looks for After Hourz</h2>
-        <p className="rv-lede">
-          Tap <strong>View Website</strong> to see the full page, then tap{' '}
-          <strong>Choose This Direction</strong> on the one that feels most like the shop. You can
-          change your mind later.
-        </p>
-        <div className="rv-previews">
-          {DIRECTIONS.map((d) => (
-            <DesignCard
-              key={d.id}
-              d={d}
-              selected={draft.design.selection === d.id}
-              onChoose={() => update('design', { selection: d.id })}
-            />
-          ))}
-        </div>
       </div>
     );
   } else if (screen.kind === 'question') {
@@ -416,11 +348,7 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
   } else if (screen.kind === 'summary') {
     nextLabel = 'Continue to send';
     body = (
-      <SummaryView
-        draft={draft}
-        onEdit={goToStepId}
-        directions={DIRECTIONS as unknown as { id: string; name: string; no: string }[]}
-      />
+      <SummaryView draft={draft} onEdit={goToStepId} />
     );
   } else if (screen.kind === 'submit') {
     showNext = false;
@@ -488,9 +416,6 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
       </div>
 
       {/* inline gate messages */}
-      {screen.kind === 'design' && nextDisabled && (
-        <p className="rv-field-error">Choose a direction to continue.</p>
-      )}
       {screen.kind === 'question' && screen.id === 'project-phases' && nextDisabled && (
         <p className="rv-field-error">Please check all three boxes to continue.</p>
       )}
@@ -567,89 +492,15 @@ function SectionRail({
  * client-facing name, one plain "feel" sentence, and clear actions. Reused by the design
  * chooser and the browse-all screen. `onChoose` is omitted on browse-all (view-only).
  */
-function DesignCard({
-  d,
-  selected,
-  onChoose,
-}: {
-  d: { id: string; no: string; name: string; tagline: string };
-  selected: boolean;
-  onChoose?: () => void;
-}) {
-  const href = `${PROTOTYPE_BASE}/${d.id}/?review=1`;
-  return (
-    <div className={`rv-preview${selected ? ' is-selected' : ''}`}>
-      <a
-        className="rv-preview-frame"
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Open the ${d.name} website in a new tab`}
-      >
-        <iframe
-          className="rv-preview-iframe"
-          src={href}
-          title={`${d.name} website preview`}
-          loading="lazy"
-          tabIndex={-1}
-          aria-hidden="true"
-        />
-        <span className="rv-preview-open" aria-hidden="true">
-          Tap to open
-        </span>
-      </a>
-      <div className="rv-preview-body">
-        <div className="rv-preview-head">
-          <span className="rv-preview-no">{d.no}</span>
-          <span className="rv-preview-name">{d.name}</span>
-        </div>
-        <p className="rv-preview-tag">{d.tagline}</p>
-        <div className="rv-preview-actions">
-          <a
-            className="ah-btn ah-btn--ghost rv-preview-btn"
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View Website
-          </a>
-          {onChoose && (
-            <button
-              type="button"
-              className={`ah-btn rv-preview-btn ${selected ? 'ah-btn--ghost' : 'ah-btn--candy'}`}
-              aria-pressed={selected}
-              onClick={onChoose}
-            >
-              {selected ? '✓ Chosen' : 'Choose This Direction'}
-            </button>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/** Post-submission hub. Never a dead end: view the selected design, view all, or review. */
-function ThankYouHub({
-  receipt,
-  onViewAll,
-  onReview,
-  onChangeSelection,
-}: {
-  receipt: StoredReceipt;
-  onViewAll: () => void;
-  onReview: () => void;
-  onChangeSelection: () => void;
-}) {
-  const selected = DIRECTIONS.find((d) => d.id === receipt.selection) ?? null;
+/** Post-submission hub. The client can review / update the answers they just sent. */
+function ThankYouHub({ receipt, onReview }: { receipt: StoredReceipt; onReview: () => void }) {
   const returning = receipt.status === 'amended';
-  const selectedHref = selected ? `${PROTOTYPE_BASE}/${selected.id}/?review=1` : null;
   return (
     <div className="ah-plaque rv-card rv-confirm">
       <h2>{returning ? 'Welcome back, Anthony' : 'Thank you, Anthony'}</h2>
       <p className="rv-lede">
         {returning
-          ? 'Your review is in. Pick up right where you left off — your designs stay here whenever you want them.'
+          ? 'Your updates are in — thank you. We’ll take it from here.'
           : 'Your answers came through. We’ll take it from here and follow up on anything that needs a closer look.'}
       </p>
 
@@ -657,41 +508,15 @@ function ThankYouHub({
         {receipt.id}
       </div>
       <p className="rv-hint">
-        Keep this number — it&apos;s your receipt for this review. Submitted{' '}
+        Keep this number — it&apos;s your receipt for this form. Submitted{' '}
         {new Date(receipt.submittedAt).toLocaleString()}.
       </p>
 
       <div className="rv-hub-actions">
-        {selectedHref && (
-          <a
-            className="ah-btn ah-btn--candy rv-btn-full"
-            href={selectedHref}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View My Selected Design{selected ? ` — ${selected.name}` : ''}
-          </a>
-        )}
-        <button type="button" className="ah-btn ah-btn--ghost rv-btn-full" onClick={onViewAll}>
-          View All Three Designs
-        </button>
         <button type="button" className="ah-btn ah-btn--ghost rv-btn-full" onClick={onReview}>
-          Review My Submission
+          Review or update my answers
         </button>
       </div>
-
-      <hr className="ah-pinstripe" style={{ margin: '1.5rem 0' }} />
-      <p className="rv-hint" style={{ marginBottom: '0.6rem' }}>
-        Changed your mind on the look? You can send us an updated choice — it won&apos;t erase what
-        you already sent.
-      </p>
-      <button
-        type="button"
-        className="ah-btn ah-btn--chrome rv-btn-full"
-        onClick={onChangeSelection}
-      >
-        Change My Selection
-      </button>
     </div>
   );
 }

@@ -299,7 +299,7 @@ export function buildSubmission(draft: ReviewDraft): AfterHourzReviewSubmission 
     idempotencyKey: draft.idempotencyKey,
     reviewSessionId: draft.reviewSessionId,
     design: {
-      selection: draft.design.selection,
+      selection: draft.design.selection || undefined,
       likes: draft.design.likes,
       changes: s(draft.design.changes),
       borrowedIdeas: s(draft.design.borrowedIdeas),

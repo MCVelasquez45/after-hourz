@@ -124,7 +124,7 @@ async function persistSubmission(args: {
     ).bind(
       candidateId,
       REVIEW_CLIENT_SLUG,
-      submission.design.selection,
+      submission.design.selection ?? 'unspecified',
       idempotencyKey,
       payloadJson,
       SCHEMA_VERSION,
@@ -152,7 +152,7 @@ async function persistSubmission(args: {
     .bind(
       candidateId,
       REVIEW_CLIENT_SLUG,
-      submission.design.selection,
+      submission.design.selection ?? 'unspecified',
       payloadJson,
       SCHEMA_VERSION,
       nowIso,

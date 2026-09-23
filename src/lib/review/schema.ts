@@ -148,7 +148,8 @@ export const reviewSubmissionSchema = z.object({
   reviewSessionId: z.string().trim().min(6).max(80).optional(),
 
   design: z.object({
-    selection: z.enum(DIRECTION_IDS as unknown as [string, ...string[]]),
+    // Optional: the direction is chosen off-platform now, so the client form no longer asks.
+    selection: z.enum(DIRECTION_IDS as unknown as [string, ...string[]]).optional(),
     likes: strArr.default([]),
     changes: longStr.optional(),
     borrowedIdeas: longStr.optional(),

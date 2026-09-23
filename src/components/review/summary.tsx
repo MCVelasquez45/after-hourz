@@ -27,17 +27,7 @@ interface Group {
   rows: Row[];
 }
 
-interface Directions {
-  id: string;
-  name: string;
-  no: string;
-}
-
-function directionName(directions: Directions[], id: string): string {
-  return directions.find((d) => d.id === id)?.name ?? '';
-}
-
-export function buildSummary(draft: ReviewDraft, directions: Directions[]): Group[] {
+export function buildSummary(draft: ReviewDraft): Group[] {
   const socialList = list(
     [
       draft.social.instagram && 'Instagram',
@@ -50,15 +40,9 @@ export function buildSummary(draft: ReviewDraft, directions: Directions[]): Grou
 
   return [
     {
-      step: 'design-review',
-      title: 'Design',
-      rows: [
-        { key: 'Chosen look', val: directionName(directions, draft.design.selection) },
-        { key: 'Liked', val: list(draft.design.likes) },
-        { key: 'Changes', val: draft.design.changes },
-        { key: 'Borrow from others', val: draft.design.borrowedIdeas },
-        { key: 'Other inspiration', val: draft.design.inspirationLinks },
-      ],
+      step: 'design-inspiration',
+      title: 'Inspiration',
+      rows: [{ key: 'Sites / looks you like', val: draft.design.inspirationLinks }],
     },
     {
       step: 'about-description',
@@ -203,13 +187,11 @@ function WorkGroup({ draft, onEdit }: { draft: ReviewDraft; onEdit: (s: StepId) 
 export function SummaryView({
   draft,
   onEdit,
-  directions,
 }: {
   draft: ReviewDraft;
   onEdit: (step: StepId) => void;
-  directions: Directions[];
 }) {
-  const groups = buildSummary(draft, directions);
+  const groups = buildSummary(draft);
   return (
     <div className="ah-plaque rv-card">
       <h2>Review your answers</h2>
