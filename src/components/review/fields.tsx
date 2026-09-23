@@ -2,8 +2,18 @@
   After Hourz — accessible field primitives for the review questionnaire.
   Plain, controlled, label-associated inputs. No external UI deps.
 */
-import { useId } from 'react';
+import { useId, useState } from 'react';
 import { normalizeLinkOrHandle, type YNM } from './draft';
+
+/**
+ * Loose email shape check — a gentle nudge, not a hard gate (the field stays optional and the
+ * schema doesn't enforce format either). A false negative is worse than a false positive here,
+ * so this only flags input that's clearly not an email at all.
+ */
+export function looksLikeEmail(v: string): boolean {
+  const t = v.trim();
+  return t.length === 0 || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(t);
+}
 
 export function TextField(props: {
   label: string;
@@ -120,19 +130,44 @@ export function TextArea(props: {
   );
 }
 
-/** Multi-select chip group (checkbox semantics). */
+/**
+ * Multi-select chip group (checkbox semantics). With `allowOther`, an extra "Other" chip
+ * reveals a free-text field on selection — its text is appended into `value` alongside the
+ * standard picks, so nothing new is needed in the data model: any value not in `options` IS
+ * the client's own custom entry. Never traps the client inside the predefined list.
+ */
 export function ChipGroup(props: {
   legend: string;
   options: readonly string[];
   value: string[];
   onChange: (v: string[]) => void;
   hint?: string;
+  allowOther?: boolean;
+  otherPlaceholder?: string;
 }) {
+  const standard = props.value.filter((v) => props.options.includes(v));
+  const custom = props.value.find((v) => !props.options.includes(v)) ?? '';
+  const [otherOpen, setOtherOpen] = useState(custom.length > 0);
+  const otherId = useId();
+
   const toggle = (opt: string) => {
-    props.onChange(
-      props.value.includes(opt) ? props.value.filter((v) => v !== opt) : [...props.value, opt],
-    );
+    const next = standard.includes(opt) ? standard.filter((v) => v !== opt) : [...standard, opt];
+    props.onChange(custom ? [...next, custom] : next);
   };
+
+  const toggleOther = () => {
+    if (otherOpen) {
+      setOtherOpen(false);
+      props.onChange(standard); // drop the custom text when "Other" is unchecked
+    } else {
+      setOtherOpen(true);
+    }
+  };
+
+  const onCustomChange = (text: string) => {
+    props.onChange(text.trim() ? [...standard, text] : standard);
+  };
+
   return (
     <fieldset className="rv-field" style={{ border: 0, margin: 0, padding: 0 }}>
       <legend className="rv-label">{props.legend}</legend>
@@ -143,7 +178,7 @@ export function ChipGroup(props: {
       )}
       <div className="rv-options">
         {props.options.map((opt) => {
-          const on = props.value.includes(opt);
+          const on = standard.includes(opt);
           return (
             <label key={opt} className={`rv-chip${on ? ' is-on' : ''}`}>
               <input type="checkbox" checked={on} onChange={() => toggle(opt)} />
@@ -151,20 +186,59 @@ export function ChipGroup(props: {
             </label>
           );
         })}
+        {props.allowOther && (
+          <label className={`rv-chip${otherOpen ? ' is-on' : ''}`}>
+            <input
+              type="checkbox"
+              checked={otherOpen}
+              aria-expanded={otherOpen}
+              aria-controls={otherId}
+              onChange={toggleOther}
+            />
+            <span className="rv-chip-label">Other +</span>
+          </label>
+        )}
       </div>
+      {props.allowOther && otherOpen && (
+        <input
+          id={otherId}
+          className="rv-input rv-input--other"
+          type="text"
+          value={custom}
+          onChange={(e) => onCustomChange(e.target.value)}
+          placeholder={props.otherPlaceholder ?? 'Tell us what we missed…'}
+          aria-label={`${props.legend} — other, please specify`}
+        />
+      )}
     </fieldset>
   );
 }
 
-/** Single-select chip group (radio semantics), used for Yes/No/Maybe etc. */
+/**
+ * Single-select chip group (radio semantics), used for Yes/No/Maybe etc. With `allowOther`, an
+ * extra "Other" chip reveals a free-text field — whatever the client types becomes `value`
+ * directly (no data-model change needed; a value outside `options` IS the custom answer).
+ */
 export function RadioChips(props: {
   legend: string;
   options: readonly { value: string; label: string }[];
   value: string;
   onChange: (v: string) => void;
   hint?: string;
+  allowOther?: boolean;
+  otherPlaceholder?: string;
 }) {
   const name = useId();
+  const otherId = useId();
+  const optionValues = props.options.map((o) => o.value);
+  const isCustom = props.value !== '' && !optionValues.includes(props.value);
+  const [otherOpen, setOtherOpen] = useState(isCustom);
+
+  const chooseOther = () => {
+    setOtherOpen(true);
+    if (!isCustom) props.onChange('');
+  };
+
   return (
     <fieldset className="rv-field" style={{ border: 0, margin: 0, padding: 0 }}>
       <legend className="rv-label">{props.legend}</legend>
@@ -175,20 +249,46 @@ export function RadioChips(props: {
       )}
       <div className="rv-seg">
         {props.options.map((opt) => {
-          const on = props.value === opt.value;
+          const on = !otherOpen && props.value === opt.value;
           return (
             <label key={opt.value} className={`rv-chip${on ? ' is-on' : ''}`}>
               <input
                 type="radio"
                 name={name}
                 checked={on}
-                onChange={() => props.onChange(opt.value)}
+                onChange={() => {
+                  setOtherOpen(false);
+                  props.onChange(opt.value);
+                }}
               />
               <span className="rv-chip-label">{opt.label}</span>
             </label>
           );
         })}
+        {props.allowOther && (
+          <label className={`rv-chip${otherOpen ? ' is-on' : ''}`}>
+            <input
+              type="radio"
+              name={name}
+              checked={otherOpen}
+              aria-controls={otherId}
+              onChange={chooseOther}
+            />
+            <span className="rv-chip-label">Other +</span>
+          </label>
+        )}
       </div>
+      {props.allowOther && otherOpen && (
+        <input
+          id={otherId}
+          className="rv-input rv-input--other"
+          type="text"
+          value={isCustom ? props.value : ''}
+          onChange={(e) => props.onChange(e.target.value)}
+          placeholder={props.otherPlaceholder ?? 'Tell us what we missed…'}
+          aria-label={`${props.legend} — other, please specify`}
+        />
+      )}
     </fieldset>
   );
 }

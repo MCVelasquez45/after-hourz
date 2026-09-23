@@ -26,10 +26,19 @@ import {
   PAYMENT_METHOD_OPTIONS,
   PRODUCT_TYPE_OPTIONS,
   APPOINTMENT_TYPE_OPTIONS,
+  GOAL_OPTIONS,
   PROJECT_PHASES,
 } from '../../lib/review/schema';
 import type { ReviewDraft, YNM } from './draft';
-import { TextField, TextArea, ChipGroup, HaveItField, LinkOrHandle } from './fields';
+import {
+  TextField,
+  TextArea,
+  ChipGroup,
+  HaveItField,
+  LinkOrHandle,
+  RadioChips,
+  looksLikeEmail,
+} from './fields';
 import { Question, HelperLink } from './Question';
 import { Uploader } from './Uploader';
 
@@ -44,6 +53,8 @@ export interface StepContext {
   goToStepId: (id: StepId) => void;
   /** Replace this category's asset refs (used by inline uploaders). */
   setAssets: (category: string, assets: import('../../lib/review/schema').AssetRef[]) => void;
+  /** Set the top-level free-text notes field (not section-shaped, so it bypasses `update`). */
+  setAdditionalNotes: (notes: string) => void;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -78,20 +89,30 @@ export type StepId =
   | 'welcome'
   | 'design-review'
   | 'design-feedback'
+  | 'design-inspiration'
   | 'about-description'
   | 'about-known-for'
   | 'about-vehicles'
+  | 'about-target-customers'
   | 'about-story'
+  | 'about-branding'
+  | 'about-credentials'
   | 'services-offered'
   | 'services-featured'
   | 'work-photos'
   | 'work-before-after'
   | 'work-process'
   | 'work-priority'
+  | 'work-shop-photos'
+  | 'work-testimonials'
   | 'online-social'
   | 'online-google'
   | 'online-google-link'
   | 'online-contact'
+  | 'online-hours'
+  | 'online-primary-action'
+  | 'online-intake'
+  | 'online-goals'
   | 'online-domain'
   | 'online-domain-which'
   | 'online-domain-want'
@@ -103,6 +124,7 @@ export type StepId =
   | 'store-booking-types'
   | 'store-payments'
   | 'project-phases'
+  | 'project-notes'
   | 'summary'
   | 'submit'
   | 'confirmation';
@@ -159,6 +181,8 @@ export const QUESTIONS: QuestionDef[] = [
           ]}
           value={draft.design.likes}
           onChange={(v) => update('design', { likes: v })}
+          allowOther
+          otherPlaceholder="e.g. the way it loads, the sound of the name…"
         />
         <TextArea
           label="Anything you'd change?"
@@ -171,6 +195,26 @@ export const QUESTIONS: QuestionDef[] = [
           value={draft.design.borrowedIdeas}
           onChange={(v) => update('design', { borrowedIdeas: v })}
           placeholder="e.g. I liked the header from another one…"
+        />
+      </Question>
+    ),
+  },
+  {
+    id: 'design-inspiration',
+    section: 'design',
+    counted: true,
+    render: ({ draft, update }) => (
+      <Question
+        title="Any other websites or pages whose vibe you like?"
+        explanation="Doesn't have to be another shop — any site, page, or account with a look you're drawn to."
+        example="“The gallery on [some shop's] site” or “I like how @someaccount lays out their photos.”"
+        why="Seeing what you like elsewhere helps us fine-tune the details beyond the three looks."
+      >
+        <TextArea
+          label="Links or descriptions (optional)"
+          value={draft.design.inspirationLinks}
+          onChange={(v) => update('design', { inspirationLinks: v })}
+          placeholder="Paste a link or two, or just describe what caught your eye — one per line is fine"
         />
       </Question>
     ),
@@ -236,6 +280,27 @@ export const QUESTIONS: QuestionDef[] = [
           options={VEHICLE_OPTIONS}
           value={draft.business.vehicles}
           onChange={(v) => update('business', { vehicles: v })}
+          allowOther
+          otherPlaceholder="e.g. boats, golf carts, ATVs…"
+        />
+      </Question>
+    ),
+  },
+  {
+    id: 'about-target-customers',
+    section: 'about',
+    counted: true,
+    render: ({ draft, update }) => (
+      <Question
+        title="Who's your ideal customer?"
+        explanation="Who you'd most want walking through the door or sending a message."
+        example="“Lowrider guys who want it done right” or “Everyday drivers who need honest bodywork after an accident.”"
+        why="Knowing who we're talking to shapes the tone, photos, and language on the site."
+      >
+        <TextArea
+          label="Ideal customers (optional)"
+          value={draft.business.targetCustomers}
+          onChange={(v) => update('business', { targetCustomers: v })}
         />
       </Question>
     ),
@@ -265,6 +330,78 @@ export const QUESTIONS: QuestionDef[] = [
       </Question>
     ),
   },
+  {
+    id: 'about-branding',
+    section: 'about',
+    counted: true,
+    render: ({ draft, update, setAssets }) => (
+      <Question
+        title="Do you have an existing logo or brand colors?"
+        explanation="If you already have a logo or specific colors you use, share them — we'll build around what you have."
+        why="An existing logo or color scheme is the fastest way to keep the site looking unmistakably like After Hourz."
+        upload={
+          <Uploader
+            category="logo"
+            reviewSessionId={draft.reviewSessionId}
+            value={assetsFor(draft, 'logo')}
+            onChange={(a) => setAssets('logo', a)}
+            addLabel="Add Logo File"
+            hint="Optional — any image file works, even a phone photo of a shirt or sign."
+          />
+        }
+      >
+        <HaveItField
+          legend="Do you have an existing logo?"
+          value={draft.business.hasLogo}
+          onChange={(v) => update('business', { hasLogo: v })}
+          yesLabel="Yes"
+          noLabel="No logo yet"
+          maybeLabel="Sort of / it needs work"
+        />
+        <TextField
+          label="Brand colors, if you have any in mind (optional)"
+          value={draft.business.brandColors}
+          onChange={(v) => update('business', { brandColors: v })}
+          placeholder="e.g. cobalt blue and chrome, candy red and gold"
+        />
+      </Question>
+    ),
+  },
+  {
+    id: 'about-credentials',
+    section: 'about',
+    counted: true,
+    render: ({ draft, update }) => (
+      <Question
+        title="Any licenses, certifications, or credentials to show off?"
+        explanation="Things that build trust at a glance — pick any that apply, or skip if none of these fit."
+        why="Credentials like these are often the deciding factor for a customer comparing shops."
+      >
+        <ChipGroup
+          legend="Pick any that apply"
+          options={[
+            'Licensed & bonded',
+            'Insured',
+            'ASE certified',
+            'I-CAR certified',
+            'Manufacturer certified',
+            'Years in business',
+            'None of these',
+          ]}
+          value={draft.business.credentials}
+          onChange={(v) => update('business', { credentials: v })}
+          allowOther
+          otherPlaceholder="e.g. a specific certification or award"
+        />
+        <TextArea
+          label="Details worth mentioning (optional)"
+          value={draft.business.credentialDetails}
+          onChange={(v) => update('business', { credentialDetails: v })}
+          placeholder="e.g. licensed 15 years, ASE master certified since 2018…"
+        />
+      </Question>
+    ),
+  },
 
   /* ------------------------------ SERVICES ------------------------------ */
   {
@@ -282,6 +419,8 @@ export const QUESTIONS: QuestionDef[] = [
           options={SERVICE_OPTIONS}
           value={draft.services.offered}
           onChange={(v) => update('services', { offered: v })}
+          allowOther
+          otherPlaceholder="e.g. a service we didn't list"
         />
       </Question>
     ),
@@ -347,6 +486,8 @@ export const QUESTIONS: QuestionDef[] = [
           value={draft.portfolio.mediaLocations}
           onChange={(v) => update('portfolio', { mediaLocations: v })}
           hint="Just so we know where to help you gather them."
+          allowOther
+          otherPlaceholder="e.g. Google Photos, Dropbox…"
         />
         <TextField
           label="Roughly how many finished-build photos do you have? (optional)"
@@ -410,6 +551,57 @@ export const QUESTIONS: QuestionDef[] = [
           value={draft.portfolio.priorityBuilds}
           onChange={(v) => update('portfolio', { priorityBuilds: v })}
           placeholder="e.g. The candy-red ’64, the shop truck…"
+        />
+      </Question>
+    ),
+  },
+  {
+    id: 'work-shop-photos',
+    section: 'work',
+    counted: true,
+    render: ({ draft, setAssets }) => (
+      <Question
+        title="A photo of your shop, and of you or your team?"
+        explanation="Helps visitors see the real place and the people behind the work — totally optional."
+        why="A real shop photo and a face build more trust than stock imagery ever will."
+        upload={
+          <>
+            <Uploader
+              category="shop"
+              reviewSessionId={draft.reviewSessionId}
+              value={assetsFor(draft, 'shop')}
+              onChange={(a) => setAssets('shop', a)}
+              addLabel="Add Shop Photos"
+              hint="Optional — the outside sign, the bay, whatever shows the place."
+            />
+            <Uploader
+              category="portrait"
+              reviewSessionId={draft.reviewSessionId}
+              value={assetsFor(draft, 'portrait')}
+              onChange={(a) => setAssets('portrait', a)}
+              addLabel="Add a Photo of You / the Team"
+              hint="Optional — a casual shop photo is perfect, no need for anything formal."
+            />
+          </>
+        }
+      />
+    ),
+  },
+  {
+    id: 'work-testimonials',
+    section: 'work',
+    counted: true,
+    render: ({ draft, update }) => (
+      <Question
+        title="Any customer reviews or quotes you'd like featured?"
+        explanation="A line from a happy customer, a Google review, a DM you got after a build — whatever you've got."
+        why="Real words from real customers do more to build trust than anything we can write."
+      >
+        <TextArea
+          label="Reviews or quotes (optional)"
+          value={draft.portfolio.testimonials}
+          onChange={(v) => update('portfolio', { testimonials: v })}
+          placeholder="e.g. “Best paint job I've ever had, hands down.” — a customer on Instagram"
         />
       </Question>
     ),
@@ -527,6 +719,8 @@ export const QUESTIONS: QuestionDef[] = [
           options={CONTACT_METHOD_OPTIONS}
           value={draft.customerJourney.currentContactMethods}
           onChange={(v) => update('customerJourney', { currentContactMethods: v })}
+          allowOther
+          otherPlaceholder="e.g. WhatsApp, a booking app…"
         />
         <TextField
           label="Best phone number (optional)"
@@ -539,6 +733,9 @@ export const QUESTIONS: QuestionDef[] = [
           type="email"
           value={draft.contact.email}
           onChange={(v) => update('contact', { email: v })}
+          error={
+            looksLikeEmail(draft.contact.email) ? undefined : "That doesn't look like a full email address"
+          }
         />
         <TextField
           label="City the shop is in (optional)"
@@ -550,6 +747,114 @@ export const QUESTIONS: QuestionDef[] = [
           value={draft.location.state}
           onChange={(v) => update('location', { state: v })}
           placeholder="CA"
+        />
+      </Question>
+    ),
+  },
+  {
+    id: 'online-hours',
+    section: 'online',
+    counted: true,
+    render: ({ draft, update }) => (
+      <Question
+        title="What are your hours, and do people need an appointment?"
+        explanation="This goes right on the site so customers know when to call or stop by."
+        example="“Mon–Sat 9–6, closed Sundays” and “Appointment for drop-off, walk-ins OK for quick questions.”"
+        why="Hours and whether you take walk-ins are some of the first things a visitor looks for."
+      >
+        <TextArea
+          label="Shop hours (optional)"
+          value={draft.location.businessHours}
+          onChange={(v) => update('location', { businessHours: v })}
+          placeholder="e.g. Mon–Sat 9am–6pm, closed Sundays"
+        />
+        <HaveItField
+          legend="Do customers need an appointment, or can they walk in?"
+          value={draft.location.appointmentRequired}
+          onChange={(v) => update('location', { appointmentRequired: v })}
+          yesLabel="Appointment required"
+          noLabel="Walk-ins welcome"
+          maybeLabel="Depends / not sure"
+        />
+        <TextArea
+          label="How far do you travel, or which areas do you serve? (optional)"
+          value={draft.location.serviceAreas}
+          onChange={(v) => update('location', { serviceAreas: v })}
+          placeholder="e.g. shop-only, or we travel within 30 miles of the shop"
+        />
+      </Question>
+    ),
+  },
+  {
+    id: 'online-primary-action',
+    section: 'online',
+    counted: true,
+    render: ({ draft, update }) => (
+      <Question
+        title="What's the one thing you want a visitor to do?"
+        explanation="If a first-time visitor only does ONE thing on your site, what should it be?"
+        why="We'll make this the site's main button — the thing every page points toward."
+      >
+        <RadioChips
+          legend="Pick the single best next step"
+          options={[
+            { value: 'Call the shop', label: 'Call the shop' },
+            { value: 'Message on Instagram/Facebook', label: 'Message on Instagram/Facebook' },
+            { value: 'Fill out a contact form', label: 'Fill out a contact form' },
+            { value: 'Visit in person', label: 'Visit in person' },
+          ]}
+          value={draft.customerJourney.primaryAction}
+          onChange={(v) => update('customerJourney', { primaryAction: v })}
+          allowOther
+          otherPlaceholder="e.g. book online, get a text quote…"
+        />
+      </Question>
+    ),
+  },
+  {
+    id: 'online-intake',
+    section: 'online',
+    counted: true,
+    render: ({ draft, update }) => (
+      <Question
+        title="If someone reaches out for a quote, what do you need from them?"
+        explanation="The info that actually helps you give a real quote — year/make/model, what they want done, etc."
+        why="We'll build the contact/quote form around what you actually need to respond, not generic fields."
+      >
+        <TextArea
+          label="What you need to hear from a new customer (optional)"
+          value={draft.customerJourney.intakeRequirements}
+          onChange={(v) => update('customerJourney', { intakeRequirements: v })}
+          placeholder="e.g. year/make/model, what they want done, when they need it back…"
+        />
+        <HaveItField
+          legend="Should they be able to attach photos of their vehicle when they reach out?"
+          value={draft.customerJourney.photoUploadInterest}
+          onChange={(v) => update('customerJourney', { photoUploadInterest: v })}
+          yesLabel="Yes, let them attach photos"
+          noLabel="Not needed"
+          maybeLabel="Not sure"
+        />
+      </Question>
+    ),
+  },
+  {
+    id: 'online-goals',
+    section: 'online',
+    counted: true,
+    render: ({ draft, update }) => (
+      <Question
+        title="What do you want this website to do for you?"
+        explanation="Besides looking good — pick anything else you want it to accomplish."
+        why="This tells us what to build toward beyond the homepage, and what to measure once it's live."
+      >
+        <ChipGroup
+          legend="Pick any that apply"
+          options={GOAL_OPTIONS}
+          value={draft.customerJourney.actions}
+          onChange={(v) => update('customerJourney', { actions: v })}
+          allowOther
+          otherPlaceholder="e.g. something specific you're trying to accomplish"
         />
       </Question>
     ),
@@ -658,6 +963,8 @@ export const QUESTIONS: QuestionDef[] = [
           options={PRODUCT_TYPE_OPTIONS}
           value={draft.store.productTypes}
           onChange={(v) => update('store', { productTypes: v })}
+          allowOther
+          otherPlaceholder="e.g. something specific you'd want to sell"
         />
         <TextField
           label="Roughly how many products to start? (optional)"
@@ -706,6 +1013,7 @@ export const QUESTIONS: QuestionDef[] = [
           ]}
           value={draft.store.vendorAssets}
           onChange={(v) => update('store', { vendorAssets: v })}
+          allowOther
         />
       </Question>
     ),
@@ -765,6 +1073,8 @@ export const QUESTIONS: QuestionDef[] = [
           options={APPOINTMENT_TYPE_OPTIONS}
           value={draft.booking.appointmentTypes}
           onChange={(v) => update('booking', { appointmentTypes: v })}
+          allowOther
+          otherPlaceholder="e.g. a specific kind of appointment"
         />
         <HaveItField
           legend="Take a deposit or payment at booking?"
@@ -791,11 +1101,20 @@ export const QUESTIONS: QuestionDef[] = [
           options={PAYMENT_METHOD_OPTIONS}
           value={draft.payments.currentMethods}
           onChange={(v) => update('payments', { currentMethods: v })}
+          allowOther
         />
         <HaveItField
           legend="Interested in taking payments online later?"
           value={draft.payments.onlinePaymentsInterest}
           onChange={(v) => update('payments', { onlinePaymentsInterest: v })}
+          yesLabel="Yes"
+          noLabel="Not right now"
+          maybeLabel="Maybe later"
+        />
+        <HaveItField
+          legend="Want to require a deposit for quotes or bookings?"
+          value={draft.payments.depositInterest}
+          onChange={(v) => update('payments', { depositInterest: v })}
           yesLabel="Yes"
           noLabel="Not right now"
           maybeLabel="Maybe later"
@@ -881,6 +1200,24 @@ export const QUESTIONS: QuestionDef[] = [
             directly, and you’ll connect everything for me.
           </label>
         </div>
+      </Question>
+    ),
+  },
+  {
+    id: 'project-notes',
+    section: 'project',
+    counted: true,
+    render: ({ draft, setAdditionalNotes }) => (
+      <Question
+        title="Anything else we should know before we start?"
+        explanation="Anything that didn't fit above — a deadline, something to avoid, a detail that matters to you."
+        why="Last chance to tell us anything that would change how we build the site."
+      >
+        <TextArea
+          label="Anything else (optional)"
+          value={draft.additionalNotes}
+          onChange={setAdditionalNotes}
+        />
       </Question>
     ),
   },

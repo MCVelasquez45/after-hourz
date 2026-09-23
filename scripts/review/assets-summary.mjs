@@ -2,18 +2,17 @@
   Shared asset-awareness helpers for review:context / review:brief.
 
   Two responsibilities:
-    1) Render the "## Client Assets Provided" section: counts by category (from D1 review_assets)
-       + reference links (from payload.references[]). NO binary embedding — we list counts and
-       links only; the actual files are fetched by `review:assets`.
+    1) Render the "## Client Assets Provided" section: counts by category (from D1 review_assets).
+       NO binary embedding — we list counts only; the actual files are fetched by `review:assets`.
     2) SMART missing-asset checklist: a media/asset need is only listed as missing when NO
        uploaded category satisfies it AND the client did not describe having it. Likewise a
        "still need this fact" item is skipped when the fact (instagram / google / domain) is
        already present.
 
-  GUARDRAILS (render.mjs): counts and links are the client's own data. We never invent an asset
-  and never claim one exists that the client did not upload or state.
+  GUARDRAILS (render.mjs): counts are the client's own data. We never invent an asset and never
+  claim one exists that the client did not upload.
 */
-import { has, val, inline, NOT_PROVIDED } from './render.mjs';
+import { has, val, NOT_PROVIDED } from './render.mjs';
 import { assetRowsForSubmission, countAssetsByCategory } from './lib.mjs';
 
 /**
@@ -66,41 +65,18 @@ export function coveredByAssets(counts, categories) {
 }
 
 /**
- * Normalize payload.references[] into printable reference links. Image references (kind === 'image')
- * point at an uploaded asset id — we note that rather than a URL (the binary is fetched by
- * review:assets). Returns [] when none.
- */
-export function referenceLinks(references) {
-  if (!Array.isArray(references)) return [];
-  const out = [];
-  for (const ref of references) {
-    if (!ref || typeof ref !== 'object') continue;
-    const note = has(ref.note) ? inline(ref.note) : '';
-    if (ref.kind === 'link' && has(ref.value)) {
-      out.push({ label: inline(ref.value), note });
-    } else if (ref.kind === 'image' && has(ref.assetId)) {
-      out.push({ label: `uploaded image reference (${inline(ref.assetId)})`, note });
-    } else if (has(ref.value)) {
-      out.push({ label: inline(ref.value), note });
-    }
-  }
-  return out;
-}
-
-/**
  * Render the "## Client Assets Provided" section body.
  *
  * @param {{ counts: Record<string, number> & { total: number }, unavailable?: boolean }} assets
- * @param {Array} references  payload.references[]
  */
-export function clientAssetsSection(assets, references) {
+export function clientAssetsSection(assets) {
   const lines = [];
   const counts = assets?.counts ?? { total: 0 };
 
   if (assets?.unavailable) {
     lines.push(
-      '_Uploaded-asset store was unavailable when this brief was generated; ' +
-        'counts below reflect inspiration links only. Run `pnpm review:assets <id>` to sync._',
+      '_Uploaded-asset store was unavailable when this brief was generated. ' +
+        'Run `pnpm review:assets <id>` to sync._',
     );
     lines.push('');
   }
@@ -116,17 +92,6 @@ export function clientAssetsSection(assets, references) {
       lines.push(`- ${categoryLabel(cat)} (\`${cat}\`): ${n}`);
     }
     lines.push(`- **Total uploaded:** ${counts.total}`);
-  }
-
-  lines.push('');
-  const refs = referenceLinks(references);
-  lines.push('**Inspiration references provided:**');
-  if (refs.length === 0) {
-    lines.push('- None provided.');
-  } else {
-    for (const r of refs) {
-      lines.push(`- ${r.label}${r.note ? ` — ${r.note}` : ''}`);
-    }
   }
 
   lines.push('');

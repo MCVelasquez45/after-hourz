@@ -30,8 +30,8 @@ function buildMarkdown(record, assets) {
   const parts = [];
   parts.push(docHeader('Internal Production Brief', record, directionInfo));
 
-  // --- Client Assets Provided (counts + reference links; NO binaries) ---
-  parts.push(section('Client Assets Provided', clientAssetsSection(assets, p.references)));
+  // --- Client Assets Provided (counts only; NO binaries) ---
+  parts.push(section('Client Assets Provided', clientAssetsSection(assets)));
 
   parts.push(
     section(
@@ -40,6 +40,7 @@ function buildMarkdown(record, assets) {
         `**${dir.name}** (\`${dir.id}\`)${dir.tagline ? ` — ${dir.tagline}` : ''}`,
         `- Client-noted likes: ${val(p.design?.likes)}`,
         `- Client-requested changes: ${inline(p.design?.changes)}`,
+        `- Other inspiration: ${inline(p.design?.inspirationLinks)}`,
       ].join('\n'),
     ),
   );
@@ -66,6 +67,18 @@ function buildMarkdown(record, assets) {
         `- **Hidden / de-emphasized:** ${val(p.services?.hidden)}`,
         `- **About source:** ${has(p.business?.knownFor) ? 'client "known for" statement' : NOT_PROVIDED}`,
         `- **Vehicles served:** ${val(p.business?.vehicles)}`,
+        `- **Target customers:** ${inline(p.business?.targetCustomers)}`,
+      ].join('\n'),
+    ),
+  );
+
+  parts.push(
+    section(
+      'Branding',
+      [
+        `- **Has an existing logo:** ${yesNo(p.business?.hasLogo)}`,
+        `- **Brand colors:** ${inline(p.business?.brandColors)}`,
+        `- **Credentials:** ${val(p.business?.credentials)}${has(p.business?.credentialDetails) ? ` — ${inline(p.business.credentialDetails)}` : ''}`,
       ].join('\n'),
     ),
   );
@@ -76,7 +89,7 @@ function buildMarkdown(record, assets) {
       has(p.customerJourney?.primaryAction)
         ? `Primary CTA: **${inline(p.customerJourney.primaryAction)}** (client-selected).` +
             (has(p.customerJourney?.actions)
-              ? `\nSecondary: ${val(p.customerJourney.actions)}.`
+              ? `\nSecondary goals: ${val(p.customerJourney.actions)}.`
               : '')
         : `${NOT_PROVIDED} — CLIENT INPUT REQUIRED before build.`,
     ),
@@ -91,6 +104,7 @@ function buildMarkdown(record, assets) {
         `- **Before/after:** ${val(p.portfolio?.beforeAfterPhotos)}`,
         `- **Process media:** ${val(p.portfolio?.processMedia)}`,
         `- **Lead build(s):** ${inline(p.portfolio?.priorityBuilds)}`,
+        `- **Testimonials / reviews to feature:** ${inline(p.portfolio?.testimonials)}`,
       ].join('\n'),
     ),
   );
@@ -102,7 +116,7 @@ function buildMarkdown(record, assets) {
         `- **Interested:** ${yesNo(p.store?.interested)}`,
         `- **Product types:** ${val(p.store?.productTypes)}`,
         `- **Initial catalog size:** ${val(p.store?.initialCatalogSize)}`,
-        `- **Vendors:** ${inline(p.store?.vendors) === NOT_PROVIDED ? inline(p.store?.wholesaleVendors) : inline(p.store?.vendors)}`,
+        `- **Vendors:** ${inline(p.store?.wholesaleVendors)}`,
         `- **Fulfillment:** ${inline(p.store?.fulfillment)}`,
       ].join('\n'),
     ),

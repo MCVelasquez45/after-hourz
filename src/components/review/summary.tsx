@@ -1,8 +1,8 @@
 /*
   After Hourz — editable review summary. Shows EVERYTHING that will be sent, grouped by
   section, each with an Edit button that jumps back to the matching question. Includes the
-  new Your Work / photos (count + thumbnails), References (links/images), and Store & Booking
-  groups. Empty facts read as "Not answered" — we never invent them.
+  Your Work / photos group (count + thumbnails) and Store & Booking. Empty facts read as
+  "Not answered" — we never invent them.
 */
 import type { ReviewDraft } from './draft';
 import type { StepId } from './steps';
@@ -57,6 +57,7 @@ export function buildSummary(draft: ReviewDraft, directions: Directions[]): Grou
         { key: 'Liked', val: list(draft.design.likes) },
         { key: 'Changes', val: draft.design.changes },
         { key: 'Borrow from others', val: draft.design.borrowedIdeas },
+        { key: 'Other inspiration', val: draft.design.inspirationLinks },
       ],
     },
     {
@@ -67,8 +68,13 @@ export function buildSummary(draft: ReviewDraft, directions: Directions[]): Grou
         { key: 'Known for', val: draft.business.knownFor },
         { key: 'What sets it apart', val: draft.business.differentiators },
         { key: 'Works on', val: list(draft.business.vehicles) },
+        { key: 'Ideal customers', val: draft.business.targetCustomers },
         { key: 'Origin story', val: draft.business.originStory },
         { key: 'Culture / roots', val: draft.business.culturalInfluence },
+        { key: 'Has a logo', val: ynm(draft.business.hasLogo) },
+        { key: 'Brand colors', val: draft.business.brandColors },
+        { key: 'Credentials', val: list(draft.business.credentials) },
+        { key: 'Credential details', val: draft.business.credentialDetails },
       ],
     },
     {
@@ -93,6 +99,16 @@ export function buildSummary(draft: ReviewDraft, directions: Directions[]): Grou
         { key: 'Email', val: draft.contact.email },
         { key: 'City', val: draft.location.city },
         { key: 'State', val: draft.location.state },
+        { key: 'Hours', val: draft.location.businessHours },
+        { key: 'Appointment needed', val: ynm(draft.location.appointmentRequired) },
+        { key: 'Service area', val: draft.location.serviceAreas },
+        { key: 'Primary action', val: draft.customerJourney.primaryAction },
+        { key: 'Other site goals', val: list(draft.customerJourney.actions) },
+        { key: 'Needed to give a quote', val: draft.customerJourney.intakeRequirements },
+        {
+          key: 'Let customers attach photos',
+          val: ynm(draft.customerJourney.photoUploadInterest),
+        },
         { key: 'Owns web address', val: ynm(draft.domain.ownsDomain) },
         { key: 'Domain owned', val: draft.domain.domain },
         { key: 'Domain wanted', val: draft.domain.preferredDomain },
@@ -112,6 +128,7 @@ export function buildSummary(draft: ReviewDraft, directions: Directions[]): Grou
         { key: 'Deposit at booking', val: ynm(draft.booking.paymentAtBooking) },
         { key: 'Takes payment via', val: list(draft.payments.currentMethods) },
         { key: 'Online payments', val: ynm(draft.payments.onlinePaymentsInterest) },
+        { key: 'Wants deposits', val: ynm(draft.payments.depositInterest) },
       ],
     },
     {
@@ -124,6 +141,7 @@ export function buildSummary(draft: ReviewDraft, directions: Directions[]): Grou
           key: 'Third-party costs',
           val: draft.project.thirdPartyCostsAcknowledged ? 'Acknowledged' : '',
         },
+        { key: 'Anything else', val: draft.additionalNotes },
       ],
     },
   ];
@@ -172,37 +190,12 @@ function WorkGroup({ draft, onEdit }: { draft: ReviewDraft; onEdit: (s: StepId) 
           <span className="rv-summary-val">{draft.portfolio.processMedia}</span>
         </div>
       )}
-    </section>
-  );
-}
-
-/** Inspiration references (links and/or uploaded images). */
-function ReferencesGroup({ draft, onEdit }: { draft: ReviewDraft; onEdit: (s: StepId) => void }) {
-  const links = draft.references.filter((r) => r.kind === 'link' && r.value);
-  const images = draft.references.filter((r) => r.kind === 'image');
-  const total = links.length + images.length;
-  if (total === 0) return null;
-  return (
-    <section className="rv-summary-group" aria-label="References">
-      <div className="rv-summary-head">
-        <h3>References</h3>
-        <button type="button" className="rv-edit" onClick={() => onEdit('design-feedback')}>
-          Edit
-        </button>
-      </div>
-      <div className="rv-summary-row">
-        <span className="rv-summary-key">Links / images</span>
-        <span className="rv-summary-val">
-          {links.length} link{links.length === 1 ? '' : 's'}, {images.length} image
-          {images.length === 1 ? '' : 's'}
-        </span>
-      </div>
-      {links.slice(0, 6).map((r, i) => (
-        <div className="rv-summary-row" key={`ref-${i}`}>
-          <span className="rv-summary-key">Link</span>
-          <span className="rv-summary-val">{r.value}</span>
+      {draft.portfolio.testimonials && (
+        <div className="rv-summary-row">
+          <span className="rv-summary-key">Testimonials</span>
+          <span className="rv-summary-val">{draft.portfolio.testimonials}</span>
         </div>
-      ))}
+      )}
     </section>
   );
 }
@@ -227,9 +220,8 @@ export function SummaryView({
       {groups.slice(0, 3).map((g) => (
         <SummaryGroup key={g.step} group={g} onEdit={onEdit} />
       ))}
-      {/* Your Work + References sit with the content groups they relate to */}
+      {/* Your Work sits with the content group it relates to */}
       <WorkGroup draft={draft} onEdit={onEdit} />
-      <ReferencesGroup draft={draft} onEdit={onEdit} />
       {groups.slice(3).map((g) => (
         <SummaryGroup key={g.step} group={g} onEdit={onEdit} />
       ))}

@@ -5,7 +5,7 @@
 */
 import { z } from 'zod';
 
-export const SCHEMA_VERSION = 2;
+export const SCHEMA_VERSION = 3;
 export const REVIEW_CLIENT_SLUG = 'after-hourz';
 
 /** Upload categories (kept in sync with the upload endpoint + tooling). */
@@ -70,6 +70,7 @@ export const VEHICLE_OPTIONS = [
   'Lowriders',
   'Trucks',
   'Motorcycles',
+  'Bicycles / pedal bikes',
   'Classics',
   'Customs',
 ] as const;
@@ -112,6 +113,17 @@ export const APPOINTMENT_TYPE_OPTIONS = [
   'Build consult',
   'Not sure yet',
 ] as const;
+/** What the client wants the SITE to accomplish (beyond the single primary CTA). */
+export const GOAL_OPTIONS = [
+  'Get more calls or texts',
+  'Get more quote requests',
+  'Sell merch or parts online',
+  'Book appointments online',
+  'Build trust & credibility',
+  'Show off finished builds',
+  'Get more Google reviews',
+  'Grow social following',
+] as const;
 export const YESNO_MAYBE = ['yes', 'no', 'maybe'] as const;
 
 const shortStr = z.string().trim().max(400);
@@ -125,22 +137,6 @@ export const assetRefSchema = z.object({
   filename: shortStr,
 });
 export type AssetRef = z.infer<typeof assetRefSchema>;
-
-/** An inspiration reference: a pasted link and/or an uploaded image. */
-export const referenceSchema = z.object({
-  kind: z.enum(['link', 'image']),
-  value: shortStr.optional(), // the link (forgiving: url or @handle)
-  assetId: z.string().trim().max(80).optional(), // when kind==='image'
-  note: shortStr.optional(),
-});
-
-/** A vendor Anthony buys from (repeatable). */
-export const vendorSchema = z.object({
-  name: shortStr.optional(),
-  website: shortStr.optional(),
-  catalogUrl: shortStr.optional(),
-  assetId: z.string().trim().max(80).optional(), // uploaded catalog/price sheet
-});
 
 /** The full, versioned submission object. Optional everywhere the client may not know a fact. */
 export const reviewSubmissionSchema = z.object({
@@ -156,6 +152,8 @@ export const reviewSubmissionSchema = z.object({
     likes: strArr.default([]),
     changes: longStr.optional(),
     borrowedIdeas: longStr.optional(),
+    // Other sites/pages whose vibe the client likes — free text (links and/or a description).
+    inspirationLinks: longStr.optional(),
   }),
 
   business: z.object({
@@ -165,6 +163,11 @@ export const reviewSubmissionSchema = z.object({
     differentiators: longStr.optional(),
     originStory: longStr.optional(),
     culturalInfluence: longStr.optional(),
+    targetCustomers: longStr.optional(),
+    hasLogo: z.enum(YESNO_MAYBE).optional(),
+    brandColors: shortStr.optional(),
+    credentials: strArr.default([]),
+    credentialDetails: longStr.optional(),
   }),
 
   services: z.object({
@@ -175,8 +178,11 @@ export const reviewSubmissionSchema = z.object({
 
   customerJourney: z.object({
     primaryAction: shortStr.optional(),
+    // Secondary goals for the site (see GOAL_OPTIONS) — what else it should do besides the
+    // single primary CTA above.
     actions: strArr.default([]),
     currentContactMethods: strArr.default([]),
+    // Whether a customer requesting a quote should be able to attach photos of their vehicle.
     photoUploadInterest: z.enum(YESNO_MAYBE).optional(),
     intakeRequirements: longStr.optional(),
   }),
@@ -187,6 +193,7 @@ export const reviewSubmissionSchema = z.object({
     processMedia: shortStr.optional(),
     mediaLocations: strArr.default([]),
     priorityBuilds: longStr.optional(),
+    testimonials: longStr.optional(),
   }),
 
   location: z.object({
@@ -222,8 +229,6 @@ export const reviewSubmissionSchema = z.object({
     interested: z.enum(YESNO_MAYBE).optional(),
     productTypes: strArr.default([]),
     wholesaleVendors: longStr.optional(),
-    vendors: longStr.optional(),
-    vendorList: z.array(vendorSchema).max(20).default([]),
     vendorAssets: strArr.default([]),
     fulfillment: longStr.optional(),
     initialCatalogSize: shortStr.optional(),
@@ -247,8 +252,6 @@ export const reviewSubmissionSchema = z.object({
     thirdPartyCostsAcknowledged: z.boolean(),
   }),
 
-  // Inspiration references (optional links and/or uploaded images).
-  references: z.array(referenceSchema).max(30).default([]),
   // Uploaded asset REFERENCES (binary in R2). Full metadata lives in D1 review_assets.
   assets: z.array(assetRefSchema).max(60).default([]),
 

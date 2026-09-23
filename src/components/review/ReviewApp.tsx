@@ -89,6 +89,16 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
   /** true when the visitor came back after a prior submit and is amending. */
   const [amending, setAmending] = useState(false);
   const liveRef = useRef<HTMLDivElement | null>(null);
+  /**
+   * Focus target for the new screen's content. Without this, focus stays on whatever button
+   * was just clicked (e.g. "Continue") — since nav buttons sit at the same DOM position across
+   * screens, React can reuse that node, so the SAME button stays focused after navigating. A
+   * stray Space/Enter keystroke (fast typing, a screen reader, switch access) then re-activates
+   * it, silently skipping through several questions with nothing recorded. Moving focus to the
+   * new screen's content on every navigation closes that hole and matches the "one thing per
+   * screen" pattern's usual accessibility practice (e.g. GOV.UK Design System).
+   */
+  const bodyRef = useRef<HTMLDivElement | null>(null);
 
   // ---- restore on load (draft + prior receipt) ----
   useEffect(() => {
@@ -125,6 +135,11 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
       ...d,
       assets: [...d.assets.filter((a) => a.category !== category), ...assets],
     }));
+  }, []);
+
+  /** Top-level free-text notes field (not section-shaped, so it bypasses `update`). */
+  const setAdditionalNotes = useCallback((notes: string) => {
+    setDraft((d) => ({ ...d, additionalNotes: notes }));
   }, []);
 
   // ---- the branch-aware visible flow for the current draft ----
@@ -258,6 +273,11 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
     liveRef.current.textContent = label;
   }, [screen, currentSection]);
 
+  // ---- move focus to the new screen on every navigation (see bodyRef comment above) ----
+  useEffect(() => {
+    bodyRef.current?.focus();
+  }, [screen]);
+
   if (!hydrated) {
     return (
       <div className="ah-plaque rv-card">
@@ -273,19 +293,21 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
     return (
       <>
         <LiveRegion refEl={liveRef} />
-        <ThankYouHub
-          receipt={receipt}
-          onViewAll={() => goToScreen({ kind: 'designs' })}
-          onReview={() => goToScreen({ kind: 'summary' })}
-          onChangeSelection={() => {
-            // explicit amendment: reopen the interview at the design chooser. We do NOT
-            // mutate the prior submission — a fresh submit creates a new/amended record.
-            setAmending(true);
-            setSubmit({ status: 'idle' });
-            setTurnstileToken('');
-            goToScreen({ kind: 'design' });
-          }}
-        />
+        <div ref={bodyRef} tabIndex={-1} className="rv-focus-target">
+          <ThankYouHub
+            receipt={receipt}
+            onViewAll={() => goToScreen({ kind: 'designs' })}
+            onReview={() => goToScreen({ kind: 'summary' })}
+            onChangeSelection={() => {
+              // explicit amendment: reopen the interview at the design chooser. We do NOT
+              // mutate the prior submission — a fresh submit creates a new/amended record.
+              setAmending(true);
+              setSubmit({ status: 'idle' });
+              setTurnstileToken('');
+              goToScreen({ kind: 'design' });
+            }}
+          />
+        </div>
       </>
     );
   }
@@ -295,7 +317,7 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
     return (
       <>
         <LiveRegion refEl={liveRef} />
-        <div className="ah-plaque rv-card">
+        <div ref={bodyRef} tabIndex={-1} className="ah-plaque rv-card rv-focus-target">
           <h2>All three designs</h2>
           <p className="rv-lede">
             Here are the three looks again — open any of them full-screen to compare.
@@ -388,7 +410,7 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
         </div>
       );
     } else {
-      body = q.render({ draft, update, goToStepId, setAssets });
+      body = q.render({ draft, update, goToStepId, setAssets, setAdditionalNotes });
       if (q.id === 'project-phases') nextDisabled = !phasesAcknowledged;
     }
   } else if (screen.kind === 'summary') {
@@ -461,7 +483,9 @@ export default function ReviewApp({ siteKey }: { siteKey: string }) {
       {/* SECTION progress rail (not a numeric counter) */}
       {currentSection && <SectionRail sections={sections} currentId={currentSection} />}
 
-      {body}
+      <div ref={bodyRef} tabIndex={-1} className="rv-focus-target">
+        {body}
+      </div>
 
       {/* inline gate messages */}
       {screen.kind === 'design' && nextDisabled && (

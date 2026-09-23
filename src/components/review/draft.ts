@@ -19,18 +19,6 @@ export const RECEIPT_KEY = `ah-review-receipt:${REVIEW_CLIENT_SLUG}:v${SCHEMA_VE
 /** Yes/No/Maybe values used by several fields; '' means "no answer yet". */
 export type YNM = '' | 'yes' | 'no' | 'maybe';
 
-/**
- * An inspiration/reference the client added: a pasted link (or @handle) and/or an uploaded
- * image. Mirrors referenceSchema but always fully-serializable for the draft.
- */
-export interface DraftReference {
-  kind: 'link' | 'image';
-  value?: string; // the link/handle (forgiving)
-  assetId?: string; // when kind==='image'
-  filename?: string; // display name for an uploaded image (UI only)
-  note?: string;
-}
-
 /** Flat, fully-serializable editing model. Strings default '', multi-selects default []. */
 export interface ReviewDraft {
   idempotencyKey: string;
@@ -42,6 +30,7 @@ export interface ReviewDraft {
     likes: string[];
     changes: string;
     borrowedIdeas: string;
+    inspirationLinks: string;
   };
   business: {
     description: string;
@@ -50,6 +39,11 @@ export interface ReviewDraft {
     differentiators: string;
     originStory: string;
     culturalInfluence: string;
+    targetCustomers: string;
+    hasLogo: YNM;
+    brandColors: string;
+    credentials: string[];
+    credentialDetails: string;
   };
   services: {
     offered: string[];
@@ -69,6 +63,7 @@ export interface ReviewDraft {
     processMedia: string;
     mediaLocations: string[];
     priorityBuilds: string;
+    testimonials: string;
   };
   location: {
     city: string;
@@ -99,7 +94,6 @@ export interface ReviewDraft {
     interested: YNM;
     productTypes: string[];
     wholesaleVendors: string;
-    vendors: string;
     vendorAssets: string[];
     fulfillment: string;
     initialCatalogSize: string;
@@ -121,8 +115,6 @@ export interface ReviewDraft {
   };
   /** Uploaded asset REFERENCES (binary lives in R2). Persist across Back/Continue. */
   assets: AssetRef[];
-  /** Inspiration references — pasted links and/or uploaded images. */
-  references: DraftReference[];
   additionalNotes: string;
 }
 
@@ -142,7 +134,7 @@ export function emptyDraft(): ReviewDraft {
   return {
     idempotencyKey: randomKey(),
     reviewSessionId: randomKey(),
-    design: { selection: '', likes: [], changes: '', borrowedIdeas: '' },
+    design: { selection: '', likes: [], changes: '', borrowedIdeas: '', inspirationLinks: '' },
     business: {
       description: '',
       knownFor: '',
@@ -150,6 +142,11 @@ export function emptyDraft(): ReviewDraft {
       differentiators: '',
       originStory: '',
       culturalInfluence: '',
+      targetCustomers: '',
+      hasLogo: '',
+      brandColors: '',
+      credentials: [],
+      credentialDetails: '',
     },
     services: { offered: [], featured: [], hidden: [] },
     customerJourney: {
@@ -165,6 +162,7 @@ export function emptyDraft(): ReviewDraft {
       processMedia: '',
       mediaLocations: [],
       priorityBuilds: '',
+      testimonials: '',
     },
     location: { city: '', state: '', serviceAreas: '', appointmentRequired: '', businessHours: '' },
     contact: { phone: '', email: '', preferredMethod: '' },
@@ -174,7 +172,6 @@ export function emptyDraft(): ReviewDraft {
       interested: '',
       productTypes: [],
       wholesaleVendors: '',
-      vendors: '',
       vendorAssets: [],
       fulfillment: '',
       initialCatalogSize: '',
@@ -187,7 +184,6 @@ export function emptyDraft(): ReviewDraft {
       thirdPartyCostsAcknowledged: false,
     },
     assets: [],
-    references: [],
     additionalNotes: '',
   };
 }
@@ -205,22 +201,14 @@ export function reviveDraft(raw: unknown): ReviewDraft {
   if (typeof stored.reviewSessionId === 'string' && stored.reviewSessionId.length >= 6) {
     base.reviewSessionId = stored.reviewSessionId;
   }
-  // top-level arrays (uploaded assets + inspiration references) — replace wholesale if valid
+  // top-level array (uploaded assets) — replace wholesale if valid
   if (Array.isArray(stored.assets)) {
     base.assets = (stored.assets as unknown[]).filter(
       (a): a is AssetRef =>
         !!a && typeof a === 'object' && typeof (a as AssetRef).assetId === 'string',
     );
   }
-  if (Array.isArray(stored.references)) {
-    base.references = (stored.references as unknown[]).filter(
-      (r): r is DraftReference =>
-        !!r &&
-        typeof r === 'object' &&
-        ((r as DraftReference).kind === 'link' || (r as DraftReference).kind === 'image'),
-    );
-  }
-  const SKIP = new Set(['idempotencyKey', 'reviewSessionId', 'assets', 'references']);
+  const SKIP = new Set(['idempotencyKey', 'reviewSessionId', 'assets']);
   for (const key of Object.keys(base) as (keyof ReviewDraft)[]) {
     if (SKIP.has(key)) continue;
     const section = stored[key];
@@ -315,6 +303,7 @@ export function buildSubmission(draft: ReviewDraft): AfterHourzReviewSubmission 
       likes: draft.design.likes,
       changes: s(draft.design.changes),
       borrowedIdeas: s(draft.design.borrowedIdeas),
+      inspirationLinks: s(draft.design.inspirationLinks),
     },
     business: {
       description: s(draft.business.description),
@@ -323,6 +312,11 @@ export function buildSubmission(draft: ReviewDraft): AfterHourzReviewSubmission 
       differentiators: s(draft.business.differentiators),
       originStory: s(draft.business.originStory),
       culturalInfluence: s(draft.business.culturalInfluence),
+      targetCustomers: s(draft.business.targetCustomers),
+      hasLogo: ynm(draft.business.hasLogo),
+      brandColors: s(draft.business.brandColors),
+      credentials: draft.business.credentials,
+      credentialDetails: s(draft.business.credentialDetails),
     },
     services: {
       offered: draft.services.offered,
@@ -342,6 +336,7 @@ export function buildSubmission(draft: ReviewDraft): AfterHourzReviewSubmission 
       processMedia: s(draft.portfolio.processMedia),
       mediaLocations: draft.portfolio.mediaLocations,
       priorityBuilds: s(draft.portfolio.priorityBuilds),
+      testimonials: s(draft.portfolio.testimonials),
     },
     location: {
       city: s(draft.location.city),
@@ -372,7 +367,6 @@ export function buildSubmission(draft: ReviewDraft): AfterHourzReviewSubmission 
       interested: ynm(draft.store.interested),
       productTypes: draft.store.productTypes,
       wholesaleVendors: s(draft.store.wholesaleVendors),
-      vendors: s(draft.store.vendors),
       vendorAssets: draft.store.vendorAssets,
       fulfillment: s(draft.store.fulfillment),
       initialCatalogSize: s(draft.store.initialCatalogSize),
@@ -392,12 +386,6 @@ export function buildSubmission(draft: ReviewDraft): AfterHourzReviewSubmission 
       phase2Acknowledged: draft.project.phase2Acknowledged,
       thirdPartyCostsAcknowledged: draft.project.thirdPartyCostsAcknowledged,
     },
-    references: draft.references.map((r) => ({
-      kind: r.kind,
-      value: s(r.value ?? ''),
-      assetId: r.assetId && r.assetId.trim() ? r.assetId.trim() : undefined,
-      note: s(r.note ?? ''),
-    })),
     assets: draft.assets.map((a) => ({
       assetId: a.assetId,
       category: a.category,

@@ -29,6 +29,7 @@ DATE: YYYY-MM-DD
 | 0009 | Pin TypeScript to 5.x (TS 7 breaks astro-check) | accepted (revisit) |
 | 0010 | Foreground static server for Playwright | accepted |
 | 0011 | React island bundle cost (QualityStatus ~213kB) | **open** |
+| 0013 | Review form: full discovery questionnaire scope (schema v3) | accepted |
 
 ## Open decisions (to resolve in the Design Lab with evidence)
 | Topic | Where | Status |

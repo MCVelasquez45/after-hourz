@@ -98,6 +98,16 @@
   padding: clamp(1.25rem, 4vw, 2rem);
   margin-bottom: 1.5rem;
 }
+
+/*
+  Programmatic focus target moved here on every screen change (ReviewApp's bodyRef) — closes a
+  keyboard hole where a stray Space/Enter after "Continue" would re-trigger the SAME still-focused
+  button and silently skip questions. No visible ring: the new screen's content is the sighted
+  signal; real interactive elements (chips, inputs, buttons) still show their own focus ring.
+*/
+.rv-focus-target:focus {
+  outline: none;
+}
 .rv-card h2 {
   font-family: var(--font-display, sans-serif);
   font-weight: 700;
@@ -211,6 +221,10 @@
 .rv-chip:focus-within {
   outline: 2px solid var(--lr-gold-hi, #f3d488);
   outline-offset: 2px;
+}
+/* "Other +" reveal — sits right under the chip row it belongs to. */
+.rv-input--other {
+  margin-top: 0.6rem;
 }
 
 /* ---- Yes/No/Maybe segmented ---- */

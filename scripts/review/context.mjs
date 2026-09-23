@@ -60,8 +60,8 @@ function buildMarkdown(record, assets) {
   const parts = [];
   parts.push(docHeader('Client Context Brief', record, directionInfo));
 
-  // --- Client Assets Provided (counts + reference links; NO binaries) ---
-  parts.push(section('Client Assets Provided', clientAssetsSection(assets, p.references)));
+  // --- Client Assets Provided (counts only; NO binaries) ---
+  parts.push(section('Client Assets Provided', clientAssetsSection(assets)));
 
   // --- Selected Direction ---
   const dir = directionInfo(record.designSelection);
@@ -73,7 +73,8 @@ function buildMarkdown(record, assets) {
         '',
         `- **What they like:** ${val(p.design?.likes)}`,
         `- **Requested changes:** ${inline(p.design?.changes)}`,
-        `- **Ideas borrowed / references:** ${inline(p.design?.borrowedIdeas)}`,
+        `- **Ideas borrowed from the other looks:** ${inline(p.design?.borrowedIdeas)}`,
+        `- **Other inspiration:** ${inline(p.design?.inspirationLinks)}`,
       ]
         .filter((l) => l !== '')
         .join('\n'),
@@ -89,6 +90,33 @@ function buildMarkdown(record, assets) {
     ),
   );
 
+  parts.push(
+    section(
+      'Target Customers',
+      has(p.business?.targetCustomers) ? quote(p.business.targetCustomers) : NOT_PROVIDED,
+    ),
+  );
+
+  parts.push(
+    section(
+      'Branding',
+      [
+        `- **Has an existing logo:** ${yesNo(p.business?.hasLogo)}`,
+        `- **Brand colors:** ${inline(p.business?.brandColors)}`,
+      ].join('\n'),
+    ),
+  );
+
+  parts.push(
+    section(
+      'Credentials',
+      [
+        `- **Selected:** ${val(p.business?.credentials)}`,
+        `- **Details:** ${inline(p.business?.credentialDetails)}`,
+      ].join('\n'),
+    ),
+  );
+
   parts.push(section('Primary Services', bullets(p.services?.offered)));
   parts.push(section('Featured Services', bullets(p.services?.featured)));
 
@@ -97,10 +125,10 @@ function buildMarkdown(record, assets) {
       'Customer Journey',
       [
         `- **Primary action:** ${val(p.customerJourney?.primaryAction)}`,
-        `- **Secondary actions:** ${val(p.customerJourney?.actions)}`,
+        `- **Secondary goals for the site:** ${val(p.customerJourney?.actions)}`,
         `- **Current contact methods:** ${val(p.customerJourney?.currentContactMethods)}`,
-        `- **Wants photo-upload intake:** ${yesNo(p.customerJourney?.photoUploadInterest)}`,
-        `- **Intake requirements:** ${inline(p.customerJourney?.intakeRequirements)}`,
+        `- **Let customers attach photos when requesting a quote:** ${yesNo(p.customerJourney?.photoUploadInterest)}`,
+        `- **What's needed from a customer to quote:** ${inline(p.customerJourney?.intakeRequirements)}`,
       ].join('\n'),
     ),
   );
@@ -121,6 +149,7 @@ function buildMarkdown(record, assets) {
         `- **Process media:** ${val(p.portfolio?.processMedia)}`,
         `- **Where media lives:** ${val(p.portfolio?.mediaLocations)}`,
         `- **Priority builds to feature:** ${inline(p.portfolio?.priorityBuilds)}`,
+        `- **Testimonials / reviews to feature:** ${inline(p.portfolio?.testimonials)}`,
       ].join('\n'),
     ),
   );
@@ -188,7 +217,6 @@ function buildMarkdown(record, assets) {
       'Vendors',
       [
         `- **Wholesale vendors:** ${inline(p.store?.wholesaleVendors)}`,
-        `- **Vendors:** ${inline(p.store?.vendors)}`,
         `- **Vendor assets available:** ${val(p.store?.vendorAssets)}`,
       ].join('\n'),
     ),
